@@ -1,3 +1,8 @@
+        /********************************
+    Developer: Ayaz Ahmed
+    University ID: 230162248
+    Function: This function subtracts two integers
+    ********************************/
 public class Maths {
 
      public int subtract (int a, int b){
