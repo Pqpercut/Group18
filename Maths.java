@@ -16,7 +16,7 @@ public class Maths {
         }else{
             return a;
         }
-}
+     }
 
     /********************************
     Developer: Hamid Noor
@@ -29,4 +29,30 @@ public class Maths {
      }
 
     }
+     /***
+     developer: Sakina Hasnain Khaki
+     uni ID: 230111143
+     function: takes two int inputs a and b, divides a by b
+     ***/
+     public int divide(int a, int b) {
+     	int out = a / b;
+     	return(out);
+     }
+
+
+       /********************************
+       Developer: Adam Ahmed
+       University ID: 210001220
+       Function: This function takes two inputs and returns the smaller one
+       ********************************/
+      public int Min (int yellowDolphin, int purpleElephant) {
+        if (yellowDolphin > purpleElephant){
+               return purpleElephant;
+        } else {
+               return yellowDolphin;
+        }
+ }
+
+
+}
     
