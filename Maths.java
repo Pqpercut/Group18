@@ -29,5 +29,19 @@ public class Maths {
      }
 
 
+       /********************************
+       Developer: Adam Ahmed
+       University ID: 210001220
+       Function: This function takes two inputs and returns the smaller one
+       ********************************/
+      public int Min (int yellowDolphin, int purpleElephant) {
+        if (yellowDolphin > purpleElephant){
+               return purpleElephant;
+        } else {
+               return yellowDolphin;
+        }
+ }
+
+
 }
     
