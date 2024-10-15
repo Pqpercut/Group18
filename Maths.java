@@ -16,6 +16,7 @@ public class Maths {
         }else{
             return a;
         }
+<<<<<<< HEAD
 }
         /********************************
         Developer: Azaan Mudassar
@@ -27,4 +28,22 @@ public class Maths {
             return a * b;
         }
     }
+=======
+     
+
+     /***
+     developer: Sakina Hasnain Khaki
+     uni ID: 230111143
+     function: takes two int inputs a and b, divides a by b
+     ***/
+     public int divide(int a, int b) {
+     	int out = a / b;
+     	return(out);
+     }
+
+
+    }
+}
+
+>>>>>>> 5728eb3b0130749e7c59dea881e67ccd26677e96
     
