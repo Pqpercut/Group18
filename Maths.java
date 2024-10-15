@@ -18,6 +18,11 @@ public class Maths {
         }
 }
 
+    /********************************
+    Developer: Hamid Noor
+    University ID: 210079931
+    Function: This function takes two inputs as integers and returns the sum
+    ********************************/
      public int add (int a, int b){
 
        return a+b;
