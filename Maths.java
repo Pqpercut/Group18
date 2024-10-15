@@ -16,8 +16,9 @@ public class Maths {
         }else{
             return a;
         }
-<<<<<<< HEAD
-}
+    }
+
+
         /********************************
         Developer: Azaan Mudassar
         University ID: 230098501
@@ -27,8 +28,8 @@ public class Maths {
         public int multi(int a, int b) {
             return a * b;
         }
-    }
-=======
+    
+
      
 
      /***
@@ -43,7 +44,7 @@ public class Maths {
 
 
     }
-}
+
 
 >>>>>>> 5728eb3b0130749e7c59dea881e67ccd26677e96
     
