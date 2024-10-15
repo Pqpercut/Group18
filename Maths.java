@@ -32,6 +32,17 @@ public class Maths {
 
      
 
+    /********************************
+    Developer: Hamid Noor
+    University ID: 210079931
+    Function: This function takes two inputs as integers and returns the sum
+    ********************************/
+     public int add (int a, int b){
+
+       return a+b;
+     }
+
+    }
      /***
      developer: Sakina Hasnain Khaki
      uni ID: 230111143
@@ -43,8 +54,26 @@ public class Maths {
      }
 
 
+<<<<<<< HEAD
     }
 
 
 >>>>>>> 5728eb3b0130749e7c59dea881e67ccd26677e96
+=======
+       /********************************
+       Developer: Adam Ahmed
+       University ID: 210001220
+       Function: This function takes two inputs and returns the smaller one
+       ********************************/
+      public int Min (int yellowDolphin, int purpleElephant) {
+        if (yellowDolphin > purpleElephant){
+               return purpleElephant;
+        } else {
+               return yellowDolphin;
+        }
+ }
+
+
+}
+>>>>>>> 27b5f0d715b1f8eaa2786b70ca62452fe36a370a
     
