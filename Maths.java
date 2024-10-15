@@ -17,6 +17,14 @@ public class Maths {
             return a;
         }
 }
+        /********************************
+        Developer: Azaan Mudassar
+        University ID: 230098501
+        Function: This function takes two inputs as integers and returns the sum of the two when multiplied
+        ********************************/
 
+        public int multi(int a, int b) {
+            return a * b;
+        }
     }
     
