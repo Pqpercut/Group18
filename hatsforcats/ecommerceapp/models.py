@@ -62,7 +62,7 @@ class User(models.Model):
 
 class UserAddress(models.Model):
 #Model made by Qasim Farooq
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'useraddress')
+    userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'useraddress')
     houseNumber = models.IntegerField()
     street = models.CharField(max_length=50)
     postcode = models.CharField(max_length= 20)
@@ -71,7 +71,7 @@ class UserAddress(models.Model):
 
 class Basket(models.Model):
 #Model made by Qasim Farooq
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'basket')
+    userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'basket')
 
 #written by Sakina Khaki
 class Order(models.Model):
