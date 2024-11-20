@@ -42,7 +42,7 @@ class Review (models.Model):
 # Model created by: Adam 
     productID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name = 'review')    
     userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'review') 
-    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    rating = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     title = models.CharField(max_length=50) 
     description = models.TextField()
     reviewDate = models.DateTimeField(auto_now_add=True)
@@ -56,7 +56,7 @@ class User(models.Model):
     }
     email = models.EmailField(max_length=120)  # Changed CharField to EmailField to reduce the form cleaning we would have to do later
     password = models.CharField(max_length=200) 
-    phoneNumber= models.IntegerField() 
+    phoneNumber= models.PositiveIntegerField() 
     permissions = models.CharField(max_length=50, choices=USERTYPES, default='customer')
 
 
@@ -83,22 +83,28 @@ class Order(models.Model):
         ('refunded', 'Refunded')
     }
 
+    PAYMENT = {
+        ('credit', 'Credit card'),
+        ('debit', 'Debit card'),
+        ('paypal', 'Paypal')
+    }
+
     userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order')
     orderDate = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS, default="pending")
-    totalAmount = models.DecimalField(decimal_places=2, max_digits=10)
-    paymentMethod = models.CharField(max_length=50)
+    totalAmount = models.DecimalField(decimal_places=2, max_digits=10, validators=[MinValueValidator(0)])
+    paymentMethod = models.CharField(max_length=50, choices=PAYMENT, default="credit")
     trackingInfo = models.CharField(max_length=200)
 
 #written by Sakina Khaki
 class OrderItem(models.Model):
     orderID = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orderitem')
     variantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='orderitem')
-    quantity = models.IntegerField()
-    priceAtPurchase = models.DecimalField(decimal_places=2, max_digits=10)
+    quantity = models.PositiveIntegerField()
+    priceAtPurchase = models.DecimalField(decimal_places=2, max_digits=10, validators=[MinValueValidator(0)])
 
 #written by Sakina Khaki
 class BasketItem(models.Model):
     basketID = models.ForeignKey(Basket, on_delete=models.CASCADE, related_name='basketitem')
     variantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='basketitem')
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField()
