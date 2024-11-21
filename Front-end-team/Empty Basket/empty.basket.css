@@ -5,55 +5,55 @@ University ID: 230190768
 
 body {
     background-color: #DCEDFF; 
-    color: #000;
     font-family: 'Outfit', sans-serif;
+    color: #000;
     margin: 0;
     padding: 0;
 }
+
 h5 {
-    font-size: 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 36px;
     font-weight: bold;
-    margin-bottom: 15px;
     color: #000;
+    margin-bottom: 15px;
     margin-left: 45px;
 }
 
 
 header {
+    background-color: #DCEDFF;
     display: flex;
     justify-content: space-between;
     align-items: center; 
     padding: 40px;
-    background-color: #DCEDFF;
-   
   }
+
   header .logo {
-    font-size: 1.5em;
+    font-size:36px;
     font-weight: bold;
   }
   
   header nav a {
-    margin: 15px;
-    text-decoration: none;
     color: #000000;
+    margin: 15px;
     font-weight: 500;
   }
   
   header .cart-icon {
-    font-size: 1.2em;
+    font-size: 36px;
   }
 
 
 .header-info {
+    background-color: #DCEDFF;
+    color: #5B87B6; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #E2EFFF;
-    color: #5B87B6; 
     padding: 15px 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 1rem;
+    font-size: 36px;
     font-weight: bold;
 }
 
@@ -82,7 +82,7 @@ header {
 
 
 .basket-summary {
-    background-color: #E2EFFF; 
+    background-color: #DCEDFF; 
     border-radius: 10px;
     padding: 20px;
     max-width: 350px;
@@ -91,20 +91,22 @@ header {
 }
 
 .basket-summary h2 {
-    font-size: 1.25rem;
+    font-size: 26px;
     font-weight: bold;
-    margin-bottom: 20px;
     color: #000;
+    margin-bottom: 20px;
     text-align: left;
 }
+
 
 .basket-summary .summary-row {
     display: flex;
     justify-content: space-between;
     margin: 15px 0;
-    font-size: 1rem;
+    font-size: 23px;
     color: #333;
 }
+
 
 .basket-summary input.discount-code {
     width: 100%;
@@ -113,13 +115,13 @@ header {
     border: 1px solid #DBE8FF;
     border-radius: 5px;
     background-color: #FFF; 
-    font-size: 1rem;
     color: #333;
+    font-size: 23px;
 }
 
 .basket-summary .total {
     margin-top: 20px;
-    font-size: 1.2rem;
+    font-size: 23px;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
