@@ -1,0 +1,179 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0f0ff;
+    color: #000;
+  }
+  
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /*Defaults all objects to be put in the center of the page*/
+    padding: 40px;
+    background-color: #e0f0ff;
+   
+  }
+  
+  header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  header nav a {
+    margin: 15px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  header .cart-icon {
+    font-size: 1.2em;
+  }
+  
+  /* Login Section */
+  .login-section {
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .login-section h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .login-section form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .login-section label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+  }
+  
+  .login-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1px;
+    border: 1px solid #cecece;
+    border-radius: 15px;
+  }
+  
+  .forgot-password {
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .forgot-password a {
+    color: #007bff;
+    text-decoration: none; /*Removes the underline on the hyperlinked text*/
+  }
+
+  .forgot-password a:hover{
+    text-decoration: underline;
+
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .login-button, .register-button {
+    padding: 12px 35px; /*Size of the button around the text*/
+    border: none;
+    border-radius: 30px; /*Makes the button have curved corners*/
+    font-size: 1em;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .login-button {
+    background-color: #838EDA;
+    margin-right: 20px; /* Adds space to the right of the Login button */
+  }
+
+  .login-button:hover{
+    background-color: #556edf;
+  }
+
+  .register-button {
+    background-color: #838EDA;
+  }
+
+  .register-button:hover{
+    background-color: #556edf;
+  }
+  
+  /* Footer */
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #e0f0ff;
+    padding: 30px 20px;
+    text-align: left;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    margin: 10px;
+  }
+  
+  .footer-column h3, .footer-column h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin: 5px 0;
+  }
+  
+  .footer-column ul li a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+/* Newsletter Form */
+.newsletter .input-container {
+  position: relative; /* Enables positioning of the button inside the input field */
+  display: flex;
+  align-items: center;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 10px 90px 10px 10px; /* Extra padding on the right for the button */
+  border: 1px solid #cecece;
+  border-radius: 25px;
+  font-size: 1em;
+  outline: none;
+}
+
+.newsletter button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #838EDA;
+  color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.newsletter button:hover {
+  background-color: #556edf;
+}
