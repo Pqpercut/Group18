@@ -1,3 +1,8 @@
+/**********************
+Developer: Malaika Noor
+University ID: 230190768
+***********************/
+
 body {
     background-color: #DCEDFF; 
     color: #000;
@@ -12,6 +17,8 @@ h5 {
     color: #000;
     margin-left: 45px;
 }
+
+
 header {
     display: flex;
     justify-content: space-between;
@@ -65,11 +72,14 @@ header {
     border: 1px solid #DBE8FF;
 }
 
+
 .content-container {
     display: flex;
     justify-content: flex-end; 
     padding: 20px;
 }
+
+
 
 .basket-summary {
     background-color: #E2EFFF; 
