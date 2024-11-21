@@ -44,8 +44,7 @@ p {
     font-weight: bold;
     font-size: 18px;
     text-transform: uppercase;
-    width: 200px;
-    height: 45px;
+    height: 55px;
     padding: 10px 100px;
     width: auto;
     border: none;
@@ -72,7 +71,7 @@ p {
 }
 
 a {
-    font-size: 13px;
+    font-size: 15px;
     color: #838EDA;
     text-decoration: none;
 }
