@@ -1,0 +1,120 @@
+/**********************
+Developer: Malaika Noor
+University ID: 230190768
+***********************/
+
+body {
+    background-color: #DCEDFF; 
+    color: #000;
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+
+
+header {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #DCEDFF;
+    color: #ffffff; 
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    font-weight: bold;
+    
+}
+
+
+
+.content-container {
+    display: flex;
+    justify-content: flex-end; 
+    padding: 20px;
+    margin-top: 20px;
+}
+
+
+
+.basket-summary {
+    background-color:#DCEDFF ;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 350px;
+    width: 100%;
+}
+
+.basket-summary h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+    text-align: left;
+}
+
+.basket-summary  {
+    display: flex;
+    justify-content: space-between; 
+    margin: 15px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.basket-summary input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e9f3ff; 
+    font-size: 1rem;
+    color: #333;
+}
+
+.basket-summary .total {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+
+
+.checkout-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.checkout-btn:hover {
+    background-color: #333;
+}
