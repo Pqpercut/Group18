@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0f0ff;
+    background-color: #dcedff;
     color: #000;
   }
   
@@ -13,7 +13,7 @@ body {
     justify-content: space-between;
     align-items: center; /*Defaults all objects to be put in the center of the page*/
     padding: 40px;
-    background-color: #e0f0ff;
+    background-color: #dcedff;
    
   }
   
@@ -34,28 +34,28 @@ body {
   }
   
   /* Login Section */
-  .login-section {
+  .login {
     text-align: center;
     padding: 50px 20px;
   }
   
-  .login-section h1 {
+  .login h1 {
     font-size: 2em;
     margin-bottom: 20px;
   }
   
-  .login-section form {
+  .login form {
     max-width: 400px;
     margin: 0 auto;
   }
   
-  .login-section label {
+  .login label {
     display: block;
     text-align: left;
     margin: 10px 0 5px;
   }
   
-  .login-section input {
+  .login input {
     width: 100%;
     padding: 10px;
     margin-bottom: 1px;
@@ -63,28 +63,28 @@ body {
     border-radius: 15px;
   }
   
-  .forgot-password {
+  .forgotPassword {
     font-size: 0.9em;
     color: #666;
   }
   
-  .forgot-password a {
+  .forgotPassword a {
     color: #007bff;
     text-decoration: none; /*Removes the underline on the hyperlinked text*/
   }
 
-  .forgot-password a:hover{
+  .forgotPassword a:hover{
     text-decoration: underline;
 
   }
   
-  .button-container {
+  .buttonContainer {
     display: flex;
     justify-content: center;
     gap: 15px;
   }
   
-  .login-button, .register-button {
+  .loginButton, .registerButton {
     padding: 12px 35px; /*Size of the button around the text*/
     border: none;
     border-radius: 30px; /*Makes the button have curved corners*/
@@ -93,20 +93,20 @@ body {
     cursor: pointer;
   }
   
-  .login-button {
+  .loginButton {
     background-color: #838EDA;
     margin-right: 20px; /* Adds space to the right of the Login button */
   }
 
-  .login-button:hover{
+  .loginButton:hover{
     background-color: #556edf;
   }
 
-  .register-button {
+  .registerButton {
     background-color: #838EDA;
   }
 
-  .register-button:hover{
+  .registerButton:hover{
     background-color: #556edf;
   }
   
@@ -120,40 +120,40 @@ body {
     text-align: left;
   }
   
-  .footer-column {
+  .footerColumn {
     flex: 1 1 200px;
     margin: 10px;
   }
   
-  .footer-column h3, .footer-column h4 {
+  .footerColumn h3, .footerColumn h4 {
     font-size: 1.2em;
     margin-bottom: 10px;
   }
   
-  .footer-column ul {
+  .footerColumn ul {
     list-style: none;
     padding: 0;
   }
   
-  .footer-column ul li {
+  .footerColumn ul li {
     margin: 5px 0;
   }
   
-  .footer-column ul li a {
+  .footerColumn ul li a {
     text-decoration: none;
     color: #000;
   }
   
 /* Newsletter Form */
-.newsletter .input-container {
-  position: relative; /* Enables positioning of the button inside the input field */
+.newsletter .inputContainer {
+  position: relative; 
   display: flex;
   align-items: center;
 }
 
 .newsletter input {
   width: 100%;
-  padding: 10px 90px 10px 10px; /* Extra padding on the right for the button */
+  padding: 10px 90px 10px 10px; 
   border: 1px solid #cecece;
   border-radius: 25px;
   font-size: 1em;
