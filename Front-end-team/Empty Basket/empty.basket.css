@@ -1,65 +1,83 @@
-/**********************
-Developer: Malaika Noor
-University ID: 230190768
-***********************/
-
 body {
-    background-color: #DCEDFF; 
+    background-color: #DCEDFF; /* Slightly brighter blue background */
     color: #000;
     font-family: 'Outfit', sans-serif;
     margin: 0;
     padding: 0;
-    
 }
-
-
-
-
-header {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-
-header h1 {
+h5 {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    color: #000;
+    margin-left: 45px;
 }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /*Defaults all objects to be put in the center of the page*/
+    padding: 40px;
+    background-color: #DCEDFF;
+   
+  }
+  header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  header nav a {
+    margin: 15px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  header .cart-icon {
+    font-size: 1.2em;
+  }
 
 
 .header-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #DCEDFF;
-    color: #ffffff; 
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #E2EFFF;
+    color: #5B87B6; 
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 1rem;
     font-weight: bold;
-    
 }
 
+.header-info .items,
+.header-info .wishlist {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #DBE8FF; 
+    border-radius: 5px;
+}
 
+.header-info .wishlist {
+    background-color: transparent; 
+    color: #5B87B6;
+    border: 1px solid #DBE8FF;
+}
 
 .content-container {
     display: flex;
     justify-content: flex-end; 
     padding: 20px;
-    margin-top: 20px;
 }
 
-
-
 .basket-summary {
-    background-color:#DCEDFF ;
+    background-color: #E2EFFF; 
     border-radius: 10px;
     padding: 20px;
     max-width: 350px;
     width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .basket-summary h2 {
@@ -70,21 +88,21 @@ header h1 {
     text-align: left;
 }
 
-.basket-summary  {
+.basket-summary .summary-row {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     margin: 15px 0;
     font-size: 1rem;
     color: #333;
 }
 
-.basket-summary input {
+.basket-summary input.discount-code {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #DBE8FF;
     border-radius: 5px;
-    background-color: #e9f3ff; 
+    background-color: #FFF; 
     font-size: 1rem;
     color: #333;
 }
@@ -95,18 +113,16 @@ header h1 {
     font-weight: bold;
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #CCC;
     padding-top: 10px;
 }
 
-
-
 .checkout-btn {
     background-color: #000;
-    color: #fff;
+    color: #FFF;
     padding: 15px;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px; 
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
@@ -116,5 +132,72 @@ header h1 {
 }
 
 .checkout-btn:hover {
-    background-color: #333;
+    background-color: #444; 
+}
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #DCEDFF;
+    padding: 30px 20px;
+    text-align: left;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    margin: 10px;
+  }
+  
+  .footer-column h3, .footer-column h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin: 5px 0;
+  }
+  
+  .footer-column ul li a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+
+.newsletter .input-container {
+  position: relative; 
+  display: flex;
+  align-items: center;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 10px 90px 10px 10px; 
+  border: 1px solid #DCEDFF;
+  border-radius: 25px;
+  font-size: 1em;
+  outline: none;
+}
+
+.newsletter button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #838EDA;
+  color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.newsletter button:hover {
+  background-color: #556edf;
 }
