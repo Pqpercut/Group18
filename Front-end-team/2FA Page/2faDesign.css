@@ -59,16 +59,25 @@ p {
     background-color: white;
     color:#838EDA
 }
-.box {
-    width: 500px;
-    height: 55px;
-    padding: 0 10px;
-    font-size: 17px;
+.textbox {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    font-size: 20px;
+    text-align: center;
     border: 2px solid #838EDA;
     border-radius: 8px;
-    text-align: center;
-    margin-bottom: 90px;
-    margin-top: 100px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.textbox:focus {
+    border-color: #4A5DBB;
+    box-shadow: 0px 0px 5px rgba(72, 93, 219, 0.5);
 }
 
 a {
