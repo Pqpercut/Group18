@@ -8,32 +8,97 @@ University ID: 230190768
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Basket</title>
-    
+    <title>Basket</title>
+  <link rel="stylesheet" href="styles.css">
+  
 </head>
+
 <body>
-    <div class="header-container">
+
+    <!-- Basket Header -->
+    <header>
         <h1>BASKET</h1>
-        <div class="basket-info">
-            <p><span id="item-count">3</span> Items</p>
-            <button class="wishlist-btn">Wishlist</button>
+        <div class="header-info">
+            <div class="item-count">3 ITEMS</div>
+            <button class="wishlist-btn">WISHLIST</button>
         </div>
-    </div>
+    </header>
 
+    <!-- Main Basket Section -->
     <div class="basket-container">
-        <div class="basket-items" id="basket-items-container">
-            <!-- Basket items will be added here -->
+      
+        <!-- Basket Items -->
+        <div class="basket-items">
+          
+            <!-- Item 1 -->
+            <div class="basket-item">
+                <img src="placeholder.png" alt="Product Image">
+                <div class="product-info">
+                    <p><strong>Product Name</strong></p>
+                    <p>Product No.</p>
+                    <p>Colour</p>
+                    <p>Size</p>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" data-action="decrease">-</button>
+                        <input type="number" class="quantity-input" value="1" readonly>
+                        <button class="quantity-btn" data-action="increase">+</button>
+                    </div>
+                </div>
+                <p class="price" data-base-price="0.00">£0.00</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="basket-item">
+                <img src="placeholder.png" alt="Product Image">
+                <div class="product-info">
+                    <p><strong>Product Name</strong></p>
+                    <p>Product No.</p>
+                    <p>Colour</p>
+                    <p>Size</p>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" data-action="decrease">-</button>
+                        <input type="number" class="quantity-input" value="1" readonly>
+                        <button class="quantity-btn" data-action="increase">+</button>
+                    </div>
+                </div>
+                <p class="price" data-base-price="0.00">£0.00</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="basket-item">
+                <img src="placeholder.png" alt="Product Image">
+                <div class="product-info">
+                    <p><strong>Product Name</strong></p>
+                    <p>Product No.</p>
+                    <p>Colour</p>
+                    <p>Size</p>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" data-action="decrease">-</button>
+                        <input type="number" class="quantity-input" value="1" readonly>
+                        <button class="quantity-btn" data-action="increase">+</button>
+                    </div>
+                </div>
+                <p class="price" data-base-price="0.00">£0.00</p>
+            </div>
         </div>
 
+        <!-- Basket Summary -->
         <div class="basket-summary">
             <h2>SUMMARY</h2>
             <p>Subtotal: £<span id="subtotal">0.00</span></p>
-            <p>Shipping Fee: £<span id="shipping-fee">3.99</span></p>
-            <div class="discount-code">
-                <label for="discount-code">Discount Code:</label>
+            <p>Shipping: £<span id="shipping-fee">3.99</span></p>
+            <div class="discount-section">
+                <p>Discount Code: £<span id="discount">0.00</span></p>
                 <input type="text" id="discount-code" placeholder="Enter discount code">
+                
             </div>
             <p>Total: £<span id="total">3.99</span></p>
-            <button class="checkout-btn">Continue to Checkout</button>
+            <button class="checkout-btn">Continue to checkout</button>
+            
         </div>
     </div>
+
+    
+</body>
+</html>
+
