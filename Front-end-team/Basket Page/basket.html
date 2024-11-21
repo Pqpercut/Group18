@@ -1,0 +1,40 @@
+<!--
+Developer: Malaika Noor
+University ID: 230190768
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Basket</title>
+    
+  
+</head>
+<body>
+    <div class="header-container">
+        <h1>BASKET</h1>
+        <div class="basket-info">
+            <p><span id="item-count">3</span> Items</p>
+            <button class="wishlist-btn">Wishlist</button>
+        </div>
+    </div>
+
+    <div class="basket-container">
+        <div class="basket-items" id="basket-items-container">
+            <!-- Basket items will be added here -->
+        </div>
+
+        <div class="basket-summary">
+            <h2>SUMMARY</h2>
+            <p>Subtotal: £<span id="subtotal">0.00</span></p>
+            <p>Shipping Fee: £<span id="shipping-fee">3.99</span></p>
+            <div class="discount-code">
+                <label for="discount-code">Discount Code:</label>
+                <input type="text" id="discount-code" placeholder="Enter discount code">
+            </div>
+            <p>Total: £<span id="total">3.99</span></p>
+            <button class="checkout-btn">Continue to Checkout</button>
+        </div>
+    </div>
