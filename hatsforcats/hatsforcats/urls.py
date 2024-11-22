@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ecommerceapp.views import InventoryProductListView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path("inventory-management/products/", InventoryProductListView.as_view(), name="IMS - Product List"),
 ]
