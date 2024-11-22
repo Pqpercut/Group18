@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
+
 
 
 # Create your models here.
@@ -9,12 +11,10 @@ class Product (models.Model):
 # Model created by: Adam 
     name = models.CharField(max_length=50)
     description = models.TextField()
-    availability = models
-    rating = models
-    imagepath = models
+    availability = models.BooleanField(default=False)
 
     def __str__(self): 
-        return f"self.name"
+        return self.name
 
 class ProductCategories (models.Model):
 # Model created by: Adam 
@@ -47,22 +47,11 @@ class Review (models.Model):
     description = models.TextField()
     reviewDate = models.DateTimeField(auto_now_add=True)
 
-class User(models.Model):
-#Model by Qasim Farooq
-#To be changed to be accustomed to Djangos default User Table
-    USERTYPES={
-        ('customer', 'Customer'),
-        ('admin', 'Admin-User')
-    }
-    email = models.EmailField(max_length=120)  # Changed CharField to EmailField to reduce the form cleaning we would have to do later
-    password = models.CharField(max_length=200) 
-    phoneNumber= models.IntegerField() 
-    permissions = models.CharField(max_length=50, choices=USERTYPES, default='customer')
 
 
 class UserAddress(models.Model):
 #Model made by Qasim Farooq
-    userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'useraddress')
+    userID = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name = 'useraddress')
     houseNumber = models.IntegerField()
     street = models.CharField(max_length=50)
     postcode = models.CharField(max_length= 20)
