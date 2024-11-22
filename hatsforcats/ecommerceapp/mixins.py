@@ -11,5 +11,5 @@ class GroupRequiredMixin(AccessMixin):
         if not request.user.is_authenticated:
             return self.handle_no_permission()
         if self.group_required and not request.user.groups.filter(name=self.group_required).exists():
-            return redirect('login')  #Placeholder until we have created the login page
+            return redirect('unauthorized-user-page')  #Placeholder until we have created the login page or a page that shows that they are unauthorised.
         return super().dispatch(request, *args, **kwargs)
