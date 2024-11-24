@@ -36,7 +36,7 @@ class ProductVariant (models.Model):
 class ImagePath (models.Model):
 # Model created by: Adam 
      productVariantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name = 'imagepath')    
-     # imagepath = models.ImageField(upload_to='', blank=True)
+     imagepath = models.ImageField(upload_to='productvariant', blank=True)
 
 class Review (models.Model):
 # Model created by: Adam 
