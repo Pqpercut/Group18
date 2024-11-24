@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hats for Cats</title>
+   
+    <!-- Import Google Fonts and Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #E5F4FF;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 100px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 50px;
+        }
+        .logo h1 {
+            margin-left: 10px;
+            font-size: 28px;
+            color: #333;
+            font-weight: 700;
+        }
+        header nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+        }
+        header nav a:hover {
+            transform: translateY(-3px);
+            transition: transform 0.2s ease;
+        }
+        header .icons i {
+            margin: 0 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Main content styling */
+        main {
+            text-align: center;
+        }
+        section {
+            padding: 60px 0;
+        }
+        section h2, section h3 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        section p {
+            font-size: 20px;
+            margin-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Button styles */
+        .buttons {
+            margin-top: 30px;
+        }
+        .buttons button {
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 30px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        .buttons .light-blue {
+            background-color: #E5F4FF;
+            border: 2px solid #fff;
+        }
+        .buttons .white {
+            background-color: #fff;
+            border: 2px solid #ccc;
+        }
+        .buttons .black {
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+
+        /* Featured section styling */
+        .featured {
+            background-color: #fff;
+            padding: 40px 0;
+        }
+        .featured img {
+            margin: 0 20px;
+            height: 50px;
+            loading: lazy;
+        }
+
+        /* Hero section styling */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+        .hero img {
+            max-width: 400px;
+            height: auto;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Perks section styling */
+        .perks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .perks img {
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        /* How It Works section styling */
+        .how-it-works {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .how-it-works-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+        .how-it-works img {
+            max-width: 250px;
+            height: auto;
+            margin: 30px 0;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #f0f0f0;
+            padding: 40px 100px;
+            text-align: center;
+        }
+        footer nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+        }
+        footer nav a:hover {
+            color: #FFD700;
+        }
+        footer .newsletter {
+            margin-top: 30px;
+        }
+        footer .newsletter input {
+            padding: 10px;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            margin-right: 10px;
+            width: 300px;
+            background-color: #B9DBFF;
+        }
+        footer .newsletter button {
+            padding: 10px 30px;
+            border-radius: 20px;
+            background-color: #838EDA;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        footer .newsletter button:hover {
+            opacity: 0.8;
+        }
+
+        /* Media queries for responsiveness */
+        @media (min-width: 768px) {
+            header {
+                padding: 20px 100px;
+            }
+            .hero, .perks, .how-it-works-item {
+                flex-direction: row;
+                justify-content: space-around;
+                text-align: left;
+            }
+            .hero-content, .perks-content, .how-it-works-content {
+                align-items: flex-start;
+            }
+            .hero img, .perks img, .how-it-works img {
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header with logo and navigation links -->
+    <header>
+        <div class="logo">
+            <img src="https://storage.googleapis.com/a1aa/image/BcOYwIxcMI6oIFIM4lEQ0YgR1RJbk60LekjYG8lEeCiG6uwTA.jpg" alt="Hats for Cats logo">
+            <h1>HATS FOR CATS</h1>
+        </div>
+        <nav>
+            <a href="#">Shop</a>
+            <a href="#">About</a>
+            <a href="#">Contact Us</a>
+        </nav>
+        <div class="icons">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <i class="fas fa-user" aria-hidden="true"></i>
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+        </div>
+    </header>
+
+    <!-- Main content section -->
+    <main>
+
+        <!-- Hero section with main headline and buttons -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Purrrfectly Crafted Hats For Your Adorable Friend</h2>
+                <p>Discover unique handcrafted hats designed to keep your cat cozy, stylish, and camera-ready.</p>
+                <div class="buttons">
+                    <button class="light-blue">BROWSE HATS</button>
+                    <button class="white">VIEW STYLES</button>
+                </div>
+            </div>
+            <img src="https://storage.googleapis.com/a1aa/image/Ae4zZbEFcfuDpEBuqgDWdAMMZoLHc0316j9aXHgG90MfzdhnA.jpg" alt="Cat with a hat" loading="lazy">
+        </section>
+
+        <!-- Featured section for showcasing collections -->
+        <section class="featured" style="background-color: #E5F4FF;" border: 2px solid #000;">EXPLORE COLLECTION</button>
+            </div>
+        </section>
+
+        <!-- How It Works section with step-by-step guidance -->
+        <section class="how-it-works">
+            <h3>How It Works</h3>
+            <div class="how-it-works-item">
+                <div class="how-it-works-content">
+                    <h4 style="font-size: 32px;">PICK THE PERFECT HAT</h4>
+                    <p>Explore our collection of cozy, stylish hats designed to fit every cat comfortably.</p>
+                </div>
+                <img src="https://storage.googleapis.com/a1aa/image/daPHIfJzbu3gB6vkgozpsxUR0ok9iW5Q1aTZ67Zs0nRe5uwTA.jpg" alt="Picking a hat" loading="lazy">
+            </div>
+            <div class="how-it-works-item">
+    <img src="https://storage.googleapis.com/a1aa/image/ODaT0OcnMp4MPdzzteTJdKtieunsNevIZ9K9oYg0NNFB0dhnA.jpg" alt="Placing an order" loading="lazy" style="padding-right: 20px;">
+    <div class="how-it-works-content">
+                    <h4 style="font-size: 32px;">PLACE YOUR ORDER</h4>
+                    <p>Order your chosen hat in just a few clicks - easy and hassle-free!</p>
+                </div>
+            </div>
+            <div class="how-it-works-item">
+                <div class="how-it-works-content">
+                    <h4 style="font-size: 32px;">GET READY FOR PURRFECTION</h4>
+                    <p>Style your cat's new look with its cozy and stylish collection, and be ready to bring charm and fun to your home.</p>
+                </div>
+                <img src="https://storage.googleapis.com/a1aa/image/krHbsNGuSzawN9iwIcwnnjppAW8zuD5jcgQZUlKgX0rfcX4JA.jpg" alt="Getting ready" loading="lazy">
+            </div>
+        </section>
+
+
+        <!-- Gradient section before the footer -->
+        <section style="background: linear-gradient(112deg, #838EDA, #D1E8FF); padding: 40px; margin: 40px 100px; border-radius: 20px; text-align: center; color: #fff;">
+    <h3 style="font-size: 24px;">IS YOUR CAT MISSING SOMETHING?</h3>
+    <h2 style="font-size: 42px; font-weight: 700;">Find the Hat That Fits Their Style!</h2>
+    <div class="buttons" style="margin-top: 20px;">
+        <button class="black" style="background-color: #333; color: #fff; border: none; padding: 15px 30px; font-size: 20px; font-weight: 700; border-radius: 30px;">TREAT YOUR CAT</button>
+    </div>
+</section>
+    </main>
+
+
+    <!-- Footer section with links and newsletter signup -->
+    <footer style="background-color: #E5F4FF; padding: 40px 100px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left;">
+    <div class="footer-logo" style="flex: 1;">
+        <h4 style="font-size: 24px; font-weight: 700;">HATS FOR CATS</h4>
+    </div>
+    <div class="footer-nav" style="flex: 3; display: flex; justify-content: space-around;">
+        <div>
+            <h5 style="font-size: 20px; font-weight: 700;">Home</h5>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li><a href="#" style="text-decoration: none; color: #333;">Shop</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333;">About</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333;">Login</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 style="font-size: 20px; font-weight: 700;">Shop</h5>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li><a href="#" style="text-decoration: none; color: #333;">Browse Hats</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333;">Best Sellers</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333;">New Arrivals</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 style="font-size: 20px; font-weight: 700;">Contact</h5>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li><a href="#" style="text-decoration: none; color: #333;">Email</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333;">LinkedIn</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333;">Instagram</a></li>
+                <li><a href="#" style="text-decoration: none; color: #333;">Twitter</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="newsletter" style="flex: 2; display: flex; flex-direction: column;">
+        <h5 style="font-size: 20px; font-weight: 700;">Join Our Newsletter</h5>
+        <div style="display: flex; align-items: center; margin-top: 10px;">
+            <input type="email" placeholder="Email Address" style="padding: 10px; border-radius: 20px; border: 2px solid #ccc; margin-right: 10px; width: 250px; background-color: #B9DBFF;">
+            <button style="padding: 10px 30px; border-radius: 20px; background-color: #838EDA; color: #fff; border: none;">SUBMIT</button>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Decorative gradient line below the footer -->
+<div style="height: 5px; background: linear-gradient(to right, #D1E8FF, #838EDA);"></div>
+
+
+    <!-- JavaScript for smooth scrolling between sections -->
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
