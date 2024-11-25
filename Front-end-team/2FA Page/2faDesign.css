@@ -1,0 +1,180 @@
+/********************************
+Developer: Ayaz Ahmed
+University ID: 230162248
+********************************/
+
+body {
+    background-color: #DCEDFF;
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 40px;
+    background-color: #DCEDFF;
+   
+  }
+  header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  header nav a {
+    margin: 15px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  header .cart-icon {
+    font-size: 1.2em;
+  }
+h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center; 
+    text-transform: uppercase;
+    margin: 0; 
+    padding: 0; 
+    margin-top: 60px;
+    margin-bottom: -8px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+p {
+    font-family: 'Roboto', sans-serif;
+
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+.EnterButton {
+    background-color: #838EDA;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    height: 55px;
+    padding: 10px 100px;
+    width: auto;
+    border: none;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    border-radius: 40px;
+    margin-bottom:10px;
+ 
+}
+.EnterButton:hover {
+    background-color: white;
+    color:#838EDA
+}
+.textbox {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    font-size: 20px;
+    text-align: center;
+    border: 2px solid #838EDA;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.textbox:focus {
+    border-color: #4A5DBB;
+    box-shadow: 0px 0px 5px rgba(72, 93, 219, 0.5);
+}
+
+a {
+    font-size: 16px;
+    color: #838EDA;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #DCEDFF;
+    padding: 30px 20px;
+    text-align: left;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    margin: 10px;
+  }
+  
+  .footer-column h3, .footer-column h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin: 5px 0;
+  }
+  
+  .footer-column ul li a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+
+.newsletter .input-container {
+  position: relative; 
+  display: flex;
+  align-items: center;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 10px 90px 10px 10px; 
+  border: 1px solid #DCEDFF;
+  border-radius: 25px;
+  font-size: 1em;
+  outline: none;
+}
+
+.newsletter button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #838EDA;
+  color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.newsletter button:hover {
+  background-color: #556edf;
+}
