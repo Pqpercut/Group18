@@ -48,23 +48,25 @@ body {
   }
   
   .Register form {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .Register label {
-    display: block;
-    text-align: left;
-    margin: 10px 0 5px;
-  }
-  
-  .Register input {
+    max-width: 500px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 15px 10px;
+    align-items: center;
+    transform: translateX(-70px);
+}
+
+.Register label {
+    text-align: right; /* Aligns the text of the label to the right */
+}
+
+.Register input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 1px;
     border: 1px solid #cecece;
     border-radius: 15px;
-  }
+}
   
   .buttonContainer {
     display: flex;
