@@ -3,159 +3,168 @@ Developer: Hamid Noor
 University ID: 210079931
 */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #dcedff;
-    color: #000000;
-  }
-  
-  /* Header */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /*Defaults all objects to be put in the center of the page*/
-    padding: 40px;
-    background-color: #dcedff;
-   
-  }
-  
-  header .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  header nav a {
-    margin: 15px;
-    text-decoration: none;
-    color: #000000;
-    font-weight: 500;
-  }
-  
-  header .cartIcon {
-    font-size: 1.2em;
-  }
-  
-  /* Register Section */
-  .Register {
-    text-align: center;
-    padding: 50px 20px;
-  }
-  
-  .Register h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .Register form {
-    max-width: 500px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 15px 10px;
-    align-items: center;
-    transform: translateX(-70px);
+  font-family: "Outfit", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #dcedff;
+  color: #000000;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /*Defaults all objects to be put in the center of the page*/
+  padding: 40px;
+  background-color: #dcedff;
+ 
+}
+
+header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+header nav a {
+  margin: 15px;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 500;
+}
+
+header .cartIcon {
+  font-size: 1.2em;
+}
+
+/* Register Section */
+.Register {
+  text-align: center;
+  padding: 50px 40px;
+}
+
+.Register h1 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.Register form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px 10px;
+  align-items: center;
+  transform: translateX(-80px);
+  font-weight: bold;
+
+
 }
 
 .Register label {
-    text-align: right; /* Aligns the text of the label to the right */
+  text-align: right; /* Aligns the text of the label to the right */
 }
 
 .Register input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #cecece;
-    border-radius: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cecece;
+  border-radius: 15px;
 }
-  
-  .buttonContainer {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .registerButton {
-    padding: 12px 35px; /*Size of the button around the text*/
-    border: none;
-    border-radius: 30px; /*Makes the button have curved corners*/
-    font-size: 1em;
-    color: #ffffff;
-    cursor: pointer;
-    margin-top: 20px;
-  }
 
-  .registerButton {
-    background-color: #838EDA;
-  }
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
 
-  .registerButton:hover{
-    background-color: #556edf;
-  }
-  
-  /* Footer */
-  footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    background-color: #dcedff;
-    padding: 30px 20px;
-    text-align: left;
-  }
-  
-  .footerColumn {
-    flex: 1 1 200px;
-    margin: 10px;
-  }
-  
-  .footerColumn h3, .footerColumn h4 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  
-  .footerColumn ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footerColumn ul li {
-    margin: 5px 0;
-  }
-  
-  .footerColumn ul li a {
-    text-decoration: none;
-    color: #000000;
-  }
-  
+.registerButton {
+  height: 50px;
+  width: 140px;
+  border: none;
+  border-radius: 30px; /*Makes the button have curved corners*/
+  font-size: 1em;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 40px;
+  justify-content: center;
+}
+
+.registerButton {
+  background-color: #838EDA;
+}
+
+.registerButton:hover{
+  background-color: #556edf;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #dcedff;
+  padding: 30px 20px;
+  text-align: left;
+}
+
+.footerColumn {
+  flex: 1 1 200px;
+  margin: 10px;
+}
+
+.footerColumn h3, .footerColumn h4 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.footerColumn ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerColumn ul li {
+  margin: 5px 0;
+}
+
+.footerColumn ul li a {
+  text-decoration: none;
+  color: #000000;
+}
+
 /* Newsletter Form */
 .newsletter .inputContainer {
-  position: relative; 
-  display: flex;
-  align-items: center;
+position: relative; 
+display: flex;
+align-items: center;
 }
 
 .newsletter input {
-  width: 100%;
-  padding: 10px 90px 10px 10px; 
-  border: 1px solid #cecece;
-  border-radius: 25px;
-  font-size: 1em;
-  outline: none;
+width: 100%;
+padding: 10px 90px 10px 10px; 
+border: 1px solid #cecece;
+border-radius: 25px;
+font-size: 1em;
+outline: none;
 }
 
 .newsletter button {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 8px 15px;
-  border: none;
-  border-radius: 20px;
-  background-color: #838EDA;
-  color: white;
-  font-size: 0.9em;
-  cursor: pointer;
+position: absolute;
+right: 5px;
+top: 50%;
+transform: translateY(-50%);
+padding: 8px 15px;
+border: none;
+border-radius: 20px;
+background-color: #838EDA;
+color: white;
+font-size: 0.9em;
+cursor: pointer;
 }
 
 .newsletter button:hover {
-  background-color: #556edf;
+background-color: #556edf;
 }
+
+
