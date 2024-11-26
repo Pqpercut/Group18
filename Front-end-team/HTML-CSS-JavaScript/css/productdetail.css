@@ -4,6 +4,7 @@ University ID: 230098501
 ********************************/
 
 
+
 :root {
     --background-colour: #DCEDFF;
     --desc-background-colour: #C3D7F9;
@@ -19,27 +20,46 @@ body {
     align-items: stretch; 
 }
 
+.main-container {
+    display: flex;
+    justify-content: center;     align-items: flex-start;     padding: 1rem;     max-width: 1200px;     width: 90%;     margin: 0 auto;     box-sizing: border-box; }
+
 .header-container {
     display: flex;
-    flex-direction: row; 
-    align-items: flex-start; 
-    padding: 10px; 
-    margin-top: 10px;
-}
+    flex-direction: row;
+    align-items: flex-start;     gap: 3rem;     width: 100%; }
 
 .product-container {
-    margin-left: 180px; 
-    margin-top: 10px;
-    flex-shrink: 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;     flex-shrink: 0;     margin-right: 2rem; }
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;         gap: 2rem;     }
+
+    .product-container {
+        margin-right: 0;     }
 }
+
 
 .content-container {
     display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    width: auto; 
-    margin-left: 20px; 
+    flex-direction: column;
+    align-items: flex-start;     justify-content: flex-start;     gap: 1rem;     margin-top: 0;     width: 100%; }
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;         align-items: center;         gap: 2rem;     }
+
+    .product-container,
+    .content-container {
+        width: 100%;         align-items: center;     }
+
+    .thumbnail-container {
+        justify-content: center;     }
 }
+
 
 h1 {
     font-family: 'Outfit', sans-serif;
@@ -52,9 +72,10 @@ h1 {
 }
 
 h2 {
-    color: gray;
+    color: #AEBBC9;
     font-family: 'Outfit', sans-serif;
-    font-weight: 300;
+    font-weight: 200;
+    font-size: 24px;
     text-align: left;
     padding-top: 10px; 
     flex-shrink: 0; 
@@ -125,11 +146,10 @@ h3 {
 .rating-container {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;   
-    gap: 100px;
-    width: 100%;
-    margin-bottom: 0;
-}
+    align-items: center;     gap: 1rem;     margin: 0;     padding: 0; }
+
+.rating-container h1 {
+    margin: 0;     padding: 0;     line-height: 1; }
 
 .colour-container {
     display: flex; 
@@ -179,20 +199,15 @@ h3 {
 }
 
 .quantity-box {
-    display: flex; 
-    align-items: center; 
-    gap: 5px; 
-}
+    display: flex;
+    align-items: center;     gap: 0; }
 
 .quantity-btn {
-    width: 30px; 
-    height: 30px; 
-    background-color: #838EDA; 
+    width: 40px;     height: 40px;     background-color: #838EDA; 
     color: white; 
     font-size: 1.2rem; 
     border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
+    border-radius: 0;     cursor: pointer; 
     display: flex; 
     justify-content: center;
     align-items: center;
@@ -205,19 +220,17 @@ h3 {
 }
 
 #quantity-input {
-    width: 50px; 
-    height: 30px; 
-    text-align: center; 
+    width: 60px;     height: 40px;     text-align: center; 
     font-size: 1rem; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-}
+    border: 2px solid #838EDA; 
+    border-radius: 0;     margin: 0;     padding: 0;     box-sizing: border-box; }
 
 #quantity-input::-webkit-inner-spin-button,
 #quantity-input::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0; 
 }
+
 
 .size-selecter {
     display: flex; 
@@ -254,19 +267,35 @@ h3 {
 }
 
 .star-rating {
-    display: flex; 
-    gap: 5px; 
-    margin-top: 13px;
+    display: flex;
+    align-items: center;     gap: 0.5rem;     margin: 0;     padding: 0; }
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;         align-items: center;     }
+
+    .product-container,
+    .content-container {
+        width: 100%;         align-items: center;         margin-top: 1rem;     }
+
+    .rating-container {
+        flex-direction: column;         align-items: center;     }
+
+    .rating-container h1 {
+        text-align: center;     }
+
+    .star-rating {
+        justify-content: center;     }
 }
 
 .star {
     font-size: 16px; 
-    color: black; 
+    color: #AEBBC9; 
     cursor: default; 
 }
 
 
-.text-container h2,
+.text-container h2 ,
 .text-container h3,
 .text-container .description {
     margin: 0; 
@@ -280,7 +309,7 @@ h3 {
 }
 
 .suggestion-container {
-    margin-top: 80px; 
+    margin-top: 120px; 
     width: 100%; 
     display: flex; 
     justify-content: center; 

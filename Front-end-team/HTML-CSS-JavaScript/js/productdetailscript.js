@@ -37,3 +37,20 @@ function changeMainImage(index) {
     currentIndex = index; // Update current index
     updateMainImage();
 }
+
+// Quantity adjustment logic
+document.getElementById("increase").addEventListener("click", () => {
+    const quantityInput = document.getElementById("quantity-input");
+    let currentValue = parseInt(quantityInput.value, 10); // Get the current value as an integer
+    if (currentValue < parseInt(quantityInput.max, 10)) {
+        quantityInput.value = currentValue + 1; // Increment the value
+    }
+});
+
+document.getElementById("decrease").addEventListener("click", () => {
+    const quantityInput = document.getElementById("quantity-input");
+    let currentValue = parseInt(quantityInput.value, 10); // Get the current value as an integer
+    if (currentValue > parseInt(quantityInput.min, 10)) {
+        quantityInput.value = currentValue - 1; // Decrement the value
+    }
+});

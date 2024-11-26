@@ -1,3 +1,10 @@
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+
+
 const basketIcon = document.getElementById('BasketIcon');
 const cartPopup = document.getElementById('BasketPopUp');
 const closePopup = document.getElementById('ClosePopUp');

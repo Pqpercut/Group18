@@ -4,7 +4,6 @@ University ID: 230098501
 ********************************/
 
 
-
 :root {
     --background-colour: #DCEDFF;
     --image-colour: linear-gradient(90deg, #838EDA 0%, #D1E8FF 100%);
@@ -34,7 +33,7 @@ h1 {
 .purchase-container {
     display: flex;
     justify-content: center;
-    margin: 15px auto; /* Adds spacing between the purchase message and the order-container */
+    margin: 15px auto;     
     background: var(--image-colour);
     padding: 10px;
     border-radius: 43px;
@@ -49,65 +48,63 @@ h2 {
 }
 
 .main-container {
-    display: flex; /* Use Flexbox for layout */
-    justify-content: center; /* Center the content horizontally */
-    align-items: flex-start; /* Align content to the top of the container */
-    position: relative; /* Enables absolute positioning for child elements */
-    margin: 30px auto; /* Adds spacing above and below */
-    max-width: 1200px; /* Prevents excessive stretching */
+    display: flex;     
+    justify-content: center;     
+    align-items: flex-start;     
+    position: relative;     
+    margin: 30px auto;     
+    max-width: 1200px; 
 }
 
 .order-container {
     background: var(--image-colour);
     padding: 20px 60px;
     border-radius: 43px;
-    width: 690px; /* Fixed width */
+    width: 690px;     
     text-align: left;
-    position: relative; /* Allows the kitty image to overlap */
-    z-index: 1; /* Ensures the container stays on top */
+    position: relative;     
+    z-index: 1; 
 }
 
 .order-title {
     text-align: center;
     margin-bottom: 10px;
     padding-left: 60px;
-    padding-bottom: 5px; /* Adds spacing between text and underline */
-    border-bottom: 1px solid white; /* Add the white border */
+    padding-bottom: 5px;     
+    border-bottom: 1px solid white; 
 }
 
 .headings-container {
     display: flex;
-    flex-direction: column; /* Stack headings vertically */
-    justify-content: center; /* Align vertically relative to the order-container */
-    position: absolute; /* Position relative to the main-container */
-    left: -160px; /* Adjust distance from the order-container */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Proper vertical centering */
-    z-index: 2; /* Ensure it appears above other elements */
+    flex-direction: column;     
+    justify-content: center;     
+    position: absolute;     
+    left: -160px;     
+    top: 50%;     
+    transform: translateY(-50%);     
+    z-index: 2; 
 }
 
 .heading-box {
     display: flex;
-    align-items: center; /* Center text vertically */
-    justify-content: center; /* Center text horizontally */
-    width: 330px; /* Fixed width */
-    height: 125px; /* Fixed height */
-    background: var(--image-colour); /* Use the variable for background color */
-    border-radius: 43px; /* Optional: Add rounded corners */
-    font-size: 30px; /* Slightly smaller font size for legibility */
-    color: white; /* Text color */
+    align-items: center;     
+    justify-content: center;     
+    width: 330px;     
+    height: 125px;     
+    background: var(--image-colour);     
+    border-radius: 43px;     
+    font-size: 30px;     
+    color: white;     
     font-weight: normal;
-    text-transform: capitalize; /* Match existing headings */
-    margin-bottom: 35px; /* Spacing between the two headings */
-}
+    text-transform: capitalize;     
+    margin-bottom: 35px; }
 
 
 .order-details {
     margin-top: 15px;
-    display: flex; /* Flexbox for better control */
-    flex-direction: column; /* Stacks items vertically */
-    gap: 10px; /* Adds spacing between items */
-    
+    display: flex;     
+    flex-direction: column;     
+    gap: 10px;     
 }
 
 .order-title h2 {
@@ -162,40 +159,40 @@ h2 {
     width: 400px;
     height: 430px;
     object-fit: cover;
-    z-index: 2; /* Ensures the image appears above the container */
-    right: -150px; /* Adjust for clipping */
-    top: 50%; /* Centers vertically relative to the order-container */
-    transform: translateY(-50%);
+    z-index: 2;     
+    right: -150px;     
+    top: 50%;     
+    transform: 
+    translateY(-50%);
 }
 
 
 @media (max-width: 768px) {
     .main-container {
-        flex-direction: column; /* Stacks the items vertically */
-        align-items: center; /* Center align both items */
-    }
+        flex-direction: column;         
+        align-items: center;     }
 
     .kitty-img {
-        position: static; /* Resets the positioning */
-        margin-top: 20px; /* Adds spacing above the image */
+        position: static;         
+        margin-top: 20px;         
         transform: none;
     }
 }
 
 @media (max-width: 768px) {
     .main-container {
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column;         
         align-items: center;
     }
 
     .headings-container {
-        position: static; /* Reset absolute positioning */
-        margin-bottom: 20px; /* Add spacing below the headings */
-        transform: none; /* Reset centering */
+        position: static;         
+        margin-bottom: 20px;         
+        transform: none;     
     }
 
     .heading-box {
-        width: 100%; /* Expand headings to fit smaller screens */
-        max-width: 330px; /* Prevent stretching */
+        width: 100%;         
+        max-width: 330px;     
     }
 }
