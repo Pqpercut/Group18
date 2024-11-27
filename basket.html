@@ -5,90 +5,99 @@ University ID: 230190768 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basket</title>
-    <link rel="stylesheet" href="basket.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BASKET</title>
+  <link rel="stylesheet" href="basket.css">
 </head>
 <body>
-    <main>
-        <h1>BASKET</h1>
 
+  <div class="basket-container">
+    <header>
+      <h1>BASKET</h1>
+    </header>
+
+    <div class="main-content">
+      <div class="left-section">
         <div class="info-box">
-            <button class="items-button">3 ITEMS</button>
-            <a href="#" class="wishlist-link">WISHLIST</a>
+          <span>3 ITEMS</span>
+          <class="wishlist-link">WISHLIST</span>
         </div>
 
-        <div class="content">
-            <div class="product-list">
-                <div class="product-item">
-                    <div class="product-image"></div>
-                    <div class="product-info">
-                        <h3>Product Name</h3>
-                        <div class="product-details">
-                            <p>Price</p>
-                            <p class="product-price">£0.00</p>
-                        </div>
-                        <p>Colour</p>
-                        <p>Size</p>
-                        <div class="quantity">
-                            <button class="quantity-btn">-</button>
-                            <input type="number" value="1">
-                            <button class="quantity-btn">+</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="product-list">
+          <div class="product-item">
+            <div class="product-image"></div>
+            <div class="product-info">
+              <h3>Product Name</h3>
+              <p>Product No.<br>Colour<br>Size</p>
+              <div class="quantity">
+                <button class="quantity-btn">-</button>
+                <input type="text" value="1">
+                <button class="quantity-btn">+</button>
 
-                <div class="product-item">
-                    <div class="product-image"></div>
-                    <div class="product-info">
-                        <h3>Product Name</h3>
-                        <div class="product-details">
-                            <p>Price</p>
-                            <p class="product-price">£0.00</p>
-                        </div>
-                        <p>Colour</p>
-                        <p>Size</p>
-                        <div class="quantity">
-                            <button class="quantity-btn">-</button>
-                            <input type="number" value="1">
-                            <button class="quantity-btn">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item">
-                    <div class="product-image"></div>
-                    <div class="product-info">
-                        <h3>Product Name</h3>
-                        <div class="product-details">
-                            <p>Price</p>
-                            <p class="product-price">£0.00</p>
-                        </div>
-                        <p>Colour</p>
-                        <p>Size</p>
-                        <div class="quantity">
-                            <button class="quantity-btn">-</button>
-                            <input type="number" value="1">
-                            <button class="quantity-btn">+</button>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            <span class="product-price">£0.00</span>
+          </div>
 
-            <div class="summary-section">
-                <h2>SUMMARY</h2>
-                <p class="Prices">Subtotal &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;£0.00
-                    <br><br><br>Shipping Fee &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;£0.00<br><br><br>
-                    Discount Code &emsp;&emsp;&nbsp;&emsp;&emsp;&emsp;&thinsp;&emsp;£0.00 </p>
-                    
-                <div class="user-input-text">
-                    <input type="text" class="box" placeholder="Enter Code">
-                </div>
-                <button type="submit" class="Checkoutbutton">Continue to Checkout</button>
-            
+          <hr>
+          <div class="product-item">
+            <div class="product-image"></div>
+            <div class="product-info">
+              <h3>Product Name</h3>
+              <p>Product No.<br>Colour<br>Size</p>
+              <div class="quantity">
+                <button class="quantity-btn">-</button>
+                <input type="text" value="1">
+                <button class="quantity-btn">+</button>
+              </div>
             </div>
+            <span class="product-price">£0.00</span>
+
+          </div>
+          <hr>
+          <div class="product-item">
+            <div class="product-image"></div>
+            <div class="product-info">
+              <h3>Product Name</h3>
+              <p>Product No.<br>Colour<br>Size</p>
+              <div class="quantity">
+                <button class="quantity-btn">-</button>
+                <input type="text" value="1">
+                <button class="quantity-btn">+</button>
+              </div>
+            </div>
+            <span class="product-price">£0.00</span>
+          </div>
         </div>
-    </main>
+      </div>
+      <div class="right-section">
+        <div class="summary-section">
+          <h2>SUMMARY</h2>
+          <div class="summary-item">
+            <span>Subtotal</span>
+            <span>£0.00</span>
+          </div>
+          <div class="summary-item">
+            <span>Shipping</span>
+            <span>£3.99</span>
+          </div>
+          <div class="summary-item">
+            <span>Discount Code</span>
+            <span>£0.00</span>
+          </div>
+
+          <input type="text" placeholder="Enter discount code">
+          <div class="summary-item total">
+            <span>Total</span>
+            <span>£3.99</span>
+          </div>
+
+          <button class="checkout-button">Continue to checkout</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
-    
