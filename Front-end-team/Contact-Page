@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="Style_contact .css">
+</head>
+
+<body>
+
+<div class="container">
+    <h2>CONTACT FORM</h2>
+
+        <form>
+
+            <div class="Fields">
+
+                <div class="Fields">
+                    <label for=" full-name Name">Full Name:</label>
+                    <input type="text" id="full-name" name="full-name" required>
+                </div>
+              
+                <div class="Fields">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            
+            <label for="enquiry:">Enquiry:</label>
+            <textarea id="enquiry" name="enquiry"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+
+</div>
+
+</body>
+</html>
+
+ 
