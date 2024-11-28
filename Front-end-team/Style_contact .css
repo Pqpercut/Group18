@@ -1,0 +1,61 @@
+
+/* Title*/
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+/* Settings about the home page*/
+body {
+    background-color:rgba(220, 237, 255, 1); 
+    font-family: "Outfit", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Label styles */
+label {
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* Input and textarea styles */
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Textarea specific style */
+textarea {
+    resize: horizontal;
+    height: 100px;
+}
+
+button {
+    border: 1px solid rgba(131, 142, 218, 1); 
+    padding: 20px;
+    width: 100%; 
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: rgba(131, 142, 218, 1);
+}
+
+/*Button hover effect */
+button:hover {
+    background-color: rgb(106, 122, 229);
+}
