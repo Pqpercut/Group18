@@ -38,8 +38,6 @@ class ImagePath (models.Model):
     imagepath = models.ImageField(upload_to='uploads/product-images/', blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True, blank=True)
 
-    def __str__(self):
-        return self.name
 
 class Review (models.Model):
 # Model created by: Adam 

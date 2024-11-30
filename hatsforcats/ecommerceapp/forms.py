@@ -10,13 +10,7 @@ class UpdateStockForm(forms.Form):
         super().__init__(*args, **kwargs)
         if product:
             self.fields['variant'].queryset = product.productvariant.all()
-
-
-class CreateVariantForm(forms.ModelForm):
-    class Meta:
-        model = ProductVariant
-        fields = ['size', 'colour', 'price', 'stocklevel']
-
+            
 class VariantForm(forms.ModelForm):
     class Meta:
         model = ProductVariant

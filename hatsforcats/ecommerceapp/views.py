@@ -81,6 +81,9 @@ class InventoryProductDeleteView(DeleteView):
     success_url = reverse_lazy('IMS - Product List')
 
 class CreateVariantView(CreateView):
+    # Created by Adam Ahmed 23/11/2024
+    # Updated by Adam Ahmed 30/11/2024
+    '''Allows creation of product variant details and the ability to upload images'''
     model = ProductVariant
     template_name = "inventory-management/product_create_variant.html"
     form_class = CreateVariantForm
@@ -94,7 +97,7 @@ class CreateVariantView(CreateView):
         # Handle multiple file uploads
         images = form.cleaned_data.get('images', [])
         for image in images:
-            ImagePath.objects.create(product_variant=form.instance, imagepath=image)
+            ImagePath.objects.create(productVariantID=form.instance, imagepath=image)
 
         return response
 
@@ -108,6 +111,9 @@ class CreateVariantView(CreateView):
 
 
 class EditVariantView(UpdateView):
+    # Created by Adam Ahmed 23/11/2024
+    # Updated by Adam Ahmed 30/11/2024
+    '''Allows edit of product variant details and the ability to upload more images'''
     model = ProductVariant
     template_name = "inventory-management/product_variant_edit.html"
     form_class = EditVariantForm
@@ -118,12 +124,13 @@ class EditVariantView(UpdateView):
         # Handle multiple file uploads
         images = form.cleaned_data.get('images', [])
         for image in images:
-            ImagePath.objects.create(product_variant=self.object, imagepath=image)
+            ImagePath.objects.create(productVariantID=self.object, imagepath=image)
 
         return response
 
     def get_success_url(self):
         return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
+    
 class DeleteVariantView(DeleteView):
     # Created by Adam Ahmed 23/11/2024
     ''' View that allows Product Variants to be deleted with confirmation '''
