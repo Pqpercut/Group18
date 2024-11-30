@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import *
 from django.urls import reverse_lazy
 from django.db.models import Sum
-from .forms import VariantForm, UpdateStockForm, CreateVariantForm
+from .forms import VariantForm, UpdateStockForm, CreateVariantForm, EditVariantForm
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, FormView, CreateView
 from django.shortcuts import get_object_or_404, redirect
 
@@ -81,38 +81,49 @@ class InventoryProductDeleteView(DeleteView):
     success_url = reverse_lazy('IMS - Product List')
 
 class CreateVariantView(CreateView):
-    # Created by Adam Ahmed 23/11/2024
-    ''' View that allows Product Variants to be created '''
     model = ProductVariant
     template_name = "inventory-management/product_create_variant.html"
-    fields = ['size', 'colour', 'price', 'stocklevel']
+    form_class = CreateVariantForm
 
     def form_valid(self, form):
-        # Set the product for the variant using product_pk from the URL
+        # Save the product variant
         product = Product.objects.get(pk=self.kwargs['product_pk'])
         form.instance.productID = product
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        # Handle multiple file uploads
+        images = form.cleaned_data.get('images', [])
+        for image in images:
+            ImagePath.objects.create(product_variant=form.instance, imagepath=image)
+
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add product_pk to the context
         context['product_pk'] = self.kwargs['product_pk']
         return context
 
     def get_success_url(self):
-        # Redirect to the product detail page
         return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.kwargs['product_pk']})
-    
+
+
 class EditVariantView(UpdateView):
-    # Created by Adam Ahmed 23/11/2024
-    ''' View that allows Product Variants to be edited '''
     model = ProductVariant
     template_name = "inventory-management/product_variant_edit.html"
-    form_class = VariantForm
+    form_class = EditVariantForm
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        # Handle multiple file uploads
+        images = form.cleaned_data.get('images', [])
+        for image in images:
+            ImagePath.objects.create(product_variant=self.object, imagepath=image)
+
+        return response
 
     def get_success_url(self):
         return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
-    
 class DeleteVariantView(DeleteView):
     # Created by Adam Ahmed 23/11/2024
     ''' View that allows Product Variants to be deleted with confirmation '''
