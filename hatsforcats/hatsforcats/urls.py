@@ -18,11 +18,27 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-
+from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView
+from ecommerceapp.views import catalogueView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end
+    path("inventory-management/products/", InventoryProductListView.as_view(), name="IMS - Product List"),
+    path("inventory-management/products/<int:pk>/", InventoryProductDetailView.as_view(), name="IMS - Product Detail"),
+    path("inventory-management/products/create/", InventoryCreateProductView.as_view(),name="IMS - Create Product"),
+    path("inventory-management/products/<int:pk>/edit/", InventoryProductEditView.as_view(), name="IMS - Product Edit"),
+    path("inventory-management/products/<int:pk>/delete/", InventoryProductDeleteView.as_view(), name="IMS - Product Delete"),
+
+    path("inventory-management/variants/<int:pk>/edit/", EditVariantView.as_view(), name="IMS - Product Variant Edit"),\
+    path("inventory-management/products/<int:product_pk>/create-variant/", CreateVariantView.as_view(), name="IMS - Product Variant Create"),
+    path("inventory-management/variants/<int:pk>/delete/", DeleteVariantView.as_view(), name="IMS - Product Variant Delete"),
+    
+
+    #Created by Qasim 
+    path("catalogue",catalogueView, name = "Catalogue")
 ]
+
 
 
 # This is only to serve media files in the development environement. When we host this on the Universities Apache Server we will store the files in a seperate location on the Server

@@ -1,0 +1,19 @@
+<!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Variant</title>
+</head>
+<body>
+    <h1>Delete Variant</h1>
+    <p>Are you sure you want to delete the variant for {{ object.size }} ({{ object.colour }})?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+    </form>
+    <a href="{% url 'IMS - Product Detail' object.productID.pk %}">Cancel</a>
+</body>
+</html>
