@@ -11,7 +11,6 @@ class Product (models.Model):
 # Model created by: Adam 
     name = models.CharField(max_length=50)
     description = models.TextField()
-    availability = models.BooleanField(default=False)
 
     def __str__(self): 
         return self.name
@@ -35,8 +34,10 @@ class ProductVariant (models.Model):
    
 class ImagePath (models.Model):
 # Model created by: Adam 
-     productVariantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name = 'imagepath')    
-     imagepath = models.ImageField(upload_to='productvariant', blank=True)
+    productVariantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name = 'imagepath')    
+    imagepath = models.ImageField(upload_to='uploads/product-images/', blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True, blank=True)
+
 
 class Review (models.Model):
 # Model created by: Adam 

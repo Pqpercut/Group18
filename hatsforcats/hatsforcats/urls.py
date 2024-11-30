@@ -14,6 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
@@ -38,8 +40,6 @@ urlpatterns = [
     #Created by Qasim 
     path("catalogue",catalogueView, name = "Catalogue")
 ]
-
-
 
 # This is only to serve media files in the development environement. When we host this on the Universities Apache Server we will store the files in a seperate location on the Server
 if settings.DEBUG:  

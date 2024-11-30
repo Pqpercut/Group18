@@ -1,5 +1,6 @@
 <!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
-
+<!-- Updated  by Adam 30/11/2024 -->
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +9,23 @@
     <title>Edit Variant</title>
 </head>
 <body>
-    <h1>Edit Variant</h1>
-    <form method="post">
+    h2>Existing Images</h2>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+
+        <h2>Upload Additional Images</h2>
+        {{ form.images }}
+
+        <h2>Existing Images</h2>
+        <ul>
+            {% for image in object.imagepath.all %}
+                <li>
+                    <img src="{{ image.imagepath.url }}" alt="Variant Image" width="100">
+            {% endfor %}
+        </ul>
+
         <button type="submit">Save Changes</button>
     </form>
-    <a href="{% url 'IMS - Product Detail' object.productID.id %}">Cancel</a>
 </body>
 </html>
