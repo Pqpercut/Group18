@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView
 
+from ecommerceapp.views import catalogueView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -31,5 +32,9 @@ urlpatterns = [
     path("inventory-management/variants/<int:pk>/edit/", EditVariantView.as_view(), name="IMS - Product Variant Edit"),\
     path("inventory-management/products/<int:product_pk>/create-variant/", CreateVariantView.as_view(), name="IMS - Product Variant Create"),
     path("inventory-management/variants/<int:pk>/delete/", DeleteVariantView.as_view(), name="IMS - Product Variant Delete"),
+    
+
+    #Created by Qasim 
+    path("catalogue",catalogueView, name = "Catalogue")
 ]
 

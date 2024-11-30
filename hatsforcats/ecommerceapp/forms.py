@@ -21,3 +21,8 @@ class VariantForm(forms.ModelForm):
     class Meta:
         model = ProductVariant
         fields = ['size', 'colour', 'price', 'stocklevel']
+
+
+class filterProducts(forms.Form):
+    hatFilter = forms.BooleanField(label= "Hats",required=False)
+    glassesFilter = forms.BooleanField(label= "Sunglasses", required=False)

@@ -6,7 +6,9 @@ from django.db.models import Sum
 from .forms import VariantForm, UpdateStockForm, CreateVariantForm
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, FormView, CreateView
 from django.shortcuts import get_object_or_404, redirect
-
+from .forms import filterProducts
+from django.db.models import Min
+from django.http import HttpResponse
 
 class InventoryProductListView (ListView):
     # Created by Adam Ahmed 23/11/2024
@@ -122,3 +124,45 @@ class DeleteVariantView(DeleteView):
     def get_success_url(self):
         # Redirect to the product detail page after deletion
         return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
+
+def catalogueView(request, *args, **kwargs):
+
+
+  
+    
+    
+   ##Get filter in URL
+    filterList = request.GET.getlist('filter')
+    ##Set string of filter values
+    filterValue = ""
+    for x in filterList:
+        ##Add all filter values to list and seperate with comma
+        filterValue = filterValue + x + ","
+
+
+    ##Assign the correct Order by Value
+    orderValue = request.GET.get("order","default-value")
+    if orderValue == 'price':
+        orderValue = 'productvariant__price'
+    else:
+        orderValue = 'name'
+
+    ##Get a query of all products
+    productList = Product.objects.all()
+
+    #If there is a filter then filter the query to only those products
+    if len(filterList) != 0:
+            
+        productList = productList.filter(categories__categories__in = filterList)
+
+    ##Order the query
+    ##Aggregate the values to be able to prevent multiple variants showing on the list
+    productList = productList.annotate(min_val=Min(orderValue))
+    productList = productList.annotate(img_path=Min('productvariant__imagepath__imagepath'))
+    
+    productList = productList.order_by('min_val')
+    ##Return the query
+    context = {"ProductList" : productList}
+
+    
+    return render(request, "product-catalogue/product_catalogue.html", context)
