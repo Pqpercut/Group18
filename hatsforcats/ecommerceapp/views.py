@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import *
 from django.urls import reverse_lazy
 from django.db.models import Sum
-from .forms import VariantForm, UpdateStockForm, CreateVariantForm, EditVariantForm
-from django.views.generic import ListView, DetailView, DeleteView, UpdateView, FormView, CreateView
+from .forms import VariantForm, UpdateStockForm, CreateVariantForm, EditVariantForm, RegistrationForm
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView, FormView, CreateView, TemplateView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404, redirect
 from .forms import filterProducts
 from django.db.models import Min
@@ -144,11 +146,6 @@ class DeleteVariantView(DeleteView):
         return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
 def catalogueView(request, *args, **kwargs):
-
-
-  
-    
-    
    ##Get filter in URL
     filterList = request.GET.getlist('filter')
     ##Set string of filter values
@@ -184,3 +181,33 @@ def catalogueView(request, *args, **kwargs):
 
     
     return render(request, "product-catalogue/product_catalogue.html", context)
+
+class CustomLoginView(LoginView):
+    template_name = 'login/login.html'  
+    # redirect_authenticated_user = True 
+
+    def get_success_url(self):
+        if self.request.user.groups.filter(name='admin').exists():
+            return 'inventory-managment/product'
+        elif self.request.user.groups.filter(name='customer').exists():
+            return 'home'
+        return super().get_success_url()
+    
+class RegistrationView(FormView):
+    template_name = 'login/register.html'  # Template for the registration page
+    form_class = RegistrationForm
+    success_url = reverse_lazy('login')  # Redirect after successful registration
+
+    def form_valid(self, form):
+        # Save the user
+        user = form.save()
+
+        # Add the user to the 'customer' group by default
+        group = Group.objects.get(name='Customer')  # Ensure the group exists in the DB
+        user.groups.add(group)
+
+
+        return super().form_valid(form)
+    
+class HomeView(TemplateView):
+    template_name = "home-page.html"

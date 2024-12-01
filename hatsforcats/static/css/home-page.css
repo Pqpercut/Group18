@@ -1,0 +1,310 @@
+
+/* General body styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #E5F4FF;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 100px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    height: 50px;
+}
+.logo h1 {
+    margin-left: 10px;
+    font-size: 28px;
+    color: #333;
+    font-weight: 700;
+}
+header nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+}
+header nav a:hover {
+    transform: translateY(-3px);
+    transition: transform 0.2s ease;
+}
+header .icons i {
+    margin: 0 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Main content styling */
+main {
+    text-align: center;
+}
+section {
+    padding: 60px 0;
+}
+section h2, section h3 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+section p {
+    font-size: 20px;
+    margin-top: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Button styles */
+.buttons {
+    margin-top: 30px;
+}
+.buttons button {
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.buttons .light-blue {
+    background-color: #E5F4FF;
+    border: 2px solid #fff;
+}
+.buttons .white {
+    background-color: #fff;
+    border: 2px solid #ccc;
+}
+.buttons .black {
+    background-color: #333;
+    color: #fff;
+    border: none;
+}
+
+/* Featured section styling */
+.featured {
+    background-color: #fff;
+    padding: 40px 0;
+}
+.featured img {
+    margin: 0 20px;
+    height: 50px;
+    loading: lazy;
+}
+
+/* Hero section styling */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+}
+.hero img {
+    max-width: 400px;
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Perks section styling */
+.perks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+}
+.perks img {
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+/* How It Works section styling */
+.how-it-works {
+    text-align: center;
+    padding: 60px 20px;
+}
+.how-it-works-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 40px;
+}
+.how-it-works img {
+    max-width: 250px;
+    height: auto;
+    margin: 30px 0;
+}
+
+/* Footer styling */
+footer {
+    background-color: #f0f0f0;
+    padding: 40px 100px;
+    text-align: center;
+}
+footer nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+}
+footer nav a:hover {
+    color: #FFD700;
+}
+footer .newsletter {
+    margin-top: 30px;
+}
+footer .newsletter input {
+    padding: 10px;
+    border-radius: 30px;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+    width: 300px;
+    background-color: #B9DBFF;
+}
+footer .newsletter button {
+    padding: 10px 30px;
+    border-radius: 20px;
+    background-color: #838EDA;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+footer .newsletter button:hover {
+    opacity: 0.8;
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 768px) {
+    header {
+        padding: 20px 100px;
+    }
+    .hero, .perks, .how-it-works-item {
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: left;
+    }
+    .hero-content, .perks-content, .how-it-works-content {
+        align-items: flex-start;
+    }
+    .hero img, .perks img, .how-it-works img {
+        margin-left: 20px;
+    }
+}
+
+.featured {
+    background-color: #E5F4FF;
+}
+
+.gradient-section {
+    background: linear-gradient(112deg, #838EDA, #D1E8FF);
+    padding: 40px;
+    margin: 40px 100px;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.gradient-section h3 {
+    font-size: 24px;
+}
+
+.gradient-section h2 {
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.gradient-section .buttons .black {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 30px;
+}
+
+footer {
+    background-color: #E5F4FF;
+    padding: 40px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+}
+
+footer h4 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+footer h5 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+footer ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+footer .newsletter input {
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+    width: 250px;
+    background-color: #B9DBFF;
+}
+
+footer .newsletter button {
+    padding: 10px 30px;
+    border-radius: 20px;
+    background-color: #838EDA;
+    color: #fff;
+    border: none;
+}
+
+.footer-logo {
+    flex: 1;
+}
+
+.footer-nav {
+    flex: 3;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-nav div ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.footer-nav div ul li a:hover {
+    color: #555; /* Optional hover effect */
+}

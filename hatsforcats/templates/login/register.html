@@ -1,0 +1,38 @@
+ <!-- edited and setup for Django by Adam 1/12/2024 -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<link href="{% static 'css/login/register.css' %}" rel="stylesheet" />
+<main>
+    <section class="Register">
+        <h1>Register</h1>
+        <!-- Use the POST method and include CSRF token for security -->
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Map each form field manually into the template -->
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+
+            <label for="{{ form.password1.id_for_label }}">Create a password:</label>
+            {{ form.password1 }}
+
+            <label for="{{ form.password2.id_for_label }}">Confirm your Password:</label>
+            {{ form.password2 }}
+
+            <!-- Add a register button -->
+            <div class="buttonContainer">
+                <button type="submit" class="registerButton">Register</button>
+            </div>
+        </form>
+
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </section>
+</main>
+{% endblock %}

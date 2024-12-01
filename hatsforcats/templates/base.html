@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hats for Cats{% endblock %}</title>
+    <link rel="icon" href=""> <!-- need to add -->
+    <link href="{% static  'css/footer.css' %}" rel="stylesheet" />
+    <link href="{% static  'css/header.css' %}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    {% block content %}
+    # insert content here 
+    {% endblock %}
+    
+    {% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!--
+Developer: Malaika Noor
+University ID: 230190768
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body>
+  <div class="checkout-container">
+    <h1>CHECKOUT</h1>
+    <div class="sign-options">
+      <button class="sign-btn active">Sign In</button>
+      <button class="sign-btn">Continue as a guest</button>
+    </div>
+
+    <form class="checkout-form">
+      <label for="full-name">FULL NAME:</label>
+      <input type="text" id="full-name" placeholder="Enter your full name">
+
+      <label for="email">EMAIL ADDRESS:</label>
+      <input type="email" id="email" placeholder="Enter your email">
+
+      <label for="phone">PHONE NUMBER:</label>
+      <input type="text" id="phone" placeholder="Enter your phone number">
+
+      <label for="delivery">DELIVERY ADDRESS:</label>
+      <input type="text" id="delivery" placeholder="Enter delivery address">
+
+      <label for="billing">BILLING ADDRESS:</label>
+      <input type="text" id="billing" placeholder="Enter billing address">
+
+
+
+      <div class="payment-section">
+        <label>PAYMENT TYPE:</label>
+        <div class="payment-options">
+          <button type="button">Debit Card</button>
+          <button type="button">Credit Card</button>
+          <button type="button">Apple Pay</button>
+          <button type="button">Klarna</button>
+        </div>
+      </div>
+    </form>
+
+
+
+    <div class="summary">
+      <h2>SUMMARY</h2>
+      <div class="summary-row">
+        <span>Discounts</span>
+        <span>ADD</span>
+      </div>
+      <div class="summary-row">
+        <span>Delivery Fee</span>
+        <span>£0.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>£0.00</span>
+      </div>
+    </div>
+
+
+    <button class="buy-now">BUY NOW</button>
+  </div>
+</body>
+</html>

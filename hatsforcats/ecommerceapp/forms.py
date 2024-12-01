@@ -1,5 +1,7 @@
 from django import forms
 from .models import ProductVariant, ImagePath
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class UpdateStockForm(forms.Form):
     variant = forms.ModelChoiceField(queryset=ProductVariant.objects.all(), widget=forms.HiddenInput())
@@ -52,3 +54,11 @@ class EditVariantForm(forms.ModelForm):
 class filterProducts(forms.Form):
     hatFilter = forms.BooleanField(label= "Hats",required=False)
     glassesFilter = forms.BooleanField(label= "Sunglasses", required=False)
+
+
+class RegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']

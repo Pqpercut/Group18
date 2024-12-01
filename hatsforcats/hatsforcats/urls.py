@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView
+from ecommerceapp.views import HomeView, InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView, CustomLoginView, RegistrationView
 from ecommerceapp.views import catalogueView
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +36,11 @@ urlpatterns = [
     path("inventory-management/products/<int:product_pk>/create-variant/", CreateVariantView.as_view(), name="IMS - Product Variant Create"),
     path("inventory-management/variants/<int:pk>/delete/", DeleteVariantView.as_view(), name="IMS - Product Variant Delete"),
     
+    # Created by Adam 01/12/2024 
+    path('', HomeView.as_view(), name='home' ), 
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('register/', RegistrationView.as_view(), name='register'),
+
 
     #Created by Qasim 
     path("catalogue",catalogueView, name = "Catalogue")

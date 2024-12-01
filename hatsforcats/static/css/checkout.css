@@ -1,0 +1,153 @@
+/*********************
+Developer: Malaika Noor
+University ID: 230190768
+**********************/
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #DCEDFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  h1 {
+    font-family: Outfit, sans-serif;
+    font-weight: bold; 
+    font-size: 36px;
+    color: #000000;
+  }
+  
+  .sign-options {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    width: 100%; 
+    gap: 75px; 
+    }
+      
+      
+  .sign-btn {
+    background: linear-gradient(to right, #a4b6ec, #838EDA); 
+    border: none;
+    width: 306px; 
+    height: 58px; 
+    border-radius: 43px; 
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold; 
+    color: white; 
+    text-align: center;
+    font-family: Outfit, sans-serif;
+    line-height: 58px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .sign-btn.active {
+    background-color: #829fe5;
+    color: white;
+  }
+  
+  .sign-btn:not(.active):hover {
+    background-color: #a6bcee;
+  }
+  
+  .checkout-form {
+    text-align: left;
+  }
+  
+  .checkout-form label {
+    font-size: 20px;
+    font-weight: bold; 
+    font-family: Outfit, sans-serif;
+    color: #000000;
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  .checkout-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ffffff;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    width: 700px; 
+    height: 25px;
+  }
+  
+
+  .payment-section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: left;
+  }
+  
+  .payment-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .payment-options button {
+    background-color: #ffffff;
+    width: 150px; 
+    height: 44px; 
+    border: none;
+    padding: 10px 15px;
+    border-radius: 43px;
+    font-size: 19px;
+    font-family: Outfit, sans-serif;
+    cursor: pointer;
+    color: #838EDA
+  }
+  
+  .payment-options button:hover {
+    background-color: #a6bcee;
+  }
+  
+  .summary {
+    font-family: Outfit, sans-serif;
+    background: linear-gradient(to right, #a4b6ec, #838EDA); 
+    border-radius: 30px;
+    padding: 15px;
+    margin: 20px 0;
+    margin-bottom: 40px;
+    text-align: left;
+  }
+  
+  .summary h2 {
+    font-size: 25px;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 19px;
+    font-weight: normal;
+    margin: 20px 0;
+  }
+  
+  .buy-now {
+    background-color: #92DB8F;
+    border: none;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 400px;
+    height: 60px;
+    position: relative; 
+    left: 170px;
+  }
+  
+  .buy-now:hover {
+    background-color: #92DB8F;
+  }
+  
