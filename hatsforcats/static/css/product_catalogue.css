@@ -1,0 +1,344 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #E5F4FF;
+    color: #333;
+}
+
+
+
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 100px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    height: 50px;
+}
+.logo h1 {
+    margin-left: 10px;
+    font-size: 28px;
+    color: #333;
+    font-weight: 700;
+}
+header nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+}
+header nav a:hover {
+    transform: translateY(-3px);
+    transition: transform 0.2s ease;
+}
+header .icons i {
+    margin: 0 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+
+
+/* Main Product Page */
+.product-page {
+    padding: 20px;
+    background-color: #E5F4FF;
+}
+
+/* Gradient Line Container */
+.gradient-line {
+   position: relative;
+   width: 100%;
+   height: 30px; 
+   background: linear-gradient(90deg, #D1E8FF, #838EDA);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow: hidden;
+   margin-bottom: 20px;
+}
+
+/* Arrows */
+.left-arrow,
+.right-arrow {
+ position: absolute;
+ color: #fff;
+ font-size: 20px;
+ cursor: pointer;
+ top: 50%;
+ transform: translateY(-50%);
+ z-index: 2;
+}
+
+.left-arrow {
+left: 10px;
+}
+
+.right-arrow {
+right: 10px;
+}
+
+/* Banner Messages */
+.banner-message {
+position: relative;
+width: 100%;
+text-align: center;
+color: #fff;
+font-size: 18px;
+font-weight: bold;
+white-space: nowrap; /* Prevent text from wrapping */
+overflow: hidden;
+}
+
+.message {
+position: absolute;
+width: 100%;
+opacity: 0; /* Hidden by default */
+transition: opacity 0.5s ease;
+}
+
+.message.active {
+opacity: 1; /* Visible message */
+}
+
+
+/* Controls Section */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 50px;
+}
+
+.controls button {
+   background-color: transparent;
+   padding: 10px 20px;
+   border: none; 
+   font-size: 16px;
+   font-weight: bold;
+   cursor: pointer;
+   color: #333; 
+   position: relative; 
+   transition: color 0.3s ease;
+}
+
+.controls button::after {
+  content: ''; /* Pseudo-element for the underline */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #D1E8FF, #838EDA); /* Gradient underline */
+  transform: scaleX(0); /* Initially hidden */
+  transform-origin: left;
+  transition: transform 0.3s ease; /* Smooth scale transition */
+}
+
+.controls button:hover {
+ color: #838EDA; /* Optional: Change text color on hover */
+}
+
+.controls button:hover::after {
+transform: scaleX(1); /* Show underline on hover */
+}
+
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0 50px;
+}
+
+/* Individual Product Box */
+.product {
+    background-color: #E5F4FF;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-image {
+  width: 100%;
+  height: 120px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.product-image:hover {
+ transform: translateY(-10px) scale(1.05); 
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: #333;
+    position: relative;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    
+}
+
+.product-name::after {
+   content: ''; /* Pseudo-element for the underline */
+   position: absolute;
+   left: 0;
+   bottom: -2px; 
+   width: 100%;
+   height: 2px;
+   text-decoration: none;
+   background: linear-gradient(90deg, #D1E8FF, #838EDA); /* Gradient underline */
+   transform: scaleX(0); 
+   transform-origin: left;
+   transition: transform 0.3s ease; 
+}
+
+.product-name:hover {
+  color: #838EDA; 
+  
+}
+
+.product-name:hover::after {
+  transform: scaleX(1); 
+}
+
+
+
+.product-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    position: relative; 
+    transition: color 0.3s ease; 
+    cursor: pointer;
+    text-decoration: none;
+  
+}
+
+.product-price::after {
+   content: ''; 
+   position: absolute;
+   left: 0;
+   bottom: -2px; /* Position slightly below the text */
+   width: 100%;
+   height: 2px;
+   text-decoration: none;
+   background: linear-gradient(90deg, #D1E8FF, #838EDA); /* Gradient underline */
+   transform: scaleX(0); /* Initially hidden */
+   transform-origin: left;
+   transition: transform 0.3s ease; 
+}
+
+.product-price:hover {
+   color: #838EDA; 
+
+}
+
+.product-price:hover::after {
+   transform: scaleX(1);
+}
+
+
+/* Load More Button */
+.load-more-btn {
+ display: block;
+ margin: 20px auto;
+ padding: 10px 30px;
+ background-color: #f5f5f5;
+ border: 2px solid transparent; 
+ border-radius: 20px; /* Retain rounded corners */
+ cursor: pointer;
+ font-size: 16px;
+ font-weight: bold; 
+ color: #333; 
+ position: relative;
+ transition: color 0.3s ease; /* Smooth transition for text color */
+}
+
+.load-more-btn::after {
+ content: ''; /* Pseudo-element for underline */
+ position: absolute;
+ left: 0;
+ bottom: -5px; /* Position the underline below the text */
+ width: 100%;
+ height: 2px;
+ background: linear-gradient(90deg, #D1E8FF, #838EDA); /* Gradient for the underline */
+ transform: scaleX(0); /* Initially hidden */
+ transform-origin: left;
+ transition: transform 0.3s ease; /* Smooth scaling for underline */
+}
+
+.load-more-btn:hover {
+color: #838EDA; /* Change text color on hover */
+background-color: #fff; /* Change background color to white */
+}
+
+.load-more-btn:hover::after {
+transform: scaleX(1); /* Show underline on hover */
+}
+
+
+
+/* Hidden Products */
+.hidden {
+    display: none;
+}
+
+
+
+/* Footer styling */
+footer {
+    background-color: #f0f0f0;
+    padding: 40px 100px;
+    text-align: center;
+}
+footer nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+}
+footer nav a:hover {
+    color: #FFD700;
+}
+footer .newsletter {
+    margin-top: 30px;
+}
+footer .newsletter input {
+    padding: 10px;
+    border-radius: 30px;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+    width: 300px;
+    background-color: #B9DBFF;
+}
+footer .newsletter button {
+    padding: 10px 30px;
+    border-radius: 20px;
+    background-color: #838EDA;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+footer .newsletter button:hover {
+    opacity: 0.8;
+}
+
