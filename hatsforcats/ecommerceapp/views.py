@@ -2,12 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Basket, BasketItem, Product
+from .models import Basket, BasketItem, ProductVariant
+from django.contrib.auth.decorators import permission_required
 
 
 #display products
 def productDisplay(request):
-	allitems = Product.objects.all()
+	allitems = ProductVariant.objects.all()
 	itemNames = {
 		'products' : allitems
 	}
@@ -15,47 +16,82 @@ def productDisplay(request):
 	#viewing
 	return render(request, "admin/temp_basket/tempProducts.html", itemNames)
 
+
+@permission_required('ecommerceapp.Customer') 
 #add to basket
-def basketAdd(request, variantid, quantity=1, amendQuantity=False):
-	#get basketid
-	basketid = Basket.objects.get(userID=request.user).id
-	
-	#check if user has ordered item before already
-	basketitem = BasketItem.objects.filter(BasketID=basketid, variantID=variantid).first()
+def basketAdd(request):
+	#gets everyhting from post data
+	if request.method == "POST":
+		print(request.POST)
+		variantid = request.POST.get("variantid")  
+		quantity = int(request.POST.get("quantity", 1))  
+		amendQuantity = request.POST.get("amendQuantity", "false").lower() == "true"
 
-	if basketitem: 
-		#inc quantity
-		if amendQuantity:
-			basketitem.quantity = quantity
-		else:
-			basketitem.quantity += 1
-		basketitem.save()
-	else: 
-		#create new basketitem entry
-		BasketItem.objects.create(BasketID=basketid, variantID=variantid, quantity=quantity)
+		#get basketid
+		#basketid = Basket.objects.get(userID=request.user).id
+		
+		#for testing
+		basketid = Basket.objects.get(userID=1)
+
+		#get varientid
+		variant = ProductVariant.objects.get(id=variantid)
+
+		#check if user has ordered item before already
+		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
+
+		if basketitem: 
+			#inc quantity
+			if amendQuantity:
+				basketitem.quantity = quantity
+			else:
+				basketitem.quantity += 1
+			basketitem.save()
+		else: 
+			#create new basketitem entry
+			BasketItem.objects.create(basketID=basketid, variantID=variant, quantity=quantity)
+
+		return render(request, "admin/temp_basket/tempProducts.html")
+	else:
+		return(productDisplay(request))
+		#return render(request, "admin/temp_basket/tempProducts.html")
 
 
+
+@permission_required('ecommerceapp.Customer')
 #remove from basket 
-def basketRem(request, variantid):
-	#get basketid
-	basketid = Basket.objects.get(userID=request.user).id
+def basketRem(request):
+	if request.method == "POST":
+		#get basketid
+		#basketid = Basket.objects.get(userID=request.user).id
 
-	basketitem = BasketItem.objects.filter(BasketID=basketid, variantID=variantid).first()
+		#for testing
+		basketid = Basket.objects.get(userID=1)
 
-	if basketitem:
-		basketitem.delete()
+		variantid = request.POST.get("variantid")
+		variant = ProductVariant.objects.get(id=variantid)
+
+		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
+
+		if basketitem:
+			basketitem.delete()
+
+		return render(request, "admin/temp_basket/tempBasket.html", itemNames)
 
 
+@permission_required('ecommerceapp.Customer')
 #veiw basket
 def viewBasket(request):
 	#get basketid
-	basketid = Basket.objects.get(userID=request.user).id
+	#basketid = Basket.objects.get(userID=request.user).id
 
-	allitems = BasketItem.objects.filter(BasketID=basketid)
+	#for testing
+	basketid = Basket.objects.get(userID=1)
+
+	allitems = BasketItem.objects.filter(basketID=basketid)
 	itemNames = {
 		'basket' : allitems
 	}
 
 	#viewing the absket
-	return render(request, "admin/temp_basket/tempProducts.html", itemNames)
+	return render(request, "admin/temp_basket/tempBasket.html", itemNames)
 
