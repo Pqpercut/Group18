@@ -2,6 +2,7 @@
 <!-- Placeholder template by qasim-->
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,8 +34,9 @@
     {% for product in ProductList %}
         
         <h3> {{product.name}} :</h3> 
-        <p>£{{product.productvariant.first.price}}</p>
-        <img src= {{product.img_path}} style="width:500px;height:600px;">
+        <p>£{{product.productvariant.first.price}}</p><br>
+        <p><b>URL: {{product.img_path}}</b></p>
+        <img src= "{{product.img_path}}" style="width:200px;height:200px;" />
             
     {% endfor %}
     
