@@ -10,14 +10,14 @@ University ID: 230098501
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management Product Edit Page</title>
-    <link rel="stylesheet" href="../css/invmanagementproductedit.css">
+    <title>Inventory Management Variation Edit Page</title>
+    <link rel="stylesheet" href="../css/invmanagementvariationedit.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="main-container">
         <div class="header-container">
-            <h1>Edit Product</h1>
+            <h1>Edit Variant</h1>
         </div>  
         <div class="image-container">
             <img src="../media/image.png" alt="Main Image" class="main-image">
@@ -27,17 +27,21 @@ University ID: 230098501
                 <label for="name-input">Name</label>
                 <input type="text" id="name-input" name="name" placeholder="Enter the name of the product">
             </div>
-            <div class="description-container">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" rows="5" cols="30" placeholder="Enter your text here..."></textarea>
+            <div class="name-container">
+                <label for="name-input">Colour</label>
+                <input type="text" id="colour-input" name="colour" placeholder="Enter the colour of the product">
             </div>
-            <div class="availability-container">
-                <label for="availability">Availability:</label>
-                <input type="checkbox" id="availability" name="availability" value="Availability">
-            </div>            
+            <div class="name-container">
+                <label for="name-input">Price</label>
+                <input type="text" id="price-input" name="price" placeholder="Enter the price of the product">
+            </div>
+            <div class="name-container">
+                <label for="name-input">Stock Level</label>
+                <input type="text" id="stocklvl-input" name="stocklvl" placeholder="Enter the stock level of the product">
+            </div>
             <div class="button-container">
                 <button class="cancel-button">Cancel</button>
-                <input type="submit" value="Change">                
+                <input type="submit" value="Change">               
             </div>
         </div>
     </div>
