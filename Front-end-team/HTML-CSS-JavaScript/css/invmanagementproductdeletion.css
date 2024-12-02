@@ -1,0 +1,74 @@
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+:root {
+    --background-colour: #DCEDFF;
+    --button-background: #838EDA;
+}
+
+body {
+    background-color: var(--background-colour);
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Spacing between each element */
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Optional styling for the image */
+}
+
+.text-container p {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px; /* Spacing between buttons */
+}
+
+.cancel-button,
+.confirm-button {
+    text-transform: uppercase;
+    font-size: 32px;
+    font-weight: bold;
+    width: 190px;
+    height: 60px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background: var(--button-background);
+    color: white;
+}
+
+.confirm-button {
+    background: white;
+    color: var(--button-background);
+}
