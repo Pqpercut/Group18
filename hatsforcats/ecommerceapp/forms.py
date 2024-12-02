@@ -1,6 +1,6 @@
 from django import forms
 from .models import ProductVariant, ImagePath
-
+from .models import ContactTable
 class UpdateStockForm(forms.Form):
     variant = forms.ModelChoiceField(queryset=ProductVariant.objects.all(), widget=forms.HiddenInput())
     stocklevel = forms.IntegerField(label="New Stock Level", min_value=0)
@@ -49,6 +49,10 @@ class EditVariantForm(forms.ModelForm):
         model = ProductVariant
         fields = ['size', 'colour', 'price', 'stocklevel']
 
-class filterProducts(forms.Form):
-    hatFilter = forms.BooleanField(label= "Hats",required=False)
-    glassesFilter = forms.BooleanField(label= "Sunglasses", required=False)
+
+
+
+class ContactEnquiryForm(forms.ModelForm):
+    class Meta:
+        model = ContactTable
+        fields = ['username','description','email']

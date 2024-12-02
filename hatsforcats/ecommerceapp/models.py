@@ -92,3 +92,9 @@ class BasketItem(models.Model):
     basketID = models.ForeignKey(Basket, on_delete=models.CASCADE, related_name='basketitem')
     variantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='basketitem')
     quantity = models.IntegerField()
+
+##Written by Qasim Farooq
+class ContactTable(models.Model):
+    username = models.CharField(max_length=50)
+    description = models.TextField()
+    email = models.EmailField()
