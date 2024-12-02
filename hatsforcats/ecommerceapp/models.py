@@ -9,9 +9,6 @@ class Product (models.Model):
 # Model created by: Adam 
     name = models.CharField(max_length=50)
     description = models.TextField()
-    availability = models
-    rating = models
-    imagepath = models
 
     def __str__(self): 
         return f"self.name"

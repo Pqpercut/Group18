@@ -22,7 +22,7 @@ def productDisplay(request):
 def basketAdd(request):
 	#gets everyhting from post data
 	if request.method == "POST":
-		print(request.POST)
+		#print("borp")
 		variantid = request.POST.get("variantid")  
 		quantity = int(request.POST.get("quantity", 1))  
 		amendQuantity = request.POST.get("amendQuantity", "false").lower() == "true"
@@ -50,9 +50,7 @@ def basketAdd(request):
 			#create new basketitem entry
 			BasketItem.objects.create(basketID=basketid, variantID=variant, quantity=quantity)
 
-		return render(request, "admin/temp_basket/tempProducts.html")
-	else:
-		return(productDisplay(request))
+	return(productDisplay(request))
 		#return render(request, "admin/temp_basket/tempProducts.html")
 
 
@@ -61,6 +59,7 @@ def basketAdd(request):
 #remove from basket 
 def basketRem(request):
 	if request.method == "POST":
+		#print("beep")
 		#get basketid
 		#basketid = Basket.objects.get(userID=request.user).id
 
@@ -73,14 +72,18 @@ def basketRem(request):
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
 		if basketitem:
+			print("removed")
 			basketitem.delete()
+		else:
+			print("not removed")
 
-		return render(request, "admin/temp_basket/tempBasket.html", itemNames)
+	return(viewBasket(request))
 
 
 @permission_required('ecommerceapp.Customer')
 #veiw basket
 def viewBasket(request):
+	#print("beep")
 	#get basketid
 	#basketid = Basket.objects.get(userID=request.user).id
 

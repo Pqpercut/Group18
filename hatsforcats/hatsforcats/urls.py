@@ -21,7 +21,7 @@ from ecommerceapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.basketAdd, name="basketAdd"),
-    path("", views.basketRem, name="basketRem"),
+    path("tempBasket.html", views.basketRem, name="basketRem"),
     path("", views.productDisplay, name="productDisplay"),
     path("tempBasket.html", views.viewBasket, name="basketview")
 ]
