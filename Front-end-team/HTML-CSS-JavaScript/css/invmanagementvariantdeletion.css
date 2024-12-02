@@ -72,3 +72,13 @@ h1 {
     background: white;
     color: var(--button-background);
 }
+
+.confirm-button:hover {
+    background: var(--button-background);
+    color: white;
+}
+
+.cancel-button:hover {
+    background: white;
+    color: var(--button-background);
+}

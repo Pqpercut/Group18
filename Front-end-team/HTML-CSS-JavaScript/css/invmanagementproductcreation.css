@@ -1,0 +1,156 @@
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+:root {
+    --background-colour: #DCEDFF;
+    --button-background: #838EDA;
+}
+
+body {
+    background-color: var(--background-colour);
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 20px 0 10px; /* Add space above and below the heading */
+}
+
+.main-container {
+    width: 100%; /* Ensure the container takes up the full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements horizontally */
+    gap: 20px; /* Add spacing between elements */
+    text-align: center;
+    padding-top: 30px; /* Add padding at the top */
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.main-image {
+    width: 460px;
+    height: 415px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Space between the textarea and buttons */
+    align-items: center; /* Centers the textarea and buttons horizontally */
+    margin-top: 10px;
+}
+
+.name-container input,
+.description-container textarea {
+    width: 460px;
+    font-family: 'Outfit', sans-serif;
+    padding: 10px;
+    border: none;
+    display: block;
+    margin: 0; /* Remove default margins */
+}
+
+.name-container,
+.description-container {
+    display: flex;
+    flex-direction: column; /* Stack label and input/textarea vertically */
+    align-items: center;
+    width: 460px; /* Ensure consistent width */
+    gap: 20px; /* Add spacing between label and input/textarea */
+}
+
+.name-container input,
+.description-container textarea {
+    width: 100%; /* Ensure input/textarea takes up the full container width */
+    padding: 10px;
+}
+
+.name-container input {
+    height: 36px;
+    border-radius: 15px;
+}
+
+.description-container textarea {
+    height: 280px;
+}
+
+label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    align-items: center; /* Center buttons vertically */
+    justify-content: center; /* Center buttons horizontally */
+    margin-bottom: 80px;
+}
+
+.cancel-button,
+input[type="submit"] {
+    text-transform: uppercase;
+    font-size: 32px;
+    font-weight: bold;
+    width: 190px;
+    height: 60px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex; /* Ensures it matches the box model of the button */
+    align-items: center; /* Centers text vertically */
+    justify-content: center; /* Centers text horizontally */
+}
+
+.cancel-button {
+    background: var(--button-background);
+    color: white;
+}
+
+.cancel-button:hover {
+    background: white;
+    color: var(--button-background);
+}
+
+input[type="submit"] {
+    background: white;
+    color: var(--button-background);
+}
+
+input[type="submit"]:hover {
+    background: var(--button-background);
+    color: white;
+}
+
+.availability-container {
+    display: flex; /* Enable flexbox */
+    align-items: center; /* Vertically center label and checkbox */
+    gap: 20px; /* Add space between the label and checkbox */
+}
+
+input[type="checkbox"] {
+    width: 30px; /* Set custom width */
+    height: 30px; /* Set custom height */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+
+
+
