@@ -3,6 +3,7 @@ from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from .models import ContactTable
 class UpdateStockForm(forms.Form):
     variant = forms.ModelChoiceField(queryset=ProductVariant.objects.all(), widget=forms.HiddenInput())
     stocklevel = forms.IntegerField(label="New Stock Level", min_value=0)
@@ -62,3 +63,10 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+
+
+class ContactEnquiryForm(forms.ModelForm):
+    class Meta:
+        model = ContactTable
+        fields = ['username','description','email']

@@ -8,9 +8,10 @@ from django.views.generic import ListView, DetailView, DeleteView, UpdateView, F
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404, redirect
-from .forms import filterProducts
+from .forms import ContactEnquiryForm
 from django.db.models import Min
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 class InventoryProductListView (ListView):
     # Created by Adam Ahmed 23/11/2024
@@ -146,6 +147,8 @@ class DeleteVariantView(DeleteView):
         return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
 def catalogueView(request, *args, **kwargs):
+    ###Written by Qasim Farooq 29/11/24
+
    ##Get filter in URL
     filterList = request.GET.getlist('filter')
     ##Set string of filter values
@@ -211,3 +214,18 @@ class RegistrationView(FormView):
     
 class HomeView(TemplateView):
     template_name = "home-page.html"
+
+
+def ContactPageView(request, *args, **kwargs):
+    submitted = False
+    if request.method == 'POST':
+        contactform = ContactEnquiryForm(request.POST)
+        if contactform.is_valid():
+            contactform.save()
+            return HttpResponseRedirect('contact-page?submit=True')
+    else:
+        contactform = ContactEnquiryForm()
+        if 'submit' in request.GET:
+            submitted = True
+    context = {"ContactForm": contactform, 'submitted' : submitted}
+    return render(request,'general-pages/Contact-Page.html',context )

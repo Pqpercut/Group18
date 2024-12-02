@@ -24,6 +24,8 @@ from ecommerceapp.views import HomeView, InventoryProductListView, InventoryProd
 from ecommerceapp.views import catalogueView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
+from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView
+from ecommerceapp.views import catalogueView, ContactPageView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -49,7 +51,8 @@ urlpatterns = [
     path('reset/done/', PasswordResetCompleteView.as_view(template_name='login/password_reset_complete.html'), name='password_reset_complete'),
 
     #Created by Qasim 
-    path("catalogue",catalogueView, name = "Catalogue")
+    path("catalogue",catalogueView, name = "Catalogue"),
+    path("contact-page", ContactPageView, name="Contact-Page")
 ]
 
 # This is only to serve media files in the development environement. When we host this on the Universities Apache Server we will store the files in a seperate location on the Server
