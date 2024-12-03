@@ -114,3 +114,9 @@ def viewBasket(request):
 	#viewing the absket
 	return render(request, "admin/temp_basket/tempBasket.html", itemNames)
 
+
+@permission_required('ecommerceapp.Customer')
+#checkout
+def checkout(request):
+	return render(request, "admin/temp_basket/tempCheckout.html")
+
