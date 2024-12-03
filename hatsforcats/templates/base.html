@@ -7,6 +7,7 @@
     <title>{% block title %}Hats for Cats{% endblock %}</title>
     <link rel="icon" href=""> <!-- need to add -->
     <link href="{% static  'css/footer.css' %}" rel="stylesheet" />
+    <link href="{% static  'css/base.css' %}" rel="stylesheet" />
     <link href="{% static  'css/header.css' %}" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,12 +17,14 @@
 
 </head>
 <body>
-    {% include 'header.html' %}
-    
-    {% block content %}
-    # insert content here 
-    {% endblock %}
-    
-    {% include 'footer.html' %}
+    <div class="wrapper">
+        {% include 'header.html' %}
+        
+        {% block content %}
+        # insert content here 
+        {% endblock %}
+        
+        {% include 'footer.html' %}
+    </div>
 </body>
 </html>
