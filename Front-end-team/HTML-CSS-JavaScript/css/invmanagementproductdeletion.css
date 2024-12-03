@@ -4,13 +4,13 @@ University ID: 230098501
 ********************************/
 
 :root {
-    --background-colour: #DCEDFF;
-    --button-background: #838EDA;
+    --background-colour: rgba(0, 0, 0, 0.33);
+    --button-background: #5A57FF;
 }
 
 body {
     background-color: var(--background-colour);
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -19,9 +19,9 @@ body {
 }
 
 h1 {
-    font-size: 48px;
+    color: black;
+    font-size: 32px;
     font-weight: bold;
-    text-transform: uppercase;
     margin: 0;
 }
 
@@ -31,54 +31,81 @@ h1 {
     align-items: center;
     gap: 20px; /* Spacing between each element */
     text-align: center;
+    width: 480px;
+    height: 340px;
+    background-color: white;
+    padding: 40px 20px 20px;
+    border-radius: 24px;
+    position: relative; /* Needed for positioning the image */
+    overflow: visible;
+}
+
+.image-container {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    height: auto;
+    transform: translateX(-50%); /* Center the image horizontally */
+    z-index: 1; /* Ensure it overlays other content */
+    overflow: hidden; /* Avoid excessive height spill */
 }
 
 .image-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px; /* Optional styling for the image */
+    width: 100%; /* Ensure the image scales properly */
+    height: 100%; /* Contain the image to the defined height */
+    object-fit: cover; /* Prevent distortion */
+}
+
+.header-container {
+    margin-top: 60px; /* Move the header further down */
 }
 
 .text-container p {
-    font-size: 28px;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: medium;
+    color: #CCCCCC;
     margin: 0;
+    text-align: center; /* Optional: Center the text */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 .button-container {
+    margin-top: 20px;
     display: flex;
-    gap: 20px; /* Spacing between buttons */
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ensure the container does not constrain buttons */
+    gap: 10px; /* Space between buttons */
 }
 
 .cancel-button,
 .confirm-button {
     text-transform: uppercase;
-    font-size: 32px;
+    font-size: 20px;
     font-weight: bold;
-    width: 190px;
-    height: 60px;
+    width: 365px; /* Define explicit width */
+    height: 50px; /* Define explicit height */
+    max-width: none; /* Ensure no maximum width limits */
+    min-width: 0; /* Remove any inherited minimum width */
+    box-sizing: border-box; /* Include padding/borders in the dimensions */
+    padding: 0; /* Reset internal padding */
+    margin: 0; /* Reset external margins */
     border: none;
-    border-radius: 30px;
+    border-radius: 15px;
     cursor: pointer;
+    display: inline-block; /* Proper block-level sizing */
 }
 
 .cancel-button {
-    background: var(--button-background);
-    color: white;
+    background: white;
+    color: #838EDA;
+    outline: 1px solid rgba(90, 87, 255, 0.26);
 }
 
 .confirm-button {
-    background: white;
-    color: var(--button-background);
-}
-
-.confirm-button:hover {
-    background: var(--button-background);
+    background: #FF5757;
     color: white;
-}
-
-.cancel-button:hover {
-    background: white;
-    color: var(--button-background);
+    outline: 1px solid black;
 }

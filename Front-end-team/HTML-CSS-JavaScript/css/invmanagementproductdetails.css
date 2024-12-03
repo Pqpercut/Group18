@@ -18,12 +18,21 @@ body {
     align-items: center; /* Center horizontally */
 }
 
+.header-container {
+    width: 100%; /* Ensure it spans the full width of the main container */
+    max-width: 1055px; /* Align with the max width of the form-container */
+    padding-left: 0; /* Remove unnecessary padding */
+    display: flex;
+    justify-content: flex-start; /* Align the content to the left */
+}
+
 h1 {
-    text-align: left;
+    text-align: left; /* Align text within the h1 to the left */
     color: #353535;
     font-size: 36px;
     font-weight: 800;
-    margin: 20px 0 10px; /* Add space above and below the heading */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any padding for precise alignment */
 }
 
 h2 {
@@ -42,31 +51,6 @@ h2 {
     gap: 20px; /* Add spacing between elements */
     position: relative;
     padding-top: 30px; /* Add padding at the top */
-    padding-bottom: 80px;
-}
-
-.image-container {
-    background-color: white;
-    outline: 2px solid rgba(90, 87, 255, 0.1);
-    width: 1055px;
-    height: 260px;
-    border-radius: 24px;
-    margin-top: 30px;
-    display: flex; /* Enable flexbox for the container */
-    gap: 20px; /* Set the desired spacing between images */
-    justify-content: center; /* Center the images horizontally */
-    flex-wrap: wrap; /* Allow wrapping if necessary */
-}
-
-.image-header {
-    gap: 20px; /* Set the desired spacing between images */
-}
-
-.main-image {
-    width: 230px;
-    height: 170px;
-    border-radius: 15px;
-    outline: 1px solid rgba(0, 0, 0, 0.16);
 }
 
 .form-container {
@@ -74,7 +58,7 @@ h2 {
     width: 1055px;
     padding: 20px; /* Added padding for better appearance */
     border-radius: 24px;
-    outline: 1px solid rgba(0, 0, 0, 0.16);
+    outline: 1px solid rgba(90, 87, 255, 0.1);
     display: flex;
     flex-direction: column;
     gap: 15px; /* Space between each row */
@@ -145,6 +129,14 @@ label {
 }
 
 .button-container {
+    display: flex;
+    gap: 35px; /* Space between buttons */
+    align-items: center; /* Center buttons vertically */
+    justify-content: center; /* Center buttons horizontally */
+    margin-bottom: 20px;
+}
+
+.button-container {
     position: fixed; /* Position relative to the viewport */
     bottom: 20px; /* 20px from the bottom of the viewport */
     right: 20px; /* 20px from the right of the viewport */
@@ -153,7 +145,7 @@ label {
     z-index: 100; /* Ensure it stays above other content */
 }
 
-.cancel-button,
+.back-button,
 input[type="submit"] {
     text-transform: uppercase;
     font-size: 16px;
@@ -168,7 +160,7 @@ input[type="submit"] {
     justify-content: center;
 }
 
-.cancel-button {
+.back-button {
     background: white;
     color: var(--button-background);
     outline: 1px solid black;
@@ -178,4 +170,64 @@ input[type="submit"] {
     background: var(--button-background);
     color: white;
 }
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: none;
+    padding: 10px;
+    text-align: center;
+}
+
+tr {
+    border-bottom: 1px solid rgba(90, 87, 255, 0.1);
+}
+
+th {
+    padding: 20px;
+    color: black;
+}
+
+.table-container {
+    width: 1050px;
+    height: 430px;
+    background-color: white;
+    border-radius: 24px;
+    outline: 1px solid rgba(90, 87, 255, 0.1);
+    padding: 10px 30px;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+/* Input and Button Styles */
+.update-stock-input {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.action-button {
+    background: transparent;
+    color: #5A57FF;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    color: white;
+}
+
+.separator {
+    color: #5A57FF; /* Match the button color */
+    font-weight: lighter; /* Make the separator bold */
+}
+
 
