@@ -2,19 +2,35 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Basket, BasketItem, ProductVariant
+from .models import Basket, BasketItem, ProductVariant, Product
 from django.contrib.auth.decorators import permission_required
 
 
 #display products
 def productDisplay(request):
-	allitems = ProductVariant.objects.all()
+	allitems = Product.objects.all()
 	itemNames = {
 		'products' : allitems
 	}
 
 	#viewing
 	return render(request, "admin/temp_basket/tempProducts.html", itemNames)
+
+
+#display product varients
+#get product_id. if product_id = variant, display it else dont
+def variantDisplay(request):
+	print("blorp")
+	productid = request.POST.get("productid")
+	allitems = ProductVariant.objects.all()
+	allitems = allitems.filter(productID = productid)
+	
+	itemNames = {
+		'variants' : allitems
+	}
+
+	#viewing
+	return render(request, "admin/temp_basket/tempVarients.html", itemNames)
 
 
 @permission_required('ecommerceapp.Customer') 

@@ -11,7 +11,7 @@ class Product (models.Model):
     description = models.TextField()
 
     def __str__(self): 
-        return f"self.name"
+        return f"{self.name}"
 
 class ProductCategories (models.Model):
 # Model created by: Adam 

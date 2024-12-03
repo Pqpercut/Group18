@@ -23,5 +23,6 @@ urlpatterns = [
     path("", views.basketAdd, name="basketAdd"),
     path("tempBasket.html", views.basketRem, name="basketRem"),
     path("", views.productDisplay, name="productDisplay"),
+    path("tempVarients.html", views.variantDisplay, name="variantDisplay"),
     path("tempBasket.html", views.viewBasket, name="basketview")
 ]
