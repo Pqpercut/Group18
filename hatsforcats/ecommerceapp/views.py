@@ -87,11 +87,18 @@ def basketRem(request):
 
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
-		if basketitem:
-			print("removed")
-			basketitem.delete()
+		#which btn? 
+		btn = request.POST.get("remove_btn")
+		if btn == "rem_all":
+			if basketitem:
+				print("removed")
+				basketitem.delete()
+		#debug reasons 
 		else:
-			print("not removed")
+			if basketitem:
+				print("quantitiy changed")
+				basketitem.quantity -= 1
+				basketitem.save()
 
 	return(viewBasket(request))
 
