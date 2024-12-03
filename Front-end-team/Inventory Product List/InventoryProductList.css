@@ -1,0 +1,134 @@
+/********************************
+Developer: Ayaz Ahmed
+University ID: 230162248
+********************************/
+
+:root {
+    --background-colour: #FCFCFD;
+    --button-background: #5A57FF;
+}
+
+body {
+    position: relative;
+    background-color: var(--background-colour);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.header-container {
+    width: 100%; 
+    max-width: 1055px; 
+    padding-left: 0; 
+    display: flex;
+    justify-content: flex-start; 
+}
+
+h1 {
+    text-align: left; 
+    color: #353535;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0; 
+    padding: 0; 
+}
+
+.row {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 20px; 
+    width: 100%; 
+    align-items: center;
+}
+
+.sub-heading {
+    display: flex; 
+    flex-direction: column; 
+    align-items: left; 
+    justify-content: left;
+    padding-left: 50px;
+    text-align: center; 
+    width: 100%; 
+}
+
+.sub-heading h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #090909;
+    margin: 0; 
+}
+
+input {
+    width: 100%; 
+    max-width: 850px; 
+    height: 40px;
+    padding: 5px;
+    border: none;
+    outline: 1px solid black;
+    border-radius: 10px;
+    background-color: #FAF9FF;
+    font-family: 'Poppins', sans-serif;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: none;
+    padding: 10px;
+    text-align: center;
+}
+
+tr {
+    border-bottom: 1px solid rgba(90, 87, 255, 0.1);
+}
+
+th {
+    padding: 20px;
+    color: black;
+}
+
+.table-container {
+    width: 1050px;
+    height: 430px;
+    background-color: white;
+    border-radius: 24px;
+    outline: 1px solid rgba(90, 87, 255, 0.1);
+    padding: 10px 30px;
+}
+
+td:hover {
+    background-color: #ddd;
+}
+
+
+.action-button {
+    background: transparent;
+    color: #5A57FF;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    color: white;
+}
+
+.separator {
+    color: #5A57FF; 
+    font-weight: lighter; 
+}
