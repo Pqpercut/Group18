@@ -24,7 +24,7 @@
         <input type="radio" id="nameCheckBox" name="order" value="name">
         <label for="nameOrder">Name</label>
 
-
+        <input type="text" id="searchBox" name = "search">
         <input type="submit" value="Submit">
     </form>
      
@@ -35,8 +35,7 @@
         
         <h3> {{product.name}} :</h3> 
         <p>£{{product.productvariant.first.price}}</p><br>
-        <p><b>URL: {{product.img_path}}</b></p>
-        <img src= "{{product.img_path}}" style="width:200px;height:200px;" />
+        <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" style="width:200px;height:200px;" />
             
     {% endfor %}
     

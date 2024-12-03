@@ -177,6 +177,12 @@ def catalogueView(request, *args, **kwargs):
     productList = productList.annotate(img_path=Min('productvariant__imagepath__imagepath'))
     
     productList = productList.order_by('min_val')
+
+    searchValue = request.GET.get("search","")
+
+    if searchValue != '':
+        productList = productList.filter(name__contains=searchValue)
+        print("searching")
     ##Return the query
     context = {"ProductList" : productList}
 
@@ -198,3 +204,10 @@ def ContactPageView(request, *args, **kwargs):
             submitted = True
     context = {"ContactForm": contactform, 'submitted' : submitted}
     return render(request,'general-pages/Contact-Page.html',context )
+
+
+@user_passes_test("ecommerceapp.Admin") 
+def ContactQueryView(request,*args,**kwargs):
+    queries = ContactTable.objects.all()
+    context = {"queryTable": queries}
+    return render(request,'general-pages/ViewContactQuery.html', context)
