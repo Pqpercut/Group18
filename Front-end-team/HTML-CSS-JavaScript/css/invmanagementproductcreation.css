@@ -58,7 +58,8 @@ h2 {
     flex-wrap: wrap; /* Allow wrapping if necessary */
 }
 
-.image-header {
+.image-spacing {
+    display: flex;
     gap: 20px; /* Set the desired spacing between images */
 }
 
