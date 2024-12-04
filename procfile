@@ -1,0 +1,1 @@
+web: gunicorn hatsforcats.wsgi --log-file -
