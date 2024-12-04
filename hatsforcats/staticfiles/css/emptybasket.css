@@ -1,0 +1,205 @@
+/********************************
+Developer: Ayaz Ahmed
+University ID: 230162248
+********************************/
+
+
+body {
+    background-color: #DCEDFF;
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 40px;
+    background-color: #DCEDFF;
+   
+  }
+  header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  header nav a {
+    margin: 15px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  header .cart-icon {
+    font-size: 1.2em;
+  }
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: left; 
+    text-transform: uppercase;
+    margin: 0; 
+    padding: 0; 
+    margin-top: 40px;
+    margin-bottom: -8px;
+    margin-left: 45px;
+}
+h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: right; 
+    text-transform: uppercase;
+    margin: 0; 
+    padding: 0; 
+    margin-top: 60px;
+    margin-bottom: -25px;
+    margin-right: 400px;
+}
+.Basketimage {
+    width: 400px; 
+    height: auto; 
+    margin-left:300px;
+    margin-top:-500px;
+
+}
+.Wishlistbutton {
+    background-color: #838EDA;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    height: 50px;
+    padding: 10px 100px;
+    width: 500px;
+    border: none;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    margin-left: 990px;
+    margin-top: -150px;
+ 
+}
+.Wishlistbutton:hover {
+    background-color: white;
+    color:#838EDA
+}
+.Prices {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    text-align: left; 
+    margin: 0; 
+    padding: 0; 
+    margin-top: 60px;
+    margin-bottom: -8px;
+    margin-left: 992px;
+
+}
+
+.Checkoutbutton {
+    background-color: black;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    height: 50px;
+    padding: 10px 100px;
+    width: auto;
+    border: none;
+    color: white;
+    text-align: right;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    margin-top:20px;
+    margin-left: 990px;
+ 
+}
+.Checkoutbutton:hover {
+    background-color: white;
+    color:#838EDA
+}
+.box {
+    width: 284px;
+    background-color:#9aa6f7;
+    height: 45px;
+    padding: 0 10px;
+    font-size: 17px;
+    border: 2px solid #838EDA;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 0px;
+    margin-left: 990px;
+}
+
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #DCEDFF;
+    padding: 30px 20px;
+    text-align: left;
+  }
+  
+  .footer-column {
+    flex: 1 1 200px;
+    margin: 10px;
+  }
+  
+  .footer-column h3, .footer-column h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin: 5px 0;
+  }
+  
+  .footer-column ul li a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+
+.newsletter .input-container {
+  position: relative; 
+  display: flex;
+  align-items: center;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 10px 90px 10px 10px; 
+  border: 1px solid #DCEDFF;
+  border-radius: 25px;
+  font-size: 1em;
+  outline: none;
+}
+
+.newsletter button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #838EDA;
+  color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.newsletter button:hover {
+  background-color: #556edf;
+}

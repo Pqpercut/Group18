@@ -1,0 +1,198 @@
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+
+:root {
+    --background-colour: #DCEDFF;
+    --image-colour: linear-gradient(90deg, #838EDA 0%, #D1E8FF 100%);
+}
+
+body {
+    background-color: var(--background-colour);
+    font-family: 'Outfit';
+    margin: 0;
+    padding: 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+h1 {
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 36px;
+    color: black;
+}
+
+.purchase-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px auto;     
+    background: var(--image-colour);
+    padding: 10px;
+    border-radius: 43px;
+    width: 690px;
+}
+
+h2 {
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 30px;
+    color: white;
+}
+
+.main-container {
+    display: flex;     
+    justify-content: center;     
+    align-items: flex-start;     
+    position: relative;     
+    margin: 30px auto;     
+    max-width: 1200px; 
+}
+
+.order-container {
+    background: var(--image-colour);
+    padding: 20px 60px;
+    border-radius: 43px;
+    width: 690px;     
+    text-align: left;
+    position: relative;     
+    z-index: 1; 
+}
+
+.order-title {
+    text-align: center;
+    margin-bottom: 10px;
+    padding-left: 60px;
+    padding-bottom: 5px;     
+    border-bottom: 1px solid white; 
+}
+
+.headings-container {
+    display: flex;
+    flex-direction: column;     
+    justify-content: center;     
+    position: absolute;     
+    left: -160px;     
+    top: 50%;     
+    transform: translateY(-50%);     
+    z-index: 2; 
+}
+
+.heading-box {
+    display: flex;
+    align-items: center;     
+    justify-content: center;     
+    width: 330px;     
+    height: 125px;     
+    background: var(--image-colour);     
+    border-radius: 43px;     
+    font-size: 30px;     
+    color: white;     
+    font-weight: normal;
+    text-transform: capitalize;     
+    margin-bottom: 35px; }
+
+
+.order-details {
+    margin-top: 15px;
+    display: flex;     
+    flex-direction: column;     
+    gap: 10px;     
+}
+
+.order-title h2 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+}
+
+.price-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 300px;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.price-container h2 {
+    margin: 0;
+    font-size: 30px;
+    color: white;
+    font-weight: normal;
+    text-transform: capitalize;
+}
+
+.order-no {
+    margin-bottom: 50px;
+}
+
+.order-no h2{
+    margin: 0;
+    font-size: 30px;
+    font-weight: normal;
+    color: white;
+    text-transform: capitalize;
+}
+
+.delivery-detail h2 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: normal;
+    color: white;
+    text-transform: capitalize;
+}
+
+.delivery-detail {
+    margin-bottom: 0;
+}
+
+.kitty-img {
+    position: absolute;
+    width: 400px;
+    height: 430px;
+    object-fit: cover;
+    z-index: 2;     
+    right: -150px;     
+    top: 50%;     
+    transform: 
+    translateY(-50%);
+}
+
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;         
+        align-items: center;     }
+
+    .kitty-img {
+        position: static;         
+        margin-top: 20px;         
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;         
+        align-items: center;
+    }
+
+    .headings-container {
+        position: static;         
+        margin-bottom: 20px;         
+        transform: none;     
+    }
+
+    .heading-box {
+        width: 100%;         
+        max-width: 330px;     
+    }
+}
