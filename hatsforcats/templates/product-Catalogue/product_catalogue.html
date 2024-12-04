@@ -1,0 +1,44 @@
+
+<!-- Placeholder template by qasim-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue</title>
+</head>
+<body>
+    
+  
+    <form method='get' value='filterForm'>
+        <input type="checkbox" id="hatCheckBox" name="filter" value="hats">
+        <label for="hats">Hats</label>
+        <input type="checkbox" id="sunglassesCheckBox" name="filter" value="sunglasses">
+        <label for="sunglasses">Sunglasses</label>
+
+
+        <input type="radio" id="priceCheckBox" name="order" value="price">
+        <label for="price">Price</label>
+        <input type="radio" id="nameCheckBox" name="order" value="name">
+        <label for="nameOrder">Name</label>
+
+
+        <input type="submit" value="Submit">
+    </form>
+     
+    <form method='get' value='orderForm'>
+    </form>
+
+    {% for product in ProductList %}
+        
+        <h3> {{product.name}} :</h3> 
+        <p>£{{product.productvariant.first.price}}</p><br>
+        <p><b>URL: {{product.img_path}}</b></p>
+        <img src= "{{product.img_path}}" style="width:200px;height:200px;" />
+            
+    {% endfor %}
+    
+</body>
+</html>

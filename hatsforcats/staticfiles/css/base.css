@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+}
+
+/* Wrapper setup for Flexbox */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Main content should grow to fill space between header and footer */
+main {
+    flex: 1; /* Expands to fill remaining space */
+}

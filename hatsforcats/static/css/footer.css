@@ -1,0 +1,93 @@
+/* Created by Adam */
+body {
+    font-family: "Outfit", sans-serif;
+    font-weight: 500;
+    background-color: #DCEDFF;
+    color:black;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: space-between;
+    align-items:flex-start;
+    padding: 32px;
+    padding-right: 256px;
+    padding-left: 256px;
+    margin-bottom: 0;
+}
+
+.footer-logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+a:link { 
+    text-decoration: none; 
+    color:black;
+  } 
+  a:visited { 
+    text-decoration: none; 
+  } 
+  a:hover { 
+    text-decoration: none; 
+  } 
+  a:active { 
+    text-decoration: none; 
+  }
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    gap:8px;
+}
+
+.footer-title {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.footer-body {
+    font-weight: 300;
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+}
+
+.footer-newsletter-signup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.footer-newsletter-input-field {
+    height: 30px; 
+    flex: 1; 
+    border: none;
+    padding: 0 10px;
+    border-radius: 16px 0 0 16px; 
+    background-color: #B9DBFF;
+    font-size: 16px; 
+}
+
+.footer-newsletter-input-field::placeholder {
+    font-size: 0.7rem;
+}
+
+.footer-newsletter-button {
+    height: 30px; 
+    padding: 0 20px;
+    border: none;
+    border-radius: 0 16px 16px 0; 
+    background-color: #838EDA;
+    font-size: 0.7rem; 
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.footer-newsletter-button:hover {
+    background-color: #6A75C8; 
+}

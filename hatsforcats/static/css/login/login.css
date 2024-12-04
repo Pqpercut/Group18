@@ -1,0 +1,202 @@
+/*
+Developer: Hamid Noor
+University ID: 210079931
+*/
+body {
+    font-family: "Outfit", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #dcedff;
+    color: #000000;
+  }
+  
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 40px;
+    background-color: #dcedff;
+    font-family: "Outfit", sans-serif;
+   
+  }
+  
+  header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  header nav a {
+    margin: 15px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+  }
+  
+  header .cartIcon {
+    font-size: 1.2em;
+  }
+  
+  /* Login Section */
+  .login {
+    font-family: "Outfit", sans-serif;
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .login h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .login form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .EmailLine, .PasswordLine {
+    display: grid;
+    grid-template-columns: 150px 1fr;  /* Adds a grid to the login section so the labels will be the same distance from the input*/
+    align-items: center; 
+    gap: 10px; 
+    padding-bottom: 20px;
+    transform: translateX(-90px); /* Moves the form 50px to the left */
+  }
+  
+  .login label {
+    text-align: right;
+    padding-right: 10px; 
+  }
+  
+  .login input {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 15px;
+  }
+  
+  input:invalid {
+    border-color: red;
+  }
+  
+  input:valid {
+    border-color: green;
+  }
+ 
+  .forgotPassword {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0;
+  }
+  
+  .forgotPassword a {
+    color: #007bff;
+    text-decoration: none; /*Removes the underline on the hyperlinked text*/
+  }
+
+  .forgotPassword a:hover{
+    text-decoration: underline;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .loginButton, .registerButton {
+    font-family: "Outfit", sans-serif;
+    border: none;
+    border-radius: 30px; /*Makes the button have curved corners*/
+    font-size: 1.1em;
+    color: #000000;
+    cursor: pointer;
+    height: 45px;
+    width: 200px;
+  }
+  
+  .loginButton {
+    background-color: #838EDA;
+    margin-right: 20px; /* Adds space to the right of the Login button */
+  }
+
+  .loginButton:hover{
+    background-color: #556edf;
+  }
+
+  .registerButton {
+    background-color: #838EDA;
+  }
+
+  .registerButton:hover{
+    background-color: #556edf;
+  }
+  
+  /* Footer */
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #dcedff;
+    padding: 30px 20px;
+    text-align: left;
+    font-family: "Outfit", sans-serif;
+  }
+  
+  .footerColumn {
+    flex: 1 1 200px;
+    margin: 10px;
+  }
+  
+  .footerColumn h3, .footerColumn h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .footerColumn ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footerColumn ul li {
+    margin: 5px 0;
+  }
+  
+  .footerColumn ul li a {
+    text-decoration: none;
+    color: #000000;
+  }
+  
+/* Newsletter Form */
+.newsletter .inputContainer {
+  position: relative; 
+  display: flex;
+  align-items: center;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 10px 90px 10px 10px; 
+  border: 1px solid #cecece;
+  border-radius: 25px;
+  font-size: 1em;
+  outline: none;
+}
+
+.newsletter button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #838EDA;
+  color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.newsletter button:hover {
+  background-color: #556edf;
+}

@@ -1,0 +1,33 @@
+<!-- edited and setup for Django by Adam 1/12/2024-->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link href="{% static  'css/login/login.css' %}" rel="stylesheet" />
+  <!-- Developer: Hamid Noor | University ID: 210079931 -->
+<main>
+  <section class="login">
+      <h1>LOGIN</h1>
+      <form method="post">
+          {% csrf_token %}
+          <!-- Render Django form fields -->
+          <div class="EmailLine">
+              <label for="id_username">Username:</label>
+              {{ form.username }}
+          </div>
+          <div class="PasswordLine">
+              <label for="id_password">Password:</label>
+              {{ form.password }}
+          </div>
+          <p class="forgotPassword">
+              Forgot your password? Meow worries! Reset it 
+              <a href="#">here</a>.
+          </p>
+          <div class="buttonContainer">
+              <button type="submit" class="loginButton">Login</button>
+              <button type="button" class="registerButton" onclick="window.location.href='#'">Register</button>
+          </div>
+      </form>
+  </section>
+</main>
+{% endblock %}
