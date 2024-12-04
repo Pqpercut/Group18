@@ -25,7 +25,7 @@ from ecommerceapp.views import catalogueView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView
-from ecommerceapp.views import catalogueView, ContactPageView
+from ecommerceapp.views import catalogueView, ContactPageView, ContactQueryView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -52,7 +52,8 @@ urlpatterns = [
 
     #Created by Qasim 
     path("catalogue",catalogueView, name = "Catalogue"),
-    path("contact-page", ContactPageView, name="Contact-Page")
+    path("contact-page", ContactPageView, name="Contact-Page"),
+    path("Contact-Queries", ContactQueryView, name="Contact Queries")
 ]
 
 # This is only to serve media files in the development environement. When we host this on the Universities Apache Server we will store the files in a seperate location on the Server
