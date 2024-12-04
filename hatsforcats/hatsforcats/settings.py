@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,3 +140,18 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'noreply.hatsforcats@gmail.com'
 EMAIL_HOST_PASSWORD = 'group18pass'
+
+
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['your-heroku-app-name.herokuapp.com']
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
