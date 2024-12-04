@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@s@dn1va1_inl*2fyus2j(pi2#&pec$1n)gevq_7l_i52bd9fw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['group-18-project-f309451bf6cb.herokuapp.com']
 
@@ -141,17 +141,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'noreply.hatsforcats@gmail.com'
 EMAIL_HOST_PASSWORD = 'group18pass'
 
-
-
-DEBUG = False
-
-ALLOWED_HOSTS = ['your-heroku-app-name.herokuapp.com']
-
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
