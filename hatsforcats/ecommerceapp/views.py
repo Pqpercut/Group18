@@ -56,17 +56,12 @@ def basketAdd(request):
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
 		if basketitem: 
-			#inc quantity
-			if amendQuantity:
-				basketitem.quantity = quantity
-			else:
-				basketitem.quantity += 1
-			basketitem.save()
+			print("Already in basket!!")
 		else: 
 			#create new basketitem entry
 			BasketItem.objects.create(basketID=basketid, variantID=variant, quantity=quantity)
 
-	return(productDisplay(request))
+	return(variantDisplay(request))
 		#return render(request, "admin/temp_basket/tempProducts.html")
 
 
@@ -89,16 +84,21 @@ def basketRem(request):
 
 		#which btn? 
 		btn = request.POST.get("remove_btn")
-		if btn == "rem_all":
-			if basketitem:
+		if basketitem:
+			if btn == "add_one":
+				print("quantitiy changed")
+				basketitem.quantity += 1
+				basketitem.save()
+
+			elif btn == "rem_all" or basketitem.quantity == 1:
 				print("removed")
 				basketitem.delete()
-		#debug reasons 
-		else:
-			if basketitem:
+			
+			else:
 				print("quantitiy changed")
 				basketitem.quantity -= 1
 				basketitem.save()
+
 
 	return(viewBasket(request))
 
@@ -114,9 +114,18 @@ def viewBasket(request):
 	basketid = Basket.objects.get(userID=1)
 
 	allitems = BasketItem.objects.filter(basketID=basketid)
+
+	total = 0
+	for i in allitems:
+		variant = ProductVariant.objects.get(id=i.variantID.id)
+		total += (variant.price * i.quantity)
+	#print(total)
+
 	itemNames = {
-		'basket' : allitems
+		'basket' : allitems,
+		'total' : total
 	}
+
 
 	#viewing the absket
 	return render(request, "admin/temp_basket/tempBasket.html", itemNames)
