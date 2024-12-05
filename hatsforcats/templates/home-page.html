@@ -3,25 +3,7 @@
 {% load static %}
 
 {% block content %}
-    <!-- Header with logo and navigation links -->
     <link href="{% static  'css/home-page.css' %}" rel="stylesheet" />
-    <header>
-        <div class="logo">
-            <img src="https://storage.googleapis.com/a1aa/image/BcOYwIxcMI6oIFIM4lEQ0YgR1RJbk60LekjYG8lEeCiG6uwTA.jpg" alt="Hats for Cats logo">
-            <h1>HATS FOR CATS</h1>
-        </div>
-        <nav>
-            <a href="#">Shop</a>
-            <a href="#">About</a>
-            <a href="#">Contact Us</a>
-        </nav>
-        <div class="icons">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            <i class="fas fa-user" aria-hidden="true"></i>
-            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-        </div>
-    </header>
-
     <!-- Main content section -->
     <main>
 
@@ -80,64 +62,8 @@
 </section>
     </main>
 
-
-    <!-- Footer section with links and newsletter signup -->
-    <footer style="background-color: #E5F4FF; padding: 40px 100px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left;">
-    <div class="footer-logo" style="flex: 1;">
-        <h4 style="font-size: 24px; font-weight: 700;">HATS FOR CATS</h4>
-    </div>
-    <div class="footer-nav" style="flex: 3; display: flex; justify-content: space-around;">
-        <div>
-            <h5 style="font-size: 20px; font-weight: 700;">Home</h5>
-            <ul style="list-style: none; padding: 0; margin: 10px 0;">
-                <li><a href="#" style="text-decoration: none; color: #333;">Shop</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333;">About</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333;">Login</a></li>
-            </ul>
-        </div>
-        <div>
-            <h5 style="font-size: 20px; font-weight: 700;">Shop</h5>
-            <ul style="list-style: none; padding: 0; margin: 10px 0;">
-                <li><a href="#" style="text-decoration: none; color: #333;">Browse Hats</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333;">Best Sellers</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333;">New Arrivals</a></li>
-            </ul>
-        </div>
-        <div>
-            <h5 style="font-size: 20px; font-weight: 700;">Contact</h5>
-            <ul style="list-style: none; padding: 0; margin: 10px 0;">
-                <li><a href="#" style="text-decoration: none; color: #333;">Email</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333;">LinkedIn</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333;">Instagram</a></li>
-                <li><a href="#" style="text-decoration: none; color: #333;">Twitter</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="newsletter" style="flex: 2; display: flex; flex-direction: column;">
-        <h5 style="font-size: 20px; font-weight: 700;">Join Our Newsletter</h5>
-        <div style="display: flex; align-items: center; margin-top: 10px;">
-            <input type="email" placeholder="Email Address" style="padding: 10px; border-radius: 20px; border: 2px solid #ccc; margin-right: 10px; width: 250px; background-color: #B9DBFF;">
-            <button style="padding: 10px 30px; border-radius: 20px; background-color: #838EDA; color: #fff; border: none;">SUBMIT</button>
-        </div>
-    </div>
-</footer>
-
-
-<!-- Decorative gradient line below the footer -->
-<div style="height: 5px; background: linear-gradient(to right, #D1E8FF, #838EDA);"></div>
-
-
     <!-- JavaScript for smooth scrolling between sections -->
-    <script>
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+
 
 {% endblock %}
 

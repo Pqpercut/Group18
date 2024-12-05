@@ -8,42 +8,6 @@ body {
     color: #333;
 }
 
-/* Header styling */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 100px;
-}
-.logo {
-    display: flex;
-    align-items: center;
-}
-.logo img {
-    height: 50px;
-}
-.logo h1 {
-    margin-left: 10px;
-    font-size: 28px;
-    color: #333;
-    font-weight: 700;
-}
-header nav a {
-    margin: 0 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 20px;
-}
-header nav a:hover {
-    transform: translateY(-3px);
-    transition: transform 0.2s ease;
-}
-header .icons i {
-    margin: 0 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-}
 
 /* Main content styling */
 main {
@@ -155,43 +119,7 @@ section p {
     margin: 30px 0;
 }
 
-/* Footer styling */
-footer {
-    background-color: #f0f0f0;
-    padding: 40px 100px;
-    text-align: center;
-}
-footer nav a {
-    margin: 0 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 20px;
-}
-footer nav a:hover {
-    color: #FFD700;
-}
-footer .newsletter {
-    margin-top: 30px;
-}
-footer .newsletter input {
-    padding: 10px;
-    border-radius: 30px;
-    border: 2px solid #ccc;
-    margin-right: 10px;
-    width: 300px;
-    background-color: #B9DBFF;
-}
-footer .newsletter button {
-    padding: 10px 30px;
-    border-radius: 20px;
-    background-color: #838EDA;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-footer .newsletter button:hover {
-    opacity: 0.8;
-}
+
 
 /* Media queries for responsiveness */
 @media (min-width: 768px) {
@@ -243,68 +171,3 @@ footer .newsletter button:hover {
     border-radius: 30px;
 }
 
-footer {
-    background-color: #E5F4FF;
-    padding: 40px 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    text-align: left;
-}
-
-footer h4 {
-    font-size: 24px;
-    font-weight: 700;
-}
-
-footer h5 {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-}
-
-footer ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-footer .newsletter input {
-    padding: 10px;
-    border-radius: 20px;
-    border: 2px solid #ccc;
-    margin-right: 10px;
-    width: 250px;
-    background-color: #B9DBFF;
-}
-
-footer .newsletter button {
-    padding: 10px 30px;
-    border-radius: 20px;
-    background-color: #838EDA;
-    color: #fff;
-    border: none;
-}
-
-.footer-logo {
-    flex: 1;
-}
-
-.footer-nav {
-    flex: 3;
-    display: flex;
-    justify-content: space-around;
-}
-
-.footer-nav div ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-.footer-nav div ul li a:hover {
-    color: #555; /* Optional hover effect */
-}
