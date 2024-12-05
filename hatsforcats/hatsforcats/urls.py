@@ -54,6 +54,13 @@ urlpatterns = [
     path("catalogue",catalogueView, name = "Catalogue"),
     path("contact-page", ContactPageView, name="Contact-Page"),
     path("Contact-Queries", ContactQueryView, name="Contact Queries")
+
+    path("tempVarients", basketAdd, name="basketAdd"),
+    path("tempBasket.html", basketRem, name="basketRem"),
+    path("", productDisplay, name="productDisplay"),
+    path("tempVarients.html", variantDisplay, name="variantDisplay"),
+    path("tempBasket.html", viewBasket, name="basketview"),
+    path("tempCheckout.html", checkout, name="checkout")
 ]
 
 # This is only to serve media files in the development environement. When we host this on the Universities Apache Server we will store the files in a seperate location on the Server

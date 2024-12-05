@@ -1,4 +1,4 @@
-env/
+.world/env/
 venv/
 hatsforcats/world/
 env/Lib/site-packages/_distutils_hack/__init__.py
