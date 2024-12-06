@@ -59,7 +59,7 @@ urlpatterns = [
     path("tempVarients", basketAdd, name="basketAdd"),
     path("tempBasket.html", basketRem, name="basketRem"),
     path("", productDisplay, name="productDisplay"),
-    path("tempVarients.html", variantDisplay, name="variantDisplay"),
+    path("productdetailpage.html", variantDisplay, name="variantDisplay"),
     path("tempBasket.html", viewBasket, name="basketview"),
     path("tempCheckout.html", checkout, name="checkout")
 ]

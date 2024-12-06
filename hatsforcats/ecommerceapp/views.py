@@ -245,8 +245,10 @@ def ContactQueryView(request,*args,**kwargs):
     context = {"queryTable": queries}
     return render(request,'general-pages/ViewContactQuery.html', context)
 
+
 #display products
 def productDisplay(request):
+#written by Sakina Khaki
 	allitems = Product.objects.all()
 	itemNames = {
 		'products' : allitems
@@ -259,7 +261,8 @@ def productDisplay(request):
 #display product varients
 #get product_id. if product_id = variant, display it else dont
 def variantDisplay(request):
-	print("blorp")
+#written by Sakina Khaki
+	#print("blorp")
 	productid = request.POST.get("productid")
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
@@ -269,12 +272,13 @@ def variantDisplay(request):
 	}
 
 	#viewing
-	return render(request, "admin/temp_basket/tempVarients.html", itemNames)
+	return render(request, "productdetailpage.html", itemNames)
 
 
 @permission_required('ecommerceapp.Customer') 
 #add to basket
 def basketAdd(request):
+#written by Sakina Khaki
 	#gets everyhting from post data
 	if request.method == "POST":
 		#print("borp")
@@ -308,6 +312,7 @@ def basketAdd(request):
 @permission_required('ecommerceapp.Customer')
 #remove from basket 
 def basketRem(request):
+#written by Sakina Khaki
 	if request.method == "POST":
 		#print("beep")
 		#get basketid
@@ -345,6 +350,7 @@ def basketRem(request):
 @permission_required('ecommerceapp.Customer')
 #veiw basket
 def viewBasket(request):
+#written by Sakina Khaki
 	#print("beep")
 	#get basketid
 	#basketid = Basket.objects.get(userID=request.user).id
