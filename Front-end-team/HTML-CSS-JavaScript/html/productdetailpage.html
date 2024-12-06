@@ -23,10 +23,10 @@ University ID: 230098501
                     <button class="arrow arrow-right" onclick="nextImage()">&#8250;</button>
                 </div>
                 <div class="thumbnail-container">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 1" class="thumbnail" onclick="changeMainImage(0)">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 2" class="thumbnail" onclick="changeMainImage(1)">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 3" class="thumbnail" onclick="changeMainImage(2)">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 4" class="thumbnail" onclick="changeMainImage(3)">
+                    <img src="https://via.placeholder.com/130x130/FFFFFF" alt="Thumbnail 1" class="thumbnail" onclick="changeMainImage(0)">
+                    <img src="https://via.placeholder.com/130x130/FFFFFF" alt="Thumbnail 2" class="thumbnail" onclick="changeMainImage(1)">
+                    <img src="https://via.placeholder.com/130x130/FFFFFF" alt="Thumbnail 3" class="thumbnail" onclick="changeMainImage(2)">
+                    <img src="https://via.placeholder.com/130x130/FFFFFF" alt="Thumbnail 4" class="thumbnail" onclick="changeMainImage(3)">
                 </div>
             </div>
             <div class="content-container">
@@ -42,12 +42,8 @@ University ID: 230098501
                 </div>   
                 <div class="text-container">
                     <h2>Category Name</h2>
-                    <h3>PRICE:</h3>
-                    <div class="description">
-                        <p>This is a Template Description</p>
-                    </div>
+                    <h3>PRICE: £00.00</h3>
                     <div class="colour-container">
-                        <h3>Colour:</h3>
                         <div class="colour-selecter">
                             <div class="color-circle" style="background-color: red;"></div>
                             <div class="color-circle" style="background-color: blue;"></div>
@@ -55,36 +51,48 @@ University ID: 230098501
                             <div class="color-circle" style="background-color: yellow;"></div>
                         </div>
                     </div>
-                   <div class="size-container">
-                    <h3>Size:</h3>
-                    <div class="size-selecter">
-                        <div class="size-circle" data-size="S" title="Small">S</div>
-                        <div class="size-circle" data-size="M" title="Medium">M</div>
-                        <div class="size-circle" data-size="L" title="Large">L</div>
-                        <div class="size-circle" data-size="XL" title="Extra Large">XL</div>
+                    <h3>Select your size:</h3>
+                    <div class="size-container">
+                        <div class="size-selecter">
+                            <div class="size-circle" data-size="S" title="Small">S</div>
+                            <div class="size-circle" data-size="M" title="Medium">M</div>
+                        </div>
+                        <div class="size-selecter-2">
+                            <div class="size-circle" data-size="L" title="Large">L</div>
+                            <div class="size-circle" data-size="XL" title="Extra Large">XL</div>
+                        </div>
                     </div>
-                   </div>
-                   <div class="quantity-container">
-                    <h3>Quantity:</h3>
-                    <div class="quantity-box">
-                        <button type="button" class="quantity-btn" id="decrease">-</button>
-                        <input type="number" id="quantity-input" value="1" min="1" max="99">
-                        <button type="button" class="quantity-btn" id="increase">+</button>
-                    </div>
+                    <div class="quantity-container">
+                        <h3>Quantity:</h3>
+                        <div class="quantity-box">
+                            <button type="button" class="quantity-btn" id="decrease">-</button>
+                            <input type="number" id="quantity-input" value="1" min="1" max="99">
+                            <button type="button" class="quantity-btn" id="increase">+</button>
+                        </div>
                    </div>
                   <button type ="submit" class="cartbutton">Add to Cart</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="suggestion-container">
-        <h1>You May Also Like</h1>
+    <div class="description-container">
+        <p>Description...</p>
     </div>
-    <div class="suggestion-img-container">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 1" class="alt-product">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 2" class="alt-product">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 3" class="alt-product">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 4" class="alt-product">
+    <div class="suggestion-container">
+            <div class="suggestion-header-container">
+                <div class="suggestion-header">
+                    <h1>You May Also Like</h1>
+                </div>
+                <div class="suggestion-arrow">
+                    <h1>></h1>
+                </div>
+            </div>
+            <div class="suggestion-img-container">
+                <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 1" class="alt-product">
+                <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 2" class="alt-product">
+                <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 3" class="alt-product">
+                <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 4" class="alt-product">
+            </div>
     </div>
     <script src="../js/productdetailscript.js"></script>
 </body>
