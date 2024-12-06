@@ -13,7 +13,7 @@ University ID: 230098501
 
 body {
     background-color: var(--background-colour);
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit';
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -47,15 +47,6 @@ body {
     margin-right: 2rem; 
 }
 
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;         gap: 2rem;     }
-
-    .product-container {
-        margin-right: 0;     }
-}
-
-
 .content-container {
     display: flex;
     flex-direction: column;
@@ -66,32 +57,20 @@ body {
     width: 100%; 
 }
 
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;         align-items: center;         gap: 2rem;     }
-
-    .product-container,
-    .content-container {
-        width: 100%;         align-items: center;     }
-
-    .thumbnail-container {
-        justify-content: center;     }
-}
-
-
 h1 {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit';
     text-align: left; 
-    text-transform: uppercase;
     margin: 0; 
     padding: 0; 
     margin-bottom: 10px; 
     margin-top: 5px;
+    font-size: 36px;
+    font-weight: bold;
 }
 
 h2 {
     color: #AEBBC9;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit';
     font-weight: 200;
     font-size: 24px;
     text-align: left;
@@ -110,7 +89,7 @@ h3 {
 
 .description-container {
     background-color: rgba(255, 255, 255, 0.34);
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit';
     text-transform: uppercase;
     width: 1150px;
     height: 215px;
@@ -127,13 +106,13 @@ h3 {
 
 .cartbutton {
     background-color: var(--cart-background);
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit';
     font-weight: 700;
+    font-size: 20px;
     text-transform: uppercase;
-    width: 200px;
-    height: 40px;
-    padding: 10px 100px;
-    width: auto;
+    box-sizing: border-box;
+    width: 375px;
+    height: 60px;
     display: inline-block;
     border: none;
     color: white;
@@ -306,23 +285,6 @@ h3 {
     display: flex;
     align-items: center;     gap: 0.5rem;     margin: 0;     padding: 0; }
 
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;         align-items: center;     }
-
-    .product-container,
-    .content-container {
-        width: 100%;         align-items: center;         margin-top: 1rem;     }
-
-    .rating-container {
-        flex-direction: column;         align-items: center;     }
-
-    .rating-container h1 {
-        text-align: center;     }
-
-    .star-rating {
-        justify-content: center;     }
-}
 
 .star {
     font-size: 16px; 
@@ -337,11 +299,6 @@ h3 {
     margin: 0; 
     padding: 0; 
     text-align: left; 
-}
-
-.text-container .cartbutton {
-    width: auto; 
-    align-self: flex-start; 
 }
 
 .suggestion-container {
@@ -363,14 +320,14 @@ h3 {
 .suggestion-header {
     text-align: left;
     align-self: flex-start;
-    font-family: 'Outfit', sans-serif; 
+    font-family: 'Outfit'; 
     font-weight: 700; 
 }
 
 .suggestion-arrow {
     text-align: right;
     align-self: flex-end;
-    font-family: 'Outfit', sans-serif; 
+    font-family: 'Outfit'; 
     font-weight: 700; 
 }
 
