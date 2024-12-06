@@ -24,70 +24,27 @@
     </div>
     
     
-        <section class="product-grid">
+    <section class="product-grid">
     <!-- Initial 9 products -->
-    <a href="product1.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 1</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product2.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 2</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product3.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 3</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product4.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 4</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product5.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 5</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product6.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 6</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product7.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 7</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product8.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 8</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product9.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 9</p>
-        <p class="product-price">Price</p>
-    </a>
-    
-    <!-- Additional products hidden initially -->
-    <a href="product10.html" class="product hidden">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 10</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product11.html" class="product hidden">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 11</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product12.html" class="product hidden">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 12</p>
-        <p class="product-price">Price</p>
-    </a>
+    {% for product in ProductList %}
+
+    {%if product.id > 10 %}
+        <a href="productDisplay?id={{product.id}}" class="product">
+            <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
+            <p class="product-name">{{product.name}}</p>
+            <p class="product-price">£{{product.productvariant.first.price}}</p>
+        </a>
+    {%else%}
+        <!-- Additional products hidden initially -->
+        <a href="productDisplay?id={{product.id}}" class="product hidden">
+            <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
+            <p class="product-name">{{product.name}}</p>
+            <p class="product-price">£{{product.productvariant.first.price}}</p>
+        </a>
+        {% endif %}
+    {% endfor %}
+   
+
     </section>
     
         <button class="load-more-btn">LOAD MORE</button>

@@ -24,7 +24,21 @@
         <input type="radio" id="nameCheckBox" name="order" value="name">
         <label for="nameOrder">Name</label>
 
-        <input type="text" id="searchBox" name = "search">
+        <input list="products" id="searchBox" name = "search">
+            <datalist id="products">
+                
+                {% for product in FullProductList %}
+                        
+                    <option value="{{product.name}}"/>
+
+                    
+                {% endfor %}
+
+
+
+        
+          
+            </datalist>
         <input type="submit" value="Submit">
     </form>
      

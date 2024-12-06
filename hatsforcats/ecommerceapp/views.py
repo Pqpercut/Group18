@@ -188,10 +188,12 @@ def catalogueView(request, *args, **kwargs):
         productList = productList.filter(name__contains=searchValue)
         print("searching")
     ##Return the query
-    context = {"ProductList" : productList}
+
+    fullProductList = Product.objects.all()
+    context = {"ProductList" : productList, "FullProductList" : fullProductList}
 
     
-    return render(request, "product-catalogue/product_catalogue.html", context)
+    return render(request, "product-Catalogue/product_catalogue.html", context)
 
 class CustomLoginView(LoginView):
     template_name = 'login/login.html'  
@@ -237,6 +239,8 @@ def ContactPageView(request, *args, **kwargs):
             submitted = True
     context = {"ContactForm": contactform, 'submitted' : submitted}
     return render(request,'general-pages/Contact-Page.html',context )
+
+
 
 
 @user_passes_test("ecommerceapp.Admin") 
