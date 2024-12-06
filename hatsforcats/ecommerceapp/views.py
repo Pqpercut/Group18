@@ -13,6 +13,7 @@ from django.db.models import Min
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.views import PasswordResetView
 
 
 class InventoryProductListView (ListView):
@@ -376,3 +377,5 @@ def viewBasket(request):
 def checkout(request):
 	return render(request, "admin/temp_basket/tempCheckout.html")
 
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
