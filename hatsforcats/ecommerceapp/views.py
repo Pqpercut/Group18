@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView, DeleteView, UpdateView, F
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404, redirect
-from .forms import ContactEnquiryForm
+from .forms import *
 from django.db.models import Min
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -195,6 +195,7 @@ def catalogueView(request, *args, **kwargs):
 
 class CustomLoginView(LoginView):
     template_name = 'login/login.html'  
+    authentication_form = CustomLoginForm
     # redirect_authenticated_user = True 
 
     def get_success_url(self):

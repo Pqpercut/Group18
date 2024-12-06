@@ -2,8 +2,14 @@ from django import forms
 from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
 from .models import ContactTable
+from django.contrib.auth.forms import AuthenticationForm
+from django import forms
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email address'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
 class UpdateStockForm(forms.Form):
     variant = forms.ModelChoiceField(queryset=ProductVariant.objects.all(), widget=forms.HiddenInput())
     stocklevel = forms.IntegerField(label="New Stock Level", min_value=0)
