@@ -9,8 +9,24 @@
         <a href="">Contact Us</a>
     </div>
     <div class="icons">
-        <div class="search-icon "><i class='bx bx-search-alt-2' ></i></div>
+        <div class="search-icon ">
+            <form action="catalogue">
+            <input list="products" id="searchBox" name = "search">
+                <datalist id="products">
+                    
+                    {% for product in FullProductList %}
+
+                        <option value="{{product.name}}"/>
+    
+                        
+                    {% endfor %}
+    
+                </datalist>
+            <input type="submit" value="Submit"></div>
+            </form>
         <a href="{% url 'login' %}"><div class="profile-icon "><i class='bx bx-user'></i></div></a> 
         <div class="basket-icon "><i class='bx bx-shopping-bag' ></i></div>
     </div>
 </nav>
+
+
