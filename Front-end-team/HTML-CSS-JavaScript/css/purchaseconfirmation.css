@@ -6,7 +6,7 @@ University ID: 230098501
 
 :root {
     --background-colour: #DCEDFF;
-    --image-colour: linear-gradient(90deg, #838EDA 0%, #D1E8FF 100%);
+    --button-colour: #838EDA;
 }
 
 body {
@@ -26,173 +26,111 @@ h1 {
     margin: 0;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 36px;
+    font-size: 48px;
     color: black;
 }
 
-.purchase-container {
+.details-container {
+    width: 842px;
+    height: 55px;
     display: flex;
     justify-content: center;
-    margin: 15px auto;     
-    background: var(--image-colour);
-    padding: 10px;
-    border-radius: 43px;
-    width: 690px;
+    align-items: center;
+    text-align: center;
+    margin: 50px auto 0 auto;
 }
 
-h2 {
+.details-container p{
+    font-size: 20px;
+    color: black;
     margin: 0;
-    text-transform: uppercase;
-    font-size: 30px;
-    color: white;
 }
 
 .main-container {
-    display: flex;     
-    justify-content: center;     
-    align-items: flex-start;     
-    position: relative;     
-    margin: 30px auto;     
-    max-width: 1200px; 
-}
-
-.order-container {
-    background: var(--image-colour);
-    padding: 20px 60px;
-    border-radius: 43px;
-    width: 690px;     
-    text-align: left;
-    position: relative;     
-    z-index: 1; 
-}
-
-.order-title {
-    text-align: center;
-    margin-bottom: 10px;
-    padding-left: 60px;
-    padding-bottom: 5px;     
-    border-bottom: 1px solid white; 
-}
-
-.headings-container {
     display: flex;
-    flex-direction: column;     
-    justify-content: center;     
-    position: absolute;     
-    left: -160px;     
-    top: 50%;     
-    transform: translateY(-50%);     
-    z-index: 2; 
-}
-
-.heading-box {
-    display: flex;
-    align-items: center;     
-    justify-content: center;     
-    width: 330px;     
-    height: 125px;     
-    background: var(--image-colour);     
-    border-radius: 43px;     
-    font-size: 30px;     
-    color: white;     
-    font-weight: normal;
-    text-transform: capitalize;     
-    margin-bottom: 35px; }
-
-
-.order-details {
-    margin-top: 15px;
-    display: flex;     
-    flex-direction: column;     
-    gap: 10px;     
-}
-
-.order-title h2 {
-    margin: 0;
-    font-weight: bold;
-    font-size: 30px;
-    color: white;
-}
-
-.price-container {
-    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    gap: 300px;
-    margin-bottom: 50px;
-    width: 100%;
+    margin: 50px auto 0 auto;
+    width: 765px;
+    height: 525px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px #B9C7D6;
+    padding-top: 15px;
+    position: relative;
 }
 
-.price-container h2 {
+.order-header {
+    font-size: 20px;
+    text-align: center;
     margin: 0;
-    font-size: 30px;
-    color: white;
-    font-weight: normal;
-    text-transform: capitalize;
+    padding-bottom: 20px;
 }
 
-.order-no {
-    margin-bottom: 50px;
+.item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 100px;
 }
 
-.order-no h2{
+.item-container p {
+    font-weight: lighter;
+    font-size: 21px;
+    color: #0A2A6F;
     margin: 0;
-    font-size: 30px;
-    font-weight: normal;
-    color: white;
-    text-transform: capitalize;
 }
 
-.delivery-detail h2 {
+.total-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 45px;
+    padding: 25px 100px;
+    border-top: 1px solid rgba(15, 41, 112, 0.36);
+    border-bottom: 1px solid rgba(15, 41, 112, 0.36);
+}
+
+.total-container p {
+    font-weight: lighter;
+    font-size: 21px;
+    color: #0A2A6F;
     margin: 0;
-    font-size: 30px;
-    font-weight: normal;
-    color: white;
-    text-transform: capitalize;
 }
 
-.delivery-detail {
-    margin-bottom: 0;
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trackorder-button {
+    background-color: var(--button-colour);
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+    width: 510px;
+    height: 60px;
+    border-radius: 40px;
+    margin-bottom: 25px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.trackorder-button:hover {
+    background-color: #B9DBFF;
+    color: black;
 }
 
 .kitty-img {
     position: absolute;
-    width: 400px;
-    height: 430px;
+    bottom: -65px;
+    right: -135px;
+    width: 275px;
+    height: 220px;
     object-fit: cover;
-    z-index: 2;     
-    right: -150px;     
-    top: 50%;     
-    transform: 
-    translateY(-50%);
-}
-
-
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;         
-        align-items: center;     }
-
-    .kitty-img {
-        position: static;         
-        margin-top: 20px;         
-        transform: none;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;         
-        align-items: center;
-    }
-
-    .headings-container {
-        position: static;         
-        margin-bottom: 20px;         
-        transform: none;     
-    }
-
-    .heading-box {
-        width: 100%;         
-        max-width: 330px;     
-    }
 }
