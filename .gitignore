@@ -1,6 +1,8 @@
 .world/env/
 venv/
 hatsforcats/world/
+env/
+hatsforcats/ecommerceapp/__pycache__/
 env/Lib/site-packages/_distutils_hack/__init__.py
 env/Lib/site-packages/_distutils_hack/__pycache__/__init__.cpython-311.pyc
 env/Lib/site-packages/_distutils_hack/__pycache__/override.cpython-311.pyc

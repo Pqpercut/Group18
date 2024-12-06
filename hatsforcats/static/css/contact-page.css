@@ -1,0 +1,163 @@
+body {
+    font-family: "Outfit", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #dcedff;
+    color: #000000;
+  }
+
+/* Login Section */
+.login {
+    font-family: "Outfit", sans-serif;
+    text-align: center;
+    padding: 24px 20px;
+    }
+    
+.login h1 {
+    font-size: 36px;
+    margin-bottom: 14px;
+    }
+
+.login h2{
+    font-size: 13px;
+    font-weight: 300;
+    margin-bottom: 39px;
+    color: hsla(224, 76%, 25%, 0.36);
+    }
+    
+.login form {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 72px;
+    padding-right: 72px;
+    }
+
+
+.EmailLine, .PasswordLine {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    padding-bottom: 20px;
+    width: 100%
+    }
+    
+.PasswordLine {
+    padding-bottom: 38px;
+    }
+
+    .login input {
+        width: 100%; 
+        padding: 10px;
+        border: 1px solid #cecece;
+        border-radius: 7px;
+        height: 50px;
+      }
+      
+      input:invalid {
+        border-color: red;
+      }
+      
+      input:valid {
+        border-color: green;
+      }
+    
+      input::placeholder {
+        color: #888; 
+        font-family: "Outfit", sans-serif;
+        padding-left: 8px;  
+        font-weight: 200;
+        font-size: 16px; 
+        opacity: 1;
+    }
+
+    .contactButton {
+        font-family: "Outfit", sans-serif;
+        border: none;
+        border-radius: 30px; /*Makes the button have curved corners*/
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+        height: 50px;
+        width: 180px;
+        margin-bottom: 28px;
+    
+      }
+      
+      .contactButton {
+        background-color: #B9DBFF;
+      }
+    
+      .contactButton:hover{
+        background-color: #556edf;
+      }
+    
+.contact-us-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    background-color: #B9DBFF;
+    justify-content: flex-start;
+}
+    
+
+.ask-question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-grow: 2; 
+    flex-basis: 0;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+}
+
+.ask-question h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0F2970;
+    padding-top: 36px;
+    margin-bottom: 22px;
+}
+
+.contact-us-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+    align-self: flex-start;
+    position: relative; /* Required for absolutely positioned children */
+    overflow: visible; /* Allow content to overflow outside */
+}
+
+.contact-us-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    color: #0F2970;
+    padding: 42px;
+}
+
+.contact-us-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 240px;
+    position: absolute; /* Remove from layout flow */
+    left: 196px;
+    top: 345px; /* Position relative to .contact-us-info */
+}
+
+.contact-us-image img {
+    object-fit: contain;
+    height: 100%;
+    width: auto;
+    display: block;
+}
