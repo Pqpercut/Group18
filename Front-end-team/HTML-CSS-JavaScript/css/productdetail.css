@@ -216,6 +216,7 @@ h3 {
     align-items: center; 
     gap: 25px; 
     margin-top: 0; 
+    margin-bottom: 15px;
 }
 
 .size-container {
@@ -223,7 +224,7 @@ h3 {
     flex-direction: column; 
     align-items: flex-start; 
     gap: 15px; 
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .size-selecter, .size-selecter-2 {
