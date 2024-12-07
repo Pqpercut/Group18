@@ -194,13 +194,22 @@ def catalogueView(request, *args, **kwargs):
     searchValue = request.GET.get("search","")
 
     if searchValue != '':
-        productList = productList.filter(name__in=searchValue)
+        productList = productList.filter(name__icontains=searchValue)
         print("searching")
     ##Return the query
 
     fullProductList = Product.objects.all()
-    
-    context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue}
+
+    listSize = len(productList)
+    style = ""
+    if(listSize == 2):
+        style="product-size2"
+    elif(listSize == 1):
+        style="product-size1"
+    else:
+        style=""
+
+    context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style}
 
     
     return render(request, "product_catalogue.html", context)

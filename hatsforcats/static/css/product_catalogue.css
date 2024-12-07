@@ -87,6 +87,15 @@ transform: scaleX(1);
     box-sizing: border-box;
 }
 
+
+.product-grid:has(.product-size2){
+    max-width: 1000px;
+}
+
+.product-grid:has(.product-size1){
+    max-width: 500px;
+}
+
 .product-image {
     width: 100%; 
     aspect-ratio: 35 / 24; 
