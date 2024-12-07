@@ -267,9 +267,16 @@ def variantDisplay(request):
 	productid = 1 #testing purpose
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
-	
+
+	sizes = ["S", "M", "L", "XL"] #all available sizes
+	available_sizes = set()
+	for v in allitems:
+		for s in v.size:
+			available_sizes.add(s)
+    
 	itemNames = {
-		'variants' : allitems
+		'variants' : allitems,
+		'sizes': available_sizes
 	}
 
 	#viewing

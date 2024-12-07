@@ -60,16 +60,18 @@ University ID: 230098501
                    <div class="size-container">
                     <h3>Size:</h3>
                     <div class="size-selecter">
-                        <div class="size-circle" data-size="S" title="Small">S</div>
-                        <div class="size-circle" data-size="M" title="Medium">M</div>
-                        <div class="size-circle" data-size="L" title="Large">L</div>
-                        <div class="size-circle" data-size="XL" title="Extra Large">XL</div>
+            			{% for s in sizes %}
+
+                    	<div class="size-circle" data-size="{{ s }}" title="{{ s }}">{{ s }}</div>
+
+                    	{% endfor %}
                     </div>
                    </div>
 
                    <div class="quantity-container">
                     <h3>Quantity:</h3>
                     <div class="quantity-box">
+                    	{% for v in variants %}
                     	<form method="POST" action="{% url 'basketAdd' %}">
                     		{% csrf_token %}
                     		<input type="hidden" name="variantid" value="{{ variantID.id }}">
@@ -83,6 +85,7 @@ University ID: 230098501
                    </div>
                   <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton">Add to Cart</button>
               			</form>
+              		{% endfor %}
                 </div>
             </div>
         </div>
