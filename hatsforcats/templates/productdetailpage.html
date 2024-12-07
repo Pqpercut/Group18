@@ -52,12 +52,21 @@ University ID: 230098501
                     <div class="colour-container">
                         <h3>Colour:</h3>
                         <div class="colour-selecter">
-                            {% for v in variants %}
-                            <form method="POST" action="{% url 'variantDisplay' %}">
-                            	{% csrf_token %}
-                            	<button type="submit" name="colour" value="{{v.colour}}" class="color-circle" style="background-color: {{v.colour}};"></button>
-                            </form>
-                            {% endfor %}
+                            {% for c in colours %}
+        					<form method="POST" action="{% url 'variantDisplay' %}">
+            					{% csrf_token %}
+            					<input type="hidden" name="form_name" value="col_form">
+            
+            					{% if c not in available_colours %}
+                					<p>{{ c }}</p>
+                				{% elif c == selected_colour %}
+                					<button type="submit" name="colour" value="{{ c }}" class="color-circle" style="background-color: {{ c }};"></button>
+            					{% else %}
+                					<button type="submit" name="colour" value="{{ c }}" class="color-circle" style="background-color: {{ c }};"></button>
+            					{% endif %}
+        					
+        					</form>
+        					{% endfor %}
                         </div>
                     </div>
 
@@ -65,11 +74,19 @@ University ID: 230098501
                     <h3>Size:</h3>
                     <div class="size-selecter">
             			{% for s in sizes %}
+            			<form method="POST" action="{% url 'variantDisplay' %}">
+            				{% csrf_token %}
+            				<input type="hidden" name="form_name" value="size_form">
+            				
             				{% if s not in available_sizes %}
             					<p>{{ s }}</p> 
+            				{% elif s == selected_size %}
+            					<button type="submit" name="size" value="{{ s }}" class="size-circle" data-size="{{ s }}">X</button>
             				{% else %}
-                    			<button type="submit" name="size" class="size-circle" data-size="{{ s }}" title="{{ s }}">{{ s }}</button>
+                    			<button type="submit" name="size" value="{{ s }}" class="size-circle" data-size="{{ s }}">{{ s }}</button>
                     		{% endif %}
+
+                    	</form>
                     	{% endfor %}
                     </div>
                    </div>
@@ -80,9 +97,9 @@ University ID: 230098501
                     <h3>Quantity:</h3>
                     <div class="quantity-box">
                     	{% for v in variants %}
-                    	{{v.id}}
-                    	<form method="POST" name="form_name" value="add_basket" action="{% url 'basketAdd' %}">
+                    	<form method="POST" action="{% url 'basketAdd' %}">
                     		{% csrf_token %}
+                    		<input type="hidden" name="form_name" value="add_basket">
                     		<input type="hidden" name="variantid" value="{{ v.id }}">
 	                        
 	                        <button type="submit" name="add_button" value="rem_one" class="quantity-btn" id="decrease">-</button>

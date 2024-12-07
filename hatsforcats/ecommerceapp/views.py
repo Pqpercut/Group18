@@ -275,30 +275,41 @@ def variantDisplay(request, quantity):
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
 
-	sizes = ["S", "M", "L", "XL"] #all available sizes
-	available_sizes = set()
-	for v in allitems:
-		for s in v.size:
-			available_sizes.add(s)
+	sizes = ["S", "M", "L", "XL"] #all sizes
+	available_sizes = set(sizes)
+
+	colours = {v.colour for v in allitems} #all colours
+	available_colours = set(colours)
+
+	#keep tabs on selected colour and/or size
+	selected_colour = request.session.get("selected_colour", None)
+	selected_size = request.session.get("selected_size", None)
 	
 
 	#when a colour is clicked
-	if request.method == "POST":
+	if request.method == "POST" and request.POST.get("form_name") == "col_form":
 		#print(request.POST.get("colour"))
-		col = request.POST.get("colour")
+		selected_colour = request.POST.get("colour")
 		available_sizes.clear()
 		for i in allitems: 
-			if i.colour == col:
+			if i.colour == selected_colour:
 				available_sizes.add(i.size)
 
+
 	#when size is clicked
-	if request.method == "POST":
-		print(request.POST.get("size"))
+	if request.method == "POST" and request.POST.get("form_name") == "size_form":
+		selected_size = request.POST.get("size")
+		available_colours.clear()
+		for i in allitems:
+			if i.size == selected_size:
+				available_colours.add(i.colour)
+
 
 	itemNames = {
 		'name' : name, 'desc' : desc,
 		'variants' : allitems,
-		'sizes' : sizes, 'available_sizes' : available_sizes,
+		'colours': colours, 'available_colours': available_colours, 'selected_colour': selected_colour,
+		'sizes' : sizes, 'available_sizes' : available_sizes, 'selected_size': selected_size,
 		'quantity' : quantity
 	}
 
