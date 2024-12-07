@@ -263,7 +263,8 @@ def productDisplay(request):
 def variantDisplay(request):
 #written by Sakina Khaki
 	#print("blorp")
-	productid = request.POST.get("productid")
+	#productid = request.POST.get("productid")
+	productid = 1 #testing purpose
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
 	
