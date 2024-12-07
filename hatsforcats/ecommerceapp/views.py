@@ -263,11 +263,14 @@ def productDisplay(request):
 def variantDisplay(request):
 #written by Sakina Khaki
 	#print("blorp")
+
 	#productid = request.POST.get("productid")
 	productid = 1 #testing purpose
 
+
 	product = Product.objects.get(id = productid)
 	name = product.name
+	desc = product.description
 
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
@@ -279,7 +282,7 @@ def variantDisplay(request):
 			available_sizes.add(s)
     
 	itemNames = {
-		'name' : name,
+		'name' : name, 'desc' : desc,
 		'variants' : allitems,
 		'sizes': available_sizes
 	}
