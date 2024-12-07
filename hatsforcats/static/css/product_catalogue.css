@@ -45,24 +45,24 @@ body {
 }
 
 .controls div::after {
-  content: ''; /* Pseudo-element for the underline */
+  content: ''; 
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #D1E8FF, #838EDA); /* Gradient underline */
-  transform: scaleX(0); /* Initially hidden */
+  background: linear-gradient(90deg, #D1E8FF, #838EDA);
+  transform: scaleX(0); 
   transform-origin: left;
-  transition: transform 0.3s ease; /* Smooth scale transition */
+  transition: transform 0.3s ease; 
 }
 
 .controls div:hover {
- color: #838EDA; /* Optional: Change text color on hover */
+ color: #838EDA;
 }
 
 .controls div:hover::after {
-transform: scaleX(1); /* Show underline on hover */
+transform: scaleX(1); 
 }
 
 
@@ -71,7 +71,7 @@ transform: scaleX(1); /* Show underline on hover */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 20px;
-    justify-content: center; /* Center the grid within the container */
+    justify-content: center;
     padding: 0 10%;
 }
 

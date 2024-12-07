@@ -25,7 +25,7 @@ class InventoryProductListView (ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        low_stock_threshold = 5  # Define a low stock threshold
+        low_stock_threshold = 5 
         products_with_variants = []
 
         for product in Product.objects.all():
@@ -67,7 +67,6 @@ class InventoryCreateProductView(CreateView):
     fields = ['name', 'description', 'availability']
 
     def get_success_url(self):
-        # Redirect back to the product list after successful creation
         return reverse_lazy('IMS - Product List')
 
 class InventoryProductEditView(UpdateView):
@@ -129,7 +128,7 @@ class EditVariantView(UpdateView):
     def form_valid(self, form):
         response = super().form_valid(form)
 
-        # Handle multiple file uploads
+        # Multiple file uploads
         images = form.cleaned_data.get('images', [])
         for image in images:
             ImagePath.objects.create(productVariantID=self.object, imagepath=image)
@@ -146,13 +145,12 @@ class DeleteVariantView(DeleteView):
     template_name = "inventory-management/product_variant_delete.html"
 
     def get_success_url(self):
-        # Redirect to the product detail page after deletion
         return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
 def catalogueView(request, *args, **kwargs):
     ###Written by Qasim Farooq 29/11/24
 
-   ##Get filter in URL
+    ##Get filter in URL
     filterList = request.GET.getlist('filter')
     ##Set string of filter values
     filterValue = ""
@@ -209,32 +207,34 @@ class CustomLoginView(LoginView):
         return super().get_success_url()
     
 class RegistrationView(FormView):
-    template_name = 'login/register.html'  # Template for the registration page
+    template_name = 'login/register.html'  
     form_class = RegistrationForm
-    success_url = reverse_lazy('login')  # Redirect after successful registration
+    success_url = reverse_lazy('login') 
 
     def form_valid(self, form):
         # Save the user
         user = form.save()
 
-        # Add the user to the 'customer' group by default
-        group = Group.objects.get(name='Customer')  # Ensure the group exists in the DB
+        group = Group.objects.get(name='Customer')
         user.groups.add(group)
 
 
         return super().form_valid(form)
     
 class HomeView(TemplateView):
+    # Created by Adam Ahmed 
     template_name = "home-page.html"
-
     
 class BasketView(TemplateView):
+    # Created by Adam Ahmed as proof of concept for website on live. To be changed when saki has completed her features
     template_name = "basket.html"
 
 class CheckoutView(TemplateView):
+    # Created by Adam Ahmed as proof of concept for website on live. To be changed when saki has completed her features
     template_name = "checkout.html"
 
 class ConfirmationView(TemplateView):
+    # Created by Adam Ahmed as proof of concept for website on live. To be changed when saki has completed her features
     template_name = "purchaseconfirmation.html"
 
 

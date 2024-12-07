@@ -2,6 +2,9 @@
 Developer: Malaika Noor
 University ID: 230190768
 **********************/
+/*
+updated design to match updates - Adam 6/12/2024 
+*/
 
 body {
   background-color: #DCEDFF;
@@ -239,7 +242,7 @@ input::placeholder {
 .checkout-button {
   font-family: "Outfit", sans-serif;
   border: none;
-  border-radius: 30px; /*Makes the button have curved corners*/
+  border-radius: 30px; 
   font-size: 20px;
   font-weight: 700;
   color: #000000;

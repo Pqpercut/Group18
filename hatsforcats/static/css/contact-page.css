@@ -1,3 +1,10 @@
+/*
+Arpit
+
+updated design to match updates - Adam 6/12/2024 
+*/
+
+
 body {
     font-family: "Outfit", sans-serif;
     margin: 0;
@@ -8,10 +15,10 @@ body {
 
 main {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    min-height: auto; /* Ensure it takes the full height of the viewport */
-    text-align: center; /* Ensure the text remains centered */
-    margin: 0 auto; /* Center horizontally if there's additional width margin */
+    justify-content: center; 
+    min-height: auto; 
+    text-align: center; 
+    margin: 0 auto; 
 }  
 
 
@@ -107,7 +114,7 @@ textarea::placeholder {
     .contactButton {
         font-family: "Outfit", sans-serif;
         border: none;
-        border-radius: 30px; /*Makes the button have curved corners*/
+        border-radius: 30px; 
         font-size: 20px;
         font-weight: 700;
         color: #fff;
@@ -167,8 +174,8 @@ textarea::placeholder {
     flex-basis: 0;
     height: 100%;
     align-self: flex-start;
-    position: relative; /* Required for absolutely positioned children */
-    overflow: visible; /* Allow content to overflow outside */
+    position: relative; 
+    overflow: visible;
 }
 
 .contact-us-text {
@@ -184,9 +191,9 @@ textarea::placeholder {
     justify-content: center;
     align-items: center;
     height: 240px;
-    position: absolute; /* Remove from layout flow */
+    position: absolute; 
     left: 196px;
-    top: 345px; /* Position relative to .contact-us-info */
+    top: 345px; 
 }
 
 .contact-us-image img {

@@ -1,5 +1,7 @@
 /* Adam */
-
+/*
+updated design to match updates - Adam 6/12/2024 
+*/
 body {
     font-family: "Outfit", sans-serif;
     margin: 0;
@@ -79,7 +81,7 @@ body {
 .loginButton {
   font-family: "Outfit", sans-serif;
   border: none;
-  border-radius: 30px; /*Makes the button have curved corners*/
+  border-radius: 30px; 
   font-size: 20px;
   font-weight: 700;
   color: #000000;

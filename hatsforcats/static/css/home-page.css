@@ -1,3 +1,7 @@
+/*
+Khalid
+updated design to match updates - Adam 6/12/2024 
+*/
 
 /* General body styling */
 body {
@@ -217,12 +221,12 @@ section p {
 }
 
 .featured-on {
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack text above the image */
-    align-items: center; /* Center content horizontally */
-    text-align: center; /* Center text within its container */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
     max-width: 1000px;
-    margin: auto; /* Center the section within the page */
+    margin: auto; 
     padding: 20px 0;
 }
 
@@ -231,10 +235,10 @@ section p {
     font-weight: 700;
     align-self: flex-start;
     margin-left: -32px;
-    margin-bottom: 20px; /* Add spacing between text and image */
+    margin-bottom: 20px; 
 }
 
 .featured-on-banner img {
-    max-width: 100%; /* Ensure the image fits within its container */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100%; 
+    height: auto; 
 }

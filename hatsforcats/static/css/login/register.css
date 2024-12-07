@@ -1,5 +1,5 @@
 /*
-Redone by Adam
+updated design to match updates - Adam 6/12/2024 
 */
 body {
   font-family: "Outfit", sans-serif;
@@ -90,7 +90,7 @@ input::placeholder {
   margin: 8px;
   width: 48px;
   height: 1px;
-  border: 1px solid rgba(15, 41, 112, 0.36); /* Add 'solid' for border-style */
+  border: 1px solid rgba(15, 41, 112, 0.36);
 }
 
 
@@ -105,7 +105,7 @@ input::placeholder {
 
 .log-in a {
   color: #838EDA;
-  text-decoration: none; /*Removes the underline on the hyperlinked text*/
+  text-decoration: none; 
 }
 
 .log-in a:hover{
@@ -122,7 +122,7 @@ input::placeholder {
 .registerButton {
   font-family: "Outfit", sans-serif;
   border: none;
-  border-radius: 30px; /*Makes the button have curved corners*/
+  border-radius: 30px; 
   font-size: 20px;
   font-weight: 700;
   color: #000000;
