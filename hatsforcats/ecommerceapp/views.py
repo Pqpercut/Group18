@@ -232,6 +232,9 @@ class BasketView(TemplateView):
 class CheckoutView(TemplateView):
     template_name = "checkout.html"
 
+class ConfirmationView(TemplateView):
+    template_name = "purchaseconfirmation.html"
+
 
 def ContactPageView(request, *args, **kwargs):
     submitted = False
