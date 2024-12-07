@@ -66,14 +66,19 @@ University ID: 230098501
                         <div class="size-circle" data-size="XL" title="Extra Large">XL</div>
                     </div>
                    </div>
+
                    <div class="quantity-container">
                     <h3>Quantity:</h3>
                     <div class="quantity-box">
                     	<form method="POST" action="{% url 'basketAdd' %}">
                     		{% csrf_token %}
-	                        <button type="button" class="quantity-btn" id="decrease">-</button>
-	                        <input type="number" id="quantity-input" value="1" min="1" max="99">
-	                        <button type="button" name="add_button" value="add_one" class="quantity-btn" id="increase">+</button>
+                    		<input type="hidden" name="variantid" value="{{ variantID.id }}">
+	                        
+	                        <button type="submit" class="quantity-btn" id="decrease">-</button>
+	                        
+	                        <input type="number" name="quantity" id="quantity-input" value="1" min="1" max="99">
+	                        
+	                        <button type="submit" name="add_button" value="add_one" class="quantity-btn" id="increase">+</button>
                     </div>
                    </div>
                   <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton">Add to Cart</button>
