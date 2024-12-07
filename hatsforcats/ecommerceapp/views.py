@@ -150,15 +150,25 @@ class DeleteVariantView(DeleteView):
 def catalogueView(request, *args, **kwargs):
     ###Written by Qasim Farooq 29/11/24
 
-    ##Get filter in URL
-    filterList = request.GET.getlist('filter')
-    ##Set string of filter values
-    filterValue = ""
-    for x in filterList:
-        ##Add all filter values to list and seperate with comma
-        filterValue = filterValue + x + ","
+   ##Get filter in URL
+    FiltergetValue = request.GET.get('selected_filters',"")
+    print("BEFORE:" + str(FiltergetValue)) 
+    filterList = []
+    filterValue = "" 
+    if (FiltergetValue !=""):
+
+        filterList = FiltergetValue.split(",")
+        print("FILTER EXISTS : " + str(FiltergetValue))
+        for x in filterList:
+            ##Add all filter values to list and seperate with comma
+            filterValue = filterValue + x + ","
+            print(x)
+  
+    
+    
 
 
+    print("AFTER:" , filterValue)
     ##Assign the correct Order by Value
     orderValue = request.GET.get("order","default-value")
     if orderValue == 'price':
@@ -170,8 +180,8 @@ def catalogueView(request, *args, **kwargs):
     productList = Product.objects.all()
 
     #If there is a filter then filter the query to only those products
-    if len(filterList) != 0:
-            
+    if (FiltergetValue !=""):
+        print("Filter complete")
         productList = productList.filter(categories__categories__in = filterList)
 
     ##Order the query
@@ -184,15 +194,16 @@ def catalogueView(request, *args, **kwargs):
     searchValue = request.GET.get("search","")
 
     if searchValue != '':
-        productList = productList.filter(name__contains=searchValue)
+        productList = productList.filter(name__in=searchValue)
         print("searching")
     ##Return the query
 
     fullProductList = Product.objects.all()
-    context = {"ProductList" : productList, "FullProductList" : fullProductList}
+    
+    context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue}
 
     
-    return render(request, "product-Catalogue/product_catalogue-update.html", context)
+    return render(request, "product_catalogue.html", context)
 
 class CustomLoginView(LoginView):
     template_name = 'login/login.html'  
@@ -275,7 +286,7 @@ def ContactPageView(request, *args, **kwargs):
 
 @user_passes_test("ecommerceapp.Admin") 
 def ContactQueryView(request,*args,**kwargs):
-    queries = ContactTable.objects.all()
+    queries = ContactTable.objects.all() 
     context = {"queryTable": queries}
     return render(request,'general-pages/ViewContactQuery.html', context)
 
