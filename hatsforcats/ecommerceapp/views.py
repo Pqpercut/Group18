@@ -14,7 +14,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordResetView
-
+from django.core.mail import send_mail
 
 class InventoryProductListView (ListView):
     # Created by Adam Ahmed 23/11/2024
@@ -192,7 +192,7 @@ def catalogueView(request, *args, **kwargs):
     context = {"ProductList" : productList, "FullProductList" : fullProductList}
 
     
-    return render(request, "product-Catalogue/product_catalogue.html", context)
+    return render(request, "product-Catalogue/product_catalogue-update.html", context)
 
 class CustomLoginView(LoginView):
     template_name = 'login/login.html'  
@@ -243,14 +243,32 @@ def ContactPageView(request, *args, **kwargs):
     if request.method == 'POST':
         contactform = ContactEnquiryForm(request.POST)
         if contactform.is_valid():
-            contactform.save()
+            contact = contactform.save()
+            subject = f"New Contact Request from {contact.username}"
+            message = (
+                f"You have received a new contact enquiry.\n\n"
+                f"Name: {contact.username}\n"
+                f"Email: {contact.email}\n\n"
+                f"Description:\n{contact.description}"
+            )
+            from_email = 'noreply.hatsforcats@gmail.com'
+            recipient_list = ['noreply.hatsforcats@gmail.com']
+
+            send_mail(
+                subject,
+                message,
+                from_email,
+                recipient_list,
+                fail_silently=False,
+            )
             return HttpResponseRedirect('contact-page?submit=True')
     else:
         contactform = ContactEnquiryForm()
         if 'submit' in request.GET:
             submitted = True
-    context = {"ContactForm": contactform, 'submitted' : submitted}
-    return render(request,'general-pages/Contact-Page.html',context )
+
+    context = {"ContactForm": contactform, 'submitted': submitted}
+    return render(request, 'general-pages/Contact-Page.html', context)
 
 
 

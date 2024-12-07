@@ -18,8 +18,11 @@ class Product (models.Model):
 class ProductCategories (models.Model):
 # Model created by: Adam 
     CATEGORYTYPES = {
-        ('hats', 'Hats'),
-        ('sunglasses', 'Sunglasses')
+        ('seasonal', 'Seasonal Hats'),
+        ('occasional', 'Occasional Hats'),
+        ('cozy', 'Cozy & Comfortable Hats'),
+        ('summer', 'Summer Hats'),
+        ('themed', 'Themed Hats')
     }
     productID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name = 'categories')
     categories = models.CharField(max_length=50, choices=CATEGORYTYPES, default='hats')
@@ -29,7 +32,7 @@ class ProductVariant (models.Model):
     productID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name = 'productvariant')
     size = models.CharField(max_length=50) 
     colour = models.CharField(max_length=50) # Each product variant can only be a single colour and size. i.e. Blue S, Blue M, Blue L, Red S, Red M, Red L
-    price = models.PositiveIntegerField()
+    price = models.FloatField()
     stocklevel = models.PositiveIntegerField()
    
 class ImagePath (models.Model):

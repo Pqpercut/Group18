@@ -12,13 +12,45 @@
         <h2>Hi! Sign into your account now to see your saved basket or access your user profile</h2>
         <form method="post">
             {% csrf_token %}
+            
+            <!-- Display general form errors (non-field errors) -->
+            {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for error in form.non_field_errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Username Field -->
             <div class="EmailLine">
                 {{ form.username }}
-            </div>
-            <div class="PasswordLine">
-                {{ form.password }}
+                
+                <!-- Field-specific errors for username -->
+                {% if form.username.errors %}
+                    <div class="field-errors">
+                        {% for error in form.username.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             
+            <!-- Password Field -->
+            <div class="PasswordLine">
+                {{ form.password }}
+                
+                <!-- Field-specific errors for password -->
+                {% if form.password.errors %}
+                    <div class="field-errors">
+                        {% for error in form.password.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Submit Button -->
             <div class="buttonContainer">
                 <button type="submit" class="loginButton">SIGN IN</button>
             </div>

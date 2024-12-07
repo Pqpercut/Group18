@@ -13,6 +13,7 @@
         <h2>Hi! Create an account with us now to see your saved basket or access your user profile</h2>
         <form method="post">
             {% csrf_token %}
+            
             <div class="EmailLine">
                 {{ form.username }}
             </div>
@@ -25,6 +26,21 @@
             <div class="EmailLine">
                 {{ form.password2 }}
             </div>
+            
+            <!-- General form errors (field-specific + non-field errors) -->
+            {% if form.errors %}
+                <div class="form-errors">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
             <div class="buttonContainer">
                 <button type="submit" class="registerButton">REGISTER</button>
             </div>
