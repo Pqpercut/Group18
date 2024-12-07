@@ -260,7 +260,7 @@ def productDisplay(request):
 
 #display product varients
 #get product_id. if product_id = variant, display it else dont
-def variantDisplay(request):
+def variantDisplay(request, quantity):
 #written by Sakina Khaki
 	#print("blorp")
 
@@ -289,7 +289,8 @@ def variantDisplay(request):
 	itemNames = {
 		'name' : name, 'desc' : desc,
 		'variants' : allitems,
-		'sizes': available_sizes
+		'sizes' : available_sizes,
+		'quantity' : quantity
 	}
 
 	#viewing
@@ -302,18 +303,17 @@ def basketAdd(request):
 #written by Sakina Khaki
 	#gets everyhting from post data
 	if request.method == "POST":
-		print(request.POST.get("variantid"))
-
+		#print(request.POST.get("variantid"))
 		variantid = request.POST.get("variantid")  
-		print(variantid)
-		quantity = int(request.POST.get("quantity", 1))  
+		quantity = int(request.POST.get("quantity"))
 		amendQuantity = False
 
 		#get basketid
 		#basketid = Basket.objects.get(userID=request.user).id
 		
 		#for testing
-		basketid = Basket.objects.get(userID=1).id
+		basket = Basket.objects.get(userID=1)
+		basketid = basket.id
 
 		#get varientid
 		variant = ProductVariant.objects.get(id=variantid)
@@ -321,22 +321,28 @@ def basketAdd(request):
 		#check if user has ordered item before already
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
+		#checks which btn
 		btn = request.POST.get("add_button")
 
 		if btn == "add_one":
-			print("quantitiy inc")
 			amendQuantity = True
+			quantity += 1
+			print(quantity)
 		elif btn == "add_to_basket":
-			print("added to basket")
-	
-		#if basketitem: 
-		#   print(quantity)
-		#   basketitem.quantity += quantity
-		#else: 
+			print("cheking basket...")
+			
+			if basketitem: 
+				print("added", quantity, "to EXISTING")
+				basketitem.quantity += quantity
+			else: 
 			#create new basketitem entry
-		#   BasketItem.objects.create(basketID=basketid, variantID=variant, quantity=quantity)
+				print("added", quantity, "to NEW")
+				BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
 
-	return(variantDisplay(request))
+	else:
+		quantity = 1
+
+	return(variantDisplay(request, quantity))
 		#return render(request, "admin/temp_basket/tempProducts.html")
 
 
