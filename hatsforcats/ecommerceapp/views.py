@@ -225,6 +225,10 @@ class RegistrationView(FormView):
 class HomeView(TemplateView):
     template_name = "home-page.html"
 
+    
+class BasketView(TemplateView):
+    template_name = "basket.html"
+
 
 def ContactPageView(request, *args, **kwargs):
     submitted = False
