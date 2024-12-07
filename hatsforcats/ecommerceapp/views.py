@@ -328,6 +328,12 @@ def basketAdd(request):
 			amendQuantity = True
 			quantity += 1
 			print(quantity)
+
+		elif btn == "rem_one" and quantity > 1:
+			amendQuantity = True
+			quantity -= 1
+			print(quantity)
+
 		elif btn == "add_to_basket":
 			print("cheking basket...")
 			
