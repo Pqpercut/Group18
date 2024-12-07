@@ -285,13 +285,14 @@ def basketAdd(request):
 		#print("borp")
 		variantid = request.POST.get("variantid")  
 		quantity = int(request.POST.get("quantity", 1))  
-		amendQuantity = request.POST.get("amendQuantity", "false").lower() == "true"
+		amendQuantity = False
 
 		#get basketid
 		#basketid = Basket.objects.get(userID=request.user).id
 		
 		#for testing
-		basketid = Basket.objects.get(userID=1)
+		test_user = User.objects.get(id=1)
+		basket, created = Basket.objects.get_or_create(userID=test_user)
 
 		#get varientid
 		variant = ProductVariant.objects.get(id=variantid)
@@ -299,11 +300,19 @@ def basketAdd(request):
 		#check if user has ordered item before already
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
-		if basketitem: 
-			print("Already in basket!!")
-		else: 
+		btn = request.POST.get("add_button")
+
+		if btn == "add_one":
+			print("quantitiy inc")
+			amendQuantity = True
+		elif btn == "add_to_basket":
+			print("added to basket")
+		#if basketitem: 
+		#	print(quantity)
+		#	basketitem.quantity += quantity
+		#else: 
 			#create new basketitem entry
-			BasketItem.objects.create(basketID=basketid, variantID=variant, quantity=quantity)
+		#	BasketItem.objects.create(basketID=basketid, variantID=variant, quantity=quantity)
 
 	return(variantDisplay(request))
 		#return render(request, "admin/temp_basket/tempProducts.html")

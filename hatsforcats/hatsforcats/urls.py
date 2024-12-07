@@ -56,7 +56,7 @@ urlpatterns = [
     path("contact-page", ContactPageView, name="Contact-Page"),
     path("Contact-Queries", ContactQueryView, name="Contact Queries"),
 
-    path("tempVarients", basketAdd, name="basketAdd"),
+    path("productdetailpage.html", basketAdd, name="basketAdd"),
     path("tempBasket.html", basketRem, name="basketRem"),
     path("", productDisplay, name="productDisplay"),
     path("productdetailpage.html", variantDisplay, name="variantDisplay"),
