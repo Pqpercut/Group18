@@ -265,6 +265,10 @@ def variantDisplay(request):
 	#print("blorp")
 	#productid = request.POST.get("productid")
 	productid = 1 #testing purpose
+
+	product = Product.objects.get(id = productid)
+	name = product.name
+
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
 
@@ -275,6 +279,7 @@ def variantDisplay(request):
 			available_sizes.add(s)
     
 	itemNames = {
+		'name' : name,
 		'variants' : allitems,
 		'sizes': available_sizes
 	}
