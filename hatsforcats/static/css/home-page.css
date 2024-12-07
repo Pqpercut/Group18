@@ -1,13 +1,17 @@
 
 /* General body styling */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #E5F4FF;
+    font-family: "Outfit", sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
 }
 
+body {
+    font-weight: 500;
+    background-color: #DCEDFF;
+    color:black;
+}
 
 /* Main content styling */
 main {
@@ -31,23 +35,34 @@ section p {
 
 /* Button styles */
 .buttons {
-    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+
+    padding-top: 64px;
+
 }
 .buttons button {
-    padding: 15px 30px;
-    font-size: 20px;
-    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    font-family: "Outfit", sans-serif;
+    padding: 24px 30px;
+    font-size: 15px;
+    font-weight: 500;
     border-radius: 30px;
     margin: 0 10px;
     cursor: pointer;
+    letter-spacing: 2px;
 }
 .buttons .light-blue {
-    background-color: #E5F4FF;
+    background-color: rgba(229, 244, 255, 0);
     border: 2px solid #fff;
 }
 .buttons .white {
-    background-color: #fff;
-    border: 2px solid #ccc;
+    background-color: #F5F5F5;
+    border: 2px solid #F5F5F5;
 }
 .buttons .black {
     background-color: #333;
@@ -57,13 +72,11 @@ section p {
 
 /* Featured section styling */
 .featured {
-    background-color: #fff;
     padding: 40px 0;
 }
 .featured img {
     margin: 0 20px;
     height: 50px;
-    loading: lazy;
 }
 
 /* Hero section styling */
@@ -75,7 +88,23 @@ section p {
     max-width: 1200px;
     margin: auto;
     padding: 40px 20px;
+    justify-content: center;
+    gap: 16px;
 }
+
+.hero-content {
+    padding-left: 64px;
+}
+
+.hero h2 {
+    font-size: 40;
+}
+
+.hero p {
+    font-weight: 300;
+    font-size: 20px;
+}
+
 .hero img {
     max-width: 400px;
     height: auto;
@@ -113,6 +142,16 @@ section p {
     margin: auto;
     margin-bottom: 40px;
 }
+
+.how-it-works-content h4 {
+    font-size: 32px;
+}
+
+.how-it-works-content p {
+    font-size: 16px;
+    font-weight: 300;
+}
+
 .how-it-works img {
     max-width: 250px;
     height: auto;
@@ -128,7 +167,6 @@ section p {
     }
     .hero, .perks, .how-it-works-item {
         flex-direction: row;
-        justify-content: space-around;
         text-align: left;
     }
     .hero-content, .perks-content, .how-it-works-content {
@@ -139,29 +177,36 @@ section p {
     }
 }
 
-.featured {
-    background-color: #E5F4FF;
-}
 
 .gradient-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    padding-bottom: 64px;
+}
+
+.treat-your-cat {
     background: linear-gradient(112deg, #838EDA, #D1E8FF);
-    padding: 40px;
-    margin: 40px 100px;
+    padding: 48px;
+    padding-left: 96px;
+    padding-right:96px;
     border-radius: 20px;
     text-align: center;
     color: #fff;
+    max-width: 1400px;
 }
 
-.gradient-section h3 {
+.treat-your-cat h3 {
     font-size: 24px;
 }
 
-.gradient-section h2 {
+.treat-your-cat h2 {
     font-size: 42px;
     font-weight: 700;
 }
 
-.gradient-section .buttons .black {
+.treat-your-cat .buttons .black {
     background-color: #333;
     color: #fff;
     border: none;
@@ -171,3 +216,25 @@ section p {
     border-radius: 30px;
 }
 
+.featured-on {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack text above the image */
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center text within its container */
+    max-width: 1000px;
+    margin: auto; /* Center the section within the page */
+    padding: 20px 0;
+}
+
+.featured-on-text {
+    font-size: 32px;
+    font-weight: 700;
+    align-self: flex-start;
+    margin-left: -32px;
+    margin-bottom: 20px; /* Add spacing between text and image */
+}
+
+.featured-on-banner img {
+    max-width: 100%; /* Ensure the image fits within its container */
+    height: auto; /* Maintain aspect ratio */
+}

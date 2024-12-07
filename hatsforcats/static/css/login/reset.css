@@ -1,0 +1,100 @@
+/* Adam */
+
+body {
+    font-family: "Outfit", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #dcedff;
+    color: #000000;
+  }
+  
+/* Login Section */
+.login {
+    font-family: "Outfit", sans-serif;
+    text-align: center;
+    padding: 24px 20px;
+  }
+  
+  .login h1 {
+    font-size: 36px;
+    margin-bottom: 14px;
+  }
+
+  .login h2{
+    font-size: 13px;
+    font-weight: 300;
+    margin-bottom: 39px;
+    color: hsla(224, 76%, 25%, 0.36);
+  }
+  
+  .login form {
+    max-width: 512px;
+    margin: 0 auto;
+  }
+
+
+  .EmailLine, .PasswordLine {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    padding-bottom: 20px;
+  }
+  
+  .PasswordLine {
+    padding-bottom: 38px;
+  }
+
+  .login input {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 7px;
+    height: 50px;
+  }
+  
+  input:invalid {
+    border-color: red;
+  }
+  
+  input:valid {
+    border-color: green;
+  }
+
+  input::placeholder {
+    color: #888; 
+    font-family: "Outfit", sans-serif;
+    padding-left: 8px;  
+    font-weight: 200;
+    font-size: 16px; 
+    opacity: 1;
+}
+
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.loginButton {
+  font-family: "Outfit", sans-serif;
+  border: none;
+  border-radius: 30px; /*Makes the button have curved corners*/
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  cursor: pointer;
+  height: 50px;
+  width: 440px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 28px;
+
+}
+
+.loginButton {
+  background-color: #838EDA;
+}
+
+.loginButton:hover{
+  background-color: #556edf;
+}

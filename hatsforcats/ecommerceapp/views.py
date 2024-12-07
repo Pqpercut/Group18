@@ -8,11 +8,12 @@ from django.views.generic import ListView, DetailView, DeleteView, UpdateView, F
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404, redirect
-from .forms import ContactEnquiryForm
+from .forms import *
 from django.db.models import Min
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.views import PasswordResetView
 
 
 class InventoryProductListView (ListView):
@@ -197,6 +198,7 @@ def catalogueView(request, *args, **kwargs):
 
 class CustomLoginView(LoginView):
     template_name = 'login/login.html'  
+    authentication_form = CustomLoginForm
     # redirect_authenticated_user = True 
 
     def get_success_url(self):
@@ -224,6 +226,16 @@ class RegistrationView(FormView):
     
 class HomeView(TemplateView):
     template_name = "home-page.html"
+
+    
+class BasketView(TemplateView):
+    template_name = "basket.html"
+
+class CheckoutView(TemplateView):
+    template_name = "checkout.html"
+
+class ConfirmationView(TemplateView):
+    template_name = "purchaseconfirmation.html"
 
 
 def ContactPageView(request, *args, **kwargs):
@@ -379,3 +391,5 @@ def viewBasket(request):
 def checkout(request):
 	return render(request, "admin/temp_basket/tempCheckout.html")
 
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm

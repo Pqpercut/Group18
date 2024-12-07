@@ -7,32 +7,38 @@
 {% block content %}
 <link href="{% static 'css/login/register.css' %}" rel="stylesheet" />
 <main>
-    <section class="Register">
-        <h1>Register</h1>
-        <!-- Use the POST method and include CSRF token for security -->
+    <section class="register">
+        <h1>REGISTER WITH US</h1>
+        <h2>Hi! Create an account with us now to see your saved basket or access your user profile</h2>
         <form method="post">
             {% csrf_token %}
-
-            <!-- Map each form field manually into the template -->
-            <label for="{{ form.username.id_for_label }}">Username:</label>
-            {{ form.username }}
-
-            <label for="{{ form.email.id_for_label }}">Email:</label>
-            {{ form.email }}
-
-            <label for="{{ form.password1.id_for_label }}">Create a password:</label>
-            {{ form.password1 }}
-
-            <label for="{{ form.password2.id_for_label }}">Confirm your Password:</label>
-            {{ form.password2 }}
-
-            <!-- Add a register button -->
+            <div class="EmailLine">
+                {{ form.username }}
+            </div>
+            <div class="EmailLine">
+                {{ form.email }}
+            </div>
+            <div class="EmailLine">
+                {{ form.password1 }}
+            </div>
+            <div class="EmailLine">
+                {{ form.password2 }}
+            </div>
             <div class="buttonContainer">
-                <button type="submit" class="registerButton">Register</button>
+                <button type="submit" class="registerButton">REGISTER</button>
             </div>
         </form>
-
-        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        <p class="log-in">
+            Already have an account? Sign in 
+            <a class="log-in-button" href="{% url 'login' %}">here</a>.
+        </p>
+        <div class="reset">
+            <div class="reset-line-left"></div>
+            <p>
+                or reset your password  <a class="reset-button" href="{% url 'password_reset' %}">here</a> if you've forgotten it
+            </p>
+            <div class="reset-line-right"></div>
+        </div>
     </section>
 </main>
 {% endblock %}

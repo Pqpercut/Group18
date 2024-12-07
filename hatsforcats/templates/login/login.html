@@ -7,27 +7,32 @@
   <!-- Developer: Hamid Noor | University ID: 210079931 -->
 <main>
   <section class="login">
-      <h1>LOGIN</h1>
-      <form method="post">
-          {% csrf_token %}
-          <!-- Render Django form fields -->
-          <div class="EmailLine">
-              <label for="id_username">Username:</label>
-              {{ form.username }}
-          </div>
-          <div class="PasswordLine">
-              <label for="id_password">Password:</label>
-              {{ form.password }}
-          </div>
-          <p class="forgotPassword">
-              Forgot your password? Meow worries! Reset it 
-              <a href="#">here</a>.
-          </p>
-          <div class="buttonContainer">
-              <button type="submit" class="loginButton">Login</button>
-              <button type="button" class="registerButton" onclick="window.location.href='#'">Register</button>
-          </div>
-      </form>
+        <h1>LOGIN</h1>
+        <h2>Hi! Sign into your account now to see your saved basket or access your user profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="EmailLine">
+                {{ form.username }}
+            </div>
+            <div class="PasswordLine">
+                {{ form.password }}
+            </div>
+            
+            <div class="buttonContainer">
+                <button type="submit" class="loginButton">SIGN IN</button>
+            </div>
+        </form>
+    <p class="sign-up">
+        Not yet signed up? Meow Worries! Create an account
+        <a class="sign-up-button" href="{% url 'register' %}">here</a>.
+    </p>
+    <div class="reset">
+        <div class="reset-line-left"></div>
+        <p>
+            or reset your password  <a class="reset-button" href="{% url 'password_reset' %}">here</a> if you've forgotten it
+        </p>
+        <div class="reset-line-right"></div>
+    </div>
   </section>
 </main>
 {% endblock %}
