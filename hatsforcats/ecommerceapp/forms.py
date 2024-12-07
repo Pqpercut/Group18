@@ -96,7 +96,13 @@ class RegistrationForm(UserCreationForm):
 
 
 class ContactEnquiryForm(forms.ModelForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email address'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Describe your issue', 'rows': 6}))
+    
     class Meta:
         model = ContactTable
         fields = ['username','description','email']
+        
+
 

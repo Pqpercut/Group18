@@ -192,7 +192,7 @@ def catalogueView(request, *args, **kwargs):
     context = {"ProductList" : productList}
 
     
-    return render(request, "product-catalogue/product_catalogue.html", context)
+    return render(request, "product-catalogue/product_catalogue-update.html", context)
 
 class CustomLoginView(LoginView):
     template_name = 'login/login.html'  

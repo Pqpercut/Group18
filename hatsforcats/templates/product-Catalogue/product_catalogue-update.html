@@ -3,91 +3,92 @@
 
 {% block content %}
     <!-- Header with logo and navigation links -->
+
+    <!--Made by Khalid  -->
+    <!-- Updated by Adam  -->
     <link href="{% static  'css/product_catalogue.css' %}" rel="stylesheet" />
     
     
     <main class="product-page">
         <div class="controls">
-            <button class="sort-btn">SORT BY +</button>
-            <button class="filter-btn">FILTER <i class="fas fa-filter"></i></button>
+            <div class="sort-btn">
+                SORT BY 
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="filter-btn">
+                FILTER 
+                <svg viewBox="0 0 24 24"  fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
         </div>
     
-    
-     <div class="gradient-line">
-    <i class="fas fa-arrow-left left-arrow"></i>
-    <div class="banner-message">
-        <span class="message active">Free delivery on orders over £20</span>
-        <span class="message">Get 10% off your first order!</span>
-        <span class="message">Exclusive deals for members only!</span>
-    </div>
-    <i class="fas fa-arrow-right right-arrow"></i>
-    </div>
-    
-    
-        <section class="product-grid">
+    <section class="product-grid">
     <!-- Initial 9 products -->
-    <a href="product1.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 1</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product2.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 2</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product3.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 3</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product4.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 4</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product5.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 5</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product6.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 6</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product7.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 7</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product8.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 8</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product9.html" class="product">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 9</p>
-        <p class="product-price">Price</p>
-    </a>
-    
-    <!-- Additional products hidden initially -->
-    <a href="product10.html" class="product hidden">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 10</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product11.html" class="product hidden">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 11</p>
-        <p class="product-price">Price</p>
-    </a>
-    <a href="product12.html" class="product hidden">
-        <div class="product-image"></div>
-        <p class="product-name">Product Name 12</p>
-        <p class="product-price">Price</p>
-    </a>
+        <a href="product1.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 1</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product2.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 2</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product3.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 3</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product4.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 4</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product5.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 5</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product6.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 6</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product7.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 7</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product8.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 8</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product9.html" class="product">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 9</p>
+            <p class="product-price">Price</p>
+        </a>
+        
+        <!-- Additional products hidden initially -->
+        <a href="product10.html" class="product hidden">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 10</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product11.html" class="product hidden">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 11</p>
+            <p class="product-price">Price</p>
+        </a>
+        <a href="product12.html" class="product hidden">
+            <div class="product-image"></div>
+            <p class="product-name">Product Name 12</p>
+            <p class="product-price">Price</p>
+        </a>
     </section>
     
         <button class="load-more-btn">LOAD MORE</button>

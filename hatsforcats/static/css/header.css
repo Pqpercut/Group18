@@ -11,6 +11,10 @@ body {
     background-color: #DCEDFF;
 }
 
+main {
+    text-align: center;
+}
+
 .header {
     display: flex;
     flex-direction: row;

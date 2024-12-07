@@ -4,18 +4,27 @@ body {
     padding: 0;
     background-color: #dcedff;
     color: #000000;
-  }
+}
 
-/* Login Section */
+main {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    min-height: auto; /* Ensure it takes the full height of the viewport */
+    text-align: center; /* Ensure the text remains centered */
+    margin: 0 auto; /* Center horizontally if there's additional width margin */
+}  
+
+
 .login {
     font-family: "Outfit", sans-serif;
     text-align: center;
     padding: 24px 20px;
+    padding-bottom: 128px;
     }
     
 .login h1 {
     font-size: 36px;
-    margin-bottom: 14px;
+    padding-bottom: 64px;
     }
 
 .login h2{
@@ -33,7 +42,7 @@ body {
     }
 
 
-.EmailLine, .PasswordLine {
+.EmailLine, .DescriptionLine {
     display: flex;
     align-items: center; 
     gap: 10px; 
@@ -41,34 +50,59 @@ body {
     width: 100%
     }
     
-.PasswordLine {
+.DescriptionLine {
     padding-bottom: 38px;
-    }
+}
 
-    .login input {
-        width: 100%; 
-        padding: 10px;
-        border: 1px solid #cecece;
-        border-radius: 7px;
-        height: 50px;
-      }
-      
-      input:invalid {
-        border-color: red;
-      }
-      
-      input:valid {
-        border-color: green;
-      }
+.login input {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 7px;
+    height: 50px;
+}
     
-      input::placeholder {
-        color: #888; 
-        font-family: "Outfit", sans-serif;
-        padding-left: 8px;  
-        font-weight: 200;
-        font-size: 16px; 
-        opacity: 1;
-    }
+input:invalid {
+    border-color: red;
+}
+    
+input:valid {
+    border-color: green;
+}
+
+input::placeholder {
+    color: #888; 
+    font-family: "Outfit", sans-serif;
+    padding-left: 8px;  
+    font-weight: 200;
+    font-size: 16px; 
+    opacity: 1;
+}
+
+.login textarea {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 7px;
+    height: auto;
+    resize: none;
+    color: #000000; 
+    font-family: "Outfit", sans-serif;
+    padding-left: 16px;  
+    font-weight: 300;
+    font-size: 16px; 
+    opacity: 1;
+    
+}
+
+textarea::placeholder {
+    color: #888; 
+    font-family: "Outfit", sans-serif;  
+    font-weight: 200;
+    font-size: 16px; 
+    opacity: 1;
+}
+      
 
     .contactButton {
         font-family: "Outfit", sans-serif;
