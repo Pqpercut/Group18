@@ -281,15 +281,24 @@ def variantDisplay(request, quantity):
 		for s in v.size:
 			available_sizes.add(s)
 	
+
 	#when a colour is clicked
 	if request.method == "POST":
-		print(request.POST.get("colour"))
+		#print(request.POST.get("colour"))
+		col = request.POST.get("colour")
+		available_sizes.clear()
+		for i in allitems: 
+			if i.colour == col:
+				available_sizes.add(i.size)
 
+	#when size is clicked
+	if request.method == "POST":
+		print(request.POST.get("size"))
 
 	itemNames = {
 		'name' : name, 'desc' : desc,
 		'variants' : allitems,
-		'sizes' : available_sizes,
+		'sizes' : sizes, 'available_sizes' : available_sizes,
 		'quantity' : quantity
 	}
 
@@ -302,7 +311,7 @@ def variantDisplay(request, quantity):
 def basketAdd(request):
 #written by Sakina Khaki
 	#gets everyhting from post data
-	if request.method == "POST":
+	if request.method == "POST" and request.POST.get("form_name") == "add_basket":
 		#print(request.POST.get("variantid"))
 		variantid = request.POST.get("variantid")  
 		quantity = int(request.POST.get("quantity"))

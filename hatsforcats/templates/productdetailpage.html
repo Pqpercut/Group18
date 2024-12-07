@@ -65,19 +65,23 @@ University ID: 230098501
                     <h3>Size:</h3>
                     <div class="size-selecter">
             			{% for s in sizes %}
-
-                    	<div class="size-circle" data-size="{{ s }}" title="{{ s }}">{{ s }}</div>
-
+            				{% if s not in available_sizes %}
+            					<p>{{ s }}</p> 
+            				{% else %}
+                    			<button type="submit" name="size" class="size-circle" data-size="{{ s }}" title="{{ s }}">{{ s }}</button>
+                    		{% endif %}
                     	{% endfor %}
                     </div>
                    </div>
+
+
 
                    <div class="quantity-container">
                     <h3>Quantity:</h3>
                     <div class="quantity-box">
                     	{% for v in variants %}
                     	{{v.id}}
-                    	<form method="POST" action="{% url 'basketAdd' %}">
+                    	<form method="POST" name="form_name" value="add_basket" action="{% url 'basketAdd' %}">
                     		{% csrf_token %}
                     		<input type="hidden" name="variantid" value="{{ v.id }}">
 	                        
