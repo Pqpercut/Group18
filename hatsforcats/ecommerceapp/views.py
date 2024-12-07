@@ -229,6 +229,9 @@ class HomeView(TemplateView):
 class BasketView(TemplateView):
     template_name = "basket.html"
 
+class CheckoutView(TemplateView):
+    template_name = "checkout.html"
+
 
 def ContactPageView(request, *args, **kwargs):
     submitted = False

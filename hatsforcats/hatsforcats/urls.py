@@ -46,7 +46,8 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('register/', RegistrationView.as_view(), name='register'),
 
-    path('basket', BasketView.as_view(), name='home'), 
+    path('basket', BasketView.as_view(), name='basket'), 
+    path('checkout', CheckoutView.as_view(), name='checkout'), 
 
     path('password-reset/', PasswordResetView.as_view(template_name='login/password_reset.html'), name='password_reset'),
     path('password-reset/done/', PasswordResetDoneView.as_view(template_name='login/password_reset_done.html'), name='password_reset_done'),
