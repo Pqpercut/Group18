@@ -3,6 +3,7 @@ Developer: Azaan Mudassar
 University ID: 230098501
 -->
 
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@ University ID: 230098501
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Detail Page</title>
-    <link rel="stylesheet" href="../css/productdetail.css">
+    <link rel="stylesheet" href="{% static 'css/productdetail.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -46,15 +47,17 @@ University ID: 230098501
                     <div class="description">
                         <p>This is a Template Description</p>
                     </div>
+
                     <div class="colour-container">
                         <h3>Colour:</h3>
                         <div class="colour-selecter">
-                            <div class="color-circle" style="background-color: red;"></div>
-                            <div class="color-circle" style="background-color: blue;"></div>
-                            <div class="color-circle" style="background-color: green;"></div>
-                            <div class="color-circle" style="background-color: yellow;"></div>
+                            {{ variants }}
+                            {% for v in variants %}
+                            <div class="color-circle" style="background-color: {{v.colour}};"></div>
+                            {% endfor %}
                         </div>
                     </div>
+
                    <div class="size-container">
                     <h3>Size:</h3>
                     <div class="size-selecter">
@@ -86,5 +89,5 @@ University ID: 230098501
         <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 3" class="alt-product">
         <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 4" class="alt-product">
     </div>
-    <script src="../js/productdetailscript.js"></script>
+    <script src="../../Front-end-team/Product Detail Page/script.js"></script>
 </body>
