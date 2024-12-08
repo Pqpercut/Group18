@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+
+    <h2>Your Basket</h2>
+    <ul>
+        {% for item in basket_items %}
+            <li>
+                {{ item.variantID.productID.name }} ({{ item.variantID.colour }}, {{ item.variantID.size }}) -
+                Quantity: {{ item.quantity }} - 
+                Price: £{{ item.variantID.price }}
+            </li>
+        {% endfor %}
+    </ul>
+    <p><strong>Total Cost:</strong> £{{ total_cost }}</p>
+
+    <h2>Enter Your Details</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Complete Checkout</button>
+    </form>
+</body>
+</html>

@@ -2,7 +2,7 @@ from django import forms
 from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import ContactTable
+from .models import ContactTable, UserAddress
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, UserCreationForm
 from django import forms
 
@@ -103,6 +103,20 @@ class ContactEnquiryForm(forms.ModelForm):
     class Meta:
         model = ContactTable
         fields = ['username','description','email']
-        
 
 
+class CheckoutForm(forms.ModelForm):
+    payment_method = forms.ChoiceField(choices=[
+        ('credit', 'Credit Card'),
+        ('debit', 'Debit Card'),
+        ('paypal', 'PayPal'),
+    ])
+    
+    class Meta:
+        model = UserAddress
+        fields = ['houseNumber', 'apartmentNumber', 'street', 'postcode', 'city']
+        widgets = {
+            'street': forms.TextInput(attrs={'placeholder': 'Street'}),
+            'postcode': forms.TextInput(attrs={'placeholder': 'Postcode'}),
+            'city': forms.TextInput(attrs={'placeholder': 'City'}),
+        }
