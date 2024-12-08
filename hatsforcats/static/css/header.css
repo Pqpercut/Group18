@@ -61,7 +61,41 @@ main {
     align-items: center;
 }
 
-.search-icon svg,
+
+.search-icon, .search-icon form{
+    height: 25px;
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#searchBox {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 7px;    
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 35px;
+}
+
+.search-icon svg {
+    width: 22px;
+    height: auto;
+}
+
+.search-icon form button{
+    border: 1px solid #cecece;
+    background: rgb(185, 219, 255);
+    border-radius: 7px;    
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 4px
+}
+
+
 .profile-icon svg,
 .basket-icon svg {
     display: block;
@@ -92,3 +126,4 @@ main {
 .arrow-right svg {
     height: 50%; /* Adjust size as needed */
 }
+
