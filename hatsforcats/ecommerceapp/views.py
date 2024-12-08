@@ -158,17 +158,12 @@ def catalogueView(request, *args, **kwargs):
 	filterList = []
 	filterValue = "" 
 	if (FiltergetValue !=""):
-
 		filterList = FiltergetValue.split(",")
 		print("FILTER EXISTS : " + str(FiltergetValue))
 		for x in filterList:
 			##Add all filter values to list and seperate with comma
 			filterValue = filterValue + x + ","
 			print(x)
-  
-    
-    
-
 
 	print("AFTER:" , filterValue)
 	##Assign the correct Order by Value
@@ -304,12 +299,12 @@ def productDisplay(request):
 
 #display product varients
 #get product_id. if product_id = variant, display it else dont
-def variantDisplay(request):
+def variantDisplay(request, pk):
 #written by Sakina Khaki
 	#print("blorp")
 
 	#productid = request.POST.get("productid")
-	productid = 1 #testing purpose
+	productid = pk #testing purpose
 
 	product = Product.objects.get(id = productid)
 	name = product.name
@@ -323,7 +318,6 @@ def variantDisplay(request):
 
 	colours = {v.colour for v in allitems} #all colours
 	available_colours = set(colours)
-
 
 	if request.method == "POST":
 		quantity = int(request.POST.get("quantity"))
@@ -385,6 +379,7 @@ def variantDisplay(request):
 			print("added", quantity, "to NEW")
 			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
 
+		return redirect('basket')
 	else:
 		quantity = 1
 
