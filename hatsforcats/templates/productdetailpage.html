@@ -49,23 +49,13 @@ University ID: 230098501
                         <p>{{desc}}</p>
                     </div>
 
+                    <form method="POST" action="{% url 'variantDisplay' %}">
+    					{% csrf_token %}
                     <div class="colour-container">
                         <h3>Colour:</h3>
                         <div class="colour-selecter">
-                            {% for c in colours %}
-        					<form method="POST" action="{% url 'variantDisplay' %}">
-            					{% csrf_token %}
-            					<input type="hidden" name="form_name" value="col_form">
-            
-            					{% if c not in available_colours %}
-                					<p>{{ c }}</p>
-                				{% elif c == selected_colour %}
-                					<button type="submit" name="colour" value="{{ c }}" class="color-circle" data-colour="{{ c }}" style="background-color: {{ c }};"></button>
-            					{% else %}
-                					<button type="submit" name="colour" value="{{ c }}" class="color-circle" data-colour="{{ c }}" style="background-color: {{ c }};"></button>
-            					{% endif %}
-        					
-        					</form>
+                            {% for c in colours %}            
+                				<button type="button" name="colour" value="{{ c }}" class="color-circle" style="background-color: {{ c }};" onclick='colourSelect("{{ c }}")' required></button>
         					{% endfor %}
                         </div>
                     </div>
@@ -75,19 +65,7 @@ University ID: 230098501
                     <h3>Size:</h3>
                     <div class="size-selecter">
             			{% for s in sizes %}
-            			<form method="POST" action="{% url 'variantDisplay' %}">
-            				{% csrf_token %}
-            				<input type="hidden" name="form_name" value="size_form">
-            				
-            				{% if s not in available_sizes %}
-            					<p>{{ s }}</p> 
-            				{% elif s == selected_size %}
-            					<button type="submit" name="size" value="{{ s }}" class="size-circle" data-size="{{ s }}">X</button>
-            				{% else %}
-                    			<button type="submit" name="size" value="{{ s }}" class="size-circle" data-size="{{ s }}">{{ s }}</button>
-                    		{% endif %}
-
-                    	</form>
+            				<button type="button" name="size" value="{{ s }}" class="size-circle" onclick='sizeSelect("{{ s }}")' required>{{ s }}</button>
                     	{% endfor %}
                     </div>
                    </div>
@@ -96,23 +74,18 @@ University ID: 230098501
 
                    <div class="quantity-container">
                     <h3>Quantity:</h3>
-                    <div class="quantity-box">
-                    	{% for v in variants %}
-                    	<form method="POST" action="{% url 'variantDisplay' %}">
-                    		{% csrf_token %}
-                    		<input type="hidden" name="form_name" value="add_basket">
-                    		<input type="hidden" name="variantid" value="{{ v.id }}">
-                    	{% endfor %}
-	                        
-	                        <button type="submit" name="add_button" value="rem_one" class="quantity-btn" id="decrease" disabled>-</button>
-	                        
-	                        <input type="number" name="quantity" id="quantity-input" value="{{quantity}}" min="1" max="99" disabled>
-	                        
-	                        <button type="submit" name="add_button" value="add_one" class="quantity-btn" id="increase" disabled>+</button>
+                    <div class="quantity-box">	                        
+	                        <button type="button" name="add_button" value="rem_one" class="quantity-btn" id="decrease" onclick="change_quantity(-1)">-</button>   
+	                        <input type="number" name="quantity" id="quantity-input" value="{{quantity}}" min="1" max="99">
+	                        <button type="button" name="add_button" value="add_one" class="quantity-btn" id="increase" onclick="change_quantity(+1)">+</button>
                     </div>
                    </div>
-                  <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton" disabled>Add to Cart</button>
-              			</form>
+
+                   <input type="hidden" name="colour" id="hidden-colour">
+                   <input type="hidden" name="size" id="hidden-size">
+
+                  <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton">Add to Cart</button>
+              	</form>
                 </div>
             </div>
         </div>
@@ -126,5 +99,5 @@ University ID: 230098501
         <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 3" class="alt-product">
         <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 4" class="alt-product">
     </div>
-    
+   <script src="{% static 'productdetail.js' %}"></script>
 </body>

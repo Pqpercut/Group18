@@ -40,44 +40,55 @@ function changeMainImage(index) {
 }
 
 
-//func for adding to basket 
-document.addEventListener('DOMContentLoaded', () => {
-    //get all the relevant btns 
-    const colourBtn = document.querySelectorAll('.color-circle');
-    const sizeBtn = document.querySelectorAll('.size-circle');
-    const basketAddBtn = document.querySelector('.cartbutton');
-    const quantityBtns = document.querySelectorAll('.quantity-btn');
+//saki's shi to make the basket adding work
+//assigning variables
+let selected_colour = null
+let selected_size = null
+let quantity = 1
 
-    let selected_colour = null;
-    let selected_size = null;
+//
+function colourSelect(col) {
+    selected_colour = col;
+    //console.log(selected_colour);
+    document.getElementById("hidden-colour").value = col;
+    check_selected();
+}
 
-    function validateSelections() {
-        const colourSelected = !!selected_colour;
-        const sizeSelected = !!selected_size;
+//
+function sizeSelect(size) {
+    selected_size = size;
+    //console.log(selected_size);
+    document.getElementById("hidden-size").value = size;
+    check_selected();
+}
 
-        //disable the basket btn
-        basketAddBtn.disabled = !(colourSelected && sizeSelected);
-        quantityBtns.forEach(control => control.disabled = !(colourSelected && sizeSelected));
+//quantity
+function change_quantity(q) {
+    quantity += q
+    if (quantity < 1) {
+        quantity = 1;
+    } else if (quantity > 99) {
+        quantity = 99;
     }
+}
 
-    //listeners for colours
-    colourBtn.forEach(button => {
-        button.addEventListener('click', event => {
-            event.preventDefault(); 
-            selected_colour = button.getAttribute('data-colour'); //gets selected colour
-            validateSelections();
-        });
-    });
+//check if size n colour selected
+function check_selected() {
+    if ((selected_colour != null) && (selected_size != null)){
+        console.log("basket enabled!")
+        //enables basket adding 
+        //document.getElementById("decrease").disabled = false;
+        //document.getElementById("increase").disabled = false;
+        //document.getElementById("add-to-cart").disabled = false;
 
-    //listeners for size
-    sizeBtn.forEach(button => {
-        button.addEventListener('click', event => {
-            event.preventDefault(); 
-            selected_size = button.getAttribute('data-size'); //gets selected size
-            validateSelections();
-        });
-    });
+        console.log(String(selected_colour), String(selected_size));
+    } else {
+        //keeps the adding to basket disabled
+        //document.getElementById("decrease").disabled = true;
+        //document.getElementById("increase").disabled = true;
+        //document.getElementById("add-to-cart").disabled = true;
 
-    validateSelections();
+        console.log(String(selected_colour), String(selected_size));
+    }
+}
 
-});
