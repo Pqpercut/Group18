@@ -1,0 +1,244 @@
+/*
+Khalid
+updated design to match updates - Adam 6/12/2024 
+*/
+
+/* General body styling */
+body {
+    font-family: "Outfit", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+body {
+    font-weight: 500;
+    background-color: #DCEDFF;
+    color:black;
+}
+
+/* Main content styling */
+main {
+    text-align: center;
+}
+section {
+    padding: 60px 0;
+}
+section h2, section h3 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+section p {
+    font-size: 20px;
+    margin-top: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Button styles */
+.buttons {
+    display: flex;
+    flex-direction: row;
+
+    padding-top: 64px;
+
+}
+.buttons button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    font-family: "Outfit", sans-serif;
+    padding: 24px 30px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+.buttons .light-blue {
+    background-color: rgba(229, 244, 255, 0);
+    border: 2px solid #fff;
+}
+.buttons .white {
+    background-color: #F5F5F5;
+    border: 2px solid #F5F5F5;
+}
+.buttons .black {
+    background-color: #333;
+    color: #fff;
+    border: none;
+}
+
+/* Featured section styling */
+.featured {
+    padding: 40px 0;
+}
+.featured img {
+    margin: 0 20px;
+    height: 50px;
+}
+
+/* Hero section styling */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+    justify-content: center;
+    gap: 16px;
+}
+
+.hero-content {
+    padding-left: 64px;
+}
+
+.hero h2 {
+    font-size: 40;
+}
+
+.hero p {
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.hero img {
+    max-width: 400px;
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Perks section styling */
+.perks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+}
+.perks img {
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+/* How It Works section styling */
+.how-it-works {
+    text-align: center;
+    padding: 60px 20px;
+}
+.how-it-works-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 40px;
+}
+
+.how-it-works-content h4 {
+    font-size: 32px;
+}
+
+.how-it-works-content p {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.how-it-works img {
+    max-width: 250px;
+    height: auto;
+    margin: 30px 0;
+}
+
+
+
+/* Media queries for responsiveness */
+@media (min-width: 768px) {
+    header {
+        padding: 20px 100px;
+    }
+    .hero, .perks, .how-it-works-item {
+        flex-direction: row;
+        text-align: left;
+    }
+    .hero-content, .perks-content, .how-it-works-content {
+        align-items: flex-start;
+    }
+    .hero img, .perks img, .how-it-works img {
+        margin-left: 20px;
+    }
+}
+
+
+.gradient-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    padding-bottom: 64px;
+}
+
+.treat-your-cat {
+    background: linear-gradient(112deg, #838EDA, #D1E8FF);
+    padding: 48px;
+    padding-left: 96px;
+    padding-right:96px;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+    max-width: 1400px;
+}
+
+.treat-your-cat h3 {
+    font-size: 24px;
+}
+
+.treat-your-cat h2 {
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.treat-your-cat .buttons .black {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 30px;
+}
+
+.featured-on {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    max-width: 1000px;
+    margin: auto; 
+    padding: 20px 0;
+}
+
+.featured-on-text {
+    font-size: 32px;
+    font-weight: 700;
+    align-self: flex-start;
+    margin-left: -32px;
+    margin-bottom: 20px; 
+}
+
+.featured-on-banner img {
+    max-width: 100%; 
+    height: auto; 
+}

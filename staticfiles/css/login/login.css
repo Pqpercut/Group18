@@ -1,202 +1,180 @@
 /*
 Developer: Hamid Noor
 University ID: 210079931
+
+Redone by Adam 
+
 */
 body {
-    font-family: "Outfit", sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #dcedff;
-    color: #000000;
-  }
-  
-  /* Header */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    padding: 40px;
-    background-color: #dcedff;
-    font-family: "Outfit", sans-serif;
-   
-  }
-  
-  header .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  header nav a {
-    margin: 15px;
-    text-decoration: none;
-    color: #000000;
-    font-weight: 500;
-  }
-  
-  header .cartIcon {
-    font-size: 1.2em;
-  }
-  
-  /* Login Section */
-  .login {
-    font-family: "Outfit", sans-serif;
-    text-align: center;
-    padding: 50px 20px;
-  }
-  
-  .login h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .login form {
-    max-width: 500px;
-    margin: 0 auto;
-  }
+  font-family: "Outfit", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #dcedff;
+  color: #000000;
+}
 
-  .EmailLine, .PasswordLine {
-    display: grid;
-    grid-template-columns: 150px 1fr;  /* Adds a grid to the login section so the labels will be the same distance from the input*/
-    align-items: center; 
-    gap: 10px; 
-    padding-bottom: 20px;
-    transform: translateX(-90px); /* Moves the form 50px to the left */
-  }
-  
-  .login label {
-    text-align: right;
-    padding-right: 10px; 
-  }
-  
-  .login input {
-    width: 100%; 
-    padding: 10px;
-    border: 1px solid #cecece;
-    border-radius: 15px;
-  }
-  
-  input:invalid {
-    border-color: red;
-  }
-  
-  input:valid {
-    border-color: green;
-  }
- 
-  .forgotPassword {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 0;
-  }
-  
-  .forgotPassword a {
-    color: #007bff;
-    text-decoration: none; /*Removes the underline on the hyperlinked text*/
-  }
-
-  .forgotPassword a:hover{
-    text-decoration: underline;
-  }
-  
-  .buttonContainer {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .loginButton, .registerButton {
-    font-family: "Outfit", sans-serif;
-    border: none;
-    border-radius: 30px; /*Makes the button have curved corners*/
-    font-size: 1.1em;
-    color: #000000;
-    cursor: pointer;
-    height: 45px;
-    width: 200px;
-  }
-  
-  .loginButton {
-    background-color: #838EDA;
-    margin-right: 20px; /* Adds space to the right of the Login button */
-  }
-
-  .loginButton:hover{
-    background-color: #556edf;
-  }
-
-  .registerButton {
-    background-color: #838EDA;
-  }
-
-  .registerButton:hover{
-    background-color: #556edf;
-  }
-  
-  /* Footer */
-  footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    background-color: #dcedff;
-    padding: 30px 20px;
-    text-align: left;
-    font-family: "Outfit", sans-serif;
-  }
-  
-  .footerColumn {
-    flex: 1 1 200px;
-    margin: 10px;
-  }
-  
-  .footerColumn h3, .footerColumn h4 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  
-  .footerColumn ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footerColumn ul li {
-    margin: 5px 0;
-  }
-  
-  .footerColumn ul li a {
-    text-decoration: none;
-    color: #000000;
-  }
-  
-/* Newsletter Form */
-.newsletter .inputContainer {
-  position: relative; 
+/* Header */
+header {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 40px;
+  background-color: #dcedff;
+  font-family: "Outfit", sans-serif;
+ 
 }
 
-.newsletter input {
-  width: 100%;
-  padding: 10px 90px 10px 10px; 
+header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+header nav a {
+  margin: 15px;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 500;
+}
+
+header .cartIcon {
+  font-size: 1.2em;
+}
+
+/* Login Section */
+.login {
+  font-family: "Outfit", sans-serif;
+  text-align: center;
+  padding: 24px 20px;
+}
+
+.login h1 {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+.login h2{
+  font-size: 13px;
+  font-weight: 300;
+  margin-bottom: 39px;
+  color: hsla(224, 76%, 25%, 0.36);
+}
+
+.login form {
+  max-width: 512px;
+  margin: 0 auto;
+}
+
+
+.EmailLine, .PasswordLine {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+  padding-bottom: 20px;
+}
+
+.PasswordLine {
+  padding-bottom: 38px;
+}
+
+.login input {
+  width: 100%; 
+  padding: 10px;
   border: 1px solid #cecece;
-  border-radius: 25px;
-  font-size: 1em;
-  outline: none;
+  border-radius: 7px;
+  height: 50px;
 }
 
-.newsletter button {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 8px 15px;
+input:invalid {
+  border-color: red;
+}
+
+input:valid {
+  border-color: green;
+}
+
+input::placeholder {
+  color: #888; 
+  font-family: "Outfit", sans-serif;
+  padding-left: 8px;  
+  font-weight: 200;
+  font-size: 16px; 
+  opacity: 1;
+}
+
+
+.sign-up {
+  font-size: 15px;
+  font-weight: 300;
+  color: #000;
+  margin-top: 0;
+  margin-bottom: 11px;
+}
+
+.sign-up a {
+  color: #838EDA;
+  text-decoration: none; /*Removes the underline on the hyperlinked text*/
+}
+
+.sign-up a:hover{
+  text-decoration: underline;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.loginButton {
+  font-family: "Outfit", sans-serif;
   border: none;
-  border-radius: 20px;
-  background-color: #838EDA;
-  color: white;
-  font-size: 0.9em;
+  border-radius: 30px; /*Makes the button have curved corners*/
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
   cursor: pointer;
+  height: 50px;
+  width: 440px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 28px;
+
 }
 
-.newsletter button:hover {
+.loginButton {
+  background-color: #838EDA;
+}
+
+.loginButton:hover{
   background-color: #556edf;
+}
+
+.registerButton {
+  background-color: #838EDA;
+}
+
+.registerButton:hover{
+  background-color: #556edf;
+}
+
+.reset {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+font-size: 13px;
+font-weight: 300;
+color: rgba(15, 41, 112, 0.36);
+text-decoration: none;
+
+}
+
+.reset-button:before {
+text-decoration: none;
+}
+
+.reset-line-left, .reset-line-right {
+margin: 8px;
+width: 48px;
+height: 1px;
+border: 1px solid rgba(15, 41, 112, 0.36); /* Add 'solid' for border-style */
 }
