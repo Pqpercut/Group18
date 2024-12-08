@@ -161,3 +161,10 @@ transform: scaleX(1);
     display: none;
 }
 
+.product-grid:has(.product-size2){
+    max-width: 1500px;
+}
+
+.product-grid:has(.product-size1){
+    max-width: 800px;
+}

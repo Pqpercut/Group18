@@ -59,14 +59,14 @@
         {% for product in ProductList %}
 
             {%if product.id < 10 %}
-                <a href="product/{{product.id}}" class="product">
+                <a href="product/{{product.id}}" class="{{productClass}} product">
                     <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
                     <p class="product-name">{{product.name}}</p>
                     <p class="product-price">£{{product.productvariant.first.price}}</p>
                 </a>
             {%else%}
             <!-- Additional products hidden initially -->
-                <a href="product/{{product.id}}" class="product hidden">
+                <a href="product/{{product.id}}" class="{{productClass}} product hidden">
                     <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
                     <p class="product-name">{{product.name}}</p>
                     <p class="product-price">£{{product.productvariant.first.price}}</p>
