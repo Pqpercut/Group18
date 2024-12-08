@@ -319,9 +319,18 @@ def variantDisplay(request, pk):
 	colours = {v.colour for v in allitems} #all colours
 	available_colours = set(colours)
 
-	images = []
-	for variant in allitems:
-		images.extend(variant.imagepath.all())
+	#dictionary of all sizes and colours
+	sizes_map = {}
+	for i in allitems:
+		sizes_map.setdefault(i.colour, []).append(i.size)
+
+	print(sizes_map)
+	#print(sizes_map)
+
+	colours_map = {}
+	for i in allitems:
+		colours_map.setdefault(i.size, []).append(i.colour)
+
 
 	if request.method == "POST":
 		quantity = int(request.POST.get("quantity"))
@@ -348,13 +357,12 @@ def variantDisplay(request, pk):
 			print(colour)
 			print("no colour and or size")
 			return render(request, "productdetailpage.html", {
-				'name': name, 
-				'desc': desc, 
+				'name': name, 'desc': desc, 
 				'variants' : allitems,
 				'colours': colours, 
 				'sizes': sizes, 
-				'quantity': quantity,
-				'images': images,
+				'sizes_map': sizes_map, 'colours_map' : colours_map,
+				'quantity': quantity
 			})
 		else:
 			print("yay")
@@ -390,18 +398,18 @@ def variantDisplay(request, pk):
 
 
 	itemNames = {
-		'product': product,
-		'name' : name, 
-		'desc' : desc,
+		'name': name, 'desc': desc, 
 		'variants' : allitems,
 		'colours': colours, 
-		'sizes' : sizes, 
-		'quantity' : quantity
+		'sizes': sizes, 
+		'sizes_map': sizes_map, 'colours_map' : colours_map,
+		'quantity': quantity
 	}
 
 
 	#viewing
 	return render(request, "productdetailpage.html", itemNames)
+
 
 
 

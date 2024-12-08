@@ -423,5 +423,14 @@ h3 {
 }
 
 .disabled {
+    background-color: #888888;
     background-color: #646464;
+}
+
+.color-circle.active {
+    background-color: #838fda;
+}
+
+.size-circle.active {
+    background-color: #838fda;
 }

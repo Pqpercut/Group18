@@ -44,7 +44,7 @@ University ID: 230098501
                     <div class="colour-container">
                         <div class="colour-selecter">
                             {% for c in colours %}            
-                                <button type="button" name="colour" value="{{ c }}" class="color-circle" onclick='colourSelect("{{ c }}")' required>{{ c }}</button>
+                                <button type="button" name="colour" value="{{ c }}" class="color-circle" onclick='colourSelect("{{ c }}", this)' data-colour="{{ c }}" required>{{ c }}</button>
                             {% endfor %}
                         </div>
                     </div>
@@ -52,7 +52,7 @@ University ID: 230098501
                         <h3>Select your size:</h3>
                         <div class="size-selecter">
                             {% for s in sizes %}
-                                <button type="button" name="size" value="{{ s }}" class="size-circle" onclick='sizeSelect("{{ s }}")' required>{{ s }}</button>
+                                <button type="button" name="size" value="{{ s }}" class="size-circle" onclick='sizeSelect("{{ s }}", this)' data-size="{{ s }}" required>{{ s }}</button>
                             {% endfor %}
                         </div>
                     </div>
@@ -66,6 +66,8 @@ University ID: 230098501
                     </div>
                     <input type="hidden" name="colour" id="hidden-colour">
                     <input type="hidden" name="size" id="hidden-size">
+                    <input type="hidden" name="size_list" id="size_list" value="{{ sizes }}">
+                    <input type="hidden" name="colour_list" id="colour_list" value="{{ colours }}">
                     <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton">Add to Cart</button>
                 </form>
             </div>
@@ -91,5 +93,20 @@ University ID: 230098501
         <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 4" class="alt-product">
     </div>
 </div>
+
+<script>
+    const available_sizes = {
+        {% for c, sizes_list in sizes_map.items %}
+            "{{ c }}": {{ sizes_list|safe }},
+        {% endfor %}
+    };
+
+    const available_colours = {
+    	{% for s, colours_list in colours_map.items %}
+        	"{{ s }}": {{ colours_list|safe }},
+    	{% endfor %}
+    };
+</script>
+
 <script src="{% static 'productdetail.js' %}"></script>
 {% endblock %}
