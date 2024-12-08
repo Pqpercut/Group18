@@ -260,7 +260,7 @@ def productDisplay(request):
 
 #display product varients
 #get product_id. if product_id = variant, display it else dont
-def variantDisplay(request, quantity):
+def variantDisplay(request):
 #written by Sakina Khaki
 	#print("blorp")
 
@@ -305,23 +305,6 @@ def variantDisplay(request, quantity):
 				available_colours.add(i.colour)
 
 
-	itemNames = {
-		'name' : name, 'desc' : desc,
-		'variants' : allitems,
-		'colours': colours, 'available_colours': available_colours, 'selected_colour': selected_colour,
-		'sizes' : sizes, 'available_sizes' : available_sizes, 'selected_size': selected_size,
-		'quantity' : quantity
-	}
-
-	#viewing
-	return render(request, "productdetailpage.html", itemNames)
-
-
-@permission_required('ecommerceapp.Customer') 
-#add to basket
-def basketAdd(request):
-#written by Sakina Khaki
-	#gets everyhting from post data
 	if request.method == "POST" and request.POST.get("form_name") == "add_basket":
 		#print(request.POST.get("variantid"))
 		variantid = request.POST.get("variantid")  
@@ -368,8 +351,18 @@ def basketAdd(request):
 	else:
 		quantity = 1
 
-	return(variantDisplay(request, quantity))
-		#return render(request, "admin/temp_basket/tempProducts.html")
+
+	itemNames = {
+		'name' : name, 'desc' : desc,
+		'variants' : allitems,
+		'colours': colours, 'available_colours': available_colours, 'selected_colour': selected_colour,
+		'sizes' : sizes, 'available_sizes' : available_sizes, 'selected_size': selected_size,
+		'quantity' : quantity
+	}
+
+
+	#viewing
+	return render(request, "productdetailpage.html", itemNames)
 
 
 
