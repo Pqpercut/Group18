@@ -46,12 +46,21 @@ let selected_colour = null
 let selected_size = null
 let quantity = 1
 
+//available sizes once the colour is clicked
+//const available_sizes = document.getElementById("size-data");
+//const available_sizes = JSON.parse(size_map.value);
+//const available_sizes = JSON.parse(document.getElementById("size-data").value);
+console.log(available_sizes);
+size_list = document.getElementById("size_list").value.split(","); //list of all sizes
+
+
 //
 function colourSelect(col) {
     selected_colour = col;
     //console.log(selected_colour);
     document.getElementById("hidden-colour").value = col;
-    check_selected();
+    updateSize(col);
+    //check_selected();
 }
 
 //
@@ -61,6 +70,28 @@ function sizeSelect(size) {
     document.getElementById("hidden-size").value = size;
     check_selected();
 }
+
+//to update the sizes when colour clicked
+function updateSize(selected_colour) {
+    const sizeButtons = document.querySelectorAll(".size-circle");
+
+    //console.log(size_list);
+    console.log(available_sizes[selected_colour]);
+    sizeButtons.forEach((button) => {
+        const size = button.dataset.size;
+
+        if (available_sizes[selected_colour]?.includes(size)) {
+            button.disabled = false;
+            button.classList.remove("disabled");
+        } else {
+            button.disabled = true;
+            button.classList.add("disabled");
+        }
+    });
+
+    check_selected();
+}
+
 
 //quantity
 function change_quantity(q) {

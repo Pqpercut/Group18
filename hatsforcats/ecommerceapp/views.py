@@ -324,6 +324,13 @@ def variantDisplay(request):
 	colours = {v.colour for v in allitems} #all colours
 	available_colours = set(colours)
 
+	#dictionary of all sizes and colours
+	sizes_map = {}
+	for i in allitems:
+		sizes_map.setdefault(i.colour, []).append(i.size)
+
+	print(sizes_map)
+
 
 	if request.method == "POST":
 		quantity = int(request.POST.get("quantity"))
@@ -355,6 +362,7 @@ def variantDisplay(request):
 				'variants' : allitems,
 				'colours': colours, 
 				'sizes': sizes, 
+				'sizes_map': sizes_map,
 				'quantity': quantity
 			})
 		else:
@@ -390,13 +398,13 @@ def variantDisplay(request):
 
 
 	itemNames = {
-		'product': product,
-		'name' : name, 
-		'desc' : desc,
+		'name': name, 
+		'desc': desc, 
 		'variants' : allitems,
 		'colours': colours, 
-		'sizes' : sizes, 
-		'quantity' : quantity
+		'sizes': sizes, 
+		'sizes_map': sizes_map,
+		'quantity': quantity
 	}
 
 
