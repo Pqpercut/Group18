@@ -309,8 +309,7 @@ def variantDisplay(request):
 	#print("blorp")
 
 	#productid = request.POST.get("productid")
-	productid = 1 #testing purpose
-
+	productid = 1 #test
 	product = Product.objects.get(id = productid)
 	name = product.name
 	desc = product.description
@@ -330,6 +329,11 @@ def variantDisplay(request):
 		sizes_map.setdefault(i.colour, []).append(i.size)
 
 	print(sizes_map)
+	#print(sizes_map)
+
+	colours_map = {}
+	for i in allitems:
+		colours_map.setdefault(i.size, []).append(i.colour)
 
 
 	if request.method == "POST":
@@ -357,12 +361,11 @@ def variantDisplay(request):
 			print(colour)
 			print("no colour and or size")
 			return render(request, "productdetailpage.html", {
-				'name': name, 
-				'desc': desc, 
+				'name': name, 'desc': desc, 
 				'variants' : allitems,
 				'colours': colours, 
 				'sizes': sizes, 
-				'sizes_map': sizes_map,
+				'sizes_map': sizes_map, 'colours_map' : colours_map,
 				'quantity': quantity
 			})
 		else:
@@ -398,18 +401,18 @@ def variantDisplay(request):
 
 
 	itemNames = {
-		'name': name, 
-		'desc': desc, 
+		'name': name, 'desc': desc, 
 		'variants' : allitems,
 		'colours': colours, 
 		'sizes': sizes, 
-		'sizes_map': sizes_map,
+		'sizes_map': sizes_map, 'colours_map' : colours_map,
 		'quantity': quantity
 	}
 
 
 	#viewing
 	return render(request, "productdetailpage.html", itemNames)
+
 
 
 
