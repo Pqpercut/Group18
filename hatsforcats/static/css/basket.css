@@ -242,3 +242,8 @@ input::placeholder {
   background-color: #838EDA;
 }
 
+.disabled {
+  background-color: #71779e;
+  cursor: not-allowed;
+  color: #020202;
+}

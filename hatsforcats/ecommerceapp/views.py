@@ -25,10 +25,10 @@ class InventoryProductListView (ListView):
 	template_name = "inventory-management/product_list.html"
 	context_object_name = "products"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        low_stock_threshold = 5 
-        products_with_variants = []
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		low_stock_threshold = 5 
+		products_with_variants = []
 
 		for product in Product.objects.all():
 			variants = product.productvariant.all()
@@ -68,8 +68,8 @@ class InventoryCreateProductView(CreateView):
 	template_name = "inventory-management/product_create.html"
 	fields = ['name', 'description', 'availability']
 
-    def get_success_url(self):
-        return reverse_lazy('IMS - Product List')
+	def get_success_url(self):
+		return reverse_lazy('IMS - Product List')
 
 class InventoryProductEditView(UpdateView):
 	# Created by Adam Ahmed 23/11/2024
@@ -131,9 +131,9 @@ class EditVariantView(UpdateView):
 		response = super().form_valid(form)
 
         # Multiple file uploads
-        images = form.cleaned_data.get('images', [])
-        for image in images:
-            ImagePath.objects.create(productVariantID=self.object, imagepath=image)
+		images = form.cleaned_data.get('images', [])
+		for image in images:
+			ImagePath.objects.create(productVariantID=self.object, imagepath=image)
 
 		return response
 
@@ -146,45 +146,45 @@ class DeleteVariantView(DeleteView):
 	model = ProductVariant
 	template_name = "inventory-management/product_variant_delete.html"
 
-    def get_success_url(self):
-        return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
+	def get_success_url(self):
+		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
 def catalogueView(request, *args, **kwargs):
 	###Written by Qasim Farooq 29/11/24
 
-   ##Get filter in URL
-    FiltergetValue = request.GET.get('selected_filters',"")
-    print("BEFORE:" + str(FiltergetValue)) 
-    filterList = []
-    filterValue = "" 
-    if (FiltergetValue !=""):
+	##Get filter in URL
+	FiltergetValue = request.GET.get('selected_filters',"")
+	print("BEFORE:" + str(FiltergetValue)) 
+	filterList = []
+	filterValue = "" 
+	if (FiltergetValue !=""):
 
-        filterList = FiltergetValue.split(",")
-        print("FILTER EXISTS : " + str(FiltergetValue))
-        for x in filterList:
-            ##Add all filter values to list and seperate with comma
-            filterValue = filterValue + x + ","
-            print(x)
+		filterList = FiltergetValue.split(",")
+		print("FILTER EXISTS : " + str(FiltergetValue))
+		for x in filterList:
+			##Add all filter values to list and seperate with comma
+			filterValue = filterValue + x + ","
+			print(x)
   
     
     
 
 
-    print("AFTER:" , filterValue)
-    ##Assign the correct Order by Value
-    orderValue = request.GET.get("order","default-value")
-    if orderValue == 'price':
-        orderValue = 'productvariant__price'
-    else:
-        orderValue = 'name'
+	print("AFTER:" , filterValue)
+	##Assign the correct Order by Value
+	orderValue = request.GET.get("order","default-value")
+	if orderValue == 'price':
+		orderValue = 'productvariant__price'
+	else:
+		orderValue = 'name'
 
 	##Get a query of all products
 	productList = Product.objects.all()
 
     #If there is a filter then filter the query to only those products
-    if (FiltergetValue !=""):
-        print("Filter complete")
-        productList = productList.filter(categories__categories__in = filterList)
+	if (FiltergetValue !=""):
+		print("Filter complete")
+		productList = productList.filter(categories__categories__in = filterList)
 
 	##Order the query
 	##Aggregate the values to be able to prevent multiple variants showing on the list
@@ -195,31 +195,31 @@ def catalogueView(request, *args, **kwargs):
 
 	searchValue = request.GET.get("search","")
 
-    if searchValue != '':
-        productList = productList.filter(name__icontains=searchValue)
-        print("searching")
-    ##Return the query
+	if searchValue != '':
+		productList = productList.filter(name__icontains=searchValue)
+		print("searching")
+	##Return the query
 
-    fullProductList = Product.objects.all()
+	fullProductList = Product.objects.all()
 
-    listSize = len(productList)
-    style = ""
-    if(listSize == 2):
-        style="product-size2"
-    elif(listSize == 1):
-        style="product-size1"
-    else:
-        style=""
+	listSize = len(productList)
+	style = ""
+	if(listSize == 2):
+		style="product-size2"
+	elif(listSize == 1):
+		style="product-size1"
+	else:
+		style=""
 
-    context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style}
+	context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style}
 
     
-    return render(request, "product_catalogue.html", context)
+	return render(request, "product_catalogue.html", context)
 
 class CustomLoginView(LoginView):
-    template_name = 'login/login.html'  
-    authentication_form = CustomLoginForm
-    # redirect_authenticated_user = True 
+	template_name = 'login/login.html'  
+	authentication_form = CustomLoginForm
+	# redirect_authenticated_user = True 
 
 	def get_success_url(self):
 		if self.request.user.groups.filter(name='admin').exists():
@@ -229,17 +229,18 @@ class CustomLoginView(LoginView):
 		return super().get_success_url()
 	
 class RegistrationView(FormView):
-    template_name = 'login/register.html'  
-    form_class = RegistrationForm
-    success_url = reverse_lazy('login') 
+	template_name = 'login/register.html'  
+	form_class = RegistrationForm
+	success_url = reverse_lazy('login') 
 
 	def form_valid(self, form):
 		# Save the user
 		user = form.save()
 
-        group = Group.objects.get(name='Customer')
-        user.groups.add(group)
+		group = Group.objects.get(name='Customer')
+		user.groups.add(group)
 
+		Basket.objects.create(userID=user)
 
 		return super().form_valid(form)
 	
@@ -247,19 +248,6 @@ class HomeView(TemplateView):
     # Created by Adam Ahmed 
     template_name = "home-page.html"
     
-class BasketView(TemplateView):
-    # Created by Adam Ahmed as proof of concept for website on live. To be changed when saki has completed her features
-    template_name = "basket.html"
-
-class CheckoutView(TemplateView):
-    # Created by Adam Ahmed as proof of concept for website on live. To be changed when saki has completed her features
-    template_name = "checkout.html"
-
-class ConfirmationView(TemplateView):
-    # Created by Adam Ahmed as proof of concept for website on live. To be changed when saki has completed her features
-    template_name = "purchaseconfirmation.html"
-
-
 def ContactPageView(request, *args, **kwargs):
     submitted = False
     if request.method == 'POST':
@@ -362,9 +350,11 @@ def variantDisplay(request):
 			print(colour)
 			print("no colour and or size")
 			return render(request, "productdetailpage.html", {
-				'name': name, 'desc': desc, 
+				'name': name, 
+				'desc': desc, 
 				'variants' : allitems,
-				'colours': colours, 'sizes': sizes, 
+				'colours': colours, 
+				'sizes': sizes, 
 				'quantity': quantity
 			})
 		else:
@@ -400,7 +390,9 @@ def variantDisplay(request):
 
 
 	itemNames = {
-		'name' : name, 'desc' : desc,
+		'product': product,
+		'name' : name, 
+		'desc' : desc,
 		'variants' : allitems,
 		'colours': colours, 
 		'sizes' : sizes, 
@@ -476,20 +468,20 @@ def viewBasket(request):
 	}
 
 
-	#viewing the absket
-	return render(request, "admin/temp_basket/tempBasket.html", itemNames)
+	#viewing the basket
+	return render(request, "basket.html", itemNames)
 
 
-@permission_required('ecommerceapp.Customer')
-#checkout
-def checkout(request):
-	return render(request, "admin/temp_basket/tempCheckout.html")
+# @permission_required('ecommerceapp.Customer')
+# #checkout
+# def checkout(request):
+# 	return render(request, "admin/temp_basket/tempCheckout.html")
 
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
 	
 class CheckoutView(GroupRequiredMixin, FormView):
-	template_name = "checkout-test.html"
+	template_name = "checkout.html"
 	form_class = CheckoutForm
 	group_required = 'Customer'
 
@@ -529,7 +521,7 @@ class CheckoutView(GroupRequiredMixin, FormView):
 			userID=self.request.user,
 			defaults={
 				'houseNumber': form.cleaned_data['houseNumber'],
-				'apartmentNumber': form.cleaned_data.get('apartmentNumber', None),
+				'apartmentNumber': form.cleaned_data.get('apartmentNumber', 0),
 				'street': form.cleaned_data['street'],
 				'postcode': form.cleaned_data['postcode'],
 				'city': form.cleaned_data['city'],
@@ -545,7 +537,7 @@ class CheckoutView(GroupRequiredMixin, FormView):
 			userID=self.request.user,
 			totalAmount=sum(item.variantID.price * item.quantity for item in basket_items),
 			status='pending',
-			paymentMethod=form.cleaned_data['payment_method'],
+			paymentMethod='credit',
 			trackingInfo="Processing",
 		)
 
@@ -564,7 +556,7 @@ class CheckoutView(GroupRequiredMixin, FormView):
 		return redirect(reverse('order-summary', kwargs={'order_id': order.id}))
 
 class OrderSummaryView(GroupRequiredMixin, TemplateView):
-	template_name = "order-summary-test.html"
+	template_name = "purchaseconfirmation.html"
 	group_required = 'Customer'
 
 	def get_context_data(self, **kwargs):
@@ -574,3 +566,4 @@ class OrderSummaryView(GroupRequiredMixin, TemplateView):
 		context['order'] = order
 		context['order_items'] = order.orderitem.all()
 		return context
+	

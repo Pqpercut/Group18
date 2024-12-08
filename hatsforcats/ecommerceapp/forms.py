@@ -106,11 +106,6 @@ class ContactEnquiryForm(forms.ModelForm):
 
 
 class CheckoutForm(forms.ModelForm):
-    payment_method = forms.ChoiceField(choices=[
-        ('credit', 'Credit Card'),
-        ('debit', 'Debit Card'),
-        ('paypal', 'PayPal'),
-    ])
     
     class Meta:
         model = UserAddress

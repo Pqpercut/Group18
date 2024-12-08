@@ -46,9 +46,9 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('register/', RegistrationView.as_view(), name='register'),
 
-    path('basket', BasketView.as_view(), name='basket'), 
-    path('checkout', CheckoutView.as_view(), name='checkout'), 
-    path('confirmation', ConfirmationView.as_view(), name='confirmation'), 
+
+    path('checkout-page', CheckoutView.as_view(), name='checkout'), 
+
 
 
     path('password-reset/', PasswordResetView.as_view(template_name='login/password_reset.html'), name='password_reset'),
@@ -56,7 +56,6 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='login/password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset/done/', PasswordResetCompleteView.as_view(template_name='login/password_reset_complete.html'), name='password_reset_complete'),
 
-    path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('order-summary/<int:order_id>/', OrderSummaryView.as_view(), name='order-summary'),
     path('unauthorized/', TemplateView.as_view(template_name="unauthorized.html"), name='unauthorized'),
 
@@ -68,8 +67,7 @@ urlpatterns = [
     path("tempBasket.html", basketRem, name="basketRem"),
     path("", productDisplay, name="productDisplay"),
     path("productdetailpage.html", variantDisplay, name="variantDisplay"),
-    path("tempBasket.html", viewBasket, name="basketview"),
-    path("tempCheckout.html", checkout, name="checkout")
+
 ]
 
 # This is only to serve media files in the development environement. When we host this on the Universities Apache Server we will store the files in a seperate location on the Server

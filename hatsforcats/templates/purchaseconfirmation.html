@@ -14,21 +14,19 @@
           <div class="confirmation-container">
             <div class="confirmation-info">
                 <div class="confirmation-text">
-                    You have ordered a total of 3 items from us today. Thank you for shopping!
+                    You have ordered the below items from us today. Thank you for shopping!
                 </div>
                 <div class="confirmation-items">
+                    {% for item in order_items %}
                     <div class="summary-items">
-                        <div class="summary-text">Item 1</div>
-                        <div class="summary-text">£0.00</div>
+                        <div class="summary-text">{{ item.variantID.productID.name }} x {{ item.quantity }}</div>
+                        <div class="summary-text">£{{ item.priceAtPurchase }}</div>
                     </div>
-                    <div class="summary-items">
-                        <div class="summary-text">Item 2</div>
-                        <div class="summary-text">£0.00</div>
-                    </div>
+                    {% endfor %}
                     <div class="summary-items">
                         <div class="summary-items-total">
                             <div class="summary-text-total">Total</div>
-                            <div class="summary-text-total">£3.99</div>
+                            <div class="summary-text-total">£{{ order.totalAmount }}</div>
                         </div>
                     </div>
                 </div>
