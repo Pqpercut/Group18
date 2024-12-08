@@ -280,40 +280,34 @@ def variantDisplay(request):
 	colours = {v.colour for v in allitems} #all colours
 	available_colours = set(colours)
 
-	#keep tabs on selected colour and/or size
-	#selected_colour = request.session.get("selected_colour", None)
-	#selected_size = request.session.get("selected_size", None)
-	
 
-	#if request.method == "POST" and request.POST.get("form_name") == "add_basket":
 	if request.method == "POST":
-		#print(request.POST.get("variantid"))
-		#variantid = request.POST.get("variantid")  
 		quantity = int(request.POST.get("quantity"))
 		colour = request.POST.get("colour")
 		size = request.POST.get("size")
-		#amendQuantity = False
 
-		#when a colour is clicked
+		#puts all available sizes in set
 		available_sizes.clear()
 		for i in allitems: 
 			if i.colour == colour:
 				available_sizes.add(i.size)
 
 
-		#when size is clicked
+		#all available colours into set
 		available_colours.clear()
 		for i in allitems:
 			if i.size == size:
 				available_colours.add(i.colour)
 
 
+		#final validation check - checks if that size is available in that colour 
 		if (colour not in available_colours) or (size not in available_sizes):
 			print(size)
 			print(colour)
 			print("no colour and or size")
 			return render(request, "productdetailpage.html", {
 				'name': name, 'desc': desc, 
+				'variants' : allitems,
 				'colours': colours, 'sizes': sizes, 
 				'quantity': quantity
 			})
@@ -321,26 +315,23 @@ def variantDisplay(request):
 			print("yay")
 
 
+		#sorts variantid out 
 		variantid = ProductVariant.objects.get(colour=colour, size=size).id
+		variant = ProductVariant.objects.get(id=variantid)
 
 		#get basketid
 		#basketid = Basket.objects.get(userID=request.user).id
 		
-		#for testing
+		#basketid for testing
 		basket = Basket.objects.get(userID=1)
 		basketid = basket.id
-
-		#get varientid
-		variant = ProductVariant.objects.get(id=variantid)
 
 		#check if user has ordered item before already
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
-		#checks which btn
-		#btn = request.POST.get("add_button")
-
 
 		if basketitem: 
+		#inc quantity of thing in basket
 			print("added", quantity, "to EXISTING")
 			basketitem.quantity += quantity
 		else: 
@@ -355,8 +346,8 @@ def variantDisplay(request):
 	itemNames = {
 		'name' : name, 'desc' : desc,
 		'variants' : allitems,
-		'colours': colours, #'available_colours': available_colours, 'selected_colour': selected_colour,
-		'sizes' : sizes, 'available_sizes' : available_sizes, #'selected_size': selected_size,
+		'colours': colours, 
+		'sizes' : sizes, 
 		'quantity' : quantity
 	}
 
