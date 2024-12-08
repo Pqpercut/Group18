@@ -1,26 +1,51 @@
 
-<!-- Placeholder template by qasim-->
+{% extends 'base.html' %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Page</title>
-</head>
-<body>
-    
-    <h1> Contact </h1>
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<link href="{% static  'css/contact-page.css' %}" rel="stylesheet" />
+<main>
+    <section class="login">
+          <h1>CONTACT US</h1>
+          <div class="contact-us-container">
+            <div class="ask-question">
+                <h2>ASK US A QUESTION</h2>
+                <form method='post' action='' enctype='multitype/form-data'>  
+                    {% csrf_token %}
+                    <div class="EmailLine">
+                        {{ ContactForm.username }}
+                    </div>
+                    <div class="EmailLine">
+                        {{ ContactForm.email }}
+                    </div>
+                    <div class="DescriptionLine">
+                      {{ ContactForm.description }}
+                  </div>
+                    <div class="buttonContainer">
+                        <button type="submit" class="contactButton">SEND</button>
+                    </div>
+                </form>
+            </div>
+            <div class="contact-us-info">
+                <div class="contact-us-text">
+                    Do you have a question or query about your order? Or perhaps you’d like more information about working with us or our tracking information. Our team is here to help. <br><br> Leave your information in the contact us form  and our team will get back to you shortly. 
+                </div>
+                <div class="contact-us-image">
+                    <img src="{% static 'media/home-page/cat-image-1.png' %}" alt="Cat with a hat" >
+                </div>
+            </div>
+          </div>
+          
+    </section>
     {%if submitted == True %}
-        <script>
-            alert('Form submitted')
-        </script>
+    <script>
+        alert('Thank you for your message. Our team will respond shortly! ≽^•⩊•^≼')
+    </script>
     {%endif%}
-    <form method='post' action='' enctype='multitype/form-data'>  
-        {%csrf_token%}
-        {{ContactForm}}
+</main>
 
-        <button type='submit' value='submit'>Submit</button>
-    </form>
-</body>
-</html>
+
+{% endblock %}
+

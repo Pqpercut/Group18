@@ -1,103 +1,88 @@
 <!-- Developer: Malaika Noor
 University ID: 230190768 -->
+<!-- updated design to match updates by Adam 6/12/2024-->
+{% extends 'base.html' %}
+{% load static %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BASKET</title>
-  <link rel="stylesheet" href="../css/basket.css">
-</head>
-<body>
-
-  <div class="basket-container">
-    <header>
-      <h1>BASKET</h1>
-    </header>
-
-    <div class="main-content">
-      <div class="left-section">
-        <div class="info-box">
-          <span>3 ITEMS</span>
-          <class="wishlist-link">WISHLIST</span>
-        </div>
-
-        <div class="product-list">
-          <div class="product-item">
-            <div class="product-image"></div>
-            <div class="product-info">
-              <h3>Product Name</h3>
-              <p>Product No.<br>Colour<br>Size</p>
-              <div class="quantity">
-                <button class="quantity-btn">-</button>
-                <input type="text" value="1">
-                <button class="quantity-btn">+</button>
-
-              </div>
-            </div>
-            <span class="product-price">£0.00</span>
+{% block content %}
+  <link href="{% static  'css/basket.css' %}" rel="stylesheet" />
+  <main>
+    <div class="basket-container">
+      <div class="main-content">
+        <div class="left-section">
+          <h1>BASKET</h1>
+          <div class="info-box">
+            <div class="info-items">YOU HAVE 3 ITEMS IN YOUR BASKET</div>
+            <a href="{% url 'Catalogue' %}"><div class="keep-shopping">Keep shopping</div></a>
           </div>
-
-          <hr>
-          <div class="product-item">
-            <div class="product-image"></div>
-            <div class="product-info">
-              <h3>Product Name</h3>
-              <p>Product No.<br>Colour<br>Size</p>
-              <div class="quantity">
-                <button class="quantity-btn">-</button>
-                <input type="text" value="1">
-                <button class="quantity-btn">+</button>
-              </div>
-            </div>
-            <span class="product-price">£0.00</span>
-
-          </div>
-          <hr>
-          <div class="product-item">
-            <div class="product-image"></div>
-            <div class="product-info">
-              <h3>Product Name</h3>
-              <p>Product No.<br>Colour<br>Size</p>
-              <div class="quantity">
-                <button class="quantity-btn">-</button>
-                <input type="text" value="1">
-                <button class="quantity-btn">+</button>
-              </div>
-            </div>
-            <span class="product-price">£0.00</span>
+  
+          <div class="product-list">
+            {% if basket %}
+                {% for i in basket %}
+                <div class="product-item">
+                  <div class="product-image"></div>
+                  <div class="product-info">
+                    <h3>{{ i.variantID.productID.name }}</h3>
+                    <div class="product-subheading">Product No.</div>
+                    <div class="product-subheading">{{ i.variantID.size }}</div>
+                    <div class="product-subheading">{{ i.variantID.colour }}</div>
+                    <div class="quantity"></div>
+                  </div>
+                  <div class="product-price-container">
+                    <div class="product-price">
+                      £{{ i.variantID.price }}
+                    </div>
+                    <div class="product-quantity">
+                      <form method="post" action="{% url 'basketRem' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="variantid" value="{{ i.variantID.id }}">
+                        <button type="submit" class="quantity-btn-left" name="remove_btn" value="rem_one">-</button>
+                        <input type="text" value="{{ i.quantity }}" readonly>
+                        <button type="submit" class="quantity-btn-right" name="remove_btn" value="add_one">+</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No items in basket</p>
+            {% endif %}
           </div>
         </div>
-      </div>
-      <div class="right-section">
-        <div class="summary-section">
-          <h2>SUMMARY</h2>
-          <div class="summary-item">
-            <span>Subtotal</span>
-            <span>£0.00</span>
+        <div class="right-section">
+          <div class="summary-section">
+            <h2>SUMMARY</h2>
+            <div class="summary-items">
+              <div class="summary-text">Subtotal</div>
+              <div class="summary-text">£{{ total|floatformat:2 }}</div>
+            </div>
+            <div class="summary-items">
+              <div class="summary-text">Shipping</div>
+              <div class="summary-text">£0.00</div>
+            </div>
+            <div class="summary-items-discount">
+              <div class="summary-text">Discount Code</div>
+              <div class="summary-text">£0.00</div>
+            </div>
+  
+            <input type="text" placeholder="Enter discount code">
+            <div class="summary-items-total">
+              <div class="summary-text">Total</div>
+              <div class="summary-text">£{{ total|floatformat:2 }}</div>
+            </div>
+            
+            {% if basket %}
+              <a href="{% url 'checkout' %}"><button class="checkout-button">Continue to checkout</button></a>
+            {% else %}
+              <button class="checkout-button disabled">Continue to checkout</button>
+            {% endif %}
           </div>
-          <div class="summary-item">
-            <span>Shipping</span>
-            <span>£3.99</span>
-          </div>
-          <div class="summary-item">
-            <span>Discount Code</span>
-            <span>£0.00</span>
-          </div>
-
-          <input type="text" placeholder="Enter discount code">
-          <div class="summary-item total">
-            <span>Total</span>
-            <span>£3.99</span>
-          </div>
-
-          <button class="checkout-button">Continue to checkout</button>
-
         </div>
       </div>
     </div>
-  </div>
-</body>
-</html>
+  </main>
+
+
+{% endblock %}
+
+

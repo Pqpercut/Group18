@@ -25,7 +25,8 @@ from ecommerceapp.views import catalogueView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView
-from ecommerceapp.views import catalogueView, ContactPageView
+from ecommerceapp.views import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -45,14 +46,28 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('register/', RegistrationView.as_view(), name='register'),
 
+
+    path('basket', viewBasket, name='basket'), 
+    path('checkout-page', CheckoutView.as_view(), name='checkout'), 
+
+
     path('password-reset/', PasswordResetView.as_view(template_name='login/password_reset.html'), name='password_reset'),
     path('password-reset/done/', PasswordResetDoneView.as_view(template_name='login/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='login/password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset/done/', PasswordResetCompleteView.as_view(template_name='login/password_reset_complete.html'), name='password_reset_complete'),
 
+    path('order-summary/<int:order_id>/', OrderSummaryView.as_view(), name='order-summary'),
+    path('unauthorized/', TemplateView.as_view(template_name="unauthorized.html"), name='unauthorized'),
+
     #Created by Qasim 
     path("catalogue",catalogueView, name = "Catalogue"),
-    path("contact-page", ContactPageView, name="Contact-Page")
+    path("contact-page", ContactPageView, name="Contact-Page"),
+    path("Contact-Queries", ContactQueryView, name="Contact Queries"),
+
+    path("tempBasket.html", basketRem, name="basketRem"),
+    path("", productDisplay, name="productDisplay"),
+    path("product/<int:pk>", variantDisplay, name="variantDisplay"),
+
 ]
 
 # This is only to serve media files in the development environement. When we host this on the Universities Apache Server we will store the files in a seperate location on the Server

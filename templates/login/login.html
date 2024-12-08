@@ -1,4 +1,5 @@
 <!-- edited and setup for Django by Adam 1/12/2024-->
+<!-- updated design to match updates by Adam 6/12/2024-->
 {% extends 'base.html' %}
 {% load static %}
 
@@ -7,27 +8,64 @@
   <!-- Developer: Hamid Noor | University ID: 210079931 -->
 <main>
   <section class="login">
-      <h1>LOGIN</h1>
-      <form method="post">
-          {% csrf_token %}
-          <!-- Render Django form fields -->
-          <div class="EmailLine">
-              <label for="id_username">Username:</label>
-              {{ form.username }}
-          </div>
-          <div class="PasswordLine">
-              <label for="id_password">Password:</label>
-              {{ form.password }}
-          </div>
-          <p class="forgotPassword">
-              Forgot your password? Meow worries! Reset it 
-              <a href="#">here</a>.
-          </p>
-          <div class="buttonContainer">
-              <button type="submit" class="loginButton">Login</button>
-              <button type="button" class="registerButton" onclick="window.location.href='#'">Register</button>
-          </div>
-      </form>
+        <h1>LOGIN</h1>
+        <h2>Hi! Sign into your account now to see your saved basket or access your user profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Display general form errors (non-field errors) -->
+            {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for error in form.non_field_errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- Username Field -->
+            <div class="EmailLine">
+                {{ form.username }}
+                
+                <!-- Field-specific errors for username -->
+                {% if form.username.errors %}
+                    <div class="field-errors">
+                        {% for error in form.username.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Password Field -->
+            <div class="PasswordLine">
+                {{ form.password }}
+                
+                <!-- Field-specific errors for password -->
+                {% if form.password.errors %}
+                    <div class="field-errors">
+                        {% for error in form.password.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="buttonContainer">
+                <button type="submit" class="loginButton">SIGN IN</button>
+            </div>
+        </form>
+    <p class="sign-up">
+        Not yet signed up? Meow Worries! Create an account
+        <a class="sign-up-button" href="{% url 'register' %}">here</a>.
+    </p>
+    <div class="reset">
+        <div class="reset-line-left"></div>
+        <p>
+            or reset your password  <a class="reset-button" href="{% url 'password_reset' %}">here</a> if you've forgotten it
+        </p>
+        <div class="reset-line-right"></div>
+    </div>
   </section>
 </main>
 {% endblock %}

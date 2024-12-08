@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Header with logo and navigation links -->
+
+    <!--Made by Khalid  -->
+    <!-- updated design to match updates by Adam 6/12/2024-->
+    <link href="{% static  'css/product_catalogue.css' %}" rel="stylesheet" />
+    
+    <link href="{% static  'css/catalogue-Form.css' %}" rel="stylesheet" />
+    
+    <main class="product-page">
+        <div class="controls">
+            <div  onclick="openButton()" class="filter-btn">
+                FILTER 
+                <svg viewBox="0 0 24 24"  fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+        <div id="sortForm" class="sortingForm">
+            <div class="formContent">
+               <span class="close">&times;</span>
+               <h2 class="formTitle"> APPLY FILTERS</h2>
+               
+
+               <h5 class="formHeaderText"> Filters:</h5>
+               <form class="filterForm" method='get' value='filterForm'>
+                   
+                   
+                   <div class="filterButtons">
+                       <button type="button" class="filter-button"  data-value="hats" data-state="false">Hats</button>
+                       <button type="button" class="filter-button"  data-value="sunglasses" data-state="false">Sunglasses</button>
+                       <button type="button" class="filter-button" data-value="tophats" data-state="false">Top hats</button>
+                       <button type="button" class="filter-button" data-value="sunhats" data-state="false">Sun hats</button>
+                       <button type="button" class="filter-button"  data-value="boots" data-state="false">Boots</button>
+                   </div>
+                   
+                   <input type="hidden" name="selected_filters" id="selectedFilters">
+                   <h5 class="formHeaderText"> Sort:</h5>
+                   <div class="sortButton">
+                       <select name="order" id="orderBox">
+                           <option value="name">Name</option>
+                           <option value="price">Price</option>
+                           
+                       </select>
+                   </div>
+
+                   
+                   <input id="submitButton" type="submit" value="Submit">
+               </form>
+           </div>
+       </div>
+   
+    
+    <section class="product-grid">
+    <!-- Initial 9 products -->
+        {% for product in ProductList %}
+
+            {%if product.id < 10 %}
+                <a href="productDisplay?id={{product.id}}" class="{{productClass}} product">
+                    <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
+                    <p class="product-name">{{product.name}}</p>
+                    <p class="product-price">£{{product.productvariant.first.price}}</p>
+                </a>
+            {%else%}
+            <!-- Additional products hidden initially -->
+                <a href="productDisplay?id={{product.id}}" class="{{productClass}} product hidden">
+                    <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
+                    <p class="product-name">{{product.name}}</p>
+                    <p class="product-price">£{{product.productvariant.first.price}}</p>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </section>
+    
+        <button class="load-more-btn">LOAD MORE</button>
+    </main>
+    
+    
+    <script>
+        document.querySelector('.load-more-btn').addEventListener('click', () => {
+    // Select all hidden products
+    const hiddenProducts = document.querySelectorAll('.product.hidden');
+    
+    // Determine how many products to show in this batch
+    const batchSize = hiddenProducts.length;
+    
+    // Show all hidden products
+    hiddenProducts.forEach((product) => {
+        product.classList.remove('hidden');
+    });
+    
+    // If there are no more hidden products, hide the "Load More" button
+    if (document.querySelectorAll('.product.hidden').length === 0) {
+        document.querySelector('.load-more-btn').style.display = 'none';
+    }
+    });
+    
+       document.addEventListener('DOMContentLoaded', () => {
+    const messages = document.querySelectorAll('.message');
+    let currentIndex = 0;
+    
+    function showNextMessage() {
+        // Hide the current message
+        messages[currentIndex].classList.remove('active');
+        
+        // Update the index to show the next message
+        currentIndex = (currentIndex + 1) % messages.length;
+        
+        // Show the new current message
+        messages[currentIndex].classList.add('active');
+    }
+    
+    // Rotate messages every 10 seconds
+    setInterval(showNextMessage, 10000);
+    });
+    
+    ///DONE BY QASIM FAROOQ
+    const form = document.getElementById('sortForm');
+    const openFormBtn = document.getElementById('filter-btn');
+    const closeBtn = document.querySelector('.close');
+
+    function openButton(){
+        form.style.display = 'block';
+    }
+
+    // Close the modal when clicking the "x" button
+    closeBtn.addEventListener('click', () => {
+        form.style.display = 'none';
+    });
+  
+    // Close the modal when clicking anywhere outside the modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === form) {
+        modal.style.display = 'none';
+        }
+    });
+
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const hiddenInput = document.getElementById('selectedFilters');
+
+    filterButtons.forEach(button =>{
+        button.addEventListener('click',()=>{
+            const isActive= button.getAttribute('data-state') ==='true';
+            button.setAttribute('data-state',!isActive)
+            
+            if (!isActive){
+                button.classList.add('active');
+                button.classList.remove('inactive')
+            }else{
+                
+                button.classList.add('inactive')
+                button.classList.remove('active');
+            }
+            
+            console.log("running")
+            const selectedValues = Array.from(filterButtons)
+            .filter(btn => btn.classList.contains('active')) 
+            .map(btn => btn.getAttribute('data-value'));      
+
+            hiddenInput.value = selectedValues.join(',');
+            console.log(hiddenInput.value)
+        })
+    })
+        
+
+
+    </script>
+
+{% endblock %}

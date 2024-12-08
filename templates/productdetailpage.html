@@ -3,88 +3,110 @@ Developer: Azaan Mudassar
 University ID: 230098501
 -->
 
+{% extends 'base.html' %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail Page</title>
-    <link rel="stylesheet" href="../css/productdetail.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="main-container">
-        <div class="header-container">
-            <div class="product-container">
-                <div class="main-image-container">
-                    <img src="https://via.placeholder.com/600x400/FFFFFF" alt="Main Product Image" class="main-image" id="main-image">
-                    <button class="arrow arrow-left" onclick="previousImage()">&#8249;</button>
-                    <button class="arrow arrow-right" onclick="nextImage()">&#8250;</button>
-                </div>
-                <div class="thumbnail-container">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 1" class="thumbnail" onclick="changeMainImage(0)">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 2" class="thumbnail" onclick="changeMainImage(1)">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 3" class="thumbnail" onclick="changeMainImage(2)">
-                    <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 4" class="thumbnail" onclick="changeMainImage(3)">
-                </div>
+{% block content %}
+<link href="{% static  'css/productdetail.css' %}" rel="stylesheet" />
+<script>
+    const images = [
+        {% for variant in product.productvariant.all %}
+            {% for image in variant.imagepath.all %}
+                "{{ image.imagepath.url }}"{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        {% endfor %}
+    ];
+</script>
+<div class="main-container">
+    <div class="header-container">
+        <div class="product-container">
+            <div class="main-image-container">
+                <img src="{{product.productvariant.first.imagepath.first.imagepath.url}}" alt="Main Product Image" class="main-image" id="main-image">
+                <button class="arrow arrow-left" onclick="previousImage()">&#8249;</button>
+                <button class="arrow arrow-right" onclick="nextImage()">&#8250;</button>
             </div>
-            <div class="content-container">
-                <div class="rating-container">
-                    <h1>Product Page</h1>
-                    <div class="star-rating">
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                    </div>
-                </div>   
-                <div class="text-container">
-                    <h2>Category Name</h2>
-                    <h3>PRICE:</h3>
-                    <div class="description">
-                        <p>This is a Template Description</p>
-                    </div>
+            <div class="thumbnail-container">
+                {% for image in product.productvariant.first.imagepath.all %}
+                    <img src="{{ image.imagepath.url }}" alt="Thumbnail {{ forloop.counter }}" class="thumbnail" onclick="changeMainImage({{ forloop.counter0 }})">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="content-container">
+            <div class="rating-container">
+                <h1>{{name}}</h1>
+            </div>
+
+            <div class="text-container">
+                <h2>Category Name</h2>
+                <h3>£{{ product.productvariant.first.price }}</h3>
+                <form method="POST" >
+                    {% csrf_token %}
                     <div class="colour-container">
-                        <h3>Colour:</h3>
                         <div class="colour-selecter">
-                            <div class="color-circle" style="background-color: red;"></div>
-                            <div class="color-circle" style="background-color: blue;"></div>
-                            <div class="color-circle" style="background-color: green;"></div>
-                            <div class="color-circle" style="background-color: yellow;"></div>
+                            {% for c in colours %}            
+                                <button type="button" name="colour" value="{{ c }}" class="color-circle" onclick='colourSelect("{{ c }}", this)' data-colour="{{ c }}" required>{{ c }}</button>
+                            {% endfor %}
                         </div>
                     </div>
-                   <div class="size-container">
-                    <h3>Size:</h3>
-                    <div class="size-selecter">
-                        <div class="size-circle" data-size="S" title="Small">S</div>
-                        <div class="size-circle" data-size="M" title="Medium">M</div>
-                        <div class="size-circle" data-size="L" title="Large">L</div>
-                        <div class="size-circle" data-size="XL" title="Extra Large">XL</div>
+                    <div class="size-container">
+                        <h3>Select your size:</h3>
+                        <div class="size-selecter">
+                            {% for s in sizes %}
+                                <button type="button" name="size" value="{{ s }}" class="size-circle" onclick='sizeSelect("{{ s }}", this)' data-size="{{ s }}" required>{{ s }}</button>
+                            {% endfor %}
+                        </div>
                     </div>
-                   </div>
-                   <div class="quantity-container">
-                    <h3>Quantity:</h3>
-                    <div class="quantity-box">
-                        <button type="button" class="quantity-btn" id="decrease">-</button>
-                        <input type="number" id="quantity-input" value="1" min="1" max="99">
-                        <button type="button" class="quantity-btn" id="increase">+</button>
+                    <div class="quantity-container">
+                        <h3>Quantity:</h3>
+                        <div class="product-quantity">	                        
+                                <button type="button" name="add_button" value="rem_one" class="quantity-btn-left" id="decrease" onclick="change_quantity(-1)">-</button>   
+                                <input type="number" name="quantity" id="quantity-input" value="{{quantity}}" min="1" max="99">
+                                <button type="button" name="add_button" value="add_one" class="quantity-btn-left" id="increase" onclick="change_quantity(+1)">+</button>
+                        </div>
                     </div>
-                   </div>
-                  <button type ="submit" class="cartbutton">Add to Cart</button>
-                </div>
+                    <input type="hidden" name="colour" id="hidden-colour">
+                    <input type="hidden" name="size" id="hidden-size">
+                    <input type="hidden" name="size_list" id="size_list" value="{{ sizes }}">
+                    <input type="hidden" name="colour_list" id="colour_list" value="{{ colours }}">
+                    <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton">Add to Cart</button>
+                </form>
             </div>
         </div>
     </div>
-    <div class="suggestion-container">
-        <h1>You May Also Like</h1>
+</div>
+<div class="description-container">
+    <p>{{desc}}</p>
+</div>
+<div class="suggestion-container">
+    <div class="suggestion-header-container">
+        <div class="suggestion-header">
+            <h1>You May Also Like</h1>
+        </div>
+        <div class="suggestion-arrow">
+            <h1>></h1>
+        </div>
     </div>
     <div class="suggestion-img-container">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 1" class="alt-product">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 2" class="alt-product">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 3" class="alt-product">
-        <img src="https://via.placeholder.com/200x200/FFFFFF" alt="Product 4" class="alt-product">
+        <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 1" class="alt-product">
+        <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 2" class="alt-product">
+        <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 3" class="alt-product">
+        <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 4" class="alt-product">
     </div>
-    <script src="../js/productdetailscript.js"></script>
-</body>
+</div>
+
+<script>
+    const available_sizes = {
+        {% for c, sizes_list in sizes_map.items %}
+            "{{ c }}": {{ sizes_list|safe }},
+        {% endfor %}
+    };
+
+    const available_colours = {
+    	{% for s, colours_list in colours_map.items %}
+        	"{{ s }}": {{ colours_list|safe }},
+    	{% endfor %}
+    };
+</script>
+
+<script src="{% static 'productdetail.js' %}"></script>
+{% endblock %}

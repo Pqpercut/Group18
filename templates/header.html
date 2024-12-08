@@ -1,16 +1,59 @@
 <!-- Created by Adam - 23/11/2024 -->
+<!-- updated design to match updates by Adam 6/12/2024-->
+
+{% load static %}
 <nav class="header">
     <div class="logo">
-        <a href="{% url 'home' %}"><img src="../media/logo.png" alt="Hats for Cats"></a>
+        <a href="{% url 'home' %}"><img class="logo-img" src="{% static 'media/header-logo.png' %}" alt="Hats for Cats"></a>
     </div>
     <div class="menu-items">
         <a href="{% url 'Catalogue' %}">Shop</a>
         <a href="">About</a>
-        <a href="">Contact Us</a>
+        <a href="{% url 'Contact-Page' %}">Contact Us</a>
     </div>
     <div class="icons">
-        <div class="search-icon "><i class='bx bx-search-alt-2' ></i></div>
-        <a href="{% url 'login' %}"><div class="profile-icon "><i class='bx bx-user'></i></div></a> 
-        <div class="basket-icon "><i class='bx bx-shopping-bag' ></i></div>
+        <div class="search-icon ">
+            <form action="catalogue">
+                <input list="products" id="searchBox" name = "search">
+                    <datalist id="products">
+                        {% for product in FullProductList %}
+                            <option value="{{product.name}}">
+                        {% endfor %}
+                    </datalist>
+                <button type="submit">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+            </form>
+            
+        </div>
+        <a href="{% url 'login' %}">
+            <div class="profile-icon ">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 21C20 19.6044 20 18.9067 19.8278 18.3389C19.44 17.0605 18.4395 16.06 17.1611 15.6722C16.5933 15.5 15.8956 15.5 14.5 15.5H9.5C8.10444 15.5 7.40665 15.5 6.83886 15.6722C5.56045 16.06 4.56004 17.0605 4.17224 18.3389C4 18.9067 4 19.6044 4 21M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </a> 
+        <a href="{% url 'basket' %}">
+            <div class="basket-icon ">
+                <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.9996 8C15.9996 9.06087 15.5782 10.0783 14.828 10.8284C14.0779 11.5786 13.0605 12 11.9996 12C10.9387 12 9.92131 11.5786 9.17116 10.8284C8.42102 10.0783 7.99959 9.06087 7.99959 8M3.63281 7.40138L2.93281 15.8014C2.78243 17.6059 2.70724 18.5082 3.01227 19.2042C3.28027 19.8157 3.74462 20.3204 4.33177 20.6382C5.00006 21 5.90545 21 7.71623 21H16.283C18.0937 21 18.9991 21 19.6674 20.6382C20.2546 20.3204 20.7189 19.8157 20.9869 19.2042C21.2919 18.5082 21.2167 17.6059 21.0664 15.8014L20.3664 7.40138C20.237 5.84875 20.1723 5.07243 19.8285 4.48486C19.5257 3.96744 19.0748 3.5526 18.5341 3.29385C17.92 3 17.141 3 15.583 3L8.41623 3C6.85821 3 6.07921 3 5.4651 3.29384C4.92433 3.5526 4.47349 3.96744 4.17071 4.48486C3.82689 5.07243 3.76219 5.84875 3.63281 7.40138Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </a>
     </div>
 </nav>
+<div class="info-bar">
+    <div class="arrow-left">
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <div class="arrow-right">
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+</div>

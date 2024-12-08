@@ -2,8 +2,22 @@ from django import forms
 from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import ContactTable, UserAddress
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, UserCreationForm
+from django import forms
 
-from .models import ContactTable
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email address'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Email address'
+        }),
+    )
+
 class UpdateStockForm(forms.Form):
     variant = forms.ModelChoiceField(queryset=ProductVariant.objects.all(), widget=forms.HiddenInput())
     stocklevel = forms.IntegerField(label="New Stock Level", min_value=0)
@@ -64,9 +78,40 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({
+            'placeholder': 'Username'
+        })
+        self.fields['email'].widget.attrs.update({
+            'placeholder': 'Email address'
+        })
+        self.fields['password1'].widget.attrs.update({
+            'placeholder': 'Password'
+        })
+        self.fields['password2'].widget.attrs.update({
+            'placeholder': 'Reoeat password'
+        })
+
 
 
 class ContactEnquiryForm(forms.ModelForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email address'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Describe your issue', 'rows': 6}))
+    
     class Meta:
         model = ContactTable
         fields = ['username','description','email']
+
+
+class CheckoutForm(forms.ModelForm):
+    
+    class Meta:
+        model = UserAddress
+        fields = ['houseNumber', 'apartmentNumber', 'street', 'postcode', 'city']
+        widgets = {
+            'street': forms.TextInput(attrs={'placeholder': 'Street'}),
+            'postcode': forms.TextInput(attrs={'placeholder': 'Postcode'}),
+            'city': forms.TextInput(attrs={'placeholder': 'City'}),
+        }
