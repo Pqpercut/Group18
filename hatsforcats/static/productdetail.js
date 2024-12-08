@@ -64,12 +64,17 @@ function sizeSelect(size) {
 
 //quantity
 function change_quantity(q) {
-    quantity += q
+    const q_inp = document.getElementById("quantity-input");
+    let quantity = parseInt(q_inp.value) + q;
+
     if (quantity < 1) {
         quantity = 1;
     } else if (quantity > 99) {
         quantity = 99;
     }
+
+    q_inp.value = quantity;
+
 }
 
 //check if size n colour selected
