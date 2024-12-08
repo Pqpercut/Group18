@@ -5,12 +5,7 @@ University ID: 230098501
 
 console.log("loaded!");
 
-const images = [
-    "https://via.placeholder.com/600x400/FFFFFF",
-    "https://via.placeholder.com/140x140/FFFFFF",
-    "https://via.placeholder.com/140x140/FFFFFF",
-    "https://via.placeholder.com/140x140/FFFFFF"
-];
+
 
 let currentIndex = 0; // Current image index
 

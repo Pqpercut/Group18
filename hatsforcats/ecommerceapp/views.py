@@ -319,6 +319,10 @@ def variantDisplay(request, pk):
 	colours = {v.colour for v in allitems} #all colours
 	available_colours = set(colours)
 
+	images = []
+	for variant in allitems:
+		images.extend(variant.imagepath.all())
+
 	if request.method == "POST":
 		quantity = int(request.POST.get("quantity"))
 		colour = request.POST.get("colour")
@@ -349,7 +353,8 @@ def variantDisplay(request, pk):
 				'variants' : allitems,
 				'colours': colours, 
 				'sizes': sizes, 
-				'quantity': quantity
+				'quantity': quantity,
+				'images': images,
 			})
 		else:
 			print("yay")

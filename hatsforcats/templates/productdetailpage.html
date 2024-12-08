@@ -8,19 +8,27 @@ University ID: 230098501
 
 {% block content %}
 <link href="{% static  'css/productdetail.css' %}" rel="stylesheet" />
+<script>
+    const images = [
+        {% for variant in product.productvariant.all %}
+            {% for image in variant.imagepath.all %}
+                "{{ image.imagepath.url }}"{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        {% endfor %}
+    ];
+</script>
 <div class="main-container">
     <div class="header-container">
         <div class="product-container">
             <div class="main-image-container">
-                <img src="https://via.placeholder.com/600x400/FFFFFF" alt="Main Product Image" class="main-image" id="main-image">
+                <img src="{{product.productvariant.first.imagepath.first.imagepath.url}}" alt="Main Product Image" class="main-image" id="main-image">
                 <button class="arrow arrow-left" onclick="previousImage()">&#8249;</button>
                 <button class="arrow arrow-right" onclick="nextImage()">&#8250;</button>
             </div>
             <div class="thumbnail-container">
-                <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 1" class="thumbnail" onclick="changeMainImage(0)">
-                <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 2" class="thumbnail" onclick="changeMainImage(1)">
-                <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 3" class="thumbnail" onclick="changeMainImage(2)">
-                <img src="https://via.placeholder.com/140x140/FFFFFF" alt="Thumbnail 4" class="thumbnail" onclick="changeMainImage(3)">
+                {% for image in product.productvariant.first.imagepath.all %}
+                    <img src="{{ image.imagepath.url }}" alt="Thumbnail {{ forloop.counter }}" class="thumbnail" onclick="changeMainImage({{ forloop.counter0 }})">
+                {% endfor %}
             </div>
         </div>
         <div class="content-container">
