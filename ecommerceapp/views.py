@@ -273,7 +273,7 @@ def ContactPageView(request, *args, **kwargs):
             submitted = True
 
     context = {"ContactForm": contactform, 'submitted': submitted}
-    return render(request, 'general-pages/Contact-Page.html', context)
+    return render(request, 'general-Pages/Contact-Page.html', context)
 
 
 
