@@ -51,6 +51,10 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='login/password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset/done/', PasswordResetCompleteView.as_view(template_name='login/password_reset_complete.html'), name='password_reset_complete'),
 
+    path('checkout/', CheckoutView.as_view(), name='checkout'),
+    path('order-summary/<int:order_id>/', OrderSummaryView.as_view(), name='order-summary'),
+    path('unauthorized/', TemplateView.as_view(template_name="unauthorized.html"), name='unauthorized'),
+
     #Created by Qasim 
     path("catalogue",catalogueView, name = "Catalogue"),
     path("contact-page", ContactPageView, name="Contact-Page"),

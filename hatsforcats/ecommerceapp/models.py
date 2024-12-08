@@ -57,7 +57,7 @@ class UserAddress(models.Model):
     street = models.CharField(max_length=50)
     postcode = models.CharField(max_length= 20)
     city = models.CharField(max_length=10)
-    apartmentNumber= models.IntegerField()
+    apartmentNumber= models.IntegerField(blank=True)
 
 class Basket(models.Model):
 #Model made by Qasim Farooq

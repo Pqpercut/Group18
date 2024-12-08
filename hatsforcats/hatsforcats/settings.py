@@ -137,3 +137,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'noreply.hatsforcats@gmail.com'
 EMAIL_HOST_PASSWORD = 'group18pass'
+
+LOGIN_URL = '/login/' 

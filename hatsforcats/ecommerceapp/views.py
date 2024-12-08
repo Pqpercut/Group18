@@ -1,18 +1,19 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 from .models import *
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,  reverse
 from django.db.models import Sum
 from .forms import VariantForm, UpdateStockForm, CreateVariantForm, EditVariantForm, RegistrationForm
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, FormView, CreateView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404, redirect
-from .forms import ContactEnquiryForm
+from .forms import ContactEnquiryForm, CheckoutForm
 from django.db.models import Min
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import permission_required
+from .mixins import GroupRequiredMixin
 
 
 class InventoryProductListView (ListView):
@@ -438,3 +439,89 @@ def viewBasket(request):
 def checkout(request):
 	return render(request, "admin/temp_basket/tempCheckout.html")
 
+class CheckoutView(GroupRequiredMixin, FormView):
+	template_name = "checkout-test.html"
+	form_class = CheckoutForm
+	group_required = 'Customer'
+
+	def get_basket(self):
+		'''Get the current user's basket.'''
+		return get_object_or_404(Basket, userID=self.request.user)
+
+	def get_initial(self):
+		'''Prefill the form with the user's address if it exists.'''
+		try:
+			user_address = UserAddress.objects.get(userID=self.request.user)
+			initial_data = {
+				'houseNumber': user_address.houseNumber,
+				'apartmentNumber': user_address.apartmentNumber,
+				'street': user_address.street,
+				'postcode': user_address.postcode,
+				'city': user_address.city,
+			}
+			return initial_data
+		except UserAddress.DoesNotExist:
+			return super().get_initial()
+
+	def get_context_data(self, **kwargs):
+		'''Add basket items and total cost to context.'''
+		context = super().get_context_data(**kwargs)
+		basket = self.get_basket()
+		basket_items = basket.basketitem.all()
+		total_cost = sum(item.variantID.price * item.quantity for item in basket_items)
+		context['basket_items'] = basket_items
+		context['total_cost'] = total_cost
+		return context
+
+	def form_valid(self, form):
+		'''Handle the checkout process.'''
+		# Save or update the user's address
+		user_address, created = UserAddress.objects.update_or_create(
+			userID=self.request.user,
+			defaults={
+				'houseNumber': form.cleaned_data['houseNumber'],
+				'apartmentNumber': form.cleaned_data.get('apartmentNumber', None),
+				'street': form.cleaned_data['street'],
+				'postcode': form.cleaned_data['postcode'],
+				'city': form.cleaned_data['city'],
+			}
+		)
+
+		# Process basket and create order
+		basket = self.get_basket()
+		basket_items = basket.basketitem.all()
+
+		# Createnew order
+		order = Order.objects.create(
+			userID=self.request.user,
+			totalAmount=sum(item.variantID.price * item.quantity for item in basket_items),
+			status='pending',
+			paymentMethod=form.cleaned_data['payment_method'],
+			trackingInfo="Processing",
+		)
+
+		# Convert basket items to order items
+		for basket_item in basket_items:
+			OrderItem.objects.create(
+				orderID=order,
+				variantID=basket_item.variantID,
+				quantity=basket_item.quantity,
+				priceAtPurchase=basket_item.variantID.price,
+			)
+
+		# Clear the basket
+		basket_items.delete()
+
+		return redirect(reverse('order-summary', kwargs={'order_id': order.id}))
+
+class OrderSummaryView(GroupRequiredMixin, TemplateView):
+	template_name = "order-summary-test.html"
+	group_required = 'Customer'
+
+	def get_context_data(self, **kwargs):
+		"""Add order details to context."""
+		context = super().get_context_data(**kwargs)
+		order = get_object_or_404(Order, id=self.kwargs['order_id'], userID=self.request.user)
+		context['order'] = order
+		context['order_items'] = order.orderitem.all()
+		return context
