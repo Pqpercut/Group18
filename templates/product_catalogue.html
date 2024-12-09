@@ -61,7 +61,6 @@
             {%if listsize < 10 %}
                 <a href="product/{{product.id}}" class="{{productClass}} product">
                     <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
-                    {{product.productvariant.first.imagepath.first.imagepath.url}}
                     <p class="product-name">{{product.name}}</p>
                     <p class="product-price">£{{product.productvariant.first.price}}</p>
                 </a>
