@@ -403,7 +403,8 @@ def variantDisplay(request, pk):
 		'colours': colours, 
 		'sizes': sizes, 
 		'sizes_map': sizes_map, 'colours_map' : colours_map,
-		'quantity': quantity
+		'quantity': quantity,
+		'product': product,
 	}
 
 

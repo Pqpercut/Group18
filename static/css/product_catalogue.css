@@ -98,7 +98,8 @@ transform: scaleX(1);
 
 .product-image {
     width: 100%; 
-    aspect-ratio: 35 / 24; 
+    aspect-ratio: 30 / 24; 
+    object-fit: cover;
     background-color: #fff; 
     margin-bottom: 10px;
     border-radius: 5px;

@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
     'cloudinary',
     'ecommerceapp',
 
@@ -111,16 +111,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static", 
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -151,6 +142,17 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '786492879393423',
     'API_SECRET': '0GBW2aQCvpekjXgmgZdc7twK1f8'
 }
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static", 
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STORAGES = {
     'default': {
