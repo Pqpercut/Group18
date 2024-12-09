@@ -206,7 +206,7 @@ def catalogueView(request, *args, **kwargs):
 	else:
 		style=""
 
-	context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style}
+	context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style, "listsize": listSize}
 
     
 	return render(request, "product_catalogue.html", context)

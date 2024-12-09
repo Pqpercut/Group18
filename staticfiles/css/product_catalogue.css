@@ -166,5 +166,5 @@ transform: scaleX(1);
 }
 
 .product-grid:has(.product-size1){
-    max-width: 800px;
+    max-width: 600px;
 }

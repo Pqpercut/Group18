@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ecommerceapp',
+    'cloudinary_storage',
+    'cloudinary',
+
 ]
 
 MIDDLEWARE = [
@@ -143,3 +146,11 @@ DATABASES = {
 }
 
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dfrmbvnbo',
+    'API_KEY': '786492879393423',
+    'API_SECRET': '0GBW2aQCvpekjXgmgZdc7twK1f8'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
