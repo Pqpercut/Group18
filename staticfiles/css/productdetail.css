@@ -50,7 +50,7 @@ body {
 .content-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;     
+    align-items: stretch;     
     justify-content: flex-start;     
     gap: 0px;     
     margin-top: 0;     
@@ -137,8 +137,9 @@ h3 {
 
 .text-container {
     display: flex;
+    width: 100%;
     flex-direction: column; 
-    align-items: flex-start;
+    align-items: stretch;    
     gap: 15px; 
 }
 
@@ -201,45 +202,16 @@ h3 {
 }
 
 .size-container {
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start; 
-    gap: 15px; 
-    margin-bottom: 10px;
-}
-
-.size-selecter, .size-selecter-2 {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
-}
-
-.size-circle {
-    width: 180px; 
-    height: 50px;
-    border-radius: 7px;
-    border: none; 
-    background-color: white; 
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    font-size: 20px; 
-    font-weight: regular;
-    text-align: center;
-    color: black; 
-    cursor: pointer; 
-}
-
-.size-circle:hover {
-    background-color: white; 
-    color: #6a77c4;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 100%; /* Flexible width */
 }
 
 
-.size-circle.selected {
-    border: 2px solid #838EDA; 
-    background-color: #dce4ff; 
-}
 
 .product-quantity {
     display: flex;
@@ -433,4 +405,37 @@ h3 {
 
 .size-circle.active {
     background-color: #838fda;
+}
+
+.size-selecter {
+    display: grid; /* Switch to grid layout */
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 10px; /* Spacing between grid items */
+    width: 100%; /* Ensure full use of parent width */
+    box-sizing: border-box; /* Include padding/borders in calculations */
+}
+
+.size-circle {
+    height: 50px;
+    border-radius: 7px;
+    border: none;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.size-circle:hover {
+    background-color: white;
+    color: #6a77c4;
+}
+
+.size-circle.selected {
+    border: 2px solid #838EDA; 
+    background-color: #dce4ff; 
 }

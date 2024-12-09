@@ -84,13 +84,6 @@ header .cartIcon {
   height: 50px;
 }
 
-input:invalid {
-  border-color: red;
-}
-
-input:valid {
-  border-color: green;
-}
 
 input::placeholder {
   color: #888; 

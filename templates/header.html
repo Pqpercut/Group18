@@ -13,7 +13,7 @@
     </div>
     <div class="icons">
         <div class="search-icon ">
-            <form action="catalogue">
+            <form action="{% url 'Catalogue' %}">
                 <input list="products" id="searchBox" name = "search">
                     <datalist id="products">
                         {% for product in FullProductList %}

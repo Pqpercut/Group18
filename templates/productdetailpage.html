@@ -38,7 +38,7 @@ University ID: 230098501
 
             <div class="text-container">
                 <h2>Category Name</h2>
-                <h3>£{{ product.productvariant.first.price }}</h3>
+                <h3>£{{ variants.first.price }}</h3>
                 <form method="POST" >
                     {% csrf_token %}
                     <div class="colour-container">
