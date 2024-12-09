@@ -4,6 +4,12 @@ updated design to match updates - Adam 6/12/2024
 */
 
 /* General body styling */
+
+* {
+    scroll-behavior: smooth;
+}
+
+
 body {
     font-family: "Outfit", sans-serif;
     margin: 0;
