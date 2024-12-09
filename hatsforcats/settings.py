@@ -30,8 +30,6 @@ ALLOWED_HOSTS = [
     'group-18-project-f309451bf6cb.herokuapp.com',
     '127.0.0.1'
     ]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,10 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'ecommerceapp',
     'cloudinary_storage',
+    'django.contrib.staticfiles',
     'cloudinary',
+    'ecommerceapp',
+
 
 ]
 
@@ -153,4 +152,11 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': '0GBW2aQCvpekjXgmgZdc7twK1f8'
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STORAGES = {
+    'default': {
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    },
+}
