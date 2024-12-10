@@ -214,7 +214,7 @@ def catalogueView(request, *args, **kwargs):
 class CustomLoginView(LoginView):
 	template_name = 'login/login.html'  
 	authentication_form = CustomLoginForm
-	# redirect_authenticated_user = True 
+	redirect_authenticated_user = True 
 
 	def get_success_url(self):
 		if self.request.user.groups.filter(name='admin').exists():
@@ -369,8 +369,9 @@ def variantDisplay(request, pk):
 
 
 		#sorts variantid out 
-		variantid = ProductVariant.objects.get(colour=colour, size=size).id
-		variant = ProductVariant.objects.get(id=variantid)
+		
+		variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
+		variant = ProductVariant.objects.get(productID=product, id=variantid)
 
 		#get basketid
 		#basketid = Basket.objects.get(userID=request.user).id

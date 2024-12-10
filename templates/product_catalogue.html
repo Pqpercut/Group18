@@ -58,7 +58,7 @@
     <!-- Initial 9 products -->
         {% for product in ProductList %}
 
-            {%if listsize < 10 %}
+            {%if product.id < 10 %}
                 <a href="product/{{product.id}}" class="{{productClass}} product">
                     <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
                     <p class="product-name">{{product.name}}</p>
