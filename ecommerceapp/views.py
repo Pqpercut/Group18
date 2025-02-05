@@ -373,10 +373,10 @@ def variantDisplay(request, pk):
 		variant = ProductVariant.objects.get(id=variantid)
 
 		#get basketid
-		#basketid = Basket.objects.get(userID=request.user).id
+		basketid = Basket.objects.get(userID=request.user).id
 		
 		#basketid for testing
-		basket = Basket.objects.get(userID=1)
+		#basket = Basket.objects.get(userID=1)
 		basketid = basket.id
 
 		#check if user has ordered item before already
