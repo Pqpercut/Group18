@@ -298,20 +298,20 @@ def productDisplay(request):
 
 
 #display product varients
-#get product_id. if product_id = variant, display it else dont
 def variantDisplay(request, pk):
 #written by Sakina Khaki
 	#print("blorp")
 
-	#productid = request.POST.get("productid")
-	productid = pk #testing purpose
+	productid = pk #productid from url
 
+	#use productid to get product; get name and description
 	product = Product.objects.get(id = productid)
 	name = product.name
 	desc = product.description
 
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
+
 
 	sizes = ["S", "M", "L", "XL"] #all sizes
 	available_sizes = set(sizes)
@@ -331,7 +331,7 @@ def variantDisplay(request, pk):
 	for i in allitems:
 		colours_map.setdefault(i.size, []).append(i.colour)
 
-
+	
 	if request.method == "POST":
 		quantity = int(request.POST.get("quantity"))
 		colour = request.POST.get("colour")
@@ -420,10 +420,10 @@ def basketRem(request):
 	if request.method == "POST":
 		#print("beep")
 		#get basketid
-		#basketid = Basket.objects.get(userID=request.user).id
+		basketid = Basket.objects.get(userID=request.user).id
 
 		#for testing
-		basketid = Basket.objects.get(userID=1)
+		#basketid = Basket.objects.get(userID=1)
 
 		variantid = request.POST.get("variantid")
 		variant = ProductVariant.objects.get(id=variantid)
@@ -457,22 +457,25 @@ def viewBasket(request):
 #written by Sakina Khaki
 	#print("beep")
 	#get basketid
-	#basketid = Basket.objects.get(userID=request.user).id
+	basketid = Basket.objects.get(userID=request.user).id
 
 	#for testing
-	basketid = Basket.objects.get(userID=1)
+	#basketid = Basket.objects.get(userID=1)
 
 	allitems = BasketItem.objects.filter(basketID=basketid)
 
 	total = 0
+	numitems = 0
 	for i in allitems:
 		variant = ProductVariant.objects.get(id=i.variantID.id)
 		total += (variant.price * i.quantity)
+		numitems += (1 * i.quantity)
 	#print(total)
 
 	itemNames = {
 		'basket' : allitems,
-		'total' : total
+		'total' : total,
+		'numitems' : numitems
 	}
 
 
