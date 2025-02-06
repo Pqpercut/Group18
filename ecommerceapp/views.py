@@ -152,24 +152,30 @@ class DeleteVariantView(DeleteView):
 def catalogueView(request, *args, **kwargs):
 	###Written by Qasim Farooq 29/11/24
 
-	##Get filter in URL
+	#We need the filter, we use a get Value to access this
 	FiltergetValue = request.GET.get('selected_filters',"")
-	print("BEFORE:" + str(FiltergetValue)) 
+
+	###Make a list to store Filter values as there may be more than 1
 	filterList = []
 	filterValue = "" 
+	###If statement to check if there is a filter query
 	if (FiltergetValue !=""):
-		filterList = FiltergetValue.split(",")
-		print("FILTER EXISTS : " + str(FiltergetValue))
-		for x in filterList:
+		filterList = FiltergetValue.split(",") ### Put all filter values as seperate elements in an array
+		
+
+		##### HEADS UP: MAY BE NOT NEEDED
+		for x in filterList: ###Add all filterValues to a string
 			##Add all filter values to list and seperate with comma
 			filterValue = filterValue + x + ","
 			print(x)
 
-	print("AFTER:" , filterValue)
-	##Assign the correct Order by Value
+
+	#Assign the correct Order by Value
+
+	### Get the orderValue request
 	orderValue = request.GET.get("order","default-value")
-	if orderValue == 'price':
-		orderValue = 'productvariant__price'
+	if orderValue == 'price': ### We only have 2 options and you can only choose one
+		orderValue = 'productvariant__price' ##value to use for sort
 	else:
 		orderValue = 'name'
 
@@ -181,22 +187,26 @@ def catalogueView(request, *args, **kwargs):
 		print("Filter complete")
 		productList = productList.filter(categories__categories__in = filterList)
 
-	##Order the query
+	
 	##Aggregate the values to be able to prevent multiple variants showing on the list
+
+
+	### MAY BE UNNECCESSARY?
 	productList = productList.annotate(min_val=Min(orderValue))
 	productList = productList.annotate(img_path=Min('productvariant__imagepath__imagepath'))
 	
 	productList = productList.order_by('min_val')
 
+	### Check if there is a search query
 	searchValue = request.GET.get("search","")
+	
 
-	if searchValue != '':
+	if searchValue != '': ### Only filter for search value if a search value exists
 		productList = productList.filter(name__icontains=searchValue)
 		print("searching")
-	##Return the query
 
-	fullProductList = Product.objects.all()
 
+	#Code to deal with images being too large with less than 3 products
 	listSize = len(productList)
 	style = ""
 	if(listSize == 2):
@@ -206,10 +216,39 @@ def catalogueView(request, *args, **kwargs):
 	else:
 		style=""
 
-	context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style}
+	###Context to return to template
+	context = {"ProductList" : productList, "searchValue": searchValue, "productClass": style}
 
     
 	return render(request, "product_catalogue.html", context)
+
+
+
+class CatalogueViewClass(ListView):
+	model = Product
+	context_object_name = "products"
+	template_name = "product_catalogue.html"
+
+	def get(self, request, *args, **kwargs): ###Get filter values for context data to use
+		### Get Filter Value
+
+		###Get Order Value
+
+		### Get Search value
+
+		##Return filter, may have to be an array since we have multiple filter values?
+		return super().get(request, *args, **kwargs)
+	
+	def get_context_data(self, **kwargs): ###use filter values 
+
+		###Input filter values
+
+		###List Size issue
+
+		###Return context
+		return super().get_context_data(**kwargs)
+	
+
 
 class CustomLoginView(LoginView):
 	template_name = 'login/login.html'  
@@ -277,6 +316,8 @@ def ContactPageView(request, *args, **kwargs):
 
 
 
+##def ContactPageViewClass(FormView):
+	###TBC (Incomplete)
 
 @user_passes_test("ecommerceapp.Admin") 
 def ContactQueryView(request,*args,**kwargs):
