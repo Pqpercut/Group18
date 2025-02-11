@@ -30,11 +30,11 @@
                    
                    
                    <div class="filterButtons">
-                       <button type="button" class="filter-button"  data-value="hats" data-state="false">Hats</button>
-                       <button type="button" class="filter-button"  data-value="sunglasses" data-state="false">Sunglasses</button>
-                       <button type="button" class="filter-button" data-value="tophats" data-state="false">Top hats</button>
-                       <button type="button" class="filter-button" data-value="sunhats" data-state="false">Sun hats</button>
-                       <button type="button" class="filter-button"  data-value="boots" data-state="false">Boots</button>
+                       <button type="button" class="filter-button"  data-value="seasonal" data-state="false">Seasonal hats</button>
+                       <button type="button" class="filter-button"  data-value="occasional" data-state="false">Occasional hats</button>
+                       <button type="button" class="filter-button" data-value="cozy" data-state="false">Comfortable Hats</button>
+                       <button type="button" class="filter-button" data-value="summer" data-state="false">Summer Hats</button>
+                       <button type="button" class="filter-button"  data-value="themed" data-state="false">Themed Hats</button>
                    </div>
                    
                    <input type="hidden" name="selected_filters" id="selectedFilters">
@@ -42,7 +42,7 @@
                    <div class="sortButton">
                        <select name="order" id="orderBox">
                            <option value="name">Name</option>
-                           <option value="price">Price</option>
+                           <option value="productvariant__price">Price</option>
                            
                        </select>
                    </div>
@@ -58,7 +58,7 @@
     <!-- Initial 9 products -->
         {% for product in ProductList %}
 
-            {%if product.id < 10 %}
+            {%if forloop.counter < 10 %}
                 <a href="product/{{product.id}}" class="{{productClass}} product">
                     <img src= "{{product.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
                     <p class="product-name">{{product.name}}</p>

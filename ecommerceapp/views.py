@@ -152,26 +152,10 @@ class DeleteVariantView(DeleteView):
 def catalogueView(request, *args, **kwargs):
 	###Written by Qasim Farooq 29/11/24
 
-	#We need the filter, we use a get Value to access this
-	FiltergetValue = request.GET.get('selected_filters',"")
-
-	###Make a list to store Filter values as there may be more than 1
-	filterList = []
-	filterValue = "" 
-	###If statement to check if there is a filter query
-	if (FiltergetValue !=""):
-		filterList = FiltergetValue.split(",") ### Put all filter values as seperate elements in an array
-		
-
-		##### HEADS UP: MAY BE NOT NEEDED
-		for x in filterList: ###Add all filterValues to a string
-			##Add all filter values to list and seperate with comma
-			filterValue = filterValue + x + ","
-			print(x)
-
-
-	#Assign the correct Order by Value
-
+	
+	filterList = request.GET.get('selected_filters',"")
+	
+	
 	### Get the orderValue request
 	orderValue = request.GET.get("order","default-value")
 	if orderValue == 'price': ### We only have 2 options and you can only choose one
@@ -183,7 +167,7 @@ def catalogueView(request, *args, **kwargs):
 	productList = Product.objects.all()
 
     #If there is a filter then filter the query to only those products
-	if (FiltergetValue !=""):
+	if (filterList !=""):
 		print("Filter complete")
 		productList = productList.filter(categories__categories__in = filterList)
 
@@ -225,28 +209,60 @@ def catalogueView(request, *args, **kwargs):
 
 
 class CatalogueViewClass(ListView):
-	model = Product
-	context_object_name = "products"
+	
+	context_object_name = "ProductList"
 	template_name = "product_catalogue.html"
-
+	
+	
+	filterValue = ""
+	orderValue = ""
+	SearchValue = ""
 	def get(self, request, *args, **kwargs): ###Get filter values for context data to use
 		### Get Filter Value
-
+		
+		self.filterValue = request.GET.get('selected_filters',"") 
+		self.filterValue = self.filterValue.split(",") if self.filterValue else [] ## Split all values into a list for it to be recognised
+		
 		###Get Order Value
 
+		self.orderValue = request.GET.get("order","name") ### Default value will be name
+		
 		### Get Search value
-
+		self.searchValue = request.GET.get("search","")
+		print(self.searchValue)
+	
 		##Return filter, may have to be an array since we have multiple filter values?
 		return super().get(request, *args, **kwargs)
 	
-	def get_context_data(self, **kwargs): ###use filter values 
-
+	
+	def get_queryset(self):
+		queryset = Product.objects.all()
 		###Input filter values
 
-		###List Size issue
+		if (self.filterValue !=[]):
+			queryset = queryset.filter(categories__categories__in = self.filterValue)
 
+		##Input Order values 
+		queryset = queryset.order_by(self.orderValue)
+		##Search value
+		if self.searchValue != '': ### Only filter for search value if a search value exists
+			queryset = queryset.filter(name__icontains=self.searchValue)
+		return queryset
+	
+	
+	def get_context_data(self, **kwargs): ###use filter values 
+		###List Size issue
+		listSize = len(self.get_queryset())
+		style = ""
+		if(listSize == 2) or (listSize == 1):
+			style="product-size" + str(listSize)
+			print(style)
+		else:
+			style=""
 		###Return context
-		return super().get_context_data(**kwargs)
+		context = super().get_context_data(**kwargs)
+		context['productClass'] = style
+		return context
 	
 
 

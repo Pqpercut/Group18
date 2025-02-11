@@ -26,6 +26,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 
 from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView
 from ecommerceapp.views import *
+from ecommerceapp.views import CatalogueViewClass
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -60,7 +61,8 @@ urlpatterns = [
     path('unauthorized/', TemplateView.as_view(template_name="unauthorized.html"), name='unauthorized'),
 
     #Created by Qasim 
-    path("catalogue",catalogueView, name = "Catalogue"),
+    ##path("catalogue",catalogueView, name = "Catalogue"),
+    path("catalogue",CatalogueViewClass.as_view(), name = "Catalogue"),
     path("contact-page", ContactPageView, name="Contact-Page"),
     path("Contact-Queries", ContactQueryView, name="Contact Queries"),
 
