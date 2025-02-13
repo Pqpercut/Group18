@@ -302,6 +302,12 @@ def variantDisplay(request, pk):
 #written by Sakina Khaki
 	#print("blorp")
 
+	'''
+		use productid to get product; get name, description
+		get every variant of product 
+		map sizes -> colour (vice versa)
+	'''
+
 	productid = pk #productid from url
 
 	#use productid to get product; get name and description
@@ -332,7 +338,14 @@ def variantDisplay(request, pk):
 	for i in allitems:
 		colours_map.setdefault(i.size, []).append(i.colour)
 
-	
+	'''
+		post request
+		filter available size/colour (create sets)
+		get quantity wanted (in the post request)
+		validate item is available
+			if unavailable, return page reload
+	'''
+
 	#when user clicks things on webpage
 	if request.method == "POST":
 		quantity = int(request.POST.get("quantity"))
@@ -381,19 +394,28 @@ def variantDisplay(request, pk):
 		#basket = Basket.objects.get(userID=1)
 		#basketid = basket.id
 
+
+		'''
+			add to basket 
+			check if existing or new item
+			return redirect to basket
+		'''
+
 		#check if user has ordered item before already
 		basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
 
 
 		if basketitem: 
 		#inc quantity of thing in basket
-			print("added", quantity, "to EXISTING")
+			#print("added", quantity, "to EXISTING")
 			basketitem.quantity += quantity
+
 		else: 
 		#create new basketitem entry
-			print("added", quantity, "to NEW")
+			#print("added", quantity, "to NEW")
 			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
-
+			
+			
 		return redirect('basket')
 	else:
 		quantity = 1
