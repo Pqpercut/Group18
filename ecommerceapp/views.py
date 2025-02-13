@@ -309,29 +309,31 @@ def variantDisplay(request, pk):
 	name = product.name
 	desc = product.description
 
+	#getting every product varient from db
 	allitems = ProductVariant.objects.all()
 	allitems = allitems.filter(productID = productid)
 
 
+	#
 	sizes = ["S", "M", "L", "XL"] #all sizes
 	available_sizes = set(sizes)
 
 	colours = {v.colour for v in allitems} #all colours
 	available_colours = set(colours)
 
-	#dictionary of all sizes and colours
+	#map sizes and colours
 	sizes_map = {}
 	for i in allitems:
 		sizes_map.setdefault(i.colour, []).append(i.size)
 
 	print(sizes_map)
-	#print(sizes_map)
 
 	colours_map = {}
 	for i in allitems:
 		colours_map.setdefault(i.size, []).append(i.colour)
 
 	
+	#when user clicks things on webpage
 	if request.method == "POST":
 		quantity = int(request.POST.get("quantity"))
 		colour = request.POST.get("colour")
@@ -365,7 +367,7 @@ def variantDisplay(request, pk):
 				'quantity': quantity
 			})
 		else:
-			print("yay")
+			print("yay") 
 
 
 		#sorts variantid out 
@@ -373,14 +375,14 @@ def variantDisplay(request, pk):
 		variant = ProductVariant.objects.get(id=variantid)
 
 		#get basketid
-		basketid = Basket.objects.get(userID=request.user).id
+		basket = Basket.objects.get(userID=request.user)
 		
 		#basketid for testing
 		#basket = Basket.objects.get(userID=1)
-		basketid = basket.id
+		#basketid = basket.id
 
 		#check if user has ordered item before already
-		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
+		basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
 
 
 		if basketitem: 
@@ -396,7 +398,7 @@ def variantDisplay(request, pk):
 	else:
 		quantity = 1
 
-
+	#to pass to html
 	itemNames = {
 		'name': name, 'desc': desc, 
 		'variants' : allitems,
@@ -455,12 +457,14 @@ def basketRem(request):
 #veiw basket
 def viewBasket(request):
 #written by Sakina Khaki
-	#print("beep")
+	#print("beep") 
+
 	#get basketid
 	basketid = Basket.objects.get(userID=request.user).id
 
-	#for testing
-	#basketid = Basket.objects.get(userID=1)
+	#for testing if right basket loaded
+	#admin acc id = 1
+	assert basketid == 1, "basket is wrong! id="+str(basketid)
 
 	allitems = BasketItem.objects.filter(basketID=basketid)
 
