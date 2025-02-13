@@ -21,7 +21,6 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from ecommerceapp.views import HomeView, InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView, CustomLoginView, RegistrationView
-from ecommerceapp.views import catalogueView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 from ecommerceapp.views import InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView

@@ -149,63 +149,6 @@ class DeleteVariantView(DeleteView):
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
-def catalogueView(request, *args, **kwargs):
-	###Written by Qasim Farooq 29/11/24
-
-	
-	filterList = request.GET.get('selected_filters',"")
-	
-	
-	### Get the orderValue request
-	orderValue = request.GET.get("order","default-value")
-	if orderValue == 'price': ### We only have 2 options and you can only choose one
-		orderValue = 'productvariant__price' ##value to use for sort
-	else:
-		orderValue = 'name'
-
-	##Get a query of all products
-	productList = Product.objects.all()
-
-    #If there is a filter then filter the query to only those products
-	if (filterList !=""):
-		print("Filter complete")
-		productList = productList.filter(categories__categories__in = filterList)
-
-	
-	##Aggregate the values to be able to prevent multiple variants showing on the list
-
-
-	### MAY BE UNNECCESSARY?
-	productList = productList.annotate(min_val=Min(orderValue))
-	productList = productList.annotate(img_path=Min('productvariant__imagepath__imagepath'))
-	
-	productList = productList.order_by('min_val')
-
-	### Check if there is a search query
-	searchValue = request.GET.get("search","")
-	
-
-	if searchValue != '': ### Only filter for search value if a search value exists
-		productList = productList.filter(name__icontains=searchValue)
-		print("searching")
-
-
-	#Code to deal with images being too large with less than 3 products
-	listSize = len(productList)
-	style = ""
-	if(listSize == 2):
-		style="product-size2"
-	elif(listSize == 1):
-		style="product-size1"
-	else:
-		style=""
-
-	###Context to return to template
-	context = {"ProductList" : productList, "searchValue": searchValue, "productClass": style}
-
-    
-	return render(request, "product_catalogue.html", context)
-
 
 
 class CatalogueViewClass(ListView):
@@ -216,7 +159,7 @@ class CatalogueViewClass(ListView):
 	
 	filterValue = ""
 	orderValue = ""
-	SearchValue = ""
+	SearchValue = ""	
 	def get(self, request, *args, **kwargs): ###Get filter values for context data to use
 		### Get Filter Value
 		
@@ -229,12 +172,12 @@ class CatalogueViewClass(ListView):
 		
 		### Get Search value
 		self.searchValue = request.GET.get("search","")
-		print(self.searchValue)
+		
 	
 		##Return filter, may have to be an array since we have multiple filter values?
 		return super().get(request, *args, **kwargs)
 	
-	
+
 	def get_queryset(self):
 		queryset = Product.objects.all()
 		###Input filter values
