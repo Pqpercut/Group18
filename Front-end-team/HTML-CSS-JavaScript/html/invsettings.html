@@ -1,0 +1,101 @@
+<!--
+Developer: Azaan Mudassar
+University ID: 230098501
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Settings</title>
+    <link rel="stylesheet" href="../css/invsettings.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="header-container">
+            <h1>Inventory Settings</h1>
+            <h2>You are currently modifying the Inventory Settings for [Insert Product Here]</h2>
+        </div>
+        <div class="form-container">
+            <div class="sub-heading">
+                <h2>Inventory Information</h2>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="stock-input">Set Low Stock Threshold</label>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="stock-input" name="stock" placeholder="Enter the Low Stock Threshold" min="0">
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="notification-input">Notification Threshold</label>
+                </div>
+                <div class="input-container">
+                    <input type="text" id="notification-input" name="notification" placeholder="Enter the Notification Threshold" min="0">
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="auto-updates">Enable Automatic Stock Updates</label>
+                </div>
+                <div class="checkbox-container">
+                    <label class="switch">
+                        <input type="checkbox" id="auto-updates" checked>
+                        <span class="check"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="price">Update Frequency</label>
+                </div>
+                <div class="update-container">
+                    <select id="update-frequency">
+                        <option value="5">Every 5 minutes</option>
+                        <option value="15">Every 15 minutes</option>
+                        <option value="30">Every 30 minutes</option>
+                        <option value="60">Every hour</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="season-start">Seasonal Product Visibility Start Date</label>
+                </div>
+                <div class="input-container">
+                    <input type="date" id="season-start">
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="season-end">Seasonal Product Visibility End Date</label>
+                </div>
+                <div class="input-container">
+                    <input type="date" id="season-end">
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="auto-hide">Automatically Hide Out-of-Season Products</label>
+                </div>
+                <div class="checkbox-container">
+                    <label class="switch">
+                        <input type="checkbox" id="auto-hide">
+                        <span class="check"></span>
+                    </label>
+                </div>
+            </div>
+        </div>        
+        <div class="button-container">
+            <button class="cancel-button">Cancel</button>
+            <input type="submit" value="Update">                
+        </div>
+    </div>
+</body>
+</html>
