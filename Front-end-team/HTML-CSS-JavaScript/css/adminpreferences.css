@@ -74,7 +74,7 @@ h2 {
     justify-content: flex-start; /* Distribute space between label and input */
     gap: 20px; /* Add spacing between the two flexboxes */
     width: 100%; /* Ensure rows fill the container */
-    align-items: center;
+    align-items: flex-start;
 }
 
 .sub-heading {
@@ -82,8 +82,8 @@ h2 {
     flex-direction: column; /* Retain column layout */
     align-items: left; /* Horizontally center the sub-heading */
     justify-content: left; /* Vertically center the sub-heading */
-    padding-left: 30px;
-    padding-bottom: 20px;
+    padding-left: 55px;
+    padding-bottom: 5px;
     text-align: center; /* Ensure text inside the sub-heading aligns center */
     width: 100%; /* Make the sub-heading span the full width of the form container */
     color: #CCCCCC;
@@ -106,6 +106,23 @@ h2 {
 
 .checkbox-container {
     flex: 3; 
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+}
+
+.notification-container {
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-bottom: 20px;
+}
+
+.report-container {
+    flex: 3;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -149,12 +166,12 @@ label {
 }
 
 .button-container {
-    position: absolute; /* Position relative to the form-container */
+    position: absolute; /* Position relative to the viewport */
     bottom: 20px; /* 20px from the bottom of the viewport */
     right: 20px; /* 20px from the right of the viewport */
     display: flex;
     gap: 15px; /* Space between buttons */
-    z-index: 1; 
+    z-index: 1; /* Ensure it stays above other content */
 }
 
 .cancel-button,
