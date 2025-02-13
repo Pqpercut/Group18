@@ -9,8 +9,8 @@ class ProductPageTest(TestCase):
 
     def setUp(self):
         # Create a Product instance
-        self.product1 = Product.objects.create(name="Cat Top hat", description="A nice hat")
-        self.product2 = Product.objects.create(name="Cat Beanie", description="Stylish blue beanie")
+        self.product1 = Product.objects.create(name="aog Top hat", description="A nice hat")
+        self.product2 = Product.objects.create(name="dog Beanie", description="Stylish blue beanie")
 
         # Create ProductVariants for each product
         self.variant1 = ProductVariant.objects.create(
@@ -41,13 +41,28 @@ class ProductPageTest(TestCase):
     
     def test_view_all_products(self):
         # Test that the product page loads correctly and displays products
-        response = self.client.get(reverse('Catalogue') + f"?filter=cozy" )
+        
+        response = self.client.get(reverse('Catalogue'))
         self.assertEqual(response.status_code, 200)
         
         # Check that both products are in the response content
-        self.assertContains(response, self.product1.name)
-        self.assertContains(response, self.product2.name)
+        self.assertContains(response, f'<p class="product-name">{self.product1.name}</p>')
+        self.assertContains(response, f'<p class="product-name">{self.product2.name}</p>')
         
+
+   
+
+    def test_filter(self):
+        # Test that the product page loads correctly and displays products
+        
+        
+        response = self.client.get("/catalogue?selected_filters=seasonal" )
+        self.assertEqual(response.status_code, 200)
+        # Check that both products are in the response content
+        self.assertNotContains(response, f'<p class="product-name">{self.product1.name}</p>')
+        self.assertNotContains(response, f'<p class="product-name">{self.product2.name}</p>')        
+    
+    
 
 
 
@@ -60,6 +75,9 @@ class ProductPageTest(TestCase):
         self.assertContains(response, self.imagepath2.imagepath.url)  # URL of the image
     
 
+
+
+
     
     def test_product_variant_price_display(self):
         # Ensure that the price for the product variant is displayed correctly
@@ -69,18 +87,35 @@ class ProductPageTest(TestCase):
         self.assertContains(response, f"£{self.variant1.price}")
         self.assertContains(response, f"£{self.variant2.price}")
 
+    def test_orderName(self):
 
-
-    '''
-    def test_filter(self):
-        # Test that the product page loads correctly and displays products
-        response = self.client.get(reverse('Catalogue') + "?filter=seasonal")
-        
-        
-        
+        response = self.client.get("/catalogue?order=name" )
+        self.assertEqual(response.status_code, 200)
         # Check that both products are in the response content
-        self.assertNotContains(response, self.product1.name)
-        self.assertNotContains(response, self.product2.name)        
-    '''
- 
+        content = response.content.decode('utf-8') 
+
+
+        pos1 = content.find(f'<p class="product-name">{self.product1.name}</p>')
+        pos2 = content.find(f'<p class="product-name">{self.product2.name}</p>')
+
+
+        
+        self.assertTrue(pos1 < pos2, "Products are not in the correct order.")
+
+    def test_orderPrice(self):
+
+        response = self.client.get("/catalogue?order=productvariant__price" )
+        self.assertEqual(response.status_code, 200)
+        # Check that both products are in the response content
+        content = response.content.decode('utf-8') 
+
+
+        pos1 = content.find(f"£{self.variant1.price}")
+        pos2 = content.find(f"£{self.variant2.price}")
+
+
+        
+        self.assertTrue(pos1 < pos2, "Products are not in the correct order.")
+
+
 
