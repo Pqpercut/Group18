@@ -454,6 +454,14 @@ def basketRem(request):
 
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
+
+		'''
+			check if item is in basket 
+			add: quantity += 1
+			rem_all or quantity = 1: delete
+			else quantity -= 1
+		'''
+
 		#which btn? 
 		btn = request.POST.get("remove_btn")
 		if basketitem:
