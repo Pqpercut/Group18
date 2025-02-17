@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from .mixins import GroupRequiredMixin
+from django.views import View
 
 
 class InventoryProductListView (ListView):
@@ -130,7 +131,7 @@ class EditVariantView(UpdateView):
 	def form_valid(self, form):
 		response = super().form_valid(form)
 
-        # Multiple file uploads
+		# Multiple file uploads
 		images = form.cleaned_data.get('images', [])
 		for image in images:
 			ImagePath.objects.create(productVariantID=self.object, imagepath=image)
@@ -176,7 +177,7 @@ def catalogueView(request, *args, **kwargs):
 	##Get a query of all products
 	productList = Product.objects.all()
 
-    #If there is a filter then filter the query to only those products
+	#If there is a filter then filter the query to only those products
 	if (FiltergetValue !=""):
 		print("Filter complete")
 		productList = productList.filter(categories__categories__in = filterList)
@@ -208,7 +209,7 @@ def catalogueView(request, *args, **kwargs):
 
 	context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style}
 
-    
+	
 	return render(request, "product_catalogue.html", context)
 
 class CustomLoginView(LoginView):
@@ -240,49 +241,49 @@ class RegistrationView(FormView):
 		return super().form_valid(form)
 	
 class HomeView(TemplateView):
-    # Created by Adam Ahmed 
-    template_name = "home-page.html"
-    
+	# Created by Adam Ahmed 
+	template_name = "home-page.html"
+	
 def ContactPageView(request, *args, **kwargs):
-    submitted = False
-    if request.method == 'POST':
-        contactform = ContactEnquiryForm(request.POST)
-        if contactform.is_valid():
-            contact = contactform.save()
-            subject = f"New Contact Request from {contact.username}"
-            message = (
-                f"You have received a new contact enquiry.\n\n"
-                f"Name: {contact.username}\n"
-                f"Email: {contact.email}\n\n"
-                f"Description:\n{contact.description}"
-            )
-            from_email = 'noreply.hatsforcats@gmail.com'
-            recipient_list = ['noreply.hatsforcats@gmail.com']
+	submitted = False
+	if request.method == 'POST':
+		contactform = ContactEnquiryForm(request.POST)
+		if contactform.is_valid():
+			contact = contactform.save()
+			subject = f"New Contact Request from {contact.username}"
+			message = (
+				f"You have received a new contact enquiry.\n\n"
+				f"Name: {contact.username}\n"
+				f"Email: {contact.email}\n\n"
+				f"Description:\n{contact.description}"
+			)
+			from_email = 'noreply.hatsforcats@gmail.com'
+			recipient_list = ['noreply.hatsforcats@gmail.com']
 
-            send_mail(
-                subject,
-                message,
-                from_email,
-                recipient_list,
-                fail_silently=False,
-            )
-            return HttpResponseRedirect('contact-page?submit=True')
-    else:
-        contactform = ContactEnquiryForm()
-        if 'submit' in request.GET:
-            submitted = True
+			send_mail(
+				subject,
+				message,
+				from_email,
+				recipient_list,
+				fail_silently=False,
+			)
+			return HttpResponseRedirect('contact-page?submit=True')
+	else:
+		contactform = ContactEnquiryForm()
+		if 'submit' in request.GET:
+			submitted = True
 
-    context = {"ContactForm": contactform, 'submitted': submitted}
-    return render(request, 'general-Pages/Contact-Page.html', context)
+	context = {"ContactForm": contactform, 'submitted': submitted}
+	return render(request, 'general-Pages/Contact-Page.html', context)
 
 
 
 
 @user_passes_test("ecommerceapp.Admin") 
 def ContactQueryView(request,*args,**kwargs):
-    queries = ContactTable.objects.all() 
-    context = {"queryTable": queries}
-    return render(request,'general-pages/ViewContactQuery.html', context)
+	queries = ContactTable.objects.all() 
+	context = {"queryTable": queries}
+	return render(request,'general-pages/ViewContactQuery.html', context)
 
 
 #display products
@@ -298,72 +299,77 @@ def productDisplay(request):
 
 
 #display product varients
-def variantDisplay(request, pk):
+class VariantDisplayView(View):
 #written by Sakina Khaki
-	#print("blorp")
+	
+	#get product by id
+	def getObj(self, pk):
+		return Product.objects.get(id = pk)
 
 	'''
 		use productid to get product; get name, description
 		get every variant of product 
 		map sizes -> colour (vice versa)
 	'''
+	def pageData(self, product):
+		#getting every product varient from db
+		allitems = ProductVariant.objects.all()
+		allitems = allitems.filter(productID = product)
 
-	productid = pk #productid from url
+		name = product.name
+		desc = product.description
 
-	#use productid to get product; get name and description
-	product = Product.objects.get(id = productid)
-	name = product.name
-	desc = product.description
+		#
+		sizes = ["S", "M", "L", "XL"] #all sizes
+		available_sizes = set(sizes)
 
-	#getting every product varient from db
-	allitems = ProductVariant.objects.all()
-	allitems = allitems.filter(productID = productid)
+		colours = {v.colour for v in allitems} #all colours
+		available_colours = set(colours)
 
+		#map sizes and colours
+		sizes_map = {}
+		for i in allitems:
+			sizes_map.setdefault(i.colour, []).append(i.size)
 
-	#
-	sizes = ["S", "M", "L", "XL"] #all sizes
-	available_sizes = set(sizes)
+		print(sizes_map)
 
-	colours = {v.colour for v in allitems} #all colours
-	available_colours = set(colours)
+		colours_map = {}
+		for i in allitems:
+			colours_map.setdefault(i.size, []).append(i.colour)
 
-	#map sizes and colours
-	sizes_map = {}
-	for i in allitems:
-		sizes_map.setdefault(i.colour, []).append(i.size)
+		#to pass to html
+		return {
+			'name': name, 'desc': desc, 
+			'variants' : allitems,
+			'colours': colours, 
+			'sizes': sizes, 
+			'sizes_map': sizes_map, 'colours_map' : colours_map,
+			'quantity': 1 #default
+		}
 
-	print(sizes_map)
-
-	colours_map = {}
-	for i in allitems:
-		colours_map.setdefault(i.size, []).append(i.colour)
 
 	'''
-		post request
+		post request to add to basket
 		filter available size/colour (create sets)
 		get quantity wanted (in the post request)
 		validate item is available
 			if unavailable, return page reload
 	'''
+	def post(self, request, pk):
+		product = self.getObj(pk)
+		allitems = ProductVariant.objects.filter(productID=product)
 
-	#when user clicks things on webpage
-	if request.method == "POST":
+		#get from post request
 		quantity = int(request.POST.get("quantity"))
 		colour = request.POST.get("colour")
 		size = request.POST.get("size")
 
 		#puts all available sizes in set
-		available_sizes.clear()
-		for i in allitems: 
-			if i.colour == colour:
-				available_sizes.add(i.size)
+		available_sizes = {i.size for i in allitems if i.colour == colour}
 
 
 		#all available colours into set
-		available_colours.clear()
-		for i in allitems:
-			if i.size == size:
-				available_colours.add(i.colour)
+		available_colours = {i.colour for i in allitems if i.size == size}
 
 
 		#final validation check - checks if that size is available in that colour 
@@ -371,17 +377,9 @@ def variantDisplay(request, pk):
 			print(size)
 			print(colour)
 			print("no colour and or size")
-			return render(request, "productdetailpage.html", {
-				'name': name, 'desc': desc, 
-				'variants' : allitems,
-				'colours': colours, 
-				'sizes': sizes, 
-				'sizes_map': sizes_map, 'colours_map' : colours_map,
-				'quantity': quantity
-			})
+			return render(request, "productdetailpage.html", self.pageData(product))
 		else:
 			print("yay") 
-
 
 		#sorts variantid out 
 		variantid = ProductVariant.objects.get(colour=colour, size=size).id
@@ -417,22 +415,19 @@ def variantDisplay(request, pk):
 			
 			
 		return redirect('basket')
-	else:
-		quantity = 1
-
-	#to pass to html
-	itemNames = {
-		'name': name, 'desc': desc, 
-		'variants' : allitems,
-		'colours': colours, 
-		'sizes': sizes, 
-		'sizes_map': sizes_map, 'colours_map' : colours_map,
-		'quantity': quantity
-	}
 
 
-	#viewing
-	return render(request, "productdetailpage.html", itemNames)
+
+
+	#display product variant page 
+	def get(self, request, pk):
+		prod = self.getObj(pk)
+		itemNames = self.pageData(prod)
+		return render(request, "productdetailpage.html", itemNames)
+
+
+
+
 
 
 
@@ -520,10 +515,10 @@ def viewBasket(request):
 # @permission_required('ecommerceapp.Customer')
 # #checkout
 # def checkout(request):
-# 	return render(request, "admin/temp_basket/tempCheckout.html")
+#   return render(request, "admin/temp_basket/tempCheckout.html")
 
 class CustomPasswordResetView(PasswordResetView):
-    form_class = CustomPasswordResetForm
+	form_class = CustomPasswordResetForm
 	
 class CheckoutView(GroupRequiredMixin, FormView):
 	template_name = "checkout.html"
