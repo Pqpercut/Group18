@@ -426,10 +426,76 @@ class VariantDisplayView(View):
 		return render(request, "productdetailpage.html", itemNames)
 
 
+class BasketView(View):
+
+	#get basket id
+	def getBasket(self, user):
+		return Basket.objects.get(userID=user).id
+
+	#veiw basket; calc total price, num items 
+	def get(self, request):
+		basket = self.getBasket(request.user)
+		allitems = BasketItem.objects.filter(basketID=basket)
+
+		total = 0
+		numitems = 0
+		for i in allitems:
+			variant = ProductVariant.objects.get(id=i.variantID.id)
+			total += (variant.price * i.quantity)
+			numitems += (1 * i.quantity)
+		#print(total)
+
+		itemNames = {
+			'basket' : allitems,
+			'total' : total,
+			'numitems' : numitems
+		}
 
 
+		#viewing the basket
+		return render(request, "basket.html", itemNames)
+
+	#adding/removing items from basket
+	def post(self, request):
+		#get basketid
+		basketid = Basket.objects.get(userID=request.user).id
+
+		#for testing
+		#basketid = Basket.objects.get(userID=1)
+
+		variantid = request.POST.get("variantid")
+		variant = ProductVariant.objects.get(id=variantid)
+
+		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
 
+		'''
+			check if item is in basket 
+			add: quantity += 1
+			rem_all or quantity = 1: delete
+			else quantity -= 1
+		'''
+
+		#which btn? 
+		btn = request.POST.get("remove_btn")
+		if basketitem:
+			if btn == "add_one":
+				print("quantitiy changed")
+				basketitem.quantity += 1
+				basketitem.save()
+
+			elif btn == "rem_all" or basketitem.quantity == 1:
+				print("removed")
+				basketitem.delete()
+			
+			else:
+				print("quantitiy changed")
+				basketitem.quantity -= 1
+				basketitem.save()
+
+
+		return redirect("basket")
+		
 
 
 @permission_required('ecommerceapp.Customer')

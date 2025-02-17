@@ -47,7 +47,7 @@ urlpatterns = [
     path('register/', RegistrationView.as_view(), name='register'),
 
 
-    path('basket', viewBasket, name='basket'), 
+    path('basket', BasketView.as_view(), name='basket'), 
     path('checkout-page', CheckoutView.as_view(), name='checkout'), 
 
 
