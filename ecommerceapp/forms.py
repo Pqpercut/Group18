@@ -2,7 +2,7 @@ from django import forms
 from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import ContactTable, UserAddress
+from .models import ContactTable, UserAddress,Review
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, UserCreationForm
 from django import forms
 
@@ -114,4 +114,13 @@ class CheckoutForm(forms.ModelForm):
             'street': forms.TextInput(attrs={'placeholder': 'Street'}),
             'postcode': forms.TextInput(attrs={'placeholder': 'Postcode'}),
             'city': forms.TextInput(attrs={'placeholder': 'City'}),
+        }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['title', 'description']
+        widgets = {
+            'rating': forms.HiddenInput(),  # This makes the rating field hidden in the HTML
         }
