@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discounts Page</title>
+    <link rel="stylesheet" href="Discountpage2.css">
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <aside class="sidebar">
+            <h2>Hats for Cats</h2>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h1>Discounts Available</h1>
+                <div class="buttonclass">
+                        <button class="newdiscount-btn">NEW DISCOUNT</button>
+
+                </div>
+            </header>
+           
+           <!-- <div class="banner" id="offerBanner">
+                <div class="offer active"> Offer 1: 50% off all Hats!</div>
+                <div class="offer">Offer 2: Buy 1 Get 1 Free on Seasonal Hats! </div>
+                <div class="offer">Offer 3: Free Shipping on Orders Over £50!</div>
+            </div>
+        -->
+
+
+
+                </select>
+                <div class="discount-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Discount code</th>
+                            <th>Discount</th>
+                            <th>Usage</th>
+                            <th>Eligibility</th>
+                            <th>Expiry</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>NEW10</td>
+                            <td>10% off</td>
+                            <td>23</td>
+                            <td>New customers</td>
+                            <td>N/A</td>
+                            <td><span class="action">VIEW</span> | <span class="action">EDIT</span></td>
+                        </tr>
+                        <tr>
+                            <td>THANKYOU123</td>
+                            <td>20% off</td>
+                            <td>32</td>
+                            <td>Everyone</td>
+                            <td class="valid">03/04/2025</td>
+                            <td><span class="action">VIEW</span> | <span class="action">EDIT</span></td>
+                        </tr>
+                        <tr>
+                            <td>WINTER</td>
+                            <td>35% off</td>
+                            <td>101</td>
+                            <td>Winter themed hats</td>
+                            <td class="expired">01/01/2025</td>
+                            <td><span class="action">VIEW</span> | <span class="action">EDIT</span></td>
+                        </tr>
+                        <tr>
+                            <td>NEWYEAR</td>
+                            <td>35% off</td>
+                            <td>101</td>
+                            <td>Winter themed hats</td>
+                            <td class="expired">05/01/2025</td>
+                            <td><span class="action">VIEW</span> | <span class="action">EDIT</span></td>
+                        </tr>
+                    </tr>
+                   
+                    <tr class="empty-row">
+                        <td>.</td>
+                        <td colspan="6"></td>
+                        
+                    </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+
+            <div id="discountPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h3>Add a New Discount</h3>
+            
+                    <label for="discountCode">Discount Code:</label>
+                    <input type="text" id="discountCode" placeholder="Enter discount code">
+            
+                    <label for="discountType">Discount Type:</label>
+                    <select id="discountType">
+                        <option value="percentage">Percentage (%)</option>
+                        <option value="flat">Flat Discount (£)</option>
+                        <option value="shipping">Shipping Cost Reduction</option>
+                    </select>
+            
+                    <label for="discountValue">Discount Value:</label>
+                    <input type="number" id="discountValue" placeholder="Enter discount value">
+            
+                    <label for="eligibility">Discount Use:</label>
+                    <select id="eligibility">
+                        <option value="everyone">Everyone</option>
+                        <option value="new_customers">New Customers</option>
+
+                    </select>
+            
+                    <label for="expiry"><br>Discount Expiry:</label>
+                    <input type="date" id="expiry">
+            
+                   
+                    <div class="popup-buttons">
+                        <button id="saveDiscount" class="confirm-btn">Confirm</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </div>
+
+
+                </div>
+            </div>
+          
+        </main>
+    </div>
+    <script src="Discountpage.js"></script>
+</body>
+</html>
