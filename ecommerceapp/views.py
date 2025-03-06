@@ -237,7 +237,14 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 		return super().form_valid(form)
 	
 
+class WishlistView(ListView):
+	
+	
+	context_object_name = "wishlist_Table"
+	##template_name = "product_catalogue.html"
 
+	
+	
 
 
 class CustomLoginView(LoginView):

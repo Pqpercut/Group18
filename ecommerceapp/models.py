@@ -107,3 +107,16 @@ class ContactTable(models.Model):
     username = models.CharField(max_length=50)
     description = models.TextField()
     email = models.EmailField()
+
+
+
+class Wishlists (models.Model):
+# Model created by: Adam    
+    userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'wishList')
+    name = models.CharField(max_length=50, default="Wishlist #")
+    
+class BasketItem(models.Model):
+    basketID = models.ForeignKey(Basket, on_delete=models.CASCADE, related_name='wishListItem')
+    productID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name = 'wishlist') 
+    variantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='wishListItem')
+    
