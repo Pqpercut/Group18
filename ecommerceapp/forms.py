@@ -119,8 +119,23 @@ class CheckoutForm(forms.ModelForm):
 
 class ReviewForm(forms.ModelForm):
     class Meta:
+        
         model = Review
         fields = ['title', 'description']
         widgets = {
             'rating': forms.HiddenInput(),  # This makes the rating field hidden in the HTML
+            'productID' : forms.HiddenInput(),
+            'userID': forms.HiddenInput()
         }
+
+        def __init__(self, *args, **kwargs):
+            kwargs.pop('user', None)  # Remove 'user' from kwargs to prevent error
+            super().__init__(*args, **kwargs)  # Call the parent __init__ method
+
+        def save(self, commit=True):
+            review = super().save(commit=False)
+            if self.user:
+                review.created_by = self.user  # Assign user to created_by
+            if commit:
+                review.save()
+            return review

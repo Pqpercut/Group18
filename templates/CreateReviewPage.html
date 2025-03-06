@@ -45,7 +45,8 @@
 
 
 
-          <input type="hidden" id="rating-hidden" name="rating">
+          <input type="hidden" id="rating-hidden" name="rating-hidden">
+          <input type="hidden" id="prod-id" name="prod-id" value="1">
             
         </div>
       
@@ -109,6 +110,7 @@
       function selectStars(index) {
           radios[index].checked = true; // Mark the radio button as checked
           document.getElementById('rating-hidden').value = radios[index].value; // Update hidden input value
+          
       }
   });
   </script>

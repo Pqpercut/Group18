@@ -64,7 +64,7 @@ urlpatterns = [
     path("catalogue",CatalogueViewClass.as_view(), name = "Catalogue"),
     path("contact-page", ContactPageView, name="Contact-Page"),
     path("Contact-Queries", ContactQueryView, name="Contact Queries"),
-    path("Reviews", CreateReviewClass.as_view(), name= "Reviews"),
+    path("CreateReview", CreateReviewClass.as_view(), name= "Reviews"),
 
 
     path("tempBasket.html", basketRem, name="basketRem"),

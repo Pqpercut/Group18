@@ -17,6 +17,8 @@ from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from .mixins import GroupRequiredMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class InventoryProductListView (ListView):
 	# Created by Adam Ahmed 23/11/2024
@@ -211,24 +213,31 @@ class CatalogueViewClass(ListView):
 
 	
 
-class CreateReviewClass(CreateView):
+class CreateReviewClass(LoginRequiredMixin, CreateView):
 	model = Review
 	form_class = ReviewForm
-	template_name = "reviewPage.html"
+	template_name = "CreateReviewPage.html"
 	success_url = reverse_lazy('Catalogue')
 
-	def get_form_kwargs(self):
-		kwargs = super().get_form_kwargs()
-		kwargs['user'] = self.request.user
 
-		kwargs['rating'] = self.request.POST.get('rating-hidden')
-
-		return kwargs
 
 	def form_valid(self, form):
-		form.instance.created_by = self.request.user
+		
+		form.instance.rating = self.request.POST.get('rating-hidden')
+
+		user = self.request.user
+		form.instance.userID = user
+
+		productID = self.request.POST.get('prod-id')
+		product = get_object_or_404(Product,id=productID)
+		form.instance.productID = product
+
+
 		messages.success(self.request, "Your review has been added successfully!")
 		return super().form_valid(form)
+	
+
+
 
 
 class CustomLoginView(LoginView):
