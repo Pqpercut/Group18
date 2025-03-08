@@ -105,8 +105,10 @@ function updateSize(selected_colour) {
 
         if (available_sizes[selected_colour]?.includes(size)) {
             button.classList.remove("disabled");
+            button.disabled = false;
         } else {
             button.classList.add("disabled");
+            button.disabled = true;
         }
     });
 
@@ -123,12 +125,12 @@ function updateColour(selected_size) {
         //console.log(colour);
 
         if (available_colours[selected_size]?.includes(colour)) {
-            //button.disabled = false;
+            button.disabled = false;
             button.classList.remove("disabled");
         } else {
             //console.log(selected_size);
             //console.log(colour);
-            //button.disabled = true;
+            button.disabled = true;
             button.classList.add("disabled");
         }
     });

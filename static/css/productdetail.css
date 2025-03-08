@@ -425,12 +425,14 @@ h3 {
 .disabled {
     background-color: #888888;
     background-color: #646464;
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
-.color-circle.active {
+.color-circle.active:not(.disabled) {
     background-color: #838fda;
 }
 
-.size-circle.active {
+.size-circle.active:not(.disabled) {
     background-color: #838fda;
 }
