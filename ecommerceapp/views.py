@@ -16,6 +16,8 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from .mixins import GroupRequiredMixin
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class InventoryProductListView (ListView):
@@ -149,67 +151,101 @@ class DeleteVariantView(DeleteView):
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
-def catalogueView(request, *args, **kwargs):
-	###Written by Qasim Farooq 29/11/24
 
-	##Get filter in URL
-	FiltergetValue = request.GET.get('selected_filters',"")
-	print("BEFORE:" + str(FiltergetValue)) 
-	filterList = []
-	filterValue = "" 
-	if (FiltergetValue !=""):
-		filterList = FiltergetValue.split(",")
-		print("FILTER EXISTS : " + str(FiltergetValue))
-		for x in filterList:
-			##Add all filter values to list and seperate with comma
-			filterValue = filterValue + x + ","
-			print(x)
 
-	print("AFTER:" , filterValue)
-	##Assign the correct Order by Value
-	orderValue = request.GET.get("order","default-value")
-	if orderValue == 'price':
-		orderValue = 'productvariant__price'
-	else:
-		orderValue = 'name'
-
-	##Get a query of all products
-	productList = Product.objects.all()
-
-    #If there is a filter then filter the query to only those products
-	if (FiltergetValue !=""):
-		print("Filter complete")
-		productList = productList.filter(categories__categories__in = filterList)
-
-	##Order the query
-	##Aggregate the values to be able to prevent multiple variants showing on the list
-	productList = productList.annotate(min_val=Min(orderValue))
-	productList = productList.annotate(img_path=Min('productvariant__imagepath__imagepath'))
+class CatalogueViewClass(ListView):
 	
-	productList = productList.order_by('min_val')
+	context_object_name = "ProductList"
+	template_name = "product_catalogue.html"
+	
+	
+	filterValue = ""
+	orderValue = ""
+	SearchValue = ""	
+	def get(self, request, *args, **kwargs): ###Get filter values for context data to use
+		### Get Filter Value
+		
+		self.filterValue = request.GET.get('selected_filters',"") 
+		self.filterValue = self.filterValue.split(",") if self.filterValue else [] ## Split all values into a list for it to be recognised
+		
+		###Get Order Value
 
-	searchValue = request.GET.get("search","")
+		self.orderValue = request.GET.get("order","name") ### Default value will be name
+		
+		### Get Search value
+		self.searchValue = request.GET.get("search","")
+		
+	
+		##Return filter, may have to be an array since we have multiple filter values?
+		return super().get(request, *args, **kwargs)
+	
 
-	if searchValue != '':
-		productList = productList.filter(name__icontains=searchValue)
-		print("searching")
-	##Return the query
+	def get_queryset(self):
+		queryset = Product.objects.all()
+		###Input filter values
 
-	fullProductList = Product.objects.all()
+		if (self.filterValue !=[]):
+			queryset = queryset.filter(categories__categories__in = self.filterValue)
 
-	listSize = len(productList)
-	style = ""
-	if(listSize == 2):
-		style="product-size2"
-	elif(listSize == 1):
-		style="product-size1"
-	else:
-		style=""
+		##Input Order values 
+		queryset = queryset.order_by(self.orderValue)
+		##Search value
+		if self.searchValue != '': ### Only filter for search value if a search value exists
+			queryset = queryset.filter(name__icontains=self.searchValue)
+		return queryset
+	
+	
+	def get_context_data(self, **kwargs): ###use filter values 
+		###List Size issue
+		listSize = len(self.get_queryset())
+		style = ""
+		if(listSize == 2) or (listSize == 1):
+			style="product-size" + str(listSize)
+			print(style)
+		else:
+			style=""
+		###Return context
+		context = super().get_context_data(**kwargs)
+		context['productClass'] = style
+		return context
+	
 
-	context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style, "listsize": listSize}
 
-    
-	return render(request, "product_catalogue.html", context)
+	
+
+class CreateReviewClass(LoginRequiredMixin, CreateView):
+	model = Review
+	form_class = ReviewForm
+	template_name = "CreateReviewPage.html"
+	success_url = reverse_lazy('Catalogue')
+
+
+
+	def form_valid(self, form):
+		
+		form.instance.rating = self.request.POST.get('rating-hidden')
+
+		user = self.request.user
+		form.instance.userID = user
+
+		productID = self.request.POST.get('prod-id')
+		product = get_object_or_404(Product,id=productID)
+		form.instance.productID = product
+
+
+		messages.success(self.request, "Your review has been added successfully!")
+		return super().form_valid(form)
+	
+
+class WishlistView(ListView):
+	
+	
+	context_object_name = "wishlist_Table"
+	##template_name = "product_catalogue.html"
+
+	
+	
+
 
 class CustomLoginView(LoginView):
 	template_name = 'login/login.html'  
@@ -277,6 +313,8 @@ def ContactPageView(request, *args, **kwargs):
 
 
 
+##def ContactPageViewClass(FormView):
+	###TBC (Incomplete)
 
 @user_passes_test("ecommerceapp.Admin") 
 def ContactQueryView(request,*args,**kwargs):
