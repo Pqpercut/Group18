@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="OpenedNotifstyles.css">
+    <script defer src="script.js"></script> <!-- External JavaScript for dynamic content -->
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">HATS FOR CATS</div>
+        <nav>
+            <a href="#">Shop</a>
+            <a href="#">About</a>
+            <a href="#">Contact Us</a>
+            <a href="#" class="cartIcon">🛒</a>
+        </nav>
+    </header>
+
+    <div class="notifications-container">
+        <div class="sidebar">
+            <h2>Your Notifications</h2>
+            <ul>
+                <li class="lined">Read</li>
+                <li class="lined">Unread</li>
+                <li class="lined">Order Updates</li>
+                <li>Promotions</li>
+            </ul>
+        </div>
+        <div class="notifications-content">
+            <a href="notifications.html" class="back-link">&lt; Back</a>
+            
+            <!-- Dynamic Notification Details -->
+            <div class="notification-details" id="notificationDetails">
+                <!-- Content will be loaded dynamically from backend -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footerColumn">
+            <h3>HATS FOR CATS</h3>
+        </div>
+        <div class="footerColumn">
+            <h4>Home</h4>
+            <ul>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+        <div class="footerColumn">
+            <h4>Shop</h4>
+            <ul>
+                <li><a href="#">Browse Hats</a></li>
+                <li><a href="#">Best Sellers</a></li>
+                <li><a href="#">New Arrivals</a></li>
+            </ul>
+        </div>
+        <div class="footerColumn">
+            <h4>Contact</h4>
+            <ul>
+                <li><a href="#">Email</a></li>
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+            </ul>
+        </div>
+        <div class="footerColumn newsletter">
+            <h4>Join Our Newsletter</h4>
+            <form action="#">
+                <div class="inputContainer">
+                    <input type="email" placeholder="Email Address" required>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>    
+    </footer>
+
+</body>
+</html>

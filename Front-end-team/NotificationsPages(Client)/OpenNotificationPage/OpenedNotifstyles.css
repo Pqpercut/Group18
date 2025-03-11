@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #dcedff;
+    color: #000000;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #dcedff;
+}
+
+header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+header nav a {
+    margin: 15px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+}
+
+header .cartIcon {
+    font-size: 1.2em;
+}
+
+/* Notifications Container ---------------------------------------------------------------------------*/
+.notifications-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #dcedff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #dcedff;
+    padding: 10px;
+}
+
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    cursor: pointer;
+}
+
+.lined{
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebar ul li:hover {
+    background-color: rgba(184,190,232,0.3);;
+}
+
+/* Notification Content */
+.notifications-content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Back Link */
+.back-link {
+    text-decoration: none;
+    color: #7289da;
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Notification Details Box -------------------------------------------*/
+.notification-details {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     margin: 30px;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.notification-header .date {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Order Number */
+.order-number {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.notification-details p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Links */
+.notification-details a {
+    color: #7289da;
+    text-decoration: none;
+}
+
+.notification-details a:hover {
+    text-decoration: underline;
+}
+
+.notification-details hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+
+/* View Order Button--------------------- */
+.view-order-btn {
+    display: block;
+    width: 200px;
+    padding: 15px;
+    text-align: center;
+    background-color: #838EDA;
+    color: white;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: auto;
+}
+
+.view-order-btn:hover {
+    background-color: #556edf;
+}
+
+/* Footer ---------------------------------------------------------------------------------------------------------------*/
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #dcedff;
+    padding: 30px 20px;
+    text-align: left;
+}
+
+.footerColumn {
+    flex: 1 1 200px;
+    margin: 10px;
+}
+
+.footerColumn h3, .footerColumn h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.footerColumn ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footerColumn ul li {
+    margin: 5px 0;
+}
+
+.footerColumn ul li a {
+    text-decoration: none;
+    color: #000000;
+}
+
+/* Newsletter Form */
+.newsletter .inputContainer {
+    position: relative; 
+    display: flex;
+    align-items: center;
+}
+
+.newsletter input {
+    width: 100%;
+    padding: 10px 90px 10px 10px; 
+    border: 1px solid #cecece;
+    border-radius: 25px;
+    font-size: 1em;
+    outline: none;
+}
+
+.newsletter button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #838EDA;
+    color: white;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: #556edf;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .notifications-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .sidebar ul li {
+        display: inline-block;
+        padding: 10px 15px;
+    }
+
+    .notification-details {
+        padding: 15px;
+    }
+
+    .notification-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .view-order-btn {
+        width: auto;
+    }
+}
