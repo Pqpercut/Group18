@@ -18,6 +18,7 @@ from django.core.mail import send_mail
 from .mixins import GroupRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
 
 
 class InventoryProductListView (ListView):
@@ -132,7 +133,7 @@ class EditVariantView(UpdateView):
 	def form_valid(self, form):
 		response = super().form_valid(form)
 
-        # Multiple file uploads
+		# Multiple file uploads
 		images = form.cleaned_data.get('images', [])
 		for image in images:
 			ImagePath.objects.create(productVariantID=self.object, imagepath=image)
@@ -276,40 +277,40 @@ class RegistrationView(FormView):
 		return super().form_valid(form)
 	
 class HomeView(TemplateView):
-    # Created by Adam Ahmed 
-    template_name = "home-page.html"
-    
+	# Created by Adam Ahmed 
+	template_name = "home-page.html"
+	
 def ContactPageView(request, *args, **kwargs):
-    submitted = False
-    if request.method == 'POST':
-        contactform = ContactEnquiryForm(request.POST)
-        if contactform.is_valid():
-            contact = contactform.save()
-            subject = f"New Contact Request from {contact.username}"
-            message = (
-                f"You have received a new contact enquiry.\n\n"
-                f"Name: {contact.username}\n"
-                f"Email: {contact.email}\n\n"
-                f"Description:\n{contact.description}"
-            )
-            from_email = 'noreply.hatsforcats@gmail.com'
-            recipient_list = ['noreply.hatsforcats@gmail.com']
+	submitted = False
+	if request.method == 'POST':
+		contactform = ContactEnquiryForm(request.POST)
+		if contactform.is_valid():
+			contact = contactform.save()
+			subject = f"New Contact Request from {contact.username}"
+			message = (
+				f"You have received a new contact enquiry.\n\n"
+				f"Name: {contact.username}\n"
+				f"Email: {contact.email}\n\n"
+				f"Description:\n{contact.description}"
+			)
+			from_email = 'noreply.hatsforcats@gmail.com'
+			recipient_list = ['noreply.hatsforcats@gmail.com']
 
-            send_mail(
-                subject,
-                message,
-                from_email,
-                recipient_list,
-                fail_silently=False,
-            )
-            return HttpResponseRedirect('contact-page?submit=True')
-    else:
-        contactform = ContactEnquiryForm()
-        if 'submit' in request.GET:
-            submitted = True
+			send_mail(
+				subject,
+				message,
+				from_email,
+				recipient_list,
+				fail_silently=False,
+			)
+			return HttpResponseRedirect('contact-page?submit=True')
+	else:
+		contactform = ContactEnquiryForm()
+		if 'submit' in request.GET:
+			submitted = True
 
-    context = {"ContactForm": contactform, 'submitted': submitted}
-    return render(request, 'general-Pages/Contact-Page.html', context)
+	context = {"ContactForm": contactform, 'submitted': submitted}
+	return render(request, 'general-Pages/Contact-Page.html', context)
 
 
 
@@ -318,9 +319,9 @@ def ContactPageView(request, *args, **kwargs):
 
 @user_passes_test("ecommerceapp.Admin") 
 def ContactQueryView(request,*args,**kwargs):
-    queries = ContactTable.objects.all() 
-    context = {"queryTable": queries}
-    return render(request,'general-pages/ViewContactQuery.html', context)
+	queries = ContactTable.objects.all() 
+	context = {"queryTable": queries}
+	return render(request,'general-pages/ViewContactQuery.html', context)
 
 
 #display products
@@ -336,57 +337,77 @@ def productDisplay(request):
 
 
 #display product varients
-#get product_id. if product_id = variant, display it else dont
-def variantDisplay(request, pk):
+class VariantDisplayView(View):
 #written by Sakina Khaki
-	#print("blorp")
+	
+	#get product by id
+	def getObj(self, pk):
+		return Product.objects.get(id = pk)
 
-	#productid = request.POST.get("productid")
-	productid = pk #testing purpose
+	'''
+		use productid to get product; get name, description
+		get every variant of product 
+		map sizes -> colour (vice versa)
+	'''
+	def pageData(self, product):
+		#getting every product varient from db
+		allitems = ProductVariant.objects.all()
+		allitems = allitems.filter(productID = product)
 
-	product = Product.objects.get(id = productid)
-	name = product.name
-	desc = product.description
+		name = product.name
+		desc = product.description
 
-	allitems = ProductVariant.objects.all()
-	allitems = allitems.filter(productID = productid)
+		#
+		sizes = ["S", "M", "L", "XL"] #all sizes
+		available_sizes = set(sizes)
 
-	sizes = ["S", "M", "L", "XL"] #all sizes
-	available_sizes = set(sizes)
+		colours = {v.colour for v in allitems} #all colours
+		available_colours = set(colours)
 
-	colours = {v.colour for v in allitems} #all colours
-	available_colours = set(colours)
+		#map sizes and colours
+		sizes_map = {}
+		for i in allitems:
+			sizes_map.setdefault(i.colour, []).append(i.size)
 
-	#dictionary of all sizes and colours
-	sizes_map = {}
-	for i in allitems:
-		sizes_map.setdefault(i.colour, []).append(i.size)
+		print(sizes_map)
 
-	print(sizes_map)
-	#print(sizes_map)
+		colours_map = {}
+		for i in allitems:
+			colours_map.setdefault(i.size, []).append(i.colour)
 
-	colours_map = {}
-	for i in allitems:
-		colours_map.setdefault(i.size, []).append(i.colour)
+		#to pass to html
+		return {
+			'name': name, 'desc': desc, 
+			'variants' : allitems,
+			'colours': colours, 
+			'sizes': sizes, 
+			'sizes_map': sizes_map, 'colours_map' : colours_map,
+			'quantity': 1 #default
+		}
 
 
-	if request.method == "POST":
+	'''
+		post request to add to basket
+		filter available size/colour (create sets)
+		get quantity wanted (in the post request)
+		validate item is available
+			if unavailable, return page reload
+	'''
+	def post(self, request, pk):
+		product = self.getObj(pk)
+		allitems = ProductVariant.objects.filter(productID=product)
+
+		#get from post request
 		quantity = int(request.POST.get("quantity"))
 		colour = request.POST.get("colour")
 		size = request.POST.get("size")
 
 		#puts all available sizes in set
-		available_sizes.clear()
-		for i in allitems: 
-			if i.colour == colour:
-				available_sizes.add(i.size)
+		available_sizes = {i.size for i in allitems if i.colour == colour}
 
 
 		#all available colours into set
-		available_colours.clear()
-		for i in allitems:
-			if i.size == size:
-				available_colours.add(i.colour)
+		available_colours = {i.colour for i in allitems if i.size == size}
 
 
 		#final validation check - checks if that size is available in that colour 
@@ -394,17 +415,9 @@ def variantDisplay(request, pk):
 			print(size)
 			print(colour)
 			print("no colour and or size")
-			return render(request, "productdetailpage.html", {
-				'name': name, 'desc': desc, 
-				'variants' : allitems,
-				'colours': colours, 
-				'sizes': sizes, 
-				'sizes_map': sizes_map, 'colours_map' : colours_map,
-				'quantity': quantity
-			})
+			return render(request, "productdetailpage.html", self.pageData(product))
 		else:
-			print("yay")
-
+			print("yay") 
 
 		#sorts variantid out 
 		
@@ -412,45 +425,116 @@ def variantDisplay(request, pk):
 		variant = ProductVariant.objects.get(productID=product, id=variantid)
 
 		#get basketid
-		#basketid = Basket.objects.get(userID=request.user).id
+		basket = Basket.objects.get(userID=request.user)
 		
 		#basketid for testing
-		basket = Basket.objects.get(userID=1)
-		basketid = basket.id
+		#basket = Basket.objects.get(userID=1)
+		#basketid = basket.id
+
+
+		'''
+			add to basket 
+			check if existing or new item
+			return redirect to basket
+		'''
 
 		#check if user has ordered item before already
-		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
+		basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
 
 
 		if basketitem: 
 		#inc quantity of thing in basket
-			print("added", quantity, "to EXISTING")
+			#print("added", quantity, "to EXISTING")
 			basketitem.quantity += quantity
+
 		else: 
 		#create new basketitem entry
-			print("added", quantity, "to NEW")
+			#print("added", quantity, "to NEW")
 			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
-
+			
+			
 		return redirect('basket')
-	else:
-		quantity = 1
 
 
-	itemNames = {
-		'name': name, 'desc': desc, 
-		'variants' : allitems,
-		'colours': colours, 
-		'sizes': sizes, 
-		'sizes_map': sizes_map, 'colours_map' : colours_map,
-		'quantity': quantity,
-		'product': product,
-	}
 
 
-	#viewing
-	return render(request, "productdetailpage.html", itemNames)
+	#display product variant page 
+	def get(self, request, pk):
+		prod = self.getObj(pk)
+		itemNames = self.pageData(prod)
+		return render(request, "productdetailpage.html", itemNames)
 
 
+class BasketView(View):
+
+	#get basket id
+	def getBasket(self, user):
+		return Basket.objects.get(userID=user).id
+
+	#veiw basket; calc total price, num items 
+	def get(self, request):
+		basket = self.getBasket(request.user)
+		allitems = BasketItem.objects.filter(basketID=basket)
+
+		total = 0
+		numitems = 0
+		for i in allitems:
+			variant = ProductVariant.objects.get(id=i.variantID.id)
+			total += (variant.price * i.quantity)
+			numitems += (1 * i.quantity)
+		#print(total)
+
+		itemNames = {
+			'basket' : allitems,
+			'total' : total,
+			'numitems' : numitems
+		}
+
+
+		#viewing the basket
+		return render(request, "basket.html", itemNames)
+
+	#adding/removing items from basket
+	def post(self, request):
+		#get basketid
+		basketid = Basket.objects.get(userID=request.user).id
+
+		#for testing
+		#basketid = Basket.objects.get(userID=1)
+
+		variantid = request.POST.get("variantid")
+		variant = ProductVariant.objects.get(id=variantid)
+
+		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
+
+
+		'''
+			check if item is in basket 
+			add: quantity += 1
+			rem_all or quantity = 1: delete
+			else quantity -= 1
+		'''
+
+		#which btn? 
+		btn = request.POST.get("remove_btn")
+		if basketitem:
+			if btn == "add_one":
+				print("quantitiy changed")
+				basketitem.quantity += 1
+				basketitem.save()
+
+			elif btn == "rem_all" or basketitem.quantity == 1:
+				print("removed")
+				basketitem.delete()
+			
+			else:
+				print("quantitiy changed")
+				basketitem.quantity -= 1
+				basketitem.save()
+
+
+		return redirect("basket")
+		
 
 
 @permission_required('ecommerceapp.Customer')
@@ -460,15 +544,23 @@ def basketRem(request):
 	if request.method == "POST":
 		#print("beep")
 		#get basketid
-		#basketid = Basket.objects.get(userID=request.user).id
+		basketid = Basket.objects.get(userID=request.user).id
 
 		#for testing
-		basketid = Basket.objects.get(userID=1)
+		#basketid = Basket.objects.get(userID=1)
 
 		variantid = request.POST.get("variantid")
 		variant = ProductVariant.objects.get(id=variantid)
 
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
+
+
+		'''
+			check if item is in basket 
+			add: quantity += 1
+			rem_all or quantity = 1: delete
+			else quantity -= 1
+		'''
 
 		#which btn? 
 		btn = request.POST.get("remove_btn")
@@ -495,24 +587,29 @@ def basketRem(request):
 #veiw basket
 def viewBasket(request):
 #written by Sakina Khaki
-	#print("beep")
-	#get basketid
-	#basketid = Basket.objects.get(userID=request.user).id
+	#print("beep") 
 
-	#for testing
-	basketid = Basket.objects.get(userID=1)
+	#get basketid
+	basketid = Basket.objects.get(userID=request.user).id
+
+	#for testing if right basket loaded
+	#admin acc id = 1
+	assert basketid == 1, "basket is wrong! id="+str(basketid)
 
 	allitems = BasketItem.objects.filter(basketID=basketid)
 
 	total = 0
+	numitems = 0
 	for i in allitems:
 		variant = ProductVariant.objects.get(id=i.variantID.id)
 		total += (variant.price * i.quantity)
+		numitems += (1 * i.quantity)
 	#print(total)
 
 	itemNames = {
 		'basket' : allitems,
-		'total' : total
+		'total' : total,
+		'numitems' : numitems
 	}
 
 
@@ -523,10 +620,10 @@ def viewBasket(request):
 # @permission_required('ecommerceapp.Customer')
 # #checkout
 # def checkout(request):
-# 	return render(request, "admin/temp_basket/tempCheckout.html")
+#   return render(request, "admin/temp_basket/tempCheckout.html")
 
 class CustomPasswordResetView(PasswordResetView):
-    form_class = CustomPasswordResetForm
+	form_class = CustomPasswordResetForm
 	
 class CheckoutView(GroupRequiredMixin, FormView):
 	template_name = "checkout.html"

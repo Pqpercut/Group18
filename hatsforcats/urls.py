@@ -47,7 +47,7 @@ urlpatterns = [
     path('register/', RegistrationView.as_view(), name='register'),
 
 
-    path('basket', viewBasket, name='basket'), 
+    path('basket', BasketView.as_view(), name='basket'), 
     path('checkout-page', CheckoutView.as_view(), name='checkout'), 
 
 
@@ -69,7 +69,7 @@ urlpatterns = [
 
     path("tempBasket.html", basketRem, name="basketRem"),
     path("", productDisplay, name="productDisplay"),
-    path("product/<int:pk>", variantDisplay, name="variantDisplay"),
+    path("product/<int:pk>", VariantDisplayView.as_view(), name="variantDisplay"),
 
 ]
 
