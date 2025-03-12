@@ -1,0 +1,139 @@
+/* Reset some defaults */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial, sans-serif;
+  }
+  /* Sidebar styles */
+  .sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    transition: left 0.3s ease;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+  .sidebar.open {
+    left: 0;
+  }
+  .sidebar h2 {
+    margin-bottom: 1rem;
+  }
+  .sidebar a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: background 0.2s;
+  }
+  .sidebar a:hover {
+    background-color: #444;
+  }
+  /* Main content */
+  .main-content {
+    margin-left: 0;
+    padding: 2rem;
+    transition: margin-left 0.3s ease;
+  }
+  .main-content.shift {
+    margin-left: 250px;
+  }
+  /* Toggle button */
+  .toggle-btn {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;  
+}
+
+  .sort {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .header-left {
+    display: flex;
+    flex-direction: row;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: row;
+}
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+  .notifications-icon {
+  width: 24px;
+  height: 24px;
+  color: #CCCCCC;
+}
+  .profile {
+    display: flex;
+    flex-direction: row;
+    padding-left: 24px;
+  }
+
+  .profile-image {
+    height: 50px;
+    width: 50px;
+    background-color: grey;
+    border-radius: 50%;
+  } 
+
+  .activity-icon {
+    background-color: #2FC675;
+    height: 12px;
+    width: 12px;
+    position: relative;
+    left: 37px;
+    top: 2px;
+    border-style: solid;
+    border-color: #fff;
+    border-radius: 50%;
+  }
+
+  .profile-info {
+    padding-left: 20px;
+  }
+
+  .profile-info-name {
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+  }
+
+  .profile-info-email {
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 300;
+    color: #CCC
+  }
+
+  /* ------MAIN------------- */
+
+  .main {
+    background-color: #000;
+}

@@ -20,6 +20,9 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
+class InventoryDashboard(TemplateView):
+	template_name = "inventory-management/dashboard.html"
+
 class InventoryProductListView (ListView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View for IMS System that displays all the products currently available and allows new product creation '''
