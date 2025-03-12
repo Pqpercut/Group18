@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Notifications</title>
+    <link rel="stylesheet" href="AdminNotifstyles.css">
+    <script defer src="script.js"></script> <!-- External JavaScript for dynamic content -->
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Hats for Cats</h2>
+            <ul class="menu">
+                <li> Dashboard</li>
+                <li> Customers</li>
+                <li> Products</li>
+                <li> Reports</li>
+            </ul>
+            <ul class="bottom-menu">
+                <li> Settings</li>
+                <li> Log Out</li>
+            </ul>
+        </aside>
+        
+        <!-- Top bar -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>NOTIFICATIONS</h1>
+                <div class="user-info">
+                    <span class="user-name">Hamid Noor</span>
+                    <span class="user-email">Meow@cat.pspsps</span>
+                </div>
+            </header>
+            
+            <!-- Sorting and Filters -->
+            <div class="filters">
+                <label>Sort:
+                    <select>
+                        <option>Priority</option>
+                        <option>Date</option>
+                    </select>
+                </label>
+                <label>Filter:
+                    <select id="filterSelect">
+                        <option>Read</option>
+                        <option>Unread</option>
+                        <option>All</option>
+                    </select>
+                </label>
+                <button class="send-notification">Send Notification</button>
+            </div>
+            
+            <!-- Notifications Table -->
+            <table class="notifications-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody id="notificationsList">
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+        <!-- Notification Popup -->
+        <div id="notificationPopup" class="popup">
+            <div class="popupContent">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h2>New Notification</h2>
+                <label>Title:</label>
+                <input type="text" id="notificationTitle" placeholder="Enter title">
+                <label>Description:</label>
+                <textarea id="notificationDescription" placeholder="Enter description"></textarea>
+                <label>Recipients:</label>
+                <select id="notificationRecipients">
+                    <option>Global</option>
+                    <option>Customers</option>
+                    <option>Admins</option>
+                </select>
+                <button class="send-button">Send</button>
+            </div>
+        </div>
+    
+
+
+</body>
+</html>
