@@ -1,0 +1,77 @@
+<!--
+Developer: Azaan Mudassar
+University ID: 230098501
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Preferences</title>
+    <link rel="stylesheet" href="../css/adminpreferences.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="header-container">
+            <h1>Admin Preferences</h1>
+            <h2>You are currently modifying the Admin Preferences for this site</h2>
+        </div>
+        <div class="form-container">
+            <div class="sub-heading">
+                <h2>Admin Settings</h2>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label>Notification Settings</label>
+                </div>
+                <div class="notification-container">
+                <label>
+                    <input type="checkbox" name="notifications" value="email"> Email
+                </label>  
+                <label>
+                  <input type="checkbox" name="notifications" value="sms"> SMS
+                </label>
+                <label>
+                  <input type="checkbox" name="notifications" value="push"> Push
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label>Alert Preferences</label>
+                </div>
+                <div class="checkbox-container">
+                    <label>
+                        <input type="checkbox" name="alert" value="critical-alerts"> Critical Alerts
+                    </label>
+                    <label>
+                        <input type="checkbox" name="alert" value="moderate-alerts"> Moderate Alerts
+                    </label>
+                    <label>
+                        <input type="checkbox" name="alert" value="minor-alerts"> Minor Alerts
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="report-format">Preferred Report Format</label>
+                </div>
+                <div class="report-container">
+                    <select id="reportFormat" name="reportFormat">
+                        <option value="pdf">PDF</option>
+                        <option value="excel">Excel</option>
+                        <option value="csv">CSV</option>
+                      </select>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="cancel-button">Cancel</button>
+                <input type="submit" value="Update">                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
