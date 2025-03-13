@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create a Review</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="review-form.css" />
+</head>
+<body>
+
+  <div class="review-wrapper">
+    <h1>Leave a review. Your opinion matters to us!</h1>
+    
+    <!-- Rate our product label + stars row -->
+    <div class="rating-row">
+      <label for="star-rating">Rate our product</label>
+      <div class="stars" id="star-rating">
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+      </div>
+    </div>
+
+    <!-- Create a Review -->
+    <label for="review-text" class="review-label">Create a Review</label>
+    <textarea id="review-text" class="review-textarea" placeholder="Leave a message."></textarea>
+
+    <!-- Name -->
+    <label for="name" class="review-label">Name</label>
+    <input type="text" id="name" class="review-input" placeholder="Your name" />
+
+    <!-- Email -->
+    <label for="email" class="review-label">Email (Optional)</label>
+    <input type="email" id="email" class="review-input" placeholder="Your email" />
+
+    <!-- Submit button -->
+    <button type="submit" class="submit-btn">Submit</button>
+  </div>
+
+</body>
+</html>

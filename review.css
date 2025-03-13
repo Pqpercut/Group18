@@ -1,0 +1,121 @@
+/*********************
+Developer: Malaika Noor
+University ID: 230190768
+**********************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: Outfit, sans-serif;
+  background-color: #DCEDFF; 
+}
+
+.page-title {
+  color: #000;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 22px;
+  font-weight: bold;
+  
+}
+.reviews-container {
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+
+.reviews-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.rating-summary h2 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.rating-summary p {
+  color: #333;
+  font-size: 14px;
+}
+
+
+.stars {
+  color: #FFD700;
+}
+
+
+.write-review-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.write-review-btn:hover {
+  background-color: #444;
+}
+
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.review {
+  background-color: #f5f9fe; 
+  border-radius: 4px;
+  padding: 15px;
+}
+
+
+.review-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.review-name {
+  font-weight: bold;
+}
+
+.review-date {
+  color: #999;
+  font-size: 14px;
+}
+
+
+.review-stars {
+  color: #FFD700; 
+  margin-bottom: 8px;
+}
+
+
+.review-text {
+  font-style: italic;
+  line-height: 1.4;
+}
+
+  .rating-summary h2 {
+    font-size: 20px;
+  }
+
+  .write-review-btn {
+    padding: 6px 12px;
+  }
+

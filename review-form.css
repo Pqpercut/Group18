@@ -1,0 +1,111 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body styling */
+  body {
+    background-color: #E8F4FF;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Container box */
+  .review-wrapper {
+    width: 420px; /* Adjust as needed to match the desired look */
+    margin: 60px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center; /* Centers headings and form elements */
+  }
+  
+  .review-wrapper h1 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Rating row: label and stars on one line */
+  .rating-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .rating-row label {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  /* Stars layout */
+  .stars {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .star {
+    font-size: 1.7rem;
+    color: #ccc; /* Gray star */
+    cursor: pointer;
+  }
+  
+  /* Optional hover effect for interactive stars */
+  .star:hover,
+  .star:hover ~ .star {
+    color: #FFD700; /* Gold star on hover */
+  }
+  
+  /* Label for the text areas and inputs */
+  .review-label {
+    display: block;
+    text-align: left;
+    margin: 0 auto 5px auto;
+    max-width: 350px;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9rem;
+  }
+  
+  /* The main textarea for the review */
+  .review-textarea {
+    width: 350px;
+    height: 80px;
+    resize: none;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Text inputs for Name and Email */
+  .review-input {
+    width: 350px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Submit button styling */
+  .submit-btn {
+    padding: 10px 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  
+  .submit-btn:hover {
+    border-color: #666;
+  }
+  
