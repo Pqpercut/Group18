@@ -243,12 +243,16 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 	
 	
 
-class WishlistView(ListView):
+class WishlistView(TemplateView):
 	
-	
-	context_object_name = "wishlist_Table"
-	##template_name = "product_catalogue.html"
+	template_name = "product_catalogue.html"
+	def get_context_data(self, **kwargs):
 
+
+		context =  super().get_context_data(**kwargs) 
+		context['wishlists'] = Wishlists.objects.all().filter(userID = self.request.user)
+		context['']
+		
 	
 	
 

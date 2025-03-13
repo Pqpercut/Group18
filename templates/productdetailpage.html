@@ -85,7 +85,9 @@ University ID: 230098501
         <h2> {{ review.title}} by {{ review.userID.username}} </h2>
 
             <!-- PUT STARS HERE PLS-->
-
+            {% for i in review.rating|get_range %}
+                <p> X</p>
+            {%endfor%}
             <p>{{review.description}}</p>
     {% endfor %} 
 
