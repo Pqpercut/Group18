@@ -1,0 +1,39 @@
+<!--
+Developer: Azaan Mudassar
+University ID: 230098501
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Head Main Page</title>
+    <link rel="stylesheet" href="../css/catheadmain.css">
+</head>
+<body>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+        
+    <div class="cat-container">
+        <model-viewer id="cat1" src="../media/models/cathead.glb"  alt="Cat Avatar Selection 1" auto-rotate rotation-per-second="20deg" style="width: 700px; height: 700px;"></model-viewer>
+        <model-viewer id="cat2" src="../media/models/cathead2.glb" alt="Cat Avatar Selection 2" auto-rotate rotation-per-second="20deg" style="width: 700px; height: 700px;"></model-viewer>
+        <model-viewer id="cat3" src="../media/models/cathead3.glb" alt="Cat Avatar Selection 3" auto-rotate rotation-per-second="20deg" style="width: 700px; height: 700px;"></model-viewer>
+    </div>
+      
+      
+    <script>
+    document.getElementById('cat1').addEventListener('click', () => {
+        window.location.href = 'cathead1.html';
+    });
+    document.getElementById('cat2').addEventListener('click', () => {
+        window.location.href = 'cathead2.html';
+    });
+    document.getElementById('cat3').addEventListener('click', () => {
+        window.location.href = 'cathead3.html';
+    });
+    </script>
+
+</body>
+</html>
