@@ -37,8 +37,8 @@ function changeMainImage(index) {
 
 //saki's shi to make the basket adding work
 //assigning variables
-let selected_colour = null
-let selected_size = null
+let selected_colour = ""
+let selected_size = ""
 let quantity = 1
 
 
@@ -54,33 +54,55 @@ colour_list = document.getElementById("colour_list").value.split(","); //list of
 
 //
 function colourSelect(col, button) {
-    // Remove active class from all buttons
-    selected_colour = col;
-    //console.log(selected_colour);
-    document.getElementById("hidden-colour").value = col;
-    updateSize(col);
-    colour_persist(button);
+    //check if btn is already selected 
+    //if selected, remove selection 
+    if (selected_colour === col) {
+        //console.log('UNSELECT');
+        selected_colour = null;
+        document.getElementById("hidden-colour").value = null;
+        button.classList.remove("active");
+
+        check_selected();
+
+    //else update col to be the same as selection
+    } else {
+        selected_colour = col;
+        //console.log(selected_colour);
+        document.getElementById("hidden-colour").value = col;
+        colour_persist(button);
+    }
+    updateSize(selected_colour);
 }
 
 
-//
+//same as colour but with size instead
 function sizeSelect(size, button) {
-    selected_size = size;
-    //console.log(selected_size);
-    document.getElementById("hidden-size").value = size;
-    updateColour(size);
-    size_persist(button);
+    if (selected_size === size) {
+        selected_size = null;
+        document.getElementById("hidden-size").value = null;
+        button.classList.remove("active");
+
+        check_selected();    
+    } else {
+        selected_size = size;
+        //console.log(selected_size);
+        document.getElementById("hidden-size").value = size;
+        size_persist(button);
+    }
+    updateColour(selected_size);
 }
 
 
-//makes the button purp
+//makes the button purp (active class = making btn purple)
 function colour_persist(button) {
     //remove active class from all buttons
     const buttons = document.querySelectorAll('.color-circle');
     buttons.forEach(btn => btn.classList.remove('active'));
 
     //add active class to clicked button
-    button.classList.add('active');
+    if (selected_colour) {
+        button.classList.add('active');
+    }
 }
 
 function size_persist(button) {
@@ -89,24 +111,30 @@ function size_persist(button) {
     buttons.forEach(btn => btn.classList.remove('active'));
 
     //add active class to clicked button
-    button.classList.add('active');
+    if (selected_size) {
+        button.classList.add('active');
+    }
 }
 
 
 //to update the sizes when colour clicked
 function updateSize(selected_colour) {
     const sizeButtons = document.querySelectorAll(".size-circle");
-    console.log(selected_colour);
+    //console.log(selected_colour);
 
     //console.log(size_list);
-    console.log(available_sizes[selected_colour]);
-    sizeButtons.forEach((button) => {
+    //console.log(available_sizes[selected_colour]);
+    sizeButtons.forEach((button) => { //loop through btns
         const size = button.dataset.size;
 
-        if (available_sizes[selected_colour]?.includes(size)) {
+        //if colour available in that size, make btn active 
+        if (available_sizes[selected_colour]?.includes(size) || selected_colour === null) {
+            console.log("enabling buttons");
             button.classList.remove("disabled");
             button.disabled = false;
+        //else disable it 
         } else {
+            console.log("killing buttons");
             button.classList.add("disabled");
             button.disabled = true;
         }
@@ -124,7 +152,7 @@ function updateColour(selected_size) {
         const colour = button.dataset.colour;
         //console.log(colour);
 
-        if (available_colours[selected_size]?.includes(colour)) {
+        if (available_colours[selected_size]?.includes(colour) || selected_size === null){
             button.disabled = false;
             button.classList.remove("disabled");
         } else {
@@ -157,20 +185,30 @@ function change_quantity(q) {
 //check if size n colour selected
 function check_selected() {
     if ((selected_colour != null) && (selected_size != null)){
-        console.log("basket enabled!")
-        //enables basket adding 
-        //document.getElementById("decrease").disabled = false;
-        //document.getElementById("increase").disabled = false;
-        //document.getElementById("add-to-cart").disabled = false;
+        if (
+            available_sizes[selected_colour]?.includes(selected_size) &&
+            available_colours[selected_size]?.includes(selected_colour)
+        ) {
+            console.log("basket enabled!")
+            //console.log(document.getElementById("add-to-cart"));
+            //enables basket adding 
+            //document.getElementById("decrease").disabled = false;
+            //document.getElementById("increase").disabled = false;
+            document.getElementById("add-to-cart").removeAttribute('disabled');
+        } else {
+            document.getElementById("add-to-cart").setAttribute('disabled');
+            console.log("basket disabled");
+        }
 
-        console.log(String(selected_colour), String(selected_size));
+        //console.log(String(selected_colour), String(selected_size));
     } else {
         //keeps the adding to basket disabled
         //document.getElementById("decrease").disabled = true;
         //document.getElementById("increase").disabled = true;
-        //document.getElementById("add-to-cart").disabled = true;
+        document.getElementById("add-to-cart").disabled = true;
+        console.log("basket disabled");
 
-        console.log(String(selected_colour), String(selected_size));
+        //console.log(String(selected_colour), String(selected_size));
     }
 }
 
