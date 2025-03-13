@@ -77,6 +77,23 @@ University ID: 230098501
 <div class="description-container">
     <p>{{desc}}</p>
 </div>
+
+
+<!-- Reviews-->
+<div> 
+    {% for review in ReviewQuery %}
+        <h2> {{ review.title}} by {{ review.userID.username}} </h2>
+
+            <!-- PUT STARS HERE PLS-->
+
+            <p>{{review.description}}</p>
+    {% endfor %} 
+
+
+    <a href="{% url 'Reviews' theKey %}" class="btn btn-primary">Write a Review</a>
+</div>
+
+
 <div class="suggestion-container">
     <div class="suggestion-header-container">
         <div class="suggestion-header">
@@ -92,7 +109,8 @@ University ID: 230098501
         <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 3" class="alt-product">
         <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 4" class="alt-product">
     </div>
-</div>
+
+
 
 <script>
     const available_sizes = {

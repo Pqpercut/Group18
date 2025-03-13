@@ -218,7 +218,6 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 	model = Review
 	form_class = ReviewForm
 	template_name = "CreateReviewPage.html"
-	success_url = reverse_lazy('Catalogue')
 
 
 
@@ -229,13 +228,19 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 		user = self.request.user
 		form.instance.userID = user
 
-		productID = self.request.POST.get('prod-id')
-		product = get_object_or_404(Product,id=productID)
+		
+		product = get_object_or_404(Product,id=self.kwargs['pk'])
 		form.instance.productID = product
 
 
 		messages.success(self.request, "Your review has been added successfully!")
 		return super().form_valid(form)
+		
+	
+	def get_success_url(self):
+
+	    return reverse_lazy('variantDisplay', kwargs={'pk': self.kwargs['pk']})
+	
 	
 
 class WishlistView(ListView):
@@ -339,9 +344,10 @@ def productDisplay(request):
 #display product varients
 class VariantDisplayView(View):
 #written by Sakina Khaki
-	
+	model = Product
 	#get product by id
 	def getObj(self, pk):
+
 		return Product.objects.get(id = pk)
 
 	'''
@@ -405,10 +411,8 @@ class VariantDisplayView(View):
 		#puts all available sizes in set
 		available_sizes = {i.size for i in allitems if i.colour == colour}
 
-
 		#all available colours into set
 		available_colours = {i.colour for i in allitems if i.size == size}
-
 
 		#final validation check - checks if that size is available in that colour 
 		if (colour not in available_colours) or (size not in available_sizes):
@@ -420,18 +424,13 @@ class VariantDisplayView(View):
 			print("yay") 
 
 		#sorts variantid out 
-		
+	
 		variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
 		variant = ProductVariant.objects.get(productID=product, id=variantid)
 
 		#get basketid
 		basket = Basket.objects.get(userID=request.user)
 		
-		#basketid for testing
-		#basket = Basket.objects.get(userID=1)
-		#basketid = basket.id
-
-
 		'''
 			add to basket 
 			check if existing or new item
@@ -454,14 +453,21 @@ class VariantDisplayView(View):
 			
 			
 		return redirect('basket')
-
-
-
-
+	
 	#display product variant page 
 	def get(self, request, pk):
 		prod = self.getObj(pk)
 		itemNames = self.pageData(prod)
+
+		
+		
+		##Reviews
+		query = Review.objects.filter(productID=prod)
+		itemNames['ReviewQuery']= query
+
+		itemNames['theKey'] = pk
+
+		
 		return render(request, "productdetailpage.html", itemNames)
 
 
