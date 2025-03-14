@@ -369,8 +369,6 @@ class VariantDisplayView(View):
 		for i in allitems:
 			sizes_map.setdefault(i.colour, []).append(i.size)
 
-		print(sizes_map)
-
 		colours_map = {}
 		for i in allitems:
 			colours_map.setdefault(i.size, []).append(i.colour)
@@ -412,12 +410,7 @@ class VariantDisplayView(View):
 
 		#final validation check - checks if that size is available in that colour 
 		if (colour not in available_colours) or (size not in available_sizes):
-			print(size)
-			print(colour)
-			print("no colour and or size")
 			return render(request, "productdetailpage.html", self.pageData(product))
-		else:
-			print("yay") 
 
 		#sorts variantid out 
 		
@@ -426,10 +419,6 @@ class VariantDisplayView(View):
 
 		#get basketid
 		basket = Basket.objects.get(userID=request.user)
-		
-		#basketid for testing
-		#basket = Basket.objects.get(userID=1)
-		#basketid = basket.id
 
 
 		'''
@@ -444,12 +433,10 @@ class VariantDisplayView(View):
 
 		if basketitem: 
 		#inc quantity of thing in basket
-			#print("added", quantity, "to EXISTING")
 			basketitem.quantity += quantity
 
 		else: 
 		#create new basketitem entry
-			#print("added", quantity, "to NEW")
 			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
 			
 			
@@ -482,7 +469,6 @@ class BasketView(View):
 			variant = ProductVariant.objects.get(id=i.variantID.id)
 			total += (variant.price * i.quantity)
 			numitems += (1 * i.quantity)
-		#print(total)
 
 		itemNames = {
 			'basket' : allitems,
@@ -519,16 +505,13 @@ class BasketView(View):
 		btn = request.POST.get("remove_btn")
 		if basketitem:
 			if btn == "add_one":
-				print("quantitiy changed")
 				basketitem.quantity += 1
 				basketitem.save()
 
 			elif btn == "rem_all" or basketitem.quantity == 1:
-				print("removed")
 				basketitem.delete()
 			
 			else:
-				print("quantitiy changed")
 				basketitem.quantity -= 1
 				basketitem.save()
 
@@ -542,12 +525,8 @@ class BasketView(View):
 def basketRem(request):
 #written by Sakina Khaki
 	if request.method == "POST":
-		#print("beep")
 		#get basketid
 		basketid = Basket.objects.get(userID=request.user).id
-
-		#for testing
-		#basketid = Basket.objects.get(userID=1)
 
 		variantid = request.POST.get("variantid")
 		variant = ProductVariant.objects.get(id=variantid)
@@ -566,16 +545,13 @@ def basketRem(request):
 		btn = request.POST.get("remove_btn")
 		if basketitem:
 			if btn == "add_one":
-				print("quantitiy changed")
 				basketitem.quantity += 1
 				basketitem.save()
 
 			elif btn == "rem_all" or basketitem.quantity == 1:
-				print("removed")
 				basketitem.delete()
 			
 			else:
-				print("quantitiy changed")
 				basketitem.quantity -= 1
 				basketitem.save()
 
@@ -587,14 +563,9 @@ def basketRem(request):
 #veiw basket
 def viewBasket(request):
 #written by Sakina Khaki
-	#print("beep") 
 
 	#get basketid
 	basketid = Basket.objects.get(userID=request.user).id
-
-	#for testing if right basket loaded
-	#admin acc id = 1
-	assert basketid == 1, "basket is wrong! id="+str(basketid)
 
 	allitems = BasketItem.objects.filter(basketID=basketid)
 
@@ -604,7 +575,6 @@ def viewBasket(request):
 		variant = ProductVariant.objects.get(id=i.variantID.id)
 		total += (variant.price * i.quantity)
 		numitems += (1 * i.quantity)
-	#print(total)
 
 	itemNames = {
 		'basket' : allitems,
@@ -617,10 +587,13 @@ def viewBasket(request):
 	return render(request, "basket.html", itemNames)
 
 
-# @permission_required('ecommerceapp.Customer')
-# #checkout
-# def checkout(request):
-#   return render(request, "admin/temp_basket/tempCheckout.html")
+
+'''
+	for bluesky posting
+	testing
+'''
+
+
 
 class CustomPasswordResetView(PasswordResetView):
 	form_class = CustomPasswordResetForm
