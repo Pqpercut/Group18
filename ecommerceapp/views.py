@@ -19,7 +19,9 @@ from .mixins import GroupRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-
+import os
+from apscheduler.schedulers.blocking import BlockingScheduler
+from atproto import Client
 
 class InventoryProductListView (ListView):
 	# Created by Adam Ahmed 23/11/2024
@@ -356,6 +358,7 @@ class VariantDisplayView(View):
 
 		name = product.name
 		desc = product.description
+		productid = product.id
 
 		#
 		sizes = ["S", "M", "L", "XL"] #all sizes
@@ -380,7 +383,8 @@ class VariantDisplayView(View):
 			'colours': colours, 
 			'sizes': sizes, 
 			'sizes_map': sizes_map, 'colours_map' : colours_map,
-			'quantity': 1 #default
+			'quantity': 1, #default
+			'productid':productid
 		}
 
 
@@ -520,71 +524,7 @@ class BasketView(View):
 		
 
 
-@permission_required('ecommerceapp.Customer')
-#remove from basket 
-def basketRem(request):
-#written by Sakina Khaki
-	if request.method == "POST":
-		#get basketid
-		basketid = Basket.objects.get(userID=request.user).id
 
-		variantid = request.POST.get("variantid")
-		variant = ProductVariant.objects.get(id=variantid)
-
-		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
-
-
-		'''
-			check if item is in basket 
-			add: quantity += 1
-			rem_all or quantity = 1: delete
-			else quantity -= 1
-		'''
-
-		#which btn? 
-		btn = request.POST.get("remove_btn")
-		if basketitem:
-			if btn == "add_one":
-				basketitem.quantity += 1
-				basketitem.save()
-
-			elif btn == "rem_all" or basketitem.quantity == 1:
-				basketitem.delete()
-			
-			else:
-				basketitem.quantity -= 1
-				basketitem.save()
-
-
-	return(viewBasket(request))
-
-
-@permission_required('ecommerceapp.Customer')
-#veiw basket
-def viewBasket(request):
-#written by Sakina Khaki
-
-	#get basketid
-	basketid = Basket.objects.get(userID=request.user).id
-
-	allitems = BasketItem.objects.filter(basketID=basketid)
-
-	total = 0
-	numitems = 0
-	for i in allitems:
-		variant = ProductVariant.objects.get(id=i.variantID.id)
-		total += (variant.price * i.quantity)
-		numitems += (1 * i.quantity)
-
-	itemNames = {
-		'basket' : allitems,
-		'total' : total,
-		'numitems' : numitems
-	}
-
-
-	#viewing the basket
-	return render(request, "basket.html", itemNames)
 
 
 
@@ -592,6 +532,23 @@ def viewBasket(request):
 	for bluesky posting
 	testing
 '''
+def bluesky_post(request):
+	print("django reached")
+
+	if request.method == "POST":
+		#create a client
+		client = Client("https://bsky.social")
+		productid = request.POST.get("productid")
+		print(productid)
+
+		client.login('sheenawolf921@gmail.com', '6wat-jszj-5oxd-43j2')
+		client.post(":)")
+
+		
+	return VariantDisplayView()
+
+	
+
 
 
 

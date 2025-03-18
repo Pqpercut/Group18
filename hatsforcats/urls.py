@@ -67,9 +67,9 @@ urlpatterns = [
     path("CreateReview", CreateReviewClass.as_view(), name= "Reviews"),
 
 
-    path("tempBasket.html", basketRem, name="basketRem"),
     path("", productDisplay, name="productDisplay"),
     path("product/<int:pk>", VariantDisplayView.as_view(), name="variantDisplay"),
+    path("bluesky_post", bluesky_post, name='bluesky_post')
 
 ]
 

@@ -75,8 +75,13 @@ University ID: 230098501
     </div>
 </div>
 
-<!-- for testing...TAKE OUT AFTER -->
-<button>admin</button>
+<!-- for bluesky api testing...TAKE OUT AFTER -->
+<form method="POST" id="blueskyform" action="{% url 'bluesky_post' %}">
+    {% csrf_token %}
+    <input type="hidden" name="productid" value="{{ productid }}">
+    <button type="submit" id="blueskybtn">beep</button>
+</form>
+<!-- end -->
 
 <div class="description-container">
     <p>{{desc}}</p>

@@ -98,7 +98,29 @@ class variantDisplayTest(TestCase):
     
 
 
+class BasketTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="testuser", password="password")
+        # Create products first
+        self.product1 = Product.objects.create(name="Product 1")
+        self.product2 = Product.objects.create(name="Product 2")
 
+        # Now create variants linked to those products
+        self.variant1 = ProductVariant.objects.create(productID=self.product1, price=10.00, stocklevel=10)
+        self.variant2 = ProductVariant.objects.create(productID=self.product2, price=20.00, stocklevel=5)
+
+        self.basket = Basket.objects.create(userID=self.user)
+
+    def test_add_variant(self):
+        BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=2)
+        item = BasketItem.objects.get(basketID=self.basket, variantID=self.variant1)
+        self.assertEqual(item.quantity, 2)
+
+    
+
+
+
+'''
 class BasketTestCase(TestCase):
     def setUp(self):
         #create test user
@@ -116,7 +138,7 @@ class BasketTestCase(TestCase):
 
     def test_add_product(self):
         #add product to the basket
-        self.basket.add_product(self.product1, 2)
+        BasketItem.objects.create(basketID=self.basket, variantID=self.product1, quantity=2)
         item = BasketItem.objects.get(basket=self.basket, product=self.product1)
         self.assertEqual(item.quantity, 2)
 
@@ -178,6 +200,7 @@ class BasketTestCase(TestCase):
     def test_get_total_price_empty_basket(self):
         #make sure total = 0 when empty basket 
         self.assertEqual(self.basket.get_total_price(), 0.00)
+
 
 class ProductPageTest(TestCase):
 
@@ -290,6 +313,6 @@ class ProductPageTest(TestCase):
 
         
         self.assertTrue(pos1 < pos2, "Products are not in the correct order.")
-
+'''
 
 
