@@ -524,6 +524,44 @@ class BasketView(View):
 		
 
 
+@permission_required('ecommerceapp.Customer')
+#remove from basket 
+def basketRem(request):
+#written by Sakina Khaki
+	if request.method == "POST":
+		#get basketid
+		basketid = Basket.objects.get(userID=request.user).id
+
+		variantid = request.POST.get("variantid")
+		variant = ProductVariant.objects.get(id=variantid)
+
+		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
+
+
+		'''
+			check if item is in basket 
+			add: quantity += 1
+			rem_all or quantity = 1: delete
+			else quantity -= 1
+		'''
+
+		#which btn? 
+		btn = request.POST.get("remove_btn")
+		if basketitem:
+			if btn == "add_one":
+				basketitem.quantity += 1
+				basketitem.save()
+
+			elif btn == "rem_all" or basketitem.quantity == 1:
+				basketitem.delete()
+			
+			else:
+				basketitem.quantity -= 1
+				basketitem.save()
+
+
+	return(viewBasket(request))
+
 
 
 
@@ -541,8 +579,10 @@ def bluesky_post(request):
 		productid = request.POST.get("productid")
 		print(productid)
 
+		product = Product.objects.get(id=productid).name
+
 		client.login('sheenawolf921@gmail.com', '6wat-jszj-5oxd-43j2')
-		client.post(":)")
+		client.post(product)
 
 		
 	return VariantDisplayView()
