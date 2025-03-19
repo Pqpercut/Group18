@@ -1,6 +1,6 @@
 
   
-  /* Button to open modal */
+  /*open button  */
   #filter-btn {
     padding: 10px 20px;
     font-size: 16px;
@@ -9,10 +9,10 @@
   
 
 
-  /* Modal container */
+  /*  container */
   .sortingForm {
   
-    display: none;
+    display: flex;
     flex-direction: row;
     position: fixed;
     z-index: 1000;
@@ -32,13 +32,13 @@
     
     justify-content: center;
     background-color: #fefefe;
-    margin: 15% auto; /* Center the modal */
+    margin: 15% auto; 
     padding: 50px 60px 50px 60px;
     border: 1px solid #888;
-    width: 25%; /* Adjust as needed */
+    width: 25%; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
-    animation: fadeIn 0.3s; /* Optional fade-in animation */
+    animation: fadeIn 0.3s; 
   }
 
 
@@ -76,7 +76,7 @@ select::placeholder {
 #submitButton {
   font-family: "Outfit", sans-serif;
   border: none;
-  border-radius: 50px; /*Makes the button have curved corners*/
+  border-radius: 50px;
   font-size: 20px;
   font-weight: 700;
   color: white;

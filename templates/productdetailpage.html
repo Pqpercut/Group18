@@ -8,6 +8,9 @@ University ID: 230098501
 
 {% block content %}
 <link href="{% static  'css/productdetail.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/reviewSection.css' %}">
+
+
 <script>
     const images = [
         {% for variant in product.productvariant.all %}
@@ -79,21 +82,63 @@ University ID: 230098501
 </div>
 
 
-<!-- Reviews-->
-<div> 
-    {% for review in ReviewQuery %}
-        <h2> {{ review.title}} by {{ review.userID.username}} </h2>
-
-            <!-- PUT STARS HERE PLS-->
-            {% for i in review.rating|get_range %}
-                <p> X</p>
-            {%endfor%}
-            <p>{{review.description}}</p>
-    {% endfor %} 
 
 
-    <a href="{% url 'Reviews' theKey %}" class="btn btn-primary">Write a Review</a>
+<div class="reviewContainer">
+    <h2 class="ReviewTitle">Reviews</h2>
+
+    <div class="stats">
+        <div class= "totalRating">
+            <h3 style=" font-size: 36px;">Total Reviews</h3>
+            <p style=" font-size: 24px;">{{totalRating}} &#128172;</p>
+            <p> {{lastMonth}} in the last 30 days </p>
+        </div>
+        <div class="avgRating">
+            <h3 style=" font-size: 36px;">Average Rating</h3>
+            <p style="font-size: 24px;" >{{averageRating}} ⭐</p>
+        </div>
+    </div>
+
+    <div class="review-btns">
+        <button class="review-btn" onclick = "window.location.href=' {% url 'Reviews' theKey %} ';">Add a Review</button>
+        
+        <form>
+            <div class="">
+                <select name="order" id="order">
+                    <option value="-reviewDate">Most Recent</option>
+                    <option value="title">Name</option>
+                    <option value="reviewDate">Oldest review </option>
+                    <option value="-rating">Highest rating</option>
+                    <option value="rating">Lowest rating</option>
+                </select>
+
+                <input id="submitButton" type="submit" value="Submit">
+            </div>
+        </form
+
+
+    </div>
+
+
+    <div class="review-list">
+        {% for review in ReviewQuery %}
+            <div class="review">
+                <strong>{{ review.title }}: {{review.rating}}  ⭐</strong>
+                <small class= "reviewDate">{{ review.reviewDate }} by {{review.userID.username}}</small>
+                <p>{{ review.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
 </div>
+
+
+
+
+
+
+
+
 
 
 <div class="suggestion-container">
@@ -126,6 +171,8 @@ University ID: 230098501
         	"{{ s }}": {{ colours_list|safe }},
     	{% endfor %}
     };
+
+    
 </script>
 
 <script src="{% static 'productdetail.js' %}"></script>

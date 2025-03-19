@@ -19,6 +19,8 @@ from .mixins import GroupRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
+import datetime
+from django.utils import timezone
 
 
 class InventoryProductListView (ListView):
@@ -155,7 +157,7 @@ class DeleteVariantView(DeleteView):
 
 
 class CatalogueViewClass(ListView):
-	
+	##Catalogue page
 	context_object_name = "ProductList"
 	template_name = "product_catalogue.html"
 	
@@ -245,13 +247,34 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 
 class WishlistView(TemplateView):
 	
-	template_name = "product_catalogue.html"
+	template_name = "wishlist.html"
 	def get_context_data(self, **kwargs):
 
-
+		key = kwargs.get('pk')
 		context =  super().get_context_data(**kwargs) 
-		context['wishlists'] = Wishlists.objects.all().filter(userID = self.request.user)
-		context['']
+		
+		wishLists = Wishlists.objects.all().filter(userID = self.request.user)
+
+		
+		if(key):
+			mainList = Wishlists.objects.all().filter(id = key).first()
+		else:
+			mainList = wishLists.first()
+		
+		if (wishLists):
+			context['wishlists'] = wishLists
+
+
+		if (mainList):
+			wishListItems = WishlistItem.objects.all().filter(wishlistID = mainList)
+
+			context['itemsList'] = wishListItems
+			
+		else:
+			print("no items")
+			return context
+
+		return context
 		
 	
 	
@@ -467,9 +490,40 @@ class VariantDisplayView(View):
 		
 		##Reviews
 		query = Review.objects.filter(productID=prod)
+		
+		value = request.GET.get("order","-reviewDate")
+		query = query.order_by(value)
+
 		itemNames['ReviewQuery']= query
 
+
 		itemNames['theKey'] = pk
+		itemNames['totalRating'] = len(query)
+		mean = 0
+		startDate = timezone.now()- datetime.timedelta(days=30) ##Get 30 days ago
+		lastMonth = 0
+		
+
+
+		
+		
+		if (len(query) > 0):
+			for review in query:
+				mean += review.rating
+				if review.reviewDate > startDate: ##check if reviewDate is past the 30 day mark from 30 days ago
+					lastMonth += 1
+
+			mean = mean / len(query)
+		
+		
+
+		
+		
+		itemNames['averageRating'] = mean
+		itemNames['lastMonth'] = lastMonth
+
+		
+
 
 		
 		return render(request, "productdetailpage.html", itemNames)
