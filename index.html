@@ -1,0 +1,129 @@
+<!-- Developer: Khalid Abukar
+University ID: 230129012 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wishlist Page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wishlist-container">
+    <!-- ======== LEFT SIDEBAR ======== -->
+    <aside class="wishlist-sidebar">
+      <h2>Your Wish-lists</h2>
+      <ul id="wishlistList" class="wishlist-list">
+        <!-- Default Wishlists (example) -->
+        <li><a href="#" data-wishlist="Your Wish-list #1" class="active">Your Wish-list #1</a></li>
+        <li><a href="#" data-wishlist="Your Wish-list #2">Your Wish-list #2</a></li>
+        <li><a href="#" data-wishlist="Your Wish-list #3">Your Wish-list #3</a></li>
+        <li><a href="#" data-wishlist="Your Wish-list #4">Your Wish-list #4</a></li>
+      </ul>
+      <button class="new-wishlist-btn" id="newWishlistBtn">New Wishlist</button>
+    </aside>
+
+
+    <!-- Modal popup for creating a new wishlist -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>New Wishlist</h2>
+    <input type="text" id="newWishlistName" placeholder="Enter new wishlist name">
+    <button id="createWishlistBtn">Create</button>
+  </div>
+</div>
+
+<!-- Modal Popup for Edit Wishlist Name -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close edit-close">&times;</span>
+    <h2>Rename Wishlist</h2>
+    <input type="text" id="editWishlistName" placeholder="Enter new wishlist name">
+    <button id="saveWishlistBtn">Confirm</button>
+  </div>
+</div>
+
+<!-- Popup for Delete Wishlist Confirmation -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <span class="close delete-close">&times;</span>
+    <h2>Are you sure?</h2>
+    <p>Are you sure you want to delete this wishlist? </p>
+    <p>This cannot be undone. </p>
+    <button id="confirmDeleteBtn">Yes, Delete</button>
+    <button id="cancelDeleteBtn">Cancel</button>
+  </div>
+</div>
+
+
+    <!-- ======== MAIN CONTENT (Wishlist #1 by default) ======== -->
+    <section class="wishlist-details">
+      <div class="wishlist-header">
+        <h2 id="wishlistTitle">Your Wish-list #1</h2>
+        <div class="wishlist-actions">
+          <a href="#" id="newItemLink">NEW</a> |
+          <a href="#" id="editWishlistLink">EDIT</a> |
+          <a href="#" id="deleteWishlistLink">DELETE</a>
+        </div>
+        </div>
+
+      <!-- SAMPLE WISHLIST ITEMS -->
+   <div id="productContainer">
+    <!-- Placeholder message when there are no products -->
+    <p id="emptyMessage">Your wishlist is empty. Add some products!</p>
+
+      <div class="wishlist-item">
+        <!-- Left columns (image & product info) -->
+        <div class="product-image"></div>
+        <div class="product-info">
+          <h3>Product Name</h3>
+          <p># Product No.</p>
+          <p class="product-status in-stock">In-Stock!</p>
+        </div>
+      
+        <!-- Right column: price + discount above, buttons below -->
+        <div class="product-actions">
+          <div class="product-price">
+            <span class="new-price">£22.99</span>
+            <span class="old-price">£30.00</span>
+            <span class="discount-tag">15% off</span>
+          </div>
+          <div class="product-buttons">
+            <button class="remove-btn">REMOVE</button>
+            <button class="cart-btn">ADD TO CART</button>
+          </div>
+          </div>
+      </div>
+      
+  <!-- SAMPLE WISHLIST ITEMS-->
+  <div class="wishlist-item">
+    <!-- Left columns (image & product info) -->
+    <div class="product-image"></div>
+    <div class="product-info">
+      <h3>Product Name</h3>
+      <p># Product No.</p>
+      <p class="product-status out-of-stock">Out of Stock!</p>
+    </div>
+  
+    <!-- Right column: price + discount above, buttons below -->
+    <div class="product-actions">
+      <div class="product-price">
+        <span class="new-price">£19.50</span>
+        <span class="old-price">£25.99</span>
+        <span class="discount-tag">25% off</span>
+      </div>
+      <div class="product-buttons">
+        <button class="remove-btn">REMOVE</button>
+        <button class="cart-btn">ADD TO CART</button>
+      </div>
+    </div>
+  </div>
+      
+    </section>
+  </div>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
