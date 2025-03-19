@@ -1,0 +1,60 @@
+body {
+    font-family:'Outfit', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 850px;
+    background-color: #DCEDFF;
+    margin: 0; 
+}
+
+.profile-container {
+    position: relative;
+    display: inline-block;
+}
+.profile-icon {
+    padding: 5px 10px;
+    background-color: #DCEDFF;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.profile-icon p {
+    margin: 0;
+}
+
+.profile-icon:hover {
+    background-color: #B9DBFF;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #DCEDFF;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 170px; 
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+    font-size: 16px; 
+}
+
+.dropdown-menu a:hover {
+    background-color: #B9DBFF;
+}
+
+.profile-container:hover .dropdown-menu,
+.profile-container:focus-within .dropdown-menu {
+    display: block;
+}
