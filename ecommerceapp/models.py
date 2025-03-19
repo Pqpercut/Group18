@@ -118,6 +118,6 @@ class Wishlists (models.Model):
 class WishlistItem(models.Model):
     wishlistID = models.ForeignKey(Wishlists, on_delete=models.CASCADE, related_name='wishListID')
     productID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name = 'wishlist') 
-    variantID = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='wishListItem')
+    
     
     

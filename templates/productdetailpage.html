@@ -9,6 +9,7 @@ University ID: 230098501
 {% block content %}
 <link href="{% static  'css/productdetail.css' %}" rel="stylesheet" />
 <link rel="stylesheet" href="{% static 'css/reviewSection.css' %}">
+<link href="{% static  'css/detailWishlistForm.css' %}" rel="stylesheet" />
 
 
 <script>
@@ -76,11 +77,36 @@ University ID: 230098501
             </div>
         </div>
     </div>
+    <button onclick = "openButton()"id ="addButton" class="addButtonClass"> Add to wishlist</button> 
+</div>
+
+
+
+
+<div class= "sortingForm" id="sortForm" >
+    
+    <div class= "formContent">
+        
+        <form method="POST" class="filterForm" enctype="multipart/form-data">
+            <span class="close">&times;</span>
+            <h2> Add to wishlist:</h2>
+            {% csrf_token %}   
+            {{ wishlistForm.as_p }}
+            <div class="sortButton" >
+                <select name="wishlistVal" id="orderBox" >
+                    {% for list in wishLists %}
+                        <option value="{{list.name}}">  {{list.name}}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>
+            <input name="wishlistSubmit" id="submitButton" type="submit" value="Add to wishlist">
+        </form>
+    </div>   
 </div>
 <div class="description-container">
     <p>{{desc}}</p>
 </div>
-
 
 
 
@@ -173,6 +199,22 @@ University ID: 230098501
     };
 
     
+</script>
+
+<script>
+    const form = document.getElementById('sortForm');
+    const closeBtn = document.querySelector('.close');
+
+    closeBtn.addEventListener('click', () => {
+        form.style.display = 'none';
+    });
+
+    const openFormBtn = document.getElementById('addButton');
+    function openButton(){
+        form.style.display = 'block';
+    }
+
+
 </script>
 
 <script src="{% static 'productdetail.js' %}"></script>

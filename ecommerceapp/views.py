@@ -427,67 +427,93 @@ class VariantDisplayView(View):
 			if unavailable, return page reload
 	'''
 	def post(self, request, pk):
-		product = self.getObj(pk)
-		allitems = ProductVariant.objects.filter(productID=product)
+		if ("add_button" in request.POST):
+			print("ADDING BASKET")
+			product = self.getObj(pk)
+			allitems = ProductVariant.objects.filter(productID=product)
 
-		#get from post request
-		quantity = int(request.POST.get("quantity"))
-		colour = request.POST.get("colour")
-		size = request.POST.get("size")
+			#get from post request
+			quantity = int(request.POST.get("quantity"))
+			colour = request.POST.get("colour")
+			size = request.POST.get("size")
 
-		#puts all available sizes in set
-		available_sizes = {i.size for i in allitems if i.colour == colour}
+			#puts all available sizes in set
+			available_sizes = {i.size for i in allitems if i.colour == colour}
 
-		#all available colours into set
-		available_colours = {i.colour for i in allitems if i.size == size}
+			#all available colours into set
+			available_colours = {i.colour for i in allitems if i.size == size}
 
-		#final validation check - checks if that size is available in that colour 
-		if (colour not in available_colours) or (size not in available_sizes):
-			print(size)
-			print(colour)
-			print("no colour and or size")
-			return render(request, "productdetailpage.html", self.pageData(product))
-		else:
-			print("yay") 
+			#final validation check - checks if that size is available in that colour 
+			if (colour not in available_colours) or (size not in available_sizes):
+				print(size)
+				print(colour)
+				print("no colour and or size")
+				return render(request, "productdetailpage.html", self.pageData(product))
+			else:
+				print("yay") 
 
-		#sorts variantid out 
-	
-		variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
-		variant = ProductVariant.objects.get(productID=product, id=variantid)
-
-		#get basketid
-		basket = Basket.objects.get(userID=request.user)
+			#sorts variantid out 
 		
-		'''
-			add to basket 
-			check if existing or new item
-			return redirect to basket
-		'''
+			variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
+			variant = ProductVariant.objects.get(productID=product, id=variantid)
 
-		#check if user has ordered item before already
-		basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
+			#get basketid
+			basket = Basket.objects.get(userID=request.user)
+			
+			'''
+				add to basket 
+				check if existing or new item
+				return redirect to basket
+			'''
+
+			#check if user has ordered item before already
+			basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
 
 
-		if basketitem: 
-		#inc quantity of thing in basket
-			#print("added", quantity, "to EXISTING")
-			basketitem.quantity += quantity
+			if basketitem: 
+			#inc quantity of thing in basket
+				#print("added", quantity, "to EXISTING")
+				basketitem.quantity += quantity
 
-		else: 
-		#create new basketitem entry
-			#print("added", quantity, "to NEW")
-			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
+			else: 
+			#create new basketitem entry
+				#print("added", quantity, "to NEW")
+				BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
+			
+			return redirect('basket')
+				
+		elif "wishlistSubmit" in request.POST:
+			wishForm = wishlistItemForm(request.POST)
+			selectedList = request.POST['wishlistVal']
+
+			wishlist = Wishlists.objects.filter(name=selectedList).first()
 			
 			
-		return redirect('basket')
+			if not wishlist:
+				print("No wishlist found with name:", selectedList)
+				return HttpResponseRedirect(request.path_info)
+			
+			wishForm.instance.wishlistID = wishlist
+			print(wishForm.instance.wishlistID.name , ": ::WOW")
+
+			print(wishForm.is_valid())
+			if wishForm.is_valid():
+				wishForm.save()
+				print("win")
+				return redirect('Wishlist') 
+
+			print(wishForm)
+			return HttpResponseRedirect(request.path_info)
+			
+			
+		
+			
 	
 	#display product variant page 
 	def get(self, request, pk):
 		prod = self.getObj(pk)
 		itemNames = self.pageData(prod)
 
-		
-		
 		##Reviews
 		query = Review.objects.filter(productID=prod)
 		
@@ -495,18 +521,13 @@ class VariantDisplayView(View):
 		query = query.order_by(value)
 
 		itemNames['ReviewQuery']= query
-
-
 		itemNames['theKey'] = pk
 		itemNames['totalRating'] = len(query)
+
 		mean = 0
 		startDate = timezone.now()- datetime.timedelta(days=30) ##Get 30 days ago
 		lastMonth = 0
-		
 
-
-		
-		
 		if (len(query) > 0):
 			for review in query:
 				mean += review.rating
@@ -515,17 +536,20 @@ class VariantDisplayView(View):
 
 			mean = mean / len(query)
 		
-		
-
-		
-		
 		itemNames['averageRating'] = mean
 		itemNames['lastMonth'] = lastMonth
 
-		
 
+		### Wishlist button
 
+		wishLists = Wishlists.objects.all().filter(userID = self.request.user)
+		itemNames['wishLists']= wishLists
 		
+		product = get_object_or_404(Product,id=pk) 
+		print(pk)
+		wishlistForm = wishlistItemForm(initial={'productID': get_object_or_404(Product,id=pk)})
+
+		itemNames['wishlistForm'] = wishlistForm
 		return render(request, "productdetailpage.html", itemNames)
 
 

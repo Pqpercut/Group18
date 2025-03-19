@@ -2,7 +2,7 @@ from django import forms
 from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import ContactTable, UserAddress,Review
+from .models import ContactTable, UserAddress,Review,WishlistItem
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, UserCreationForm
 from django import forms
 
@@ -139,3 +139,14 @@ class ReviewForm(forms.ModelForm):
             if commit:
                 review.save()
             return review
+
+
+class wishlistItemForm(forms.ModelForm):
+    class Meta:
+        model = WishlistItem
+        fields = ['productID']
+        widgets ={
+            'productID':forms.HiddenInput(),
+            'wishlistID': forms.HiddenInput()
+            
+        }
