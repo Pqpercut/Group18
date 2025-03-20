@@ -560,7 +560,7 @@ def basketRem(request):
 				basketitem.save()
 
 
-	return(viewBasket(request))
+	return redirect("basket")
 
 
 
@@ -585,7 +585,7 @@ def bluesky_post(request):
 		client.post(product)
 
 		
-	return VariantDisplayView()
+	return redirect("variantDisplay")
 
 	
 
