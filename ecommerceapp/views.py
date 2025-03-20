@@ -577,15 +577,16 @@ def bluesky_post(request):
 		#create a client
 		client = Client("https://bsky.social")
 		productid = request.POST.get("productid")
-		print(productid)
 
-		product = Product.objects.get(id=productid).name
+		name = Product.objects.get(id=productid).name
+		desc = Product.objects.get(id=productid).description
+		content = f"Check out our new product: {name}. Description: {desc}"
 
 		client.login('sheenawolf921@gmail.com', '6wat-jszj-5oxd-43j2')
-		client.post(product)
+		client.post(str(content))
 
 		
-	return redirect("variantDisplay")
+	return redirect("inventory-management/products/")
 
 	
 

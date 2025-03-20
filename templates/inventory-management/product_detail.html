@@ -57,5 +57,14 @@
     <a href="{% url 'IMS - Product Variant Create' product.id %}">Add Variant</a>
 
     <a href="{% url 'IMS - Product List' %}">Back to List</a>
+
+    <!-- for bluesky api testing...TAKE OUT AFTER -->
+    <form method="POST" id="blueskyform" action="{% url 'bluesky_post' %}">
+        {% csrf_token %}
+        <input type="hidden" name="productid" value="{{ product.id }}">
+        <button type="submit" id="blueskybtn">beep</button>
+    </form>
+    <!-- end -->
+
 </body>
 </html>
