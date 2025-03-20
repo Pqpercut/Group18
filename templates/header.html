@@ -12,23 +12,11 @@
         <a href="{% url 'Contact-Page' %}">Contact Us</a>
     </div>
     <div class="icons">
-        <div class="search-icon ">
-            <form action="{% url 'Catalogue' %}">
-                <input list="products" id="searchBox" name = "search">
-                    <datalist id="products">
-                        {% for product in FullProductList %}
-                            <option value="{{product.name}}">
-                        {% endfor %}
-                    </datalist>
-                <button type="submit">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-
-            </form>
-            
-        </div>
+        <button class="searchIcon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
         <a href="{% url 'login' %}">
             <div class="profile-icon ">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,5 +43,34 @@
         <svg fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+    </div>
+</div>
+
+<div class="search-popup-overlay" id="searchOverlay"></div>
+    
+<!-- Search Popup -->
+<div class="search-popup" id="searchPopup">
+    <div class="search-popup-content">
+        
+        <div class="search-bar-container">
+            <div class="search-bar">
+                <form action="{% url 'Catalogue' %}">
+                    <button type="submit">
+                        <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <input type="text" id="searchInput" placeholder="Search for hats..." list="products" id="searchBox" name = "search">
+                        <datalist id="products">
+                            {% for product in FullProductList %}
+                                <option value="{{product.name}}">
+                            {% endfor %}
+                        </datalist>
+                </form>
+                <span class="close-btn" id="closeSearch">&times;</span>
+            </div>
+        </div>
+        
+        
     </div>
 </div>

@@ -71,100 +71,73 @@ header nav a, .search-btn {
 .search-popup {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 30px;
-    border-radius: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 700px;
-    max-width: 90%;
+    top: 76px;
+    border-radius: 5px;
+    width: 100%;
     text-align: center;
     z-index: 1101;
 }
 
 .search-popup-content {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 /* Search Bar */
+
+.search-bar-container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+}
 .search-bar {
-    width: 95%;
-    padding-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 15px;
+    border-bottom: 1px solid #00000018;
+}
+
+.search-bar svg {
+    height: 32px;
+    width: 32px;
 }
 
 .search-bar input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     border-radius: 15px;
     font-size: 1em;
 }
 
-/* Popup Layout */
-.popup-body {
+.search-bar input:focus {
+    outline: none;
+  }
+
+
+  .search-results {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 15px;
+    border-bottom: 1px solid #00000018;
 }
 
-/* Trending and Results Section */
-.trending-section {
-    flex: 1;
-    text-align: left;
-    padding-right: 20px;
-}
-
-.trending-section h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.trending-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.trending-section ul li {
-    padding: 8px 0;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.trending-section ul li:hover {
-    color: #574bff;
-}
-
-/* Featured Product */
-.featured-product {
-    flex: 1;
-    text-align: center;
-
-    padding-left: 20px;
-}
-
-.featured-product img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.featured-product p {
-    font-size: 0.9em;
-    margin: 5px 0;
-}
 
 /* Close Button */
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
+    position: relative;
+    top: 0px;
+    right: 40px;
     font-size: 1.5em;
     cursor: pointer;
 }

@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const searchBtn = document.querySelector('.search-btn');
+    const searchIcon = document.querySelector('.searchIcon');
     const searchPopup = document.getElementById('searchPopup');
-    const closeSearchBtn = document.getElementById('closeSearch');
-    const searchInput = document.getElementById('searchInput');
+    const closeSearchIcon = document.getElementById('closeSearch');
+    const searchBox = document.getElementById('searchBox');
     const searchResults = document.getElementById('searchList');
     const trendingSection = document.getElementById('trendingSection');
     const trendingTitle = document.getElementById('trendingTitle');
@@ -11,17 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('searchOverlay');
 
     // Open search popup
-    searchBtn.addEventListener('click', () => {
+    searchIcon.addEventListener('click', () => {
         searchPopup.style.display = 'block';
         overlay.style.display = 'block';
-        searchInput.focus();
+        searchBox.focus();
     });
 
     // Close search popup
-    closeSearchBtn.addEventListener('click', () => {
+    closeSearchIcon.addEventListener('click', () => {
         searchPopup.style.display = 'none';
         overlay.style.display = 'none';
-        searchInput.value = ''; // Clear search input
+        searchBox.value = ''; // Clear search input
         trendingTitle.textContent = 'Trending'; // Reset title
         resetTrending();
     });
