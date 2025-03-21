@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end
+    path("inventory-management/", InventoryDashboard.as_view(), name="IMS - Dashboard"),
     path("inventory-management/products/", InventoryProductListView.as_view(), name="IMS - Product List"),
     path("inventory-management/products/<int:pk>/", InventoryProductDetailView.as_view(), name="IMS - Product Detail"),
     path("inventory-management/products/create/", InventoryCreateProductView.as_view(),name="IMS - Create Product"),
