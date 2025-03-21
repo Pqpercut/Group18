@@ -83,7 +83,7 @@ class InventoryProductEditView(UpdateView):
 	model = Product
 	template_name = "inventory-management/product_edit.html"
 	context_object_name = "product"
-	fields = ['name', 'description', 'availability']
+	fields = ['name', 'description']
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.pk})

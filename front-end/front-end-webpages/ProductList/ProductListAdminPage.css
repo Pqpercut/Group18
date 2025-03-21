@@ -1,0 +1,72 @@
+
+body {
+    font-family: "Roboto";
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonclass {
+    display: flex;
+    align-items: center;
+}
+
+
+.profile p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.email {
+    color: gray;
+}
+
+/* Discounts Table */
+.discount-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    height: 360px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.valid {
+    color: green;
+}
+
+.expired {
+    color: red;
+}
+
+.action {
+    color: blue;
+    cursor: pointer;
+}
