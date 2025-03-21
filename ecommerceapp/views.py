@@ -576,13 +576,19 @@ def bluesky_post(request):
 	if request.method == "POST":
 		#create a client
 		client = Client("https://bsky.social")
+		
 		productid = request.POST.get("productid")
 
 		name = Product.objects.get(id=productid).name
 		desc = Product.objects.get(id=productid).description
-		content = f"Check out our new product: {name}. Description: {desc}"
+		variant = ProductVariant.objects.filter(productID=productid).first() 
 
-		client.login('sheenawolf921@gmail.com', '6wat-jszj-5oxd-43j2')
+		content = f"Check out our product: {name}. \nDescription: {desc} \n"
+
+		#for img - search for any variant
+		#get img from db usin variantid
+
+		client.login('noreply.hatsforcats@gmail.com', 'group18pass')
 		client.post(str(content))
 
 		
