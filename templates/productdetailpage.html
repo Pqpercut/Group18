@@ -149,7 +149,19 @@ University ID: 230098501
     <div class="review-list">
         {% for review in ReviewQuery %}
             <div class="review">
-                <strong>{{ review.title }}: {{review.rating}}  ⭐</strong>
+                <strong>{{ review.title }}:
+                    {% if review.rating == 1 %}
+                        ⭐☆☆☆☆
+                    {% elif review.rating == 2 %}
+                        ⭐⭐☆☆☆
+                    {% elif review.rating == 3 %}
+                        ⭐⭐⭐☆☆
+                    {% elif review.rating == 4 %}
+                        ⭐⭐⭐⭐☆
+                    {% elif review.rating == 5 %}
+                        ⭐⭐⭐⭐⭐
+                    {% endif%}
+                </strong>
                 <small class= "reviewDate">{{ review.reviewDate }} by {{review.userID.username}}</small>
                 <p>{{ review.description }}</p>
             </div>

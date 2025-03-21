@@ -191,7 +191,7 @@ class CatalogueViewClass(ListView):
 			queryset = queryset.filter(categories__categories__in = self.filterValue)
 
 		##Input Order values 
-		queryset = queryset.order_by(self.orderValue)
+		queryset = queryset.order_by(self.orderValue).distinct()
 		##Search value
 		if self.searchValue != '': ### Only filter for search value if a search value exists
 			queryset = queryset.filter(name__icontains=self.searchValue)
@@ -251,13 +251,15 @@ class WishlistView(TemplateView):
 	def get_context_data(self, **kwargs):
 
 		key = kwargs.get('pk')
-		context =  super().get_context_data(**kwargs) 
+	
+		context =  super().get_context_data(**kwargs) 	
 		
 		wishLists = Wishlists.objects.all().filter(userID = self.request.user)
 
 		
 		if(key):
 			mainList = Wishlists.objects.all().filter(id = key).first()
+			context['keyIndex'] = key
 		else:
 			mainList = wishLists.first()
 		
@@ -271,10 +273,76 @@ class WishlistView(TemplateView):
 			context['itemsList'] = wishListItems
 			
 		else:
-			print("no items")
 			return context
 
 		return context
+	
+
+	def post(self, request, *args,**kwargs):
+		key = kwargs.get('pk')
+
+		if(not key):
+			list = Wishlists.objects.all().first()
+			key = list.id
+
+	
+
+		
+		
+		
+		if "removePOST" in request.POST:
+			removeID = request.POST.get('removeID')
+			
+			if removeID:
+				
+				itemToRemove = WishlistItem.objects.filter(productID = removeID, wishlistID = key).first()
+				itemToRemove.delete()
+		elif "editWishlist" in request.POST:
+			editValue= request.POST.get('editWishlistValue')
+			print(editValue)
+
+			if editValue:
+				print("running edit")
+				currentList = Wishlists.objects.all().filter(id=key).first()
+				currentList.name = editValue
+				currentList.save()
+				print("complete")
+		
+		elif "removeWishlist" in request.POST:
+			lists = Wishlists.objects.all().filter(userID = request.user.id)
+			list = lists.first()
+			if len(lists) >  1:
+			
+				list = Wishlists.objects.all().filter(id= key)
+				list.delete()
+				list = Wishlists.objects.all().first()
+				
+				return redirect('Wishlist', pk=list.id)
+			else:
+				messages.error(request,"You cannot remove a wishlist when you only have 1 left")
+				
+		elif "newWishlist" in request.POST:
+			
+			newName = request.POST.get('newWishlistNameValue')
+			if (not newName):
+				
+				Orderedlist = Wishlists.objects.all().filter(userID= request.user)
+				
+				newName = "Wishlist #" + str(len(Orderedlist)+1)
+				
+			list = Wishlists(userID = request.user,name = newName)
+			list.save()
+			print(list.name)
+
+			
+
+
+				
+			
+		return redirect('Wishlist', pk=key)
+
+	
+	
 		
 	
 	
