@@ -1,0 +1,18 @@
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+
+
+body {
+    background-color: #E5F4FF;
+}
+
+.cat-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    gap: 25px;
+    margin-top: 100px;
+}

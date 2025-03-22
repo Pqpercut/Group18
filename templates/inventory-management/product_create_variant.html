@@ -1,5 +1,71 @@
 <!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
 <!-- Updated  by Adam 30/11/2024 -->
+
+
+
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/ims/product_create_variant.css' %}" rel="stylesheet" />   
+    <div class="main-container">
+        
+        <div class="header-container">
+            <h1>Create New Variant</h1>
+        </div>           
+        <form class="form-container" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="sub-heading">
+                <div class="sub-heading-1">Add Product Information</div>
+            </div>
+            <div class="row-1">
+                <div class="label-container">
+                    <label for="description">Size:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.size }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="availability">Colour:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.colour }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="availability">Price:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.price }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="availability">Stock Level:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.stocklevel }}
+                </div>
+            </div>
+            <div class="row-2">
+                <div class="label-container">
+                    <label for="availability">Images:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.images }}
+                </div>
+            </div>
+            <button class="form-button" type="submit">Create Variant</div>
+        </form>
+    
+        <div class="button-container">
+            <a href="{% url 'IMS - Product Detail' product_pk %}"><input type="submit" value="Cancel"></a> 
+        </div>
+{% endblock %}
+
  
 <!DOCTYPE html>
 <html lang="en">

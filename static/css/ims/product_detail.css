@@ -1,0 +1,258 @@
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+:root {
+    --background-colour: #FAFAFA;
+    --button-background: #5A57FF;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.header-container {
+    width: 100%; /* Ensure it spans the full width of the main container */
+    padding-left: 0; /* Remove unnecessary padding */
+    display: flex;
+    justify-content: flex-start; /* Align the content to the left */
+}
+
+h1 {
+    text-align: left; /* Align text within the h1 to the left */
+    color: #353535;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any padding for precise alignment */
+}
+
+h2 {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    color: #CCCCCC;
+}
+
+.main-container {
+    flex: 1;
+    width: 100%; /* Ensure the container takes up the full width */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Center elements horizontally */
+    gap: 20px; /* Add spacing between elements */
+    position: relative;
+}
+
+.form-container {
+    background-color: white;
+    width: 100%;
+    padding: 20px 48px; 
+    border-radius: 24px;
+    outline: 1px solid rgba(90, 87, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between each row */
+    margin-top: 10px;
+}
+
+.row, .row-1 {
+    display: flex;
+    justify-content: flex-start; /* Distribute space between label and input */
+    gap: 20px; /* Add spacing between the two flexboxes */
+    width: 100%; /* Ensure rows fill the container */
+    align-items: flex-start;
+}
+
+.row-1 {
+    padding-top: 8px;
+}
+
+.sub-heading {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: row; /* Retain column layout */
+    align-items: left; /* Horizontally center the sub-heading */
+    justify-content: space-between; /* Vertically center the sub-heading */
+    width: 100%; /* Make the sub-heading span the full width of the form container */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #CCCCCC;
+    margin: 0; /* Remove default margins */
+    padding: 8px 0 16px 0 ;
+    border-bottom: 1px solid #5a57ff30;
+}
+
+.sub-heading-edit {
+    color: #5A57FF;
+}
+
+
+.input-container {
+    display: flex;
+    align-items: center; 
+    width: 100%
+}
+
+input {
+    width: 100%; /* Make inputs responsive */
+    height: auto;
+    min-height: 50px;
+    padding: 5px;
+    border: none;
+    outline: 1px solid black;
+    border-radius: 10px;
+    background-color: #FAF9FF;
+    font-family: 'Poppins', sans-serif;
+}
+
+.label-container {
+    display: flex;
+    align-items: center; /* Center the label vertically */
+    width: 128px;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.button-container {
+    display: flex;
+    gap: 35px; /* Space between buttons */
+    align-items: center; /* Center buttons vertically */
+    justify-content: center; /* Center buttons horizontally */
+    margin-bottom: 20px;
+}
+
+.button-container {
+    position: fixed; /* Position relative to the viewport */
+    bottom: 20px; /* 20px from the bottom of the viewport */
+    right: 20px; /* 20px from the right of the viewport */
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    z-index: 100; /* Ensure it stays above other content */
+}
+
+.back-button,
+input[type="submit"],
+.form-button {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button{
+    background: white;
+    color: var(--button-background);
+    outline: 1px solid black;
+}
+
+input[type="submit"], .form-button {
+    background: var(--button-background);
+    color: white;
+}
+
+.form-button {
+    align-self: flex-end;
+}
+/* Table Styles */
+
+.table-container {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 24px;
+    outline: 1px solid rgba(90, 87, 255, 0.1);
+    padding: 20px 48px; 
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #5a57ff30;
+}
+
+td {
+    font-weight: 300;
+}
+
+
+.valid {
+    color: green;
+}
+
+.expired {
+    color: red;
+}
+
+.action, .action-2 {
+    color: hsla(241, 100%, 67%, 0.9);
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.action {
+    padding-right: 8px;
+}
+
+.action-2 {
+    padding-left: 8px;
+    padding-right: 16px;
+    border-left: solid 1px hsla(241, 100%, 67%, 0.24);
+}
+
+table thead th, .action-column {
+    text-wrap: nowrap;
+  }
+
+.action-column {
+    width:20%;
+    text-align: right;
+  }
+
+  table tbody td:nth-child(1),
+  table tbody td:nth-child(2),
+  table tbody td:nth-child(3),
+  table tbody td:nth-child(4)
+  {
+    width:30px;
+  }
+
+  
+
+table tbody td form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    gap: 16px;
+}
+
+table tbody td form button{
+    font-family: Poppins;
+    height: auto; 
+    background-color: #ffffff;
+    color: #5A57FF;
+    border: none;
+    text-wrap: nowrap;
+    padding: 8px 25px;
+    font-size: 1rem,;
+}

@@ -72,7 +72,7 @@ class InventoryCreateProductView(CreateView):
 	''' View that allows for new product creation '''
 	model = Product
 	template_name = "inventory-management/product_create.html"
-	fields = ['name', 'description', 'availability']
+	fields = ['name', 'description']
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product List')

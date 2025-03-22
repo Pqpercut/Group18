@@ -1,5 +1,32 @@
 <!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
 
+
+{% extends 'inventory-management/ims-base-no-import.html' %}
+{% load static %}
+
+{% block content %}
+<link href="{% static  'css/ims/product_confirm_delete.css' %}" rel="stylesheet" />   
+<div class="overlay">
+    <div class="main-container">   
+        <div class="image-container">
+            <img src="{% static  'media/popup.png' %}" alt="Pop Up">
+        </div>
+        <div class="header-container">
+            <h1>Are you sure?</h1>
+        </div>
+        <div class="text-container">
+            <p>Are you sure you want to delete this product?</p>
+            <p>This cannot be undone</p>
+        </div>
+        <form method="post" class="button-container">
+            {% csrf_token %}
+            <button type="submit" class="confirm-button">Confirm</button>
+            <a href="{% url 'IMS - Product List' %}"><div class="cancel-button">Cancel</div></a>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
