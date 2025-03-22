@@ -3,18 +3,37 @@ Khalid
 updated design to match updates - Adam 6/12/2024 
 */
 
+/* variables */
+:root {
+    --bg-colour: #DCEDFF;
+    --text-colour: black;
+
+
+    --btn-blue-bg: rgba(229, 244, 255, 0);
+    --btn-blue-border: #fff;
+
+    --btn-white: #F5F5F5;
+    
+    --btn-dark-bg: #333;
+    --btn-dark-text: #fff;
+
+
+    --grad-start: #838EDA;
+    --grad-end: #D1E8FF;
+}
+
 /* General body styling */
 body {
     font-family: "Outfit", sans-serif;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: var(--text-colour);
 }
 
 body {
     font-weight: 500;
-    background-color: #0A1A26;
-    color:black;
+    background-color: var(--bg-colour);
+    color: var(--text-colour);
 }
 
 /* Main content styling */
@@ -61,16 +80,16 @@ section p {
     letter-spacing: 2px;
 }
 .buttons .light-blue {
-    background-color: rgba(229, 244, 255, 0);
-    border: 2px solid #fff;
+    background-color: var(--btn-blue-bg);
+    border: 2px solid var(--btn-blue-border);
 }
 .buttons .white {
-    background-color: #F5F5F5;
-    border: 2px solid #F5F5F5;
+    background-color: var(--btn-white);
+    border: 2px solid var(--btn-white);
 }
 .buttons .black {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--btn-dark-bg);
+    color: var(--btn-dark-text);
     border: none;
 }
 
@@ -193,13 +212,13 @@ section p {
 }
 
 .treat-your-cat {
-    background: linear-gradient(112deg, #838EDA, #D1E8FF);
+    background: linear-gradient(112deg, var(--grad-start), var(--grad-end));
     padding: 48px;
     padding-left: 96px;
     padding-right:96px;
     border-radius: 20px;
     text-align: center;
-    color: #fff;
+    color: var(--btn-dark-text);
     max-width: 1400px;
 }
 
@@ -213,8 +232,8 @@ section p {
 }
 
 .treat-your-cat .buttons .black {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--btn-dark-bg);
+    color: var(--btn-dark-text);
     border: none;
     padding: 15px 30px;
     font-size: 20px;
