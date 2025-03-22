@@ -4,13 +4,36 @@ Arpit
 updated design to match updates - Adam 6/12/2024 
 */
 
+/* variables */
+:root {
+    --bg-colour: #DCEDFF;
+    --text-colour: black;
+
+    --login-text: hsla(224, 76%, 25%, 0.36);
+
+    --input: #cecece;
+    --valid-inp: green;
+    --placeholder: #888;
+    --textarea-border: #cecece;
+
+    --contact-btn-text: #fff;
+    --contact-btn-bg: #B9DBFF;
+    --contact-btn-hover: #556edf;
+
+    --contact-bg: #B9DBFF;
+
+    --ask-bg: #FFFFFF;
+    --ask-text: #0F2970;
+
+    --contact-text: #0F2970;
+}
 
 body {
     font-family: "Outfit", sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #0A1A26;
-    color: #000000;
+    background-color: var(--bg-colour);
+    color: var(--text-colour);
 }
 
 main {
@@ -38,7 +61,7 @@ main {
     font-size: 13px;
     font-weight: 300;
     margin-bottom: 39px;
-    color: hsla(224, 76%, 25%, 0.36);
+    color: var(--login-text);
     }
     
 .login form {
@@ -64,7 +87,7 @@ main {
 .login input {
     width: 100%; 
     padding: 10px;
-    border: 1px solid #cecece;
+    border: 1px solid var(--input);
     border-radius: 7px;
     height: 50px;
 }
@@ -74,11 +97,11 @@ main {
 }
      */
 input:valid {
-    border-color: green;
+    border-color: var(--valid-inp);
 }
 
 input::placeholder {
-    color: #888; 
+    color: var(--placeholder); 
     font-family: "Outfit", sans-serif;
     padding-left: 8px;  
     font-weight: 200;
@@ -89,11 +112,11 @@ input::placeholder {
 .login textarea {
     width: 100%; 
     padding: 10px;
-    border: 1px solid #cecece;
+    border: 1px solid var(--textarea-border);
     border-radius: 7px;
     height: auto;
     resize: none;
-    color: #000000; 
+    color: var(--text-colour); 
     font-family: "Outfit", sans-serif;
     padding-left: 16px;  
     font-weight: 300;
@@ -103,7 +126,7 @@ input::placeholder {
 }
 
 textarea::placeholder {
-    color: #888; 
+    color: var(--placeholder); 
     font-family: "Outfit", sans-serif;  
     font-weight: 200;
     font-size: 16px; 
@@ -117,7 +140,7 @@ textarea::placeholder {
         border-radius: 30px; 
         font-size: 20px;
         font-weight: 700;
-        color: #fff;
+        color: var(--contact-btn-text);
         cursor: pointer;
         height: 50px;
         width: 180px;
@@ -126,11 +149,11 @@ textarea::placeholder {
       }
       
       .contactButton {
-        background-color: #B9DBFF;
+        background-color: var(--contact-btn-bg);
       }
     
       .contactButton:hover{
-        background-color: #556edf;
+        background-color: var(--contact-btn-hover);
       }
     
 .contact-us-container {
@@ -142,7 +165,7 @@ textarea::placeholder {
     height: auto;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-    background-color: #B9DBFF;
+    background-color: var(--contact-bg);
     justify-content: flex-start;
 }
     
@@ -156,13 +179,13 @@ textarea::placeholder {
     flex-grow: 2; 
     flex-basis: 0;
     border-radius: 15px;
-    background-color: #FFFFFF;
+    background-color: var(--ask-bg);
 }
 
 .ask-question h2 {
     font-size: 24px;
     font-weight: 700;
-    color: #0F2970;
+    color: var(--ask-text);
     padding-top: 36px;
     margin-bottom: 22px;
 }
@@ -182,7 +205,7 @@ textarea::placeholder {
     display: flex;
     flex-direction: column;
     font-size: 20px;
-    color: #0F2970;
+    color: var(--contact-text);
     padding: 42px;
 }
 
