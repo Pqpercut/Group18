@@ -568,15 +568,25 @@ def basketRem(request):
 
 '''
 	for bluesky posting
-	testing
+	
+	posts 
+	- name
+	- description
+	- link to variant page 
+	
+	click button in inventory management product 
 '''
 def bluesky_post(request):
-	print("django reached")
 
 	if request.method == "POST":
 		#create a client
 		client = Client("https://bsky.social")
+
+		#log in to bluesky hatsforcats
+		client.login('noreply.hatsforcats@gmail.com', 'group18pass')
 		
+
+		#productid from post request
 		productid = request.POST.get("productid")
 
 		name = Product.objects.get(id=productid).name
@@ -584,18 +594,19 @@ def bluesky_post(request):
 		variant = ProductVariant.objects.filter(productID=productid).first() 
 		
 
+		#grab url
 		url = request.build_absolute_uri(reverse("variantDisplay", kwargs={"pk": productid}))
-		
+
+		#content to post 
+			#has to be generated here because converted to bytes and is after url declaration 
 		content = f"Check out our product: {name}. \nDescription: {desc} \n{url}"
 
-		#for img - search for any variant
-		#get img from db usin variantid
 
-		client.login('noreply.hatsforcats@gmail.com', 'group18pass')
-
+		#encode content to bytes - makes sure that start n end of url is detected properly
 		content_bytes = content.encode("utf-8")
 		url_bytes = url.encode("utf-8")
 
+		#get url start n end
 		byte_start = content_bytes.find(url_bytes)
 		byte_end = byte_start + len(url_bytes)
 
@@ -606,14 +617,8 @@ def bluesky_post(request):
 			}
 		]
 
-		post_content = {
-			"$type": "app.bsky.feed.post",
-			"text": content,
-			"facets": facets,
-			"createdAt": "2025-03-21T20:58:47Z"
-		}
 
-		client.post(content, facets=facets)
+		client.post(content, facets=facets) #post the content
 
 		
 	return redirect("inventory-management/products/")
