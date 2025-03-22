@@ -3,9 +3,33 @@ Developer: Ayaz Ahmed
 University ID: 230162248
 ********************************/
 
+/* variables */
+:root {
+    --bg-colour: #DCEDFF;
+    --text-colour: black;
+
+    --wish-btn-bg: #838EDA;
+    --wish-btn-text: white;
+    --wish-btn-bg-hover: white;
+    --wish-btn-text-hover: #838EDA;
+
+    --checkout-btn-bg: black;
+    --checkout-btn-text: white;
+    --checkout-btn-bg-hover: white;
+    --checkout-btn-text-hover: #838EDA;
+
+    --box-bg: #9aa6f7;
+    --box-border: #838EDA;
+
+    --footer-col-colour: #000;
+
+    --newsletter-border: #DCEDFF;
+    --news-btn-bg: #838EDA;
+    --news-btn-hover: #556edf;
+}
 
 body {
-    background-color: #0A1A26;
+    background-color: var(--bg-colour);
     font-family: 'Outfit', sans-serif;
     margin: 0;
     display: flex;
@@ -18,7 +42,7 @@ header {
     justify-content: space-between;
     align-items: center; 
     padding: 40px;
-    background-color: #0A1A26;
+    background-color: var(--bg-colour);
    
   }
   header .logo {
@@ -29,7 +53,7 @@ header {
   header nav a {
     margin: 15px;
     text-decoration: none;
-    color: #000000;
+    color: var(--text-colour);
     font-weight: 500;
   }
   
@@ -68,7 +92,7 @@ h2 {
 
 }
 .Wishlistbutton {
-    background-color: #838EDA;
+    background-color: var(--wish-btn-bg);
     font-family: 'Outfit', sans-serif;
     font-weight: bold;
     font-size: 18px;
@@ -77,7 +101,7 @@ h2 {
     padding: 10px 100px;
     width: 500px;
     border: none;
-    color: white;
+    color: var(--wish-btn-text);
     text-align: center;
     letter-spacing: 1px;
     border-radius: 10px;
@@ -86,8 +110,8 @@ h2 {
  
 }
 .Wishlistbutton:hover {
-    background-color: white;
-    color:#838EDA
+    background-color: var(--wish-btn-bg-hover);
+    color: var(--wish-btn-text-hover);
 }
 .Prices {
     font-family: 'Outfit', sans-serif;
@@ -102,7 +126,7 @@ h2 {
 }
 
 .Checkoutbutton {
-    background-color: black;
+    background-color: var(--checkout-btn-bg);
     font-family: 'Outfit', sans-serif;
     font-weight: bold;
     font-size: 18px;
@@ -111,7 +135,7 @@ h2 {
     padding: 10px 100px;
     width: auto;
     border: none;
-    color: white;
+    color: var(--checkout-btn-text);
     text-align: right;
     letter-spacing: 1px;
     border-radius: 10px;
@@ -120,16 +144,16 @@ h2 {
  
 }
 .Checkoutbutton:hover {
-    background-color: white;
-    color:#838EDA
+    background-color: var(--checkout-btn-bg-hover);
+    color: var(--checkout-btn-text-hover);
 }
 .box {
     width: 284px;
-    background-color:#9aa6f7;
+    background-color: var(--box-bg);
     height: 45px;
     padding: 0 10px;
     font-size: 17px;
-    border: 2px solid #838EDA;
+    border: 2px solid var(--box-border);
     border-radius: 10px;
     text-align: center;
     margin-top: 40px;
@@ -141,7 +165,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    background-color: #0A1A26;
+    background-color: var(--bg-colour);
     padding: 30px 20px;
     text-align: left;
   }
@@ -167,7 +191,7 @@ footer {
   
   .footer-column ul li a {
     text-decoration: none;
-    color: #000;
+    color: var(--footer-col-colour);
   }
   
 
@@ -180,7 +204,7 @@ footer {
 .newsletter input {
   width: 100%;
   padding: 10px 90px 10px 10px; 
-  border: 1px solid #0A1A26;
+  border: 1px solid var(--bg-colour);
   border-radius: 25px;
   font-size: 1em;
   outline: none;
@@ -194,12 +218,12 @@ footer {
   padding: 8px 15px;
   border: none;
   border-radius: 20px;
-  background-color: #838EDA;
+  background-color: var(--news-btn-bg);
   color: white;
   font-size: 0.9em;
   cursor: pointer;
 }
 
 .newsletter button:hover {
-  background-color: #556edf;
+  background-color: var(--news-btn-hover);
 }
