@@ -1,9 +1,20 @@
 /* Created by Adam */
+
+:root {
+    --bg-colour: #DCEDFF;
+    --text-colour: black;
+
+    --news-bg: #B9DBFF;
+    --news-btn-bg: #838EDA;
+    --news-btn-hover: #6A75C8;
+}
+
+
 body {
     font-family: "Outfit", sans-serif;
     font-weight: 500;
-    background-color: #DCEDFF;
-    color:black;
+    background-color: var(--bg-colour);
+    color: var(--text-colour);
 }
 
 footer {
@@ -25,7 +36,7 @@ footer {
 
 a:link { 
     text-decoration: none; 
-    color:black;
+    color: var(--text-colour);
   } 
   a:visited { 
     text-decoration: none; 
@@ -69,7 +80,7 @@ a:link {
     border: none;
     padding: 0 10px;
     border-radius: 16px 0 0 16px; 
-    background-color: #B9DBFF;
+    background-color: var(--news-bg);
     font-size: 16px; 
 }
 
@@ -82,12 +93,12 @@ a:link {
     padding: 0 20px;
     border: none;
     border-radius: 0 16px 16px 0; 
-    background-color: #838EDA;
+    background-color: var(--news-btn-bg);
     font-size: 0.7rem; 
     font-weight: 700;
     cursor: pointer;
 }
 
 .footer-newsletter-button:hover {
-    background-color: #6A75C8; 
+    background-color: var(--news-btn-hover); 
 }
