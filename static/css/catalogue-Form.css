@@ -1,4 +1,33 @@
+/* variables */
+:root {
+    --bg-colour: #DCEDFF;
+    --text-colour: black;
 
+    --sortform-bg: rgba(0, 0, 0, 0.5);
+    --form-bg: #fefefe;
+    --form-border: #888;
+
+    --select-border: #cecece;
+    --select-text: #aaa;
+    --select-bg: white;
+
+    --submit-text: white;
+    --submit-bg: #838EDA;
+
+    --header-text: #aaa;
+    --title-text: black;
+
+    --filter-btn-text: #aaa;
+    --filter-btn-border: #ccc;
+    --filter-btn-bg: #fff;
+    --filter-active: #6366f1;
+    --filter-active-text: white;
+    --filter-inactive-bg: #aaa;
+    --filter-inactive-text: #fff;
+
+    --close-text: #aaa;
+    --close-hover: black;
+}
   
   /* Button to open modal */
   #filter-btn {
@@ -21,7 +50,7 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: var(--sortform-bg); 
     justify-content: center;
     align-items: center;
 
@@ -31,10 +60,10 @@
     text-align: center;
     
     justify-content: center;
-    background-color: #fefefe;
+    background-color: var(--form-bg);
     margin: 15% auto; /* Center the modal */
     padding: 50px 60px 50px 60px;
-    border: 1px solid #888;
+    border: 1px solid var(--form-border);
     width: 25%; /* Adjust as needed */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
@@ -56,11 +85,11 @@ select {
     width: 100%;
     width: 100%; 
     padding: 10px;
-    border: 1px solid #cecece;
-    color: #aaa;
+    border: 1px solid var(--select-border);
+    color: var(--select-text);
     border-radius: 7px;
     height: 50px;
-    background-color: white;
+    background-color: var(--select-bg);
   }
 
 select::placeholder {
@@ -79,7 +108,7 @@ select::placeholder {
   border-radius: 50px; /*Makes the button have curved corners*/
   font-size: 20px;
   font-weight: 700;
-  color: white;
+  color: var(--submit-text);
   font-family: 'Outfit', sans-serif;
   font-weight: 750;
   cursor: pointer;
@@ -87,7 +116,7 @@ select::placeholder {
   width: 100%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 28px;
-  background-color: #838EDA;
+  background-color: var(--submit-bg);
   margin: 30px 0 20px 0;
   
 }
@@ -96,7 +125,7 @@ select::placeholder {
 .formHeaderText{
   float:left;
   
-  color: #aaa;
+  color: var(--header-text);
   font-family: 'Outfit', sans-serif;
   font-weight: 250;
 
@@ -107,7 +136,7 @@ select::placeholder {
 .formTitle{
   font-family: 'Outfit', sans-serif;
   font-weight: 750;
-  color: black;
+  color: var(--title-text);
 }
 
 
@@ -117,11 +146,11 @@ select::placeholder {
   font-weight: 250;
 
   font-size: 18px;
-  color: #aaa;
+  color: var(--filter-btn-text);
   padding: 10px 15px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--filter-btn-border);
   border-radius: 5px;
-  background-color: #fff;
+  background-color: var(--filter-btn-bg);
 
   width: 100%;
   height: 50px;
@@ -131,20 +160,20 @@ select::placeholder {
 }
 
 .filter-button.active {
-  background-color: #6366f1;
-  color: white
+  background-color: var(--filter-active);
+  color: var(--filter-active-text);
 }
 
 .filter-button.inactive {
-  color: #aaa;
-  background-color: #fff;
+  color: var(--filter-inactive-text);
+  background-color: var(--filter-inactive-bg);
 
 }
 
   
   /* Close button */
   .close {
-    color: #aaa;
+    color: var(--close-text);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -153,7 +182,7 @@ select::placeholder {
   
   .close:hover,
   .close:focus {
-    color: black;
+    color: var(--close-hover);
     text-decoration: none;
   }
   
