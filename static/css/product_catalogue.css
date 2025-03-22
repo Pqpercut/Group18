@@ -2,18 +2,34 @@
 
 Updated by Adam  */
 
+/* variables */
+:root {
+    --bg-colour: #DCEDFF;
+    --text-colour: black;
+
+    --control-grad-start: #D1E8FF;
+    --control-grad-end: #838EDA;
+    --control-hover: #838EDA;
+    --control-text: #333;
+
+    --prod-img-bg: #fff;
+
+    --loadbtn-text: #000;
+    --loadbtn-bg: #838EDA;
+}
+
 body {
     font-family: "Outfit", sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #0A1A26;
-    color: #000000;
+    background-color: var(--bg-colour);
+    color: var(--text-colour);
 }
 
 /* Main Product Page */
 .product-page {
     padding: 20px;
-    background-color: #0A1A26;
+    background-color: var(--bg-colour);
     padding-bottom: 64px;
 }
 
@@ -35,7 +51,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    color: #333; 
+    color: var(--control-text); 
     position: relative; 
     transition: color 0.3s ease;
 }
@@ -51,14 +67,14 @@ body {
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, #D1E8FF, #838EDA);
+  background: linear-gradient(90deg, var(--control-grad-start), var(--control-grad-end));
   transform: scaleX(0); 
   transform-origin: left;
   transition: transform 0.3s ease; 
 }
 
 .controls div:hover {
- color: #838EDA;
+ color: var(--control-hover);
 }
 
 .controls div:hover::after {
@@ -100,7 +116,7 @@ transform: scaleX(1);
     width: 100%; 
     aspect-ratio: 30 / 24; 
     object-fit: cover;
-    background-color: #fff; 
+    background-color: var(--prod-img-bg); 
     margin-bottom: 10px;
     border-radius: 5px;
     overflow: hidden; 
@@ -119,7 +135,7 @@ transform: scaleX(1);
 .product-name {
     font-size: 16px;
     font-weight: bold;
-    color: #333;
+    color: var(--control-text);
     margin: 0;
     transition: color 0.3s ease;
     cursor: pointer;
@@ -129,7 +145,7 @@ transform: scaleX(1);
 .product-price {
     font-size: 16px;
     font-weight: 250;
-    color: #000000;
+    color: var(--bg-colour);
     margin: 0;
     position: relative;
     transition: color 0.3s ease;
@@ -145,14 +161,14 @@ transform: scaleX(1);
     border-radius: 30px;
     font-size: 20px;
     font-weight: 700;
-    color: #fff;
+    /*color: #fff;*/
     cursor: pointer;
     height: 50px;
     width: 30%;
     margin-bottom: 28px;
     transition: color 0.3s ease;
-    color: #000; 
-    background-color: #838EDA; 
+    color: var(--loadbtn-text); 
+    background-color: var(--loadbtn-bg); 
 }
 
 
