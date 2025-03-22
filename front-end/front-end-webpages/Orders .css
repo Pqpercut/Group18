@@ -1,0 +1,176 @@
+body {
+    background-color: #e6f0ff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 40px;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* --- The banner behind the circle --- */
+  .profile_banner {
+    background-color: white;
+    border-radius: 15px;
+    width: 700px;
+    height: 200px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0.05, 0.05, 0.05, 0.05);
+    padding-left: 180px; 
+    display: flex;
+    align-items: center;
+  }
+  
+  /* --- Avatar profile - circle--- */
+  .cat_avatar {
+    width: 130px;
+    height: 130px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -30px;
+    left: 30px;
+    border: 5px solid white;
+  }
+  
+  /* --- Name of the account --- */
+  .profile_settings {
+    display: block;
+    font-size: 24px;
+    color: #0A2B71;
+    font-weight: bold;
+    margin-top: 60px;      
+    width: 900px;         
+    text-align: left;      
+    padding-left: 30px;    
+  }
+  
+  /* --- Navigation Bar --- */
+  .nav_bar {
+    margin-top: 60px; 
+    width: 100%;
+  }
+  
+  /* The options in the bar  */
+  .nav_bar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 10px 0;
+    margin: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .nav_bar a {
+    text-decoration: none;
+    color: hsl(0, 0%, 0%);
+    font-weight: bold;
+    font-family: "Outfit", sans-serif;
+    padding: 15px 20px;
+    border-radius: 15px;
+    display: inline-block;
+  }
+  
+  .nav_bar a:hover {
+    background-color: rgba(58, 118, 182, 0.1);
+    color: hsl(0, 0%, 0%);
+  }
+
+
+  h2 {
+    color: #0A2B71;
+  }
+  
+  p {
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: -10px;
+    margin-bottom: 20px;
+    padding-left: 30px;  
+ 
+  }
+
+  .order_section{
+    text-align: left;
+  }
+
+  h2, p {
+    text-align: left;
+    padding-left: 60px; /* optional: keeps it consistent with the rest */
+  }
+
+  /*------------- Setting of the table ------------- */
+
+  .order_table{
+    margin-top: 60px; 
+    width: 100%;
+  }
+  table {
+    width: 100%;
+    margin: 60px auto 0 auto;
+    max-width: 1000px; 
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+ thead {
+    background-color: rgba(217, 217, 217, 0.45);
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 16px;
+    font-size: 15px;
+  }
+  
+  tbody tr {
+    border-bottom: 1px solid #cdd7e1;
+  }
+  
+  .status {
+    padding: 6px 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  /* -------------Colours for the  Status of the order -------------*/
+  
+  .status.pending {
+    background-color: rgba(109, 109, 109, 0.1);
+    color: rgb(0, 0, 0);  
+  }
+  
+  .status.processed {
+    background-color: rgba(255, 246, 192, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.shipped {
+    background-color: rgba(223, 255, 184, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.delivered {
+    background-color: rgba(163, 255, 183, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.returned {
+    background-color: rgba(195, 214, 255, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      font-size: 13px;
+    }
+  }

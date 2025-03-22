@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Orders</title>
+  <link rel="stylesheet" href="Orders .css" /> 
+</head>
+
+<body>
+
+  <!----------------------- Profile section ----------------------->
+
+  <div class="container"> 
+    <div class="profile_banner"> 
+      <div class="cat_avatar"></div>
+    </div>
+
+    <div class="profile_settings">My Name</div>
+
+    <nav class="nav_bar"> 
+        
+      <ul>
+        <li><a href="My details page .html">My details</a></li>
+        <li><a href="Orders.html">Orders</a></li>
+        <li><a href="Address_book.html">Address book</a></li>
+        <li><a href="Wishlists.html">Wishlists</a></li>
+        <li><a href="Settings">Settings</a></li>
+      </ul>
+
+    </nav>
+  </div>
+
+  <!--------------- Orders section  ---------------->
+  <div class="order_section">
+    <h2>Order history</h2>
+    <p>Find all of your previous orders here</p>
+
+   
+    <table class="Orders_table"></table>
+    <table>
+
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Order Date</th>
+          <th>Product</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Shipping Address</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>825–0987-8765</td>
+          <td>09/03/2025</td>
+          <td>6</td>
+          <td>£3.99</td>
+          <td><span class="status pending">Pending</span></td>
+          <td>12 Bomboclaat Street, Birmingham...</td>
+        </tr>
+
+        <tr>
+          <td>825–0987-8765</td>
+          <td>09/03/2025</td>
+          <td>3</td>
+          <td>£3.99</td>
+          <td><span class="status processed">Processed</span></td>
+          <td>12 Bomboclaat Street, Birmingham...</td>
+        </tr>
+
+        <tr>
+          <td>825–0987-8765</td>
+          <td>09/03/2025</td>
+          <td>5</td>
+          <td>£3.99</td>
+          <td><span class="status shipped">Shipped</span></td>
+          <td>12 Bomboclaat Street, Birmingham...</td>
+        </tr>
+
+
+        <tr>
+          <td>825–0987-8765</td>
+          <td>09/03/2025</td>
+          <td>2</td>
+          <td>£3.99</td>
+          <td><span class="status delivered">Delivered</span></td>
+          <td>12 Bomboclaat Street, Birmingham...</td>
+        </tr>
+
+
+        <tr>
+          <td>825–0987-8765</td>
+          <td>09/03/2025</td>
+          <td>1</td>
+          <td>£3.99</td>
+          <td><span class="status returned">Returned</span></td>
+          <td>12 Bomboclaat Street, Birmingham...</td>
+        </tr>
+
+      </tbody>
+
+
+    </table>
+  </div>
+
+</body>
+</html>
