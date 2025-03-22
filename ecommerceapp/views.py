@@ -582,14 +582,38 @@ def bluesky_post(request):
 		name = Product.objects.get(id=productid).name
 		desc = Product.objects.get(id=productid).description
 		variant = ProductVariant.objects.filter(productID=productid).first() 
+		
 
-		content = f"Check out our product: {name}. \nDescription: {desc} \n"
+		url = request.build_absolute_uri(reverse("variantDisplay", kwargs={"pk": productid}))
+		
+		content = f"Check out our product: {name}. \nDescription: {desc} \n{url}"
 
 		#for img - search for any variant
 		#get img from db usin variantid
 
 		client.login('noreply.hatsforcats@gmail.com', 'group18pass')
-		client.post(str(content))
+
+		content_bytes = content.encode("utf-8")
+		url_bytes = url.encode("utf-8")
+
+		byte_start = content_bytes.find(url_bytes)
+		byte_end = byte_start + len(url_bytes)
+
+		facets = [
+			{
+				"index": {"byteStart": byte_start, "byteEnd": byte_end},
+				"features": [{"$type": "app.bsky.richtext.facet#link", "uri": url}]
+			}
+		]
+
+		post_content = {
+			"$type": "app.bsky.feed.post",
+			"text": content,
+			"facets": facets,
+			"createdAt": "2025-03-21T20:58:47Z"
+		}
+
+		client.post(content, facets=facets)
 
 		
 	return redirect("inventory-management/products/")
