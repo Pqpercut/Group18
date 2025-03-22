@@ -7,8 +7,30 @@ University ID: 230098501
 
 :root {
     --background-colour: #0A1A26;
-    --desc-background-colour: #C3D7F9;
+    --desc-background-colour: rgba(255, 255, 255, 0.34); 
     --cart-background: #838EDA;
+    --cart-text: white;
+
+    --h2: #AEBBC9;
+
+    --circle-bg: white;
+    --circle-hover: rgb(131, 143, 218);
+    --circle-border: black;
+
+    --size-text: black;
+    --size-hover-bg: white;
+    --size-hover-text: #6A77C4;
+    --size-select-bg: #DCE4FF;
+    --size-select-border: #838EDA;
+
+    --quantity-border: rgba(3, 31, 101, 0.36);
+    --quantity-btn: #8EA2C7;
+    --quantity-btn-hover: #6a77c4;
+
+    --star: #AEBBC9;
+
+    --disabled-bg: #646464;
+    --active-bg: #838fda;
 }
 
 body {
@@ -69,7 +91,7 @@ h1 {
 }
 
 h2 {
-    color: #AEBBC9;
+    color: var(--h2);
     font-family: 'Outfit';
     font-weight: 300;
     font-size: 24px;
@@ -88,7 +110,7 @@ h3 {
 }
 
 .description-container {
-    background-color: rgba(255, 255, 255, 0.34);
+    background-color: var(--desc-background-colour);
     font-family: 'Outfit';
     width: 1150px;
     min-height: 215px;
@@ -115,14 +137,14 @@ h3 {
     height: 60px;
     display: inline-block;
     border: none;
-    color: white;
+    color: var(--cart-text);
     text-align: center;
     border-radius: 40px;
     transition: background-color 0.3s ease;
 }
 
 .cartbutton:hover {
-    background-color: white; 
+    background-color: var(--cart-text); 
     color: var(--cart-background);
 }
 
@@ -178,15 +200,15 @@ h3 {
     cursor: pointer; 
     border: 2px solid transparent; 
     transition: 0.3s; 
-    background-color: white;
+    background-color: var(--circle-bg);
 }
 
 .color-circle:hover {
-    background-color: rgb(131, 143, 218);
+    background-color: var(--circle-hover);
 }
 
 .color-circle.selected {
-    border: 3px solid black; 
+    border: 3px solid var(--circle-border); 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
 }
 
@@ -227,19 +249,19 @@ h3 {
     align-items: center;
     font-size: 20px;
     text-align: center;
-    color: black;
+    color: var(--size-text);
     cursor: pointer;
     box-sizing: border-box;
 }
 
 .size-circle:hover {
-    background-color: white;
-    color: #6a77c4;
+    background-color: var(--size-hover-bg);
+    color: var(--size-hover-text);
 }
 
 .size-circle.selected {
-    border: 2px solid #838EDA; 
-    background-color: #dce4ff; 
+    border: 2px solid var(--size-select-border); 
+    background-color: var(--size-select-bg); 
 }
 
 .product-quantity {
@@ -249,7 +271,7 @@ h3 {
     border-radius: 24px;
     border-style: solid;
     border-width: 1px;
-    border-color: rgba(3, 31, 101, 0.36) ;
+    border-color: var(--quantity-border);
   }
   
   .product-quantity input {
@@ -271,16 +293,16 @@ h3 {
   }
   
   .quantity-btn-left:hover {
-    background-color: #8EA2C7;
+    background-color: var(--quantity-btn);
   }
   
   .quantity-btn-right:hover {
-    background-color: #8EA2C7;
+    background-color: var(--quantity-btn);
   }
 
 .quantity-btn:hover {
     background-color: white; 
-    color: #6a77c4;
+    color: var(--quantity-btn-hover);
 }
 
 
@@ -298,7 +320,7 @@ h3 {
 
 .star {
     font-size: 16px; 
-    color: #AEBBC9; 
+    color: var(--star); 
     cursor: default; 
 }
 
@@ -424,17 +446,16 @@ h3 {
 }
 
 .disabled {
-    background-color: #888888;
-    background-color: #646464;
+    background-color: var(--disabled-bg);
     pointer-events: none;
     cursor: not-allowed;
 }
 
 .color-circle.active:not(.disabled) {
-    background-color: #838fda;
+    background-color: var(--active-bg);
 }
 
 .size-circle.active:not(.disabled) {
-    background-color: #838fda;
+    background-color: var(--active-bg);
 }
 
