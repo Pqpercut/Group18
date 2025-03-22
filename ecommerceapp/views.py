@@ -786,3 +786,7 @@ class OrderSummaryView(GroupRequiredMixin, TemplateView):
 		context['order_items'] = order.orderitem.all()
 		return context
 	
+class UserProfileView(GroupRequiredMixin, ListView):
+	model = User
+	template_name = "user-pages/user-home.html"
+	group_required = 'Customer'	

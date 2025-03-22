@@ -89,6 +89,9 @@ urlpatterns = [
     path("", productDisplay, name="productDisplay"),
     path("product/<int:pk>", VariantDisplayView.as_view(), name="variantDisplay"),
 
+    #ADAM
+     path('user/', UserProfileView.as_view(), name='user home'),
+
 
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
 

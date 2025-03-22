@@ -1,0 +1,72 @@
+<!-- Developer: Malaika Noor
+University ID: 230190768 -->
+<!-- updated design to match updates by Adam 6/12/2024-->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/user-pages/user-home.css' %}" rel="stylesheet" />
+
+    <body>
+        <main>
+            <div class="container"> 
+                <div class="profile_banner"> 
+                    <div class="cat_avatar"></div>  
+                </div>
+                <div class="profile_settings">
+                    <div class="profile-settings-header">
+                        My Name
+                        <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile-details">
+                        <div class="profile-phone">
+                            Phone Number
+                        </div>
+                        |
+                        <div class="profile-email">
+                        Email
+                        </div>
+                    </div>
+                </div>
+                <nav class ="nav_bar"> 
+                    <ul>
+                        <li><a href="My details page .html">My details</a></li>
+                        <li><a href="Orders.html">Orders</a></li>
+                        <li><a href="Address_book.html">Address book</a></li>
+                        <li><a href="Wishlists.html">Wishlists</a></li>
+                        <li><a href="Settings">Settings</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="contact-us-container">
+                    <div class="ask-question">
+                        <form method='post' action='' enctype='multitype/form-data'>  
+                            {% csrf_token %}
+                            <div class="EmailLine">
+                                {{ ContactForm.username }}
+                            </div>
+                            <div class="EmailLine">
+                                {{ ContactForm.email }}
+                            </div>
+                            <div class="DescriptionLine">
+                            {{ ContactForm.description }}
+                            </div>
+                            <div class="buttonContainer">
+                                <button type="submit" class="contactButton">SEND</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+            
+        </main>
+    </body>
+
+ Q
+{% endblock %}
+
+
