@@ -234,3 +234,220 @@ main {
 .close-btn:hover {
     color: red;
 }
+
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+:root {
+    --background-colour: #DCEDFF;
+    --basket-background-colour: #FFFFFF;
+    --button-background: #838EDA;
+    --button-shadow: #00000034 ; 
+}
+
+body {
+    background-color: var(--background-colour);
+    font-family: 'Outfit';
+    margin: 0;
+    padding: 0;
+}
+
+.basket-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    margin-bottom: 50px;
+}
+.basket-popup {
+    margin-top: 50px;
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 515px;
+    height: 800px;
+    background: var(--basket-background-colour);
+    /* box-shadow: 0 10px 10px var(--button-background); */
+    border-radius: 16px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideDown 0.4s ease-in-out;
+}
+
+.basket-header {
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+    border-bottom: 1px solid rgba(10, 42, 111, 0.24);
+    margin: 0 32px;
+    margin-top: 30px;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+    font-size: 1.8rem;
+
+}
+
+
+.basket-popup.slide-up {
+    animation: slideUp 0.4s ease-in-out forwards; }
+
+.cart-item {
+    display: flex;
+    align-items: flex-start;
+    padding:0;
+    border-bottom: 1px solid rgba(10, 42, 111, 0.24);
+    margin-bottom: 16px;
+}
+
+.cart-item:last-child {
+    border-bottom: none; }
+
+.cart-item-img {
+    width: 120px;
+    height: 100px;
+    margin-right: 15px;     
+    margin-left: 25px;
+    border-radius: 20px;
+}
+
+.cart-item-details {
+    flex: 1;     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.cart-item-information { 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+ }
+
+
+ .cart-item-information-header{ 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 700;
+    padding-bottom: 24px;
+ }
+
+ .cart-item-information-sub, .cart-item-size, .cart-item-colour { 
+    font-weight: 100;
+ }
+
+
+.name-price-container {
+    display: flex;     align-items: flex-start;     gap: 120px;     margin-bottom: 20px;
+}
+
+.product-name,
+.product-price {
+    margin: 0;     font-size: 16px;
+    color: black;
+}
+
+.product-color,
+.product-size {
+    margin: 5px 0 0;     font-size: 15px;
+    color: gray;
+}
+
+.basket-items {
+    padding: 16px 32px;
+    padding-bottom: 0; }
+
+.basket-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0px;     border-top: 1px solid rgba(10, 42, 111, 0.24);    border-bottom: 1px solid rgba(10, 42, 111, 0.24);
+    margin: 0 32px;
+    font-size: 16px;
+}
+
+.basket-summary .total-label {
+    font-weight: lighter;
+    font-size: 21px;
+    text-align: left;     margin-left: 60px; }
+
+.basket-summary .total-price-value {
+    font-weight: lighter;
+    font-size: 21px;
+    text-align: right;     margin-right: 30px;   
+}
+
+.wishlist-button, .checkout-button {
+    margin-top: 10px;
+    flex: 1;     
+    text-transform: capitalize;
+    font-size: larger;
+    font-weight: 700;
+    font-family: Outfit;
+    background: var(--button-background);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center; 
+    box-shadow: 0 10px 10px var(--button-shadow);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding:  10px 40px;
+    gap: 20px;
+}
+
+.close {
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    width: 30px;     height: 30px;
+    line-height: 30px;     text-align: center;     border-radius: 50%;     cursor: pointer;
+    padding: 0; }
+
+
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .cart-popup {
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        padding: 20px;
+    }
+}
+
