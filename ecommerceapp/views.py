@@ -18,18 +18,33 @@ from django.core.mail import send_mail
 from .mixins import GroupRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
+from django.views import View 
 
+# INVENTORY MANAGEMENT SYSTEM 
 
-class InventoryDashboard(TemplateView):
+class InventoryDashboard(GroupRequiredMixin, TemplateView):
 	template_name = "inventory-management/dashboard.html"
+	group_required = 'Admin'
 
-class InventoryProductListView (ListView):
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['orders'] = Order.objects.all()
+		context['discounts'] = Discount.objects.all()
+		context['products'] = Product.objects.all()
+
+		context['pending_count'] = Order.objects.filter(status='pending').count()
+		context['route_count'] = Order.objects.filter(status='route').count()
+		context['delivered_count'] = Order.objects.filter(status='delivered').count()
+		context['refunded_count'] = Order.objects.filter(status='refunded').count()
+		return context
+
+class InventoryProductListView (GroupRequiredMixin, ListView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View for IMS System that displays all the products currently available and allows new product creation '''
 	model = Product
 	template_name = "inventory-management/product_list.html"
 	context_object_name = "products"
+	group_required = 'Admin'
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -49,12 +64,13 @@ class InventoryProductListView (ListView):
 		context['products_with_variants'] = products_with_variants
 		return context
 
-class InventoryProductDetailView(DetailView):
+class InventoryProductDetailView(GroupRequiredMixin, DetailView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View for IMS System that shows the product details and all variants & allows stock updates '''
 	model = Product
 	template_name = "inventory-management/product_detail.html"
 	context_object_name = "product"
+	group_required = 'Admin'
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object()
@@ -67,41 +83,44 @@ class InventoryProductDetailView(DetailView):
 			variant.save()
 		return redirect('IMS - Product Detail', pk=self.object.pk)
 	
-class InventoryCreateProductView(CreateView):
+class InventoryCreateProductView(GroupRequiredMixin, CreateView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View that allows for new product creation '''
 	model = Product
 	template_name = "inventory-management/product_create.html"
 	fields = ['name', 'description']
+	group_required = 'Admin'
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product List')
 
-class InventoryProductEditView(UpdateView):
+class InventoryProductEditView(GroupRequiredMixin, UpdateView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View that allows already created products to be edited '''
 	model = Product
 	template_name = "inventory-management/product_edit.html"
 	context_object_name = "product"
 	fields = ['name', 'description']
+	group_required = 'Admin'
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.pk})
 	 
-class InventoryProductDeleteView(DeleteView):
+class InventoryProductDeleteView(GroupRequiredMixin, DeleteView):
 	# Created by Adam Ahmed 23/11/2024
 	''' Seperate Confirmation View that requires another button click to delete a product '''
 	model = Product
 	template_name = "inventory-management/product_confirm_delete.html"
 	success_url = reverse_lazy('IMS - Product List')
 
-class CreateVariantView(CreateView):
+class CreateVariantView(GroupRequiredMixin, CreateView):
 	# Created by Adam Ahmed 23/11/2024
 	# Updated by Adam Ahmed 30/11/2024
 	'''Allows creation of product variant details and the ability to upload images'''
 	model = ProductVariant
 	template_name = "inventory-management/product_create_variant.html"
 	form_class = CreateVariantForm
+	group_required = 'Admin'
 
 	def form_valid(self, form):
 		# Save the product variant
@@ -125,13 +144,14 @@ class CreateVariantView(CreateView):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.kwargs['product_pk']})
 
 
-class EditVariantView(UpdateView):
+class EditVariantView(GroupRequiredMixin, UpdateView):
 	# Created by Adam Ahmed 23/11/2024
 	# Updated by Adam Ahmed 30/11/2024
 	'''Allows edit of product variant details and the ability to upload more images'''
 	model = ProductVariant
 	template_name = "inventory-management/product_variant_edit.html"
 	form_class = EditVariantForm
+	group_required = 'Admin'
 
 	def form_valid(self, form):
 		response = super().form_valid(form)
@@ -146,16 +166,67 @@ class EditVariantView(UpdateView):
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 	
-class DeleteVariantView(DeleteView):
+class DeleteVariantView(GroupRequiredMixin, DeleteView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View that allows Product Variants to be deleted with confirmation '''
 	model = ProductVariant
 	template_name = "inventory-management/product_variant_delete.html"
+	group_required = 'Admin'
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
+class OrderListView(GroupRequiredMixin, ListView):
+	model = Order
+	template_name = "inventory-management/order-management/order_list.html"
+	context_object_name = "order"
+	group_required = 'Admin'
 
+class OrderDetailView(GroupRequiredMixin, DetailView):
+	model = Order
+	template_name = "inventory-management/order-management/order_detail.html"
+	context_object_name = "order"
+	group_required = 'Admin'
+
+	def post(self, request, *args, **kwargs):
+		# Get the order instance
+		self.object = self.get_object()
+		new_status = request.POST.get('status')
+		# Validate the new status against allowed statuses.
+		valid_statuses = [choice[0] for choice in self.object.__class__.STATUS]
+		if new_status in valid_statuses:
+			self.object.status = new_status
+			self.object.save()
+		# Redirect back to the same detail page
+		return redirect(reverse('IMS - Order Detail', kwargs={'pk': self.object.pk}))
+
+class UserListView(GroupRequiredMixin, ListView):
+	model = User
+	template_name = "inventory-management/customers/customers.html"
+	context_object_name = 'users'  
+	group_required = 'Admin'
+
+class DiscountListView(GroupRequiredMixin, ListView):
+	model = Discount
+	template_name = "inventory-management/discounts/discount.html"
+	context_object_name = 'discounts'  
+	group_required = 'Admin'
+
+class DiscountCreateView(GroupRequiredMixin, CreateView):
+	model = Discount
+	form_class = DiscountForm
+	template_name = "inventory-management/discounts/discount_create.html"
+	success_url = reverse_lazy('IMS - Discounts')  # Adjust this URL name accordingly
+	group_required = 'Admin'
+
+class DiscountUpdateView(GroupRequiredMixin, UpdateView):
+	model = Discount
+	form_class = DiscountForm
+	template_name = "inventory-management/discounts/discount_edit.html"
+	success_url = reverse_lazy('IMS - Discounts')  # Adjust this URL name accordingly
+	group_required = 'Admin'
+
+#MAIN WEBPAGE ##########################################################################################################
 
 class CatalogueViewClass(ListView):
 	

@@ -1,0 +1,56 @@
+
+
+
+<!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
+ 
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/ims/customers/customers.css' %}" rel="stylesheet" />   
+    <div class="dashboard">
+        <main class="content">
+            <h1>Orders</h1>
+            <div class="discount-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Permissions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.number }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    {% with user_address=order.userID.useraddress.all|first %}
+                                        {% if user_address %}
+                                            {{ user_address.houseNumber }} {{ user_address.street }}, {{ user_address.city }}. {{ user_address.postcode }}
+                                        {% else %}
+                                            <p>No address on file.</p>
+                                        {% endif %}
+                                    {% endwith %}
+                                </td>
+                                <td>
+                                    {% for usergroup in user.groups.all  %}
+                                        {{ usergroup }}
+                                    {% endfor %}
+                            </td>
+                                <td class="">{{ order.get_status_display }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+            </div>
+        </main>
+    </div>
+
+{% endblock %}

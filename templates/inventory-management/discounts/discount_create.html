@@ -1,0 +1,79 @@
+<!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
+<!-- Updated  by Adam 30/11/2024 -->
+
+
+
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/ims/product_create_variant.css' %}" rel="stylesheet" />   
+    <div class="main-container">
+        
+        <div class="header-container">
+            <h1>Create New Discount</h1>
+        </div>           
+        <form class="form-container" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="sub-heading">
+                <div class="sub-heading-1">Add Discount Information</div>
+            </div>
+            <div class="row-1">
+                <div class="label-container">
+                    <label for="description">Code:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.code }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="availability">Discount Type:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.discount_type }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="availability">Discount Value:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.discount_value }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="availability">Expiry Date:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.expiry_date }}
+                </div>
+            </div>
+            
+            <button class="form-button" type="submit">Create Discount</div>
+        </form>
+    
+        <div class="button-container">
+            <a href="{% url 'IMS - Discounts' %}"><input type="submit" value="Cancel"></a> 
+        </div>
+{% endblock %}
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Variant</title>
+</head>
+<body>
+    <h1>Create New Variant</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Variant</button>
+    </form>
+    <a href="{% url 'IMS - Product Detail' product_pk %}">Cancel</a>
+</body>
+</html>

@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LogoutView
 from ecommerceapp.views import HomeView, InventoryProductListView, InventoryProductDetailView, InventoryCreateProductView, InventoryProductDeleteView, InventoryProductEditView, EditVariantView, CreateVariantView, DeleteVariantView, CustomLoginView, RegistrationView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
@@ -31,6 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end
+    ##### PRODUCTS
     path("inventory-management/", InventoryDashboard.as_view(), name="IMS - Dashboard"),
     path("inventory-management/products/", InventoryProductListView.as_view(), name="IMS - Product List"),
     path("inventory-management/products/<int:pk>/", InventoryProductDetailView.as_view(), name="IMS - Product Detail"),
@@ -41,6 +43,21 @@ urlpatterns = [
     path("inventory-management/variants/<int:pk>/edit/", EditVariantView.as_view(), name="IMS - Product Variant Edit"),\
     path("inventory-management/products/<int:product_pk>/create-variant/", CreateVariantView.as_view(), name="IMS - Product Variant Create"),
     path("inventory-management/variants/<int:pk>/delete/", DeleteVariantView.as_view(), name="IMS - Product Variant Delete"),
+    
+    ##### ORDERS
+    path("inventory-management/orders/", OrderListView.as_view(), name="IMS - Order List"),
+    path("inventory-management/orders/<int:pk>/", OrderDetailView.as_view(), name="IMS - Order Detail"),
+    
+    ##### CUSTOMERS
+    path("inventory-management/customers/", UserListView.as_view(), name="IMS - Customers"),
+
+    path("inventory-management/discount/", DiscountListView.as_view(), name="IMS - Discounts"),
+    path("inventory-management/discount/create", DiscountCreateView.as_view(), name="IMS - Discount Create"),
+    path("inventory-management/discount/<int:pk>/edit/", DiscountUpdateView.as_view(), name="IMS - Discount Edit"),
+
+
+
+
     
     # Created by Adam 01/12/2024 
     path('', HomeView.as_view(), name='home'), 
@@ -71,6 +88,10 @@ urlpatterns = [
     path("tempBasket.html", basketRem, name="basketRem"),
     path("", productDisplay, name="productDisplay"),
     path("product/<int:pk>", VariantDisplayView.as_view(), name="variantDisplay"),
+
+
+    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
+
 
 ]
 

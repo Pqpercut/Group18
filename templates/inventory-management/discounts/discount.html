@@ -1,0 +1,52 @@
+
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/ims/discount/discount.css' %}" rel="stylesheet" />   
+    <div class="dashboard">
+        
+        <aside class="sidebar">
+            <h2>Hats for Cats</h2>
+        </aside>
+
+        <main class="content">
+
+           
+            <div class="dashboard">
+                <main class="content">
+                    <h1>Discounts</h1>
+                    <div class="discount-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Discount Code</th>
+                                    <th>Discount Type</th>
+                                    <th>Discount Value</th>
+                                    <th>Expiry Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for discounts in discounts %}
+                                    <tr onclick="window.location.href='{% url 'IMS - Discount Edit' discounts.id %}';" style="cursor:pointer;">
+                                        <td>{{ discounts.code }}</td>
+                                        <td>{{ discounts.discount_type }}</td>
+                                        <td>{{ discounts.discount_value }}</td>
+                                        <td>{{ discounts.expiry_date }}</td>
+                                        <td class="action">EDIT</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </main>
+            </div>
+            <div class="buttonclass">
+                <a href="{% url 'IMS - Discount Create' %}"><button class="newdiscount-btn">NEW DISCOUNT</button></a>
+            </div>
+        </main>
+    </div>
+
+{% endblock %}

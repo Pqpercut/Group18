@@ -1,0 +1,56 @@
+
+
+
+<!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
+ 
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/ims/order-management/order_list.css' %}" rel="stylesheet" />   
+    <div class="dashboard">
+        <main class="content">
+            <h1>Orders</h1>
+            <div class="discount-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Number of Items</th>
+                            <th>Order Date</th>
+                            <th>Total Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in order %}
+                            <tr onclick="window.location.href='{% url 'IMS - Order Detail' order.id %}';" style="cursor:pointer;">
+                                <td>#{{ order.id }}</td>
+                                <td>
+                                    {% for orderitem in order.orderitem.all  %}
+                                        {{ orderitem }}, 
+                                    {% endfor %}
+                                </td>
+                                <td>{{ order.orderDate }}</td>
+                                <td>£{{ order.totalAmount }}</td>
+                                <td class="
+                                {% if order.get_status_display == 'Order Pending' %}
+                                    processing
+                                {% elif order.get_status_display == 'On Route' %}
+                                    route
+                                {% elif order.get_status_display == 'Delivered' %}
+                                    delivered
+                                {% elif order.get_status_display == 'Refunded' %}
+                                    returned
+                                {% endif %}
+                                ">{{ order.get_status_display }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+            </div>
+        </main>
+    </div>
+
+{% endblock %}
