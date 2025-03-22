@@ -1,12 +1,31 @@
 /*
 updated design to match updates - Adam 6/12/2024 
 */
+
+/* variables */
+:root {
+  --bg-colour: #DCEDFF;
+  --text-colour: black;
+
+  --register-text: hsla(224, 76%, 25%, 0.36);
+
+  --input: #cecece;
+  --inp-placeholder: #888;
+  --valid-inp: green;
+
+  --reset-text: rgba(15, 41, 112, 0.36);
+  --reset-border: rgba(15, 41, 112, 0.36);
+
+  --btn-bg: #838EDA;
+  --btn-bg-hover: #556edf;
+}
+
 body {
   font-family: "Outfit", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #dcedff;
-  color: #000000;
+  background-color: var(--bg-colour);
+  color: var(--text-colour);
 }
 
 /* register Section */
@@ -25,7 +44,7 @@ body {
   font-size: 13px;
   font-weight: 300;
   margin-bottom: 39px;
-  color: hsla(224, 76%, 25%, 0.36);
+  color: var(--register-text);
 }
 
 .register form {
@@ -48,7 +67,7 @@ body {
 .register input {
   width: 100%; 
   padding: 10px;
-  border: 1px solid #cecece;
+  border: 1px solid var(--input);
   border-radius: 7px;
   height: 50px;
 }
@@ -58,11 +77,11 @@ body {
 } */
 
 input:valid {
-  border-color: green;
+  border-color: var(--valid-inp);
 }
 
 input::placeholder {
-  color: #888; 
+  color: var(--inp-placeholder); 
   font-family: "Outfit", sans-serif;
   padding-left: 8px;  
   font-weight: 200;
@@ -77,7 +96,7 @@ input::placeholder {
   justify-content: center;
   font-size: 13px;
   font-weight: 300;
-  color: rgba(15, 41, 112, 0.36);
+  color: var(--reset-text);
   text-decoration: none;
 
  }
@@ -90,7 +109,7 @@ input::placeholder {
   margin: 8px;
   width: 48px;
   height: 1px;
-  border: 1px solid rgba(15, 41, 112, 0.36);
+  border: 1px solid var(--reset-border);
 }
 
 
@@ -125,7 +144,7 @@ input::placeholder {
   border-radius: 30px; 
   font-size: 20px;
   font-weight: 700;
-  color: #000000;
+  color: var(--text-colour);
   cursor: pointer;
   height: 50px;
   width: 440px;
@@ -135,9 +154,9 @@ input::placeholder {
 }
 
 .registerButton {
-  background-color: #838EDA;
+  background-color: var(--btn-bg);
 }
 
 .registerButton:hover{
-  background-color: #556edf;
+  background-color: var(--btn-bg-hover);
 }
