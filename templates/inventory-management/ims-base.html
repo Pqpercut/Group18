@@ -66,11 +66,17 @@
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
     <header>
-        <div class="sort"> 
-            Sort: 
-            <div class="sort-dropdown">
-                <input type="text">
-            </div>
+        <div class="sortBox"> 
+            <form action="/inventory-management/products/" method="get">
+            <select name="order" id="orderBox">
+                <option value="name">Order by: Name</option>
+                <option value="id">Order by: Date added</option>
+                
+            </select>
+
+            <input id="orderSubmit" type="submit" value="Submit">
+          </form>
+       
         </div>
         <div class="header-right">
             <div class="notifications">

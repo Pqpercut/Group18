@@ -50,9 +50,18 @@ class InventoryProductListView (GroupRequiredMixin, ListView):
 		context = super().get_context_data(**kwargs)
 		low_stock_threshold = 5 
 		products_with_variants = []
+		orderValue = self.request.GET.get("order")
+		productList= Product.objects.all()
 
-		for product in Product.objects.all():
+		if orderValue:	
+			productList = productList.order_by(orderValue)
+			print(orderValue ,": order value")
+
+
+		
+		for product in productList:
 			variants = product.productvariant.all()
+			print(product.name)
 			total_stock = variants.aggregate(total=Sum('stocklevel'))['total'] or 0
 			is_low_stock = total_stock < low_stock_threshold
 			products_with_variants.append({
