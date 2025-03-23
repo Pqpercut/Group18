@@ -58,6 +58,29 @@
         Most Recent Orders
       </div>
       <div class="order-body">
+                <div class="sortBox"> 
+            <form  method="get">
+            <select name="order" id="orderBox">
+
+                <option value="id">Order by: ID</option>
+                <option value="orderDate">Order by: Newest Added</option>
+                <option value="-orderDate">Order by: Oldest Added</option>
+                
+            </select>
+
+            <select name="filter" id="orderBox">
+              <option value="">Filter: None</option>
+              <option value="pending">Filter: Order Pending</option>
+              <option value="route">Filter: On route</option>
+              <option value="delivered">Filter: Delivered</option>
+              <option value="refunded">Filter: Refunded</option>
+              
+          </select>
+
+            <input id="orderSubmit" type="submit" value="Submit">
+          </form>
+       
+        </div>
         <table>
           <thead>
               <tr>

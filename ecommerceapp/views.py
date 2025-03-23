@@ -28,7 +28,34 @@ class InventoryDashboard(GroupRequiredMixin, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['orders'] = Order.objects.all()
+
+
+		orderValue = self.request.GET.get("order")
+		ordersList = Order.objects.all()
+
+		filterValues = self.request.GET.get("filter")
+		
+		
+
+		if filterValues:
+			print(filterValues , " EE")
+			filterValues = filterValues.replace("+", " ")
+
+			
+
+			if filterValues in dict(Order.STATUS):
+				ordersList = ordersList.filter(status = filterValues)
+	
+				
+			
+		if orderValue:	
+			ordersList = ordersList.order_by(orderValue)
+			
+				
+
+
+		
+		context['orders'] = ordersList
 		context['discounts'] = Discount.objects.all()
 		context['products'] = Product.objects.all()
 
