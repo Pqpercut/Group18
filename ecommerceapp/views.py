@@ -414,14 +414,7 @@ def ContactPageView(request, *args, **kwargs):
 
 
 
-##def ContactPageViewClass(FormView):
-	###TBC (Incomplete)
 
-@user_passes_test("ecommerceapp.Admin") 
-def ContactQueryView(request,*args,**kwargs):
-	queries = ContactTable.objects.all() 
-	context = {"queryTable": queries}
-	return render(request,'general-pages/ViewContactQuery.html', context)
 
 
 #display products
