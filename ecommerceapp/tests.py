@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from ecommerceapp.models import Basket, Product, BasketItem, ProductVariant, ImagePath
+from ecommerceapp.models import *
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from PIL import Image
@@ -367,7 +367,7 @@ class CataloguePageTest(TestCase):
     def test_product_images_display(self):
         
         response = self.client.get(self.url)
-        
+
         # Check if images are included for the variants
         self.assertContains(response, self.imagepath1.imagepath.url)  # URL of the image
         self.assertContains(response, self.imagepath2.imagepath.url)  # URL of the image
@@ -415,3 +415,132 @@ class CataloguePageTest(TestCase):
         
         self.assertTrue(pos1 < pos2, "Products are not in the correct order.")
 
+class ReviewModelTest(TestCase):
+
+    def setUp(self): # create objects
+        
+        self.user = User.objects.create_user(username='testuser', password='password123')
+        self.product = Product.objects.create(name='Test Product', description= "Good product")
+
+    def test_create_review(self):
+   
+        review = Review.objects.create(
+            productID=self.product,
+            userID=self.user,
+            rating=5,
+            title='Great Product!',
+            description='I really reaaaallyyyyy liked this product. Highly recommend!'
+        )
+
+       
+        self.assertEqual(review.productID, self.product)
+        self.assertEqual(review.userID, self.user)
+        self.assertEqual(review.rating, 5)
+        self.assertEqual(review.title, 'Great Product!')
+        self.assertEqual(review.description, 'I really reaaaallyyyyy liked this product. Highly recommend!')
+        self.assertIsNotNone(review.reviewDate)
+
+    def test_rating_validation(self):
+        # Test invalid rating below 0
+        with self.assertRaises(Exception):
+            Review.objects.create(
+                productID=self.product,
+                userID=self.user,
+                rating=-1,
+                title='Invalid Rating',
+                description='This rating is below 0'
+            )
+
+        # Test invalid rating above 5
+        with self.assertRaises(Exception):
+            Review.objects.create(
+                productID=self.product,
+                userID=self.user,
+                rating=6,
+                title='Invalid Rating',
+                description='This rating is above 5'
+            )
+
+
+class ReviewIntegrationTest(TestCase):
+    
+    def setUp(self): # create objects
+        #Create user, login, product and review
+        self.user = User.objects.create_user(username='testuser', password='password123')
+        self.client.login(username='testuser', password='password123')
+        self.product = Product.objects.create(name='Test Product', description= "Good product")
+    
+        self.review = Review.objects.create(
+            productID=self.product,
+            userID=self.user,
+            rating=5,
+            title='Great Product!',
+            description='I really reaaaallyyyyy liked this product. Highly recommend!'
+        )
+
+        
+
+    def test_containsReview(self):
+                
+                
+        response = self.client.get("/product/1" )
+        self.assertEqual(response.status_code, 200)
+        #Look for description
+        self.assertContains(response, f"<p>{self.review.description}</p>")
+        
+
+        
+
+class WishlistModelUnitTest(TestCase):
+
+    def setUp(self):
+        
+        self.user = User.objects.create_user(username='testuser', password='password123')
+        self.product = Product.objects.create(name="Test Product", description="Good product")
+
+        self.wishlist = Wishlists.objects.create(userID=self.user, name="My Wishlist")
+
+    def test_create_wishlist(self):
+        # Ensure the wishlist was created successfully
+        wishlist = Wishlists.objects.get(userID=self.user)
+        self.assertEqual(wishlist.name, "My Wishlist")
+        self.assertEqual(wishlist.userID, self.user)
+
+    def test_create_wishlist_item(self):
+    ##Create a wishlist item (product added to wishlist)
+        wishlist_item = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
+        
+      
+        self.assertEqual(wishlist_item.wishlistID, self.wishlist)
+        self.assertEqual(wishlist_item.productID, self.product)
+
+    def test_wishlist_items_association(self):
+       
+        product2 = Product.objects.create(name="Test Product 2", description="Another test product")
+        product3 = Product.objects.create(name="Test Product 3", description="Yet another test product")
+        
+        wishlist_item1 = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
+        wishlist_item2 = WishlistItem.objects.create(wishlistID=self.wishlist, productID=product2)
+        wishlist_item3 = WishlistItem.objects.create(wishlistID=self.wishlist, productID=product3)
+
+        # Check if all items are correctly associated with the wishlist
+        self.assertEqual(self.wishlist.wishListID.count(), 3)  
+
+    def test_delete_wishlist(self):
+        # Create a wishlist item, delete it and assure if all items are deleted
+        wishlist_item = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
+        self.wishlist.delete()
+
+        
+
+        with self.assertRaises(WishlistItem.DoesNotExist):
+
+            WishlistItem.objects.get(id=wishlist_item.id)
+
+    def test_delete_wishlist_item(self):
+        # Create a wishlist item
+        wishlist_item = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
+        wishlist_item.delete()
+
+        with self.assertRaises(WishlistItem.DoesNotExist):
+            WishlistItem.objects.get(id=wishlist_item.id)
