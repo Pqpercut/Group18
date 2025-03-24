@@ -307,19 +307,16 @@ class CatalogueViewClass(ListView):
 		return queryset
 	
 	
-	def get_context_data(self, request, **kwargs): ###use filter values 
-		###List Size issue
+	def get_context_data(self, **kwargs):
 		listSize = len(self.get_queryset())
 		style = ""
-		if(listSize == 2) or (listSize == 1):
-			style="product-size" + str(listSize)
+		if listSize in [1, 2]:
+			style = "product-size" + str(listSize)
 			print(style)
 		else:
-			style=""
-		###Return context
+			style = ""			
 		context = super().get_context_data(**kwargs)
 		context['productClass'] = style
-		context['basket'] = Basket.objects.get(userID=request.user)
 		return context
 
 
