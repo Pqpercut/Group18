@@ -29,7 +29,34 @@ class InventoryDashboard(GroupRequiredMixin, TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['orders'] = Order.objects.all()
+
+
+		orderValue = self.request.GET.get("order")
+		ordersList = Order.objects.all()
+
+		filterValues = self.request.GET.get("filter")
+		
+		
+
+		if filterValues:
+			print(filterValues , " EE")
+			filterValues = filterValues.replace("+", " ")
+
+			
+
+			if filterValues in dict(Order.STATUS):
+				ordersList = ordersList.filter(status = filterValues)
+	
+				
+			
+		if orderValue:	
+			ordersList = ordersList.order_by(orderValue)
+			
+				
+
+
+		
+		context['orders'] = ordersList
 		context['discounts'] = Discount.objects.all()
 		context['products'] = Product.objects.all()
 
@@ -51,9 +78,18 @@ class InventoryProductListView (GroupRequiredMixin, ListView):
 		context = super().get_context_data(**kwargs)
 		low_stock_threshold = 5 
 		products_with_variants = []
+		orderValue = self.request.GET.get("order")
+		productList= Product.objects.all()
 
-		for product in Product.objects.all():
+		if orderValue:	
+			productList = productList.order_by(orderValue)
+			print(orderValue ,": order value")
+
+
+		
+		for product in productList:
 			variants = product.productvariant.all()
+			print(product.name)
 			total_stock = variants.aggregate(total=Sum('stocklevel'))['total'] or 0
 			is_low_stock = total_stock < low_stock_threshold
 			products_with_variants.append({

@@ -8,6 +8,18 @@
     font-family: Poppins;
     background-color: #FAFAFA;
   }
+
+  select {
+ 
+    width: 45%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    color: #aaa;
+    border-radius: 7px;
+    height: 50px;
+    background-color: white;
+  }
+
   /* Sidebar styles */
   .sidebar {
     max-width: 20%;
@@ -88,6 +100,8 @@
   .sidebar-options {
     padding-top: 32px;`
   }
+
+
 
  .sidebar-option-button {
     padding: 20px 20px;
