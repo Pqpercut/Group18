@@ -20,6 +20,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View 
 
+
 # INVENTORY MANAGEMENT SYSTEM 
 
 class InventoryDashboard(GroupRequiredMixin, TemplateView):
@@ -786,7 +787,99 @@ class OrderSummaryView(GroupRequiredMixin, TemplateView):
 		context['order_items'] = order.orderitem.all()
 		return context
 	
-class UserProfileView(GroupRequiredMixin, ListView):
+class UserProfileView(GroupRequiredMixin, UpdateView):
 	model = User
+	fields = ['username', 'first_name', 'last_name', 'email']  # Include any fields you want to allow updates for
 	template_name = "user-pages/user-home.html"
 	group_required = 'Customer'	
+
+	def get_success_url(self):
+		return reverse_lazy('user home', kwargs={'pk': self.object.pk})
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['orders'] = Order.objects.all()
+		context['user'] = self.request.user
+		return context
+
+class UserProfileOrdersView(GroupRequiredMixin, ListView):
+    model = Order
+    context_object_name = 'orders'
+    template_name = "user-pages/user-orders.html"
+    group_required = 'Customer'
+
+    def get_queryset(self):
+    	return Order.objects.filter(userID=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+class UserProfileOrderDetailView(GroupRequiredMixin, DetailView):
+	model = Order
+	context_object_name = 'orders'
+	template_name = "user-pages/user-order-detail.html"
+	group_required = 'Customer'
+
+	def get_queryset(self):
+		# Only allow orders that belong to the current user.
+		return Order.objects.filter(userID=self.request.user)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['user'] = self.request.user
+		return context
+
+	def post(self, request, *args, **kwargs):
+		# Get the order instance
+		self.object = self.get_object()
+		new_status = request.POST.get('status')
+		# Only allow the status to be updated to "returned"
+		if new_status == "refunded":
+			self.object.status = new_status
+			self.object.save()
+		# Redirect back to the same detail page
+		return HttpResponseRedirect(self.request.path_info)
+
+class UserProfileAddressView(GroupRequiredMixin, ListView):
+    model = UserAddress
+    context_object_name = 'address'
+    template_name = "user-pages/user-address.html"
+    group_required = 'Customer'
+
+class UserProfileAddressUpdateView(GroupRequiredMixin, UpdateView):
+	model = UserAddress
+	context_object_name = 'address'
+	template_name = "user-pages/user-address-update.html"
+	group_required = 'Customer'
+	fields = ['houseNumber', 'street', 'postcode', 'city']
+
+	def get_success_url(self):
+		return reverse_lazy('user addresses')
+
+class UserProfileAddressCreateView(GroupRequiredMixin, CreateView):
+	model = UserAddress
+	context_object_name = 'address'
+	template_name = "user-pages/user-address-update.html"
+	group_required = 'Customer'
+	fields = ['houseNumber', 'street', 'postcode', 'city']
+
+	def form_valid(self, form):
+		# Automatically assign the current user to the userID field
+		form.instance.userID = self.request.user
+		return super().form_valid(form)
+
+	def get_success_url(self):
+		return reverse_lazy('user addresses')
+
+class UserAddressDeleteView(GroupRequiredMixin, DeleteView):
+    model = UserAddress
+    success_url = reverse_lazy('user addresses')  # This is the URL to which you want to redirect.
+    group_required = 'Customer'
+
+    def get(self, request, *args, **kwargs):
+        # Immediately delete the object on GET and redirect.
+        self.object = self.get_object()
+        self.object.delete()
+        return HttpResponseRedirect(self.success_url)

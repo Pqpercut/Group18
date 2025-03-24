@@ -211,7 +211,7 @@ textarea::placeholder {
     color: #888; 
     font-family: "Outfit", sans-serif;  
     font-weight: 200;
-    font-size: 16px; 
+    font-size: 24px; 
     opacity: 1;
 }
       
@@ -225,7 +225,8 @@ textarea::placeholder {
         color: #fff;
         cursor: pointer;
         height: 50px;
-        width: 180px;
+        width: auto;
+        padding: 0 16px;
         margin-bottom: 28px;
     
       }
@@ -256,13 +257,14 @@ textarea::placeholder {
     .ask-question {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         height: 100%;
         flex-grow: 2; 
         flex-basis: 0;
         border-radius: 15px;
         background-color: #FFFFFF;
+        padding: 16px 32px;
     }
     
     .ask-question h2 {
@@ -317,3 +319,153 @@ textarea::placeholder {
     width: 150px;
     text-align: left;
     }
+
+    
+  
+  .item-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;  
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  
+ 
+  .item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    object-fit: cover;
+    background-color: #ddd; /* fallback if no image */
+  }
+  .color-dot {
+    display: inline-block;
+    width: 0.75em;            
+    height: 0.75em;
+    border-radius: 50%;       
+    vertical-align: middle;  
+    margin-right: 0.25rem;    
+  }
+  
+ 
+  .item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  
+  .item-name {
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0.1rem;
+  }
+  
+
+  .item-type {
+    color: #777;        
+    font-size: 0.9rem; 
+    margin-bottom: 0.25rem;
+  }
+  
+  
+  .item-attributes {
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+
+  .order-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .order-header-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+
+  }
+
+  .order-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .order-information {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 8px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 16px;
+  }
+
+  .order-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%
+  }
+
+  .status {
+    padding: 6px 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  .status.pending {
+    background-color: rgba(109, 109, 109, 0.1);
+    color: rgb(0, 0, 0);  
+  }
+  
+  .status.processed {
+    background-color: rgba(255, 246, 192, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.shipped {
+    background-color: rgba(223, 255, 184, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.delivered {
+    background-color: rgba(163, 255, 183, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.returned {
+    background-color: rgba(195, 214, 255, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      font-size: 13px;
+    }
+  }
+
+
+  .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }

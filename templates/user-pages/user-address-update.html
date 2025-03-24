@@ -56,23 +56,23 @@ University ID: 230190768 -->
                         <form method='post' action='' enctype='multitype/form-data'>  
                             {% csrf_token %}
                             <div class="EmailLine">
-                                {{ form.username.label_tag }}
-                                {{ form.username }}
+                                {{ form.houseNumber.label_tag }}
+                                {{ form.houseNumber }}
                             </div>
                             <div class="EmailLine">
-                                {{ form.first_name.label_tag }}
-                                {{ form.first_name }}
+                                {{ form.street.label_tag }}
+                                {{ form.street }}
                             </div>
                             <div class="EmailLine">
-                                {{ form.last_name.label_tag }}
-                                {{ form.last_name }}
+                                {{ form.postcode.label_tag }}
+                                {{ form.postcode }}
                             </div>
                             <div class="DescriptionLine">
-                                {{ form.email.label_tag }}
-                                {{ form.email }}
+                                {{ form.city.label_tag }}
+                                {{ form.city }}
                             </div>
                             <div class="buttonContainer">
-                                <button type="submit" class="contactButton">UPDATE</button>
+                                <button type="submit" class="contactButton">SAVE</button>
                             </div>
                         </form>
                     </div>

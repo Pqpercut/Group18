@@ -5,7 +5,7 @@ University ID: 230190768 -->
 {% load static %}
 
 {% block content %}
-    <link href="{% static  'css/user-pages/user-home.css' %}" rel="stylesheet" />
+    <link href="{% static  'css/user-pages/user-address.css' %}" rel="stylesheet" />
 
     <body>
         <main>
@@ -44,38 +44,40 @@ University ID: 230190768 -->
                 </div>
                 <nav class ="nav_bar"> 
                     <ul>
-                        <li><a href="{% url 'user home' user.id %}">My details</a></li>
+                      <li><a href="{% url 'user home' user.id %}">My details</a></li>
                         <li><a href="{% url 'user orders' %}">Orders</a></li>
                         <li><a href="{% url 'user addresses' %}">Address book</a></li>
                         <li><a href="Wishlists.html">Wishlists</a></li>
                     </ul>
                 </nav>
                 
-                <div class="contact-us-container">
-                    <div class="ask-question">
-                        <form method='post' action='' enctype='multitype/form-data'>  
-                            {% csrf_token %}
-                            <div class="EmailLine">
-                                {{ form.username.label_tag }}
-                                {{ form.username }}
-                            </div>
-                            <div class="EmailLine">
-                                {{ form.first_name.label_tag }}
-                                {{ form.first_name }}
-                            </div>
-                            <div class="EmailLine">
-                                {{ form.last_name.label_tag }}
-                                {{ form.last_name }}
-                            </div>
-                            <div class="DescriptionLine">
-                                {{ form.email.label_tag }}
-                                {{ form.email }}
-                            </div>
-                            <div class="buttonContainer">
-                                <button type="submit" class="contactButton">UPDATE</button>
-                            </div>
-                        </form>
+                {% for address in address %}
+                  <div class="address_box">
+                    <div class="left_info">
+                      <div class="Contact_info">  <!-- Personal infromation about the customer-->
+                        <strong>{{ address.userID.first_name}} {{ address.userID.last_name}}</strong>
+                        <p>{{ address.userID.email}}</p>
+                      </div>
+                
+                      <div class="address_info">
+                        <strong>Address</strong> <!-- Used strong so future developers know that this is important infomration - just different way of styling-->
+                        <p>{{ address.houseNumber}} {{ address.street}}<br>
+                        {{ address.city}}<br>
+                        {{ address.postcode}}<br>
+                        England<br>
+                        United Kingdom</p>
+                      </div>
                     </div>
+                
+                    <div class="Quick_buttons">
+                      <a href="{% url 'user addresses update' address.id %}">Edit</a> |
+                      <a href="{% url 'user addresses delete' address.id %}">Remove</a>
+                    </div>
+                  </div>
+                {% endfor %}
+
+                <div class="create-new">
+                  <a href="{% url 'user addresses create'%}">CREATE</a> 
                 </div>
             </div>    
             

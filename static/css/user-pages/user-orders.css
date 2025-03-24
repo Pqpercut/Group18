@@ -317,3 +317,101 @@ textarea::placeholder {
     width: 150px;
     text-align: left;
     }
+
+    
+  .order_section{
+    text-align: left;
+    width: 40%;
+  }
+
+h2 {
+  padding-top: 24px;
+  padding-bottom: 4px;
+  text-align: left;
+
+}
+
+  p {
+    text-align: left;
+    font-weight: 300;
+  }
+
+  /*------------- Setting of the table ------------- */
+
+  .order_table{
+    margin-top: 60px; 
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+    margin: 60px auto 0 auto;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    text-wrap: nowrap;
+  }
+  
+ thead {
+    background-color: rgba(217, 217, 217, 0.45);
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 16px;
+    font-size: 15px;
+  }
+  
+  tbody tr td:nth-child(6) {
+    width: 100%;
+  }
+  
+  
+  tbody tr {
+    border-bottom: 1px solid #cdd7e1;
+  }
+
+  .status {
+    padding: 6px 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  /* -------------Colours for the  Status of the order -------------*/
+  
+  .status.pending {
+    background-color: rgba(109, 109, 109, 0.1);
+    color: rgb(0, 0, 0);  
+  }
+  
+  .status.processed {
+    background-color: rgba(255, 246, 192, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.shipped {
+    background-color: rgba(223, 255, 184, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.delivered {
+    background-color: rgba(163, 255, 183, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.returned {
+    background-color: rgba(195, 214, 255, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      font-size: 13px;
+    }
+  }
+
+  
