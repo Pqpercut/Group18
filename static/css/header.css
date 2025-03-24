@@ -254,12 +254,6 @@ body {
     padding: 0;
 }
 
-.basket-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    margin-bottom: 50px;
-}
 .basket-popup {
     margin-top: 50px;
     position: fixed;
@@ -371,6 +365,16 @@ h1 {
     font-size: 16px;
 }
 
+.basket-summary-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0px;     
+    margin: 0 32px;
+    font-size: 16px;
+}
+
+
 .basket-summary .total-label {
     font-weight: lighter;
     font-size: 21px;
@@ -382,7 +386,7 @@ h1 {
     text-align: right;     margin-right: 30px;   
 }
 
-.wishlist-button, .checkout-button {
+.wishlist-button, .checkout-button-1 {
     margin-top: 10px;
     flex: 1;     
     text-transform: capitalize;

@@ -271,7 +271,7 @@ class CatalogueViewClass(ListView):
 		return queryset
 	
 	
-	def get_context_data(self, **kwargs): ###use filter values 
+	def get_context_data(self, request, **kwargs): ###use filter values 
 		###List Size issue
 		listSize = len(self.get_queryset())
 		style = ""
@@ -283,8 +283,8 @@ class CatalogueViewClass(ListView):
 		###Return context
 		context = super().get_context_data(**kwargs)
 		context['productClass'] = style
+		context['basket'] = Basket.objects.get(userID=request.user)
 		return context
-	
 
 
 	
@@ -883,3 +883,6 @@ class UserAddressDeleteView(GroupRequiredMixin, DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return HttpResponseRedirect(self.success_url)
+
+
+	

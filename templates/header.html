@@ -17,7 +17,11 @@
                 <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
-        <a href="{% url 'login' %}">
+        {% if user.is_authenticated %}
+            <a href="{% url 'user home' user.id %}">
+        {% else %}
+            <a href="{% url 'login' %}">
+        {% endif %}
             <div class="profile-icon ">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 21C20 19.6044 20 18.9067 19.8278 18.3389C19.44 17.0605 18.4395 16.06 17.1611 15.6722C16.5933 15.5 15.8956 15.5 14.5 15.5H9.5C8.10444 15.5 7.40665 15.5 6.83886 15.6722C5.56045 16.06 4.56004 17.0605 4.17224 18.3389C4 18.9067 4 19.6044 4 21M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -79,43 +83,44 @@
     <div class="basket-header">
         <h1>Your Basket</h1> 
     </div>
-    <div class="basket-items" id="CartItems">
-        <div class="cart-item">
-            <img src="https://via.placeholder.com/192x148/FFFFFF" alt="Product 1" class="cart-item-img">
-            <div class="cart-item-information">
-                <div class="cart-item-information-header">
-                    <div class="cart-item-name">
-                        Product 1
+    {% if basket %}
+        <div class="basket-items" id="CartItems">
+            {% for basket in basket %}
+            <div class="cart-item">
+                <div class="cart-item-information">
+                    <div class="cart-item-information-header">
+                        <div class="cart-item-name">
+                            {{ basket.variantID.productID.name }}
+                        </div>
+                        <div class="cart-item-price">
+                            £{{ basket.variantID.price }}
+                        </div>
                     </div>
-                    <div class="cart-item-price">
-                        £3.99
-                    </div>
-                </div>
-                <div class="cart-item-information-sub">
-                    <div class="cart-item-size">
-                        Size: M
-                    </div>
-                    <div class="cart-item-colour">
-                        Colour: Red
+                    <div class="cart-item-information-sub">
+                        <div class="cart-item-size">
+                            Size: {{ basket.variantID.size }}
+                        </div>
+                        <div class="cart-item-colour">
+                            Colour: {{ basket.variantID.colour }}
+                        </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        <div class="cart-item">
-            <img src="https://via.placeholder.com/192x148/FFFFFF" alt="Product 2" class="cart-item-img">
+        <div class="basket-summary">
+            <span class="total-label">Total:</span>
+            <span class="total-price-value" id="totalPrice">£ 7.99</span>          
         </div>
-        <div class="cart-item">
-            <img src="https://via.placeholder.com/192x148/FFFFFF" alt="Product 3" class="cart-item-img">
+        <div class="button-container">
+            <button class="wishlist-button"><a href="{% url 'user orders' %}">Wishlist</a></button>
+            <button class="checkout-button-1"><a href="{% url 'checkout' %}">Checkout</a></button>
         </div>
-    </div>
-    <div class="basket-summary">
-        <span class="total-label">Total:</span>
-        <span class="total-price-value" id="totalPrice">£ 7.99</span>          
-    </div>
-    <div class="button-container">
-        <button class="wishlist-button">Wishlist</button>
-        <button class="checkout-button">Checkout</button>
-    </div>
+    {% else %}
+        <div class="basket-summary-1">
+            <span class="total-label">Go to catalogue/basket page to see basket</span>    
+        </div>
+    {% endif %}
     <span class="close" id="ClosePopUp">x</span>
 </div>
 
