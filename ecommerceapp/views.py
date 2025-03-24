@@ -544,27 +544,32 @@ class VariantDisplayView(View):
 			return redirect('basket')
 				
 		elif "wishlistSubmit" in request.POST:
-			wishForm = wishlistItemForm(request.POST)
-			selectedList = request.POST['wishlistVal']
+			if request.user.is_authenticated:
+				wishForm = wishlistItemForm(request.POST)
+				selectedList = request.POST['wishlistVal']
 
-			wishlist = Wishlists.objects.filter(name=selectedList).first()
 			
-			
-			if not wishlist:
-				print("No wishlist found with name:", selectedList)
+   				
+				wishlist = Wishlists.objects.filter(name=selectedList).first()
+				
+				
+				if not wishlist:
+					print("No wishlist found with name:", selectedList)
+					return HttpResponseRedirect(request.path_info)
+					
+					
+				wishForm.instance.wishlistID = wishlist
+				if wishForm.is_valid():
+					wishForm.save()
+					print("win")
+					return redirect('Wishlist') 
+
+				
 				return HttpResponseRedirect(request.path_info)
-			
-			wishForm.instance.wishlistID = wishlist
-			print(wishForm.instance.wishlistID.name , ": ::WOW")
+			else:	
+				
+				return redirect('login')
 
-			print(wishForm.is_valid())
-			if wishForm.is_valid():
-				wishForm.save()
-				print("win")
-				return redirect('Wishlist') 
-
-			print(wishForm)
-			return HttpResponseRedirect(request.path_info)
 			
 			
 		
@@ -602,15 +607,20 @@ class VariantDisplayView(View):
 
 
 		### Wishlist button
-
-		wishLists = Wishlists.objects.all().filter(userID = self.request.user)
-		itemNames['wishLists']= wishLists
 		
+
+		if  request.user.is_authenticated:
+   				
+			wishLists = Wishlists.objects.all().filter(userID = self.request.user)
+		
+			itemNames['wishLists']= wishLists
+			wishlistForm = wishlistItemForm(initial={'productID': get_object_or_404(Product,id=pk)})
+			itemNames['wishlistForm'] = wishlistForm
 		product = get_object_or_404(Product,id=pk) 
 		print(pk)
-		wishlistForm = wishlistItemForm(initial={'productID': get_object_or_404(Product,id=pk)})
+		
 
-		itemNames['wishlistForm'] = wishlistForm
+		
 		return render(request, "productdetailpage.html", itemNames)
 
 
@@ -638,6 +648,8 @@ class BasketView(View):
 			'total' : total,
 			'numitems' : numitems
 		}
+
+		
 
 
 		#viewing the basket
