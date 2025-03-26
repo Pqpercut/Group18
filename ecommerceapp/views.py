@@ -19,7 +19,9 @@ from .mixins import GroupRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-import datetime
+import os
+from apscheduler.schedulers.blocking import BlockingScheduler
+from atproto import Clientimport datetime
 from django.utils import timezone
 
 
@@ -611,6 +613,7 @@ class VariantDisplayView(View):
 
 		name = product.name
 		desc = product.description
+		productid = product.id
 
 		#
 		sizes = ["S", "M", "L", "XL"] #all sizes
@@ -624,8 +627,6 @@ class VariantDisplayView(View):
 		for i in allitems:
 			sizes_map.setdefault(i.colour, []).append(i.size)
 
-		print(sizes_map)
-
 		colours_map = {}
 		for i in allitems:
 			colours_map.setdefault(i.size, []).append(i.colour)
@@ -637,7 +638,8 @@ class VariantDisplayView(View):
 			'colours': colours, 
 			'sizes': sizes, 
 			'sizes_map': sizes_map, 'colours_map' : colours_map,
-			'quantity': 1 #default
+			'quantity': 1, #default
+			'productid':productid
 		}
 
 
@@ -662,17 +664,13 @@ class VariantDisplayView(View):
 			#puts all available sizes in set
 			available_sizes = {i.size for i in allitems if i.colour == colour}
 
-			#all available colours into set
+			
 			available_colours = {i.colour for i in allitems if i.size == size}
 
-			#final validation check - checks if that size is available in that colour 
-			if (colour not in available_colours) or (size not in available_sizes):
-				print(size)
-				print(colour)
-				print("no colour and or size")
-				return render(request, "productdetailpage.html", self.pageData(product))
-			else:
-				print("yay") 
+
+		#final validation check - checks if that size is available in that colour 
+		if (colour not in available_colours) or (size not in available_sizes):
+			return render(request, "productdetailpage.html", self.pageData(product))
 
 			#sorts variantid out 
 		
@@ -692,15 +690,13 @@ class VariantDisplayView(View):
 			basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
 
 
-			if basketitem: 
-			#inc quantity of thing in basket
-				#print("added", quantity, "to EXISTING")
-				basketitem.quantity += quantity
+		if basketitem: 
+		#inc quantity of thing in basket
+			basketitem.quantity += quantity
 
-			else: 
-			#create new basketitem entry
-				#print("added", quantity, "to NEW")
-				BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
+		else: 
+		#create new basketitem entry
+			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
 			
 			return redirect('basket')
 				
@@ -814,7 +810,6 @@ class BasketView(View):
 			variant = ProductVariant.objects.get(id=i.variantID.id)
 			total += (variant.price * i.quantity)
 			numitems += (1 * i.quantity)
-		#print(total)
 
 		itemNames = {
 			'basket' : allitems,
@@ -851,16 +846,13 @@ class BasketView(View):
 		btn = request.POST.get("remove_btn")
 		if basketitem:
 			if btn == "add_one":
-				print("quantitiy changed")
 				basketitem.quantity += 1
 				basketitem.save()
 
 			elif btn == "rem_all" or basketitem.quantity == 1:
-				print("removed")
 				basketitem.delete()
 			
 			else:
-				print("quantitiy changed")
 				basketitem.quantity -= 1
 				basketitem.save()
 
@@ -874,12 +866,8 @@ class BasketView(View):
 def basketRem(request):
 #written by Sakina Khaki
 	if request.method == "POST":
-		#print("beep")
 		#get basketid
 		basketid = Basket.objects.get(userID=request.user).id
-
-		#for testing
-		#basketid = Basket.objects.get(userID=1)
 
 		variantid = request.POST.get("variantid")
 		variant = ProductVariant.objects.get(id=variantid)
@@ -898,61 +886,84 @@ def basketRem(request):
 		btn = request.POST.get("remove_btn")
 		if basketitem:
 			if btn == "add_one":
-				print("quantitiy changed")
 				basketitem.quantity += 1
 				basketitem.save()
 
 			elif btn == "rem_all" or basketitem.quantity == 1:
-				print("removed")
 				basketitem.delete()
 			
 			else:
-				print("quantitiy changed")
 				basketitem.quantity -= 1
 				basketitem.save()
 
 
-	return(viewBasket(request))
+	return redirect("basket")
 
 
-@permission_required('ecommerceapp.Customer')
-#veiw basket
-def viewBasket(request):
-#written by Sakina Khaki
-	#print("beep") 
-
-	#get basketid
-	basketid = Basket.objects.get(userID=request.user).id
-
-	#for testing if right basket loaded
-	#admin acc id = 1
-	assert basketid == 1, "basket is wrong! id="+str(basketid)
-
-	allitems = BasketItem.objects.filter(basketID=basketid)
-
-	total = 0
-	numitems = 0
-	for i in allitems:
-		variant = ProductVariant.objects.get(id=i.variantID.id)
-		total += (variant.price * i.quantity)
-		numitems += (1 * i.quantity)
-	#print(total)
-
-	itemNames = {
-		'basket' : allitems,
-		'total' : total,
-		'numitems' : numitems
-	}
 
 
-	#viewing the basket
-	return render(request, "basket.html", itemNames)
+
+'''
+	for bluesky posting
+	
+	posts 
+	- name
+	- description
+	- link to variant page 
+	
+	click button in inventory management product 
+'''
+def bluesky_post(request):
+
+	if request.method == "POST":
+		#create a client
+		client = Client("https://bsky.social")
+
+		#log in to bluesky hatsforcats
+		client.login('noreply.hatsforcats@gmail.com', 'group18pass')
+		
+
+		#productid from post request
+		productid = request.POST.get("productid")
+
+		name = Product.objects.get(id=productid).name
+		desc = Product.objects.get(id=productid).description
+		variant = ProductVariant.objects.filter(productID=productid).first() 
+		
+
+		#grab url
+		url = request.build_absolute_uri(reverse("variantDisplay", kwargs={"pk": productid}))
+
+		#content to post 
+			#has to be generated here because converted to bytes and is after url declaration 
+		content = f"Check out our product: {name}. \nDescription: {desc} \n{url}"
 
 
-# @permission_required('ecommerceapp.Customer')
-# #checkout
-# def checkout(request):
-#   return render(request, "admin/temp_basket/tempCheckout.html")
+		#encode content to bytes - makes sure that start n end of url is detected properly
+		content_bytes = content.encode("utf-8")
+		url_bytes = url.encode("utf-8")
+
+		#get url start n end
+		byte_start = content_bytes.find(url_bytes)
+		byte_end = byte_start + len(url_bytes)
+
+		facets = [
+			{
+				"index": {"byteStart": byte_start, "byteEnd": byte_end},
+				"features": [{"$type": "app.bsky.richtext.facet#link", "uri": url}]
+			}
+		]
+
+
+		client.post(content, facets=facets) #post the content
+
+		
+	return redirect("inventory-management/products/")
+
+	
+
+
+
 
 class CustomPasswordResetView(PasswordResetView):
 	form_class = CustomPasswordResetForm

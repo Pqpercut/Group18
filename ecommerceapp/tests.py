@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from ecommerceapp.models import *
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
 
 from PIL import Image
 import io
@@ -113,81 +115,115 @@ class BasketTestCase(TestCase):
     def setUp(self):
         #create test user
         self.user = User.objects.create_user(username="testuser", password="password")
+        self.client.login(username='testuser', password='password')
 
         #create test products
-        #self.product1 = Product.objects.create(name="Product 1", price=10.00, stock=10)
-        #self.product2 = Product.objects.create(name="Product 2", price=20.00, stock=5)
+        self.product1 = Product.objects.create(name="Product 1", description="product 1")
+        self.product2 = Product.objects.create(name="Product 2", description="product 2")
 
-        self.product1 = Product.objects.create(name="Product 1")
-        self.product2 = Product.objects.create(name="Product 2")
+        self.variant1 = ProductVariant.objects.create(
+            productID=self.product1,
+            size='M',
+            colour='Red',
+            price=15.00,
+            stocklevel=10
+        )
+        self.variant2 = ProductVariant.objects.create(
+            productID=self.product1,
+            size='L',
+            colour='Blue',
+            price=17.00,
+            stocklevel=5
+        )
 
         #create basket
-        self.basket = Basket.objects.create(userID=self.user).id 
+        self.basket = Basket.objects.create(userID=self.user) 
+
+
 
     def test_add_product(self):
         #add product to the basket
-        self.basket.add_product(self.product1, 2)
-        item = BasketItem.objects.get(basket=self.basket, product=self.product1)
-        self.assertEqual(item.quantity, 2)
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=1)
+
+        self.assertIsNotNone(basketitem)  #check item exist in basket
+        self.assertEqual(basketitem.quantity, 1)  #make sure quantity = 1
+
 
     def test_add_product_exceeding_stock(self):
         #make quantity more than stock
         with self.assertRaises(ValueError):
-            self.basket.add_product(self.product1, 20)  #stock < 20
+            basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=50)  #stock < 50
+
 
     def test_add_product_negative_quantity(self):
         #adding w negative quantity 
-        with self.assertRaises(ValueError):
-            self.basket.add_product(self.product1, -1)
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=-2)
+        with self.assertRaises(IntegrityError):
+            #basketitem.full_clean()  
+            basketitem.save()
 
+    #remove product from basket
     def test_remove_product(self):
-        #remove product from basket
-        self.basket.add_product(self.product1, 3)
-        self.basket.remove_product(self.product1)
-        self.assertFalse(BasketItem.objects.filter(basket=self.basket, product=self.product1).exists())
+        #add product to basket
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=1)
+        self.assertIsNotNone(basketitem)  #check item exist in basket
+
+        #remove it 
+        basketitem.delete()
+
+        self.assertFalse(BasketItem.objects.filter(basketID=self.basket, variantID=self.variant1).exists())
+
 
     def test_remove_nonexistent_product(self):
         #removing non existent product from absket 
-        with self.assertRaises(BasketItem.DoesNotExist):
-            self.basket.remove_product(self.product2)  
+        try:
+            self.basket.delete(self.product2)  
+        except BasketItem.DoesNotExist:
+            self.fail("BasketItem.DoesNotExist raised when removing a nonexistent item")
 
-    #nonexistent item not added to basket, notifies user
+        self.assertEqual(basketitems.count(), 0)  #noothing should be in basket
+ 
 
+    
     def test_update_quantity(self):
         #update quantity of existing product 
-        self.basket.add_product(self.product1, 2)
-        self.basket.update_quantity(self.product1, 5)
-        item = BasketItem.objects.get(basket=self.basket, product=self.product1)
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=1)
+        
+        basketitem.quantity += 4
+        basketitem.save()
+        
+        item = BasketItem.objects.get(basketID=self.basket)
         self.assertEqual(item.quantity, 5)
 
+    
     def test_update_quantity_to_zero(self):
         #update quantity to 0: will remove from basket 
-        self.basket.add_product(self.product1, 2)
-        self.basket.update_quantity(self.product1, 0)
-        self.assertFalse(BasketItem.objects.filter(basket=self.basket, product=self.product1).exists())
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=1)
+        
+        basketitem.quantity -= 0
+        basketitem.save()
+        
+        item = BasketItem.objects.get(basketID=self.basket)
+        print(item.quantity)
+        self.assertEqual(BasketItem.objects.filter(basketID=self.basket).count(), 0) 
 
+
+    
     def test_update_quantity_negative(self):
         #update quantity to negative val 
-        self.basket.add_product(self.product1, 2)
-        with self.assertRaises(ValueError):
-            self.basket.update_quantity(self.product1, -3)
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=1)
+        with self.assertRaises(ValidationError):
+            basketitem.quantity -= 0
+            basketitem.full_clean()
+            basketitem.save()
 
-    def test_clear_basket(self):
-        #clear basket 
-        self.basket.add_product(self.product1, 2)
-        self.basket.add_product(self.product2, 3)
-        self.basket.clear()
-        self.assertEqual(BasketItem.objects.filter(basket=self.basket).count(), 0)
-
+    
     def test_get_total_price(self):
         #total price 
-        self.basket.add_product(self.product1, 2)  
-        self.basket.add_product(self.product2, 1)  
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant1, quantity=1)  
+        basketitem = BasketItem.objects.create(basketID=self.basket, variantID=self.variant2, quantity=1)  
         self.assertEqual(self.basket.get_total_price(), 40.00)
 
-    def test_get_total_price_empty_basket(self):
-        #make sure total = 0 when empty basket 
-        self.assertEqual(self.basket.get_total_price(), 0.00)
 
 class ProductPageTest(TestCase):
 

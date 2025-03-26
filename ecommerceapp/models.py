@@ -152,3 +152,4 @@ class Discount (models.Model):
             new_amount = original_amount - discount_amount
         # Ensure that the new amount is never negative.
         return max(new_amount, 0)
+
