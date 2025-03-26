@@ -27,9 +27,7 @@
                             <tr onclick="window.location.href='{% url 'IMS - Order Detail' order.id %}';" style="cursor:pointer;">
                                 <td>#{{ order.id }}</td>
                                 <td>
-                                    {% for orderitem in order.orderitem.all  %}
-                                        {{ orderitem }}, 
-                                    {% endfor %}
+                                    {{ order.orderitem.all|length }}
                                 </td>
                                 <td>{{ order.orderDate }}</td>
                                 <td>£{{ order.totalAmount }}</td>
