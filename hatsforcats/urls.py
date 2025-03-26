@@ -90,16 +90,16 @@ urlpatterns = [
     path("tempBasket.html", basketRem, name="basketRem"),
     path("", productDisplay, name="productDisplay"),
     path("product/<int:pk>", VariantDisplayView.as_view(), name="variantDisplay"),
-    path("bluesky_post", bluesky_post, name='bluesky_post')
+    path("bluesky_post", bluesky_post, name='bluesky_post'),
 
     #ADAM
-     path('user/<int:pk>', UserProfileView.as_view(), name='user home'),
-     path('user/orders', UserProfileOrdersView.as_view(), name='user orders'),
-     path('user/orders/<int:pk>', UserProfileOrderDetailView.as_view(), name='user orders detail'),
-     path('user/address', UserProfileAddressView.as_view(), name='user addresses'),
-     path('user/address/<int:pk>/update', UserProfileAddressUpdateView.as_view(), name='user addresses update'),
-     path('user/address/create', UserProfileAddressCreateView.as_view(), name='user addresses create'),
-     path('user/address/<int:pk>/delete', UserAddressDeleteView.as_view(), name='user addresses delete'),
+    path('user/<int:pk>', UserProfileView.as_view(), name='user home'),
+    path('user/orders', UserProfileOrdersView.as_view(), name='user orders'),
+    path('user/orders/<int:pk>', UserProfileOrderDetailView.as_view(), name='user orders detail'),
+    path('user/address', UserProfileAddressView.as_view(), name='user addresses'),
+    path('user/address/<int:pk>/update', UserProfileAddressUpdateView.as_view(), name='user addresses update'),
+    path('user/address/create', UserProfileAddressCreateView.as_view(), name='user addresses create'),
+    path('user/address/<int:pk>/delete', UserAddressDeleteView.as_view(), name='user addresses delete'),
 
 
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),

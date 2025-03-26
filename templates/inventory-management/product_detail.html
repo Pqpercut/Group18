@@ -72,8 +72,14 @@
         </table>
         <div class="button-container">
             <a href="{% url 'IMS - Product List' %}"><button class="back-button">Back to List</button></a>
-            <a href="{% url 'IMS - Product Variant Create' product.id %}"><input type="submit" value="Add Variant"></a>              
+            <a href="{% url 'IMS - Product Variant Create' product.id %}"><input type="submit" value="Add Variant"></a>       
+            <form method="POST" id="blueskyform" action="{% url 'bluesky_post' %}">
+                {% csrf_token %}
+                <input type="hidden" name="productid" value="{{ product.id }}">
+                <button class="back-button" type="submit" id="blueskybtn">Post to Bluesky</button>
+            </form>       
         </div>
+        
 {% endblock %}
 
 <!-- <h1></h1>
@@ -127,11 +133,7 @@
     <a href="{% url 'IMS - Product List' %}">Back to List</a>
 
     <!-- for bluesky api testing...TAKE OUT AFTER -->
-    <form method="POST" id="blueskyform" action="{% url 'bluesky_post' %}">
-        {% csrf_token %}
-        <input type="hidden" name="productid" value="{{ product.id }}">
-        <button type="submit" id="blueskybtn">Post to Bluesky</button>
-    </form>
+    
     <!-- end -->
 
 </body>

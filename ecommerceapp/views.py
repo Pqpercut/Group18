@@ -21,7 +21,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 import os
 from apscheduler.schedulers.blocking import BlockingScheduler
-from atproto import Clientimport datetime
+from atproto import Client
+import datetime
 from django.utils import timezone
 
 
@@ -613,7 +614,6 @@ class VariantDisplayView(View):
 
 		name = product.name
 		desc = product.description
-		productid = product.id
 
 		#
 		sizes = ["S", "M", "L", "XL"] #all sizes
@@ -627,6 +627,8 @@ class VariantDisplayView(View):
 		for i in allitems:
 			sizes_map.setdefault(i.colour, []).append(i.size)
 
+		print(sizes_map)
+
 		colours_map = {}
 		for i in allitems:
 			colours_map.setdefault(i.size, []).append(i.colour)
@@ -638,8 +640,7 @@ class VariantDisplayView(View):
 			'colours': colours, 
 			'sizes': sizes, 
 			'sizes_map': sizes_map, 'colours_map' : colours_map,
-			'quantity': 1, #default
-			'productid':productid
+			'quantity': 1 #default
 		}
 
 
@@ -664,13 +665,17 @@ class VariantDisplayView(View):
 			#puts all available sizes in set
 			available_sizes = {i.size for i in allitems if i.colour == colour}
 
-			
+			#all available colours into set
 			available_colours = {i.colour for i in allitems if i.size == size}
 
-
-		#final validation check - checks if that size is available in that colour 
-		if (colour not in available_colours) or (size not in available_sizes):
-			return render(request, "productdetailpage.html", self.pageData(product))
+			#final validation check - checks if that size is available in that colour 
+			if (colour not in available_colours) or (size not in available_sizes):
+				print(size)
+				print(colour)
+				print("no colour and or size")
+				return render(request, "productdetailpage.html", self.pageData(product))
+			else:
+				print("yay") 
 
 			#sorts variantid out 
 		
@@ -690,13 +695,15 @@ class VariantDisplayView(View):
 			basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
 
 
-		if basketitem: 
-		#inc quantity of thing in basket
-			basketitem.quantity += quantity
+			if basketitem: 
+			#inc quantity of thing in basket
+				#print("added", quantity, "to EXISTING")
+				basketitem.quantity += quantity
 
-		else: 
-		#create new basketitem entry
-			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
+			else: 
+			#create new basketitem entry
+				#print("added", quantity, "to NEW")
+				BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
 			
 			return redirect('basket')
 				
@@ -791,6 +798,7 @@ class VariantDisplayView(View):
 
 		
 		return render(request, "productdetailpage.html", itemNames)
+
 
 
 class BasketView(View):
