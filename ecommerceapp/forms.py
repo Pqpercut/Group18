@@ -147,13 +147,10 @@ class DiscountForm(forms.ModelForm):
         fields = ['code', 'discount_type', 'discount_value', 'expiry_date']
         widgets = {
             'expiry_date': forms.DateInput(attrs={'type': 'date'}),
-
+        }
 class WishlistItemForm(forms.ModelForm):
     class Meta:
         model = WishlistItem
         fields = ['productID']
-        widgets ={
-            'productID':forms.HiddenInput(),
-            'wishlistID': forms.HiddenInput()
-            
-        }
+        widgets ={'productID':forms.HiddenInput(),
+            'wishlistID': forms.HiddenInput()}

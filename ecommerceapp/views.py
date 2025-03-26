@@ -319,6 +319,17 @@ class CatalogueViewClass(ListView):
 			style = ""			
 		context = super().get_context_data(**kwargs)
 		context['productClass'] = style
+
+		if  self.request.user.is_authenticated:
+			userBasket = Basket.objects.all().filter(userID = self.request.user).first()
+			basket = BasketItem.objects.all().filter(basketID = userBasket)
+			context['basket'] = basket
+			price = 0
+			for basketItem in basket:
+				price += basketItem.variantID.price 
+			
+			context['totalSum'] = price
+			
 		return context
 
 
@@ -353,7 +364,7 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 	
 	
 
-class WishlistView(TemplateView):
+class WishlistView(LoginRequiredMixin, TemplateView):
 	
 	template_name = "wishlist.html"
 	def get_context_data(self, **kwargs):
@@ -653,7 +664,7 @@ class VariantDisplayView(View):
 				
 		elif "wishlistSubmit" in request.POST:
 			if request.user.is_authenticated:
-				wishForm = wishlistItemForm(request.POST)
+				wishForm = WishlistItemForm(request.POST)
 				selectedList = request.POST['wishlistVal']
 
 			
@@ -722,7 +733,7 @@ class VariantDisplayView(View):
 			wishLists = Wishlists.objects.all().filter(userID = self.request.user)
 		
 			itemNames['wishLists']= wishLists
-			wishlistForm = wishlistItemForm(initial={'productID': get_object_or_404(Product,id=pk)})
+			wishlistForm = WishlistItemForm(initial={'productID': get_object_or_404(Product,id=pk)})
 			itemNames['wishlistForm'] = wishlistForm
 		product = get_object_or_404(Product,id=pk) 
 		print(pk)
@@ -732,7 +743,7 @@ class VariantDisplayView(View):
 		return render(request, "productdetailpage.html", itemNames)
 
 
-class BasketView(View):
+class BasketView(LoginRequiredMixin, View):
 
 	#get basket id
 	def getBasket(self, user):
@@ -740,16 +751,19 @@ class BasketView(View):
 
 	#veiw basket; calc total price, num items 
 	def get(self, request):
-		basket = self.getBasket(request.user)
-		allitems = BasketItem.objects.filter(basketID=basket)
 
-		total = 0
-		numitems = 0
-		for i in allitems:
-			variant = ProductVariant.objects.get(id=i.variantID.id)
-			total += (variant.price * i.quantity)
-			numitems += (1 * i.quantity)
-		#print(total)
+		if  request.user.is_authenticated:
+			
+			basket = self.getBasket(request.user)
+			allitems = BasketItem.objects.filter(basketID=basket)
+
+			total = 0
+			numitems = 0
+			for i in allitems:
+				variant = ProductVariant.objects.get(id=i.variantID.id)
+				total += (variant.price * i.quantity)
+				numitems += (1 * i.quantity)
+	
 
 		itemNames = {
 			'basket' : allitems,
