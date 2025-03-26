@@ -109,9 +109,15 @@ class ContactTable(models.Model):
 
 
 class Wishlists (models.Model):
-# Model created by: Adam    
+# Model created by: Qasim    
     userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'wishList')
     name = models.CharField(max_length=50, default="Wishlist #")
+
+class WishlistItem(models.Model):
+    #Model made by Qasim
+    wishlistID = models.ForeignKey(Wishlists, on_delete=models.CASCADE, related_name='wishListID')
+    productID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name = 'wishlist') 
+    
     
     
 class Discount (models.Model):

@@ -82,7 +82,9 @@ urlpatterns = [
     path("catalogue",CatalogueViewClass.as_view(), name = "Catalogue"),
     path("contact-page", ContactPageView, name="Contact-Page"),
     path("Contact-Queries", ContactQueryView, name="Contact Queries"),
-    path("CreateReview", CreateReviewClass.as_view(), name= "Reviews"),
+    path("CreateReview/<int:pk>/", CreateReviewClass.as_view(), name= "Reviews"),
+    path("Wishlist/", WishlistView.as_view(),name="Wishlist"),
+    path("Wishlist/<int:pk>/", WishlistView.as_view(),name="Wishlist"),
 
 
     path("tempBasket.html", basketRem, name="basketRem"),
