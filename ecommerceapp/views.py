@@ -18,9 +18,7 @@ from django.core.mail import send_mail
 from .mixins import GroupRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import View
-import datetime
-from django.utils import timezone
+from django.views import View 
 
 
 # INVENTORY MANAGEMENT SYSTEM 
@@ -268,7 +266,7 @@ class DiscountUpdateView(GroupRequiredMixin, UpdateView):
 #MAIN WEBPAGE ##########################################################################################################
 
 class CatalogueViewClass(ListView):
-	##Catalogue page
+	
 	context_object_name = "ProductList"
 	template_name = "product_catalogue.html"
 	
@@ -302,7 +300,7 @@ class CatalogueViewClass(ListView):
 			queryset = queryset.filter(categories__categories__in = self.filterValue)
 
 		##Input Order values 
-		queryset = queryset.order_by(self.orderValue).distinct()
+		queryset = queryset.order_by(self.orderValue)
 		##Search value
 		if self.searchValue != '': ### Only filter for search value if a search value exists
 			queryset = queryset.filter(name__icontains=self.searchValue)
@@ -328,6 +326,7 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 	model = Review
 	form_class = ReviewForm
 	template_name = "CreateReviewPage.html"
+	success_url = reverse_lazy('Catalogue')
 
 
 
@@ -338,120 +337,21 @@ class CreateReviewClass(LoginRequiredMixin, CreateView):
 		user = self.request.user
 		form.instance.userID = user
 
-		
-		product = get_object_or_404(Product,id=self.kwargs['pk'])
+		productID = self.request.POST.get('prod-id')
+		product = get_object_or_404(Product,id=productID)
 		form.instance.productID = product
 
 
 		messages.success(self.request, "Your review has been added successfully!")
 		return super().form_valid(form)
-		
-	
-	def get_success_url(self):
-
-	    return reverse_lazy('variantDisplay', kwargs={'pk': self.kwargs['pk']})
-	
 	
 
-class WishlistView(TemplateView):
-	
-	template_name = "wishlist.html"
-	def get_context_data(self, **kwargs):
-
-		key = kwargs.get('pk')
-	
-		context =  super().get_context_data(**kwargs) 	
-		
-		wishLists = Wishlists.objects.all().filter(userID = self.request.user)
-
-		
-		if(key):
-			mainList = Wishlists.objects.all().filter(id = key).first()
-			context['keyIndex'] = key
-		else:
-			mainList = wishLists.first()
-		
-		if (wishLists):
-			context['wishlists'] = wishLists
-
-
-		if (mainList):
-			wishListItems = WishlistItem.objects.all().filter(wishlistID = mainList)
-
-			context['itemsList'] = wishListItems
-			
-		else:
-			return context
-
-		return context
-	
-
-	def post(self, request, *args,**kwargs):
-		key = kwargs.get('pk')
-
-		if(not key):
-			list = Wishlists.objects.all().first()
-			key = list.id
-
-	
-
-		
-		
-		
-		if "removePOST" in request.POST:
-			removeID = request.POST.get('removeID')
-			
-			if removeID:
-				
-				itemToRemove = WishlistItem.objects.filter(productID = removeID, wishlistID = key).first()
-				itemToRemove.delete()
-		elif "editWishlist" in request.POST:
-			editValue= request.POST.get('editWishlistValue')
-			print(editValue)
-
-			if editValue:
-				print("running edit")
-				currentList = Wishlists.objects.all().filter(id=key).first()
-				currentList.name = editValue
-				currentList.save()
-				print("complete")
-		
-		elif "removeWishlist" in request.POST:
-			lists = Wishlists.objects.all().filter(userID = request.user.id)
-			list = lists.first()
-			if len(lists) >  1:
-			
-				list = Wishlists.objects.all().filter(id= key)
-				list.delete()
-				list = Wishlists.objects.all().first()
-				
-				return redirect('Wishlist', pk=list.id)
-			else:
-				messages.error(request,"You cannot remove a wishlist when you only have 1 left")
-				
-		elif "newWishlist" in request.POST:
-			
-			newName = request.POST.get('newWishlistNameValue')
-			if (not newName):
-				
-				Orderedlist = Wishlists.objects.all().filter(userID= request.user)
-				
-				newName = "Wishlist #" + str(len(Orderedlist)+1)
-				
-			list = Wishlists(userID = request.user,name = newName)
-			list.save()
-			print(list.name)
-
-			
-
-
-				
-			
-		return redirect('Wishlist', pk=key)
-
+class WishlistView(ListView):
 	
 	
-		
+	context_object_name = "wishlist_Table"
+	##template_name = "product_catalogue.html"
+
 	
 	
 
@@ -522,7 +422,14 @@ def ContactPageView(request, *args, **kwargs):
 
 
 
+##def ContactPageViewClass(FormView):
+	###TBC (Incomplete)
 
+@user_passes_test("ecommerceapp.Admin") 
+def ContactQueryView(request,*args,**kwargs):
+	queries = ContactTable.objects.all() 
+	context = {"queryTable": queries}
+	return render(request,'general-pages/ViewContactQuery.html', context)
 
 
 #display products
@@ -540,10 +447,9 @@ def productDisplay(request):
 #display product varients
 class VariantDisplayView(View):
 #written by Sakina Khaki
-	model = Product
+	
 	#get product by id
 	def getObj(self, pk):
-
 		return Product.objects.get(id = pk)
 
 	'''
@@ -596,139 +502,74 @@ class VariantDisplayView(View):
 			if unavailable, return page reload
 	'''
 	def post(self, request, pk):
-		if ("add_button" in request.POST):
-			print("ADDING BASKET")
-			product = self.getObj(pk)
-			allitems = ProductVariant.objects.filter(productID=product)
+		product = self.getObj(pk)
+		allitems = ProductVariant.objects.filter(productID=product)
 
-			#get from post request
-			quantity = int(request.POST.get("quantity"))
-			colour = request.POST.get("colour")
-			size = request.POST.get("size")
+		#get from post request
+		quantity = int(request.POST.get("quantity"))
+		colour = request.POST.get("colour")
+		size = request.POST.get("size")
 
-			#puts all available sizes in set
-			available_sizes = {i.size for i in allitems if i.colour == colour}
+		#puts all available sizes in set
+		available_sizes = {i.size for i in allitems if i.colour == colour}
 
-			#all available colours into set
-			available_colours = {i.colour for i in allitems if i.size == size}
 
-			#final validation check - checks if that size is available in that colour 
-			if (colour not in available_colours) or (size not in available_sizes):
-				print(size)
-				print(colour)
-				print("no colour and or size")
-				return render(request, "productdetailpage.html", self.pageData(product))
-			else:
-				print("yay") 
+		#all available colours into set
+		available_colours = {i.colour for i in allitems if i.size == size}
 
-			#sorts variantid out 
+
+		#final validation check - checks if that size is available in that colour 
+		if (colour not in available_colours) or (size not in available_sizes):
+			print(size)
+			print(colour)
+			print("no colour and or size")
+			return render(request, "productdetailpage.html", self.pageData(product))
+		else:
+			print("yay") 
+
+		#sorts variantid out 
 		
-			variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
-			variant = ProductVariant.objects.get(productID=product, id=variantid)
+		variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
+		variant = ProductVariant.objects.get(productID=product, id=variantid)
 
-			#get basketid
-			basket = Basket.objects.get(userID=request.user)
-			
-			'''
-				add to basket 
-				check if existing or new item
-				return redirect to basket
-			'''
-
-			#check if user has ordered item before already
-			basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
-
-
-			if basketitem: 
-			#inc quantity of thing in basket
-				#print("added", quantity, "to EXISTING")
-				basketitem.quantity += quantity
-
-			else: 
-			#create new basketitem entry
-				#print("added", quantity, "to NEW")
-				BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
-			
-			return redirect('basket')
-				
-		elif "wishlistSubmit" in request.POST:
-			if request.user.is_authenticated:
-				wishForm = wishlistItemForm(request.POST)
-				selectedList = request.POST['wishlistVal']
-
-			
-   				
-				wishlist = Wishlists.objects.filter(name=selectedList).first()
-				
-				
-				if not wishlist:
-					print("No wishlist found with name:", selectedList)
-					return HttpResponseRedirect(request.path_info)
-					
-					
-				wishForm.instance.wishlistID = wishlist
-				if wishForm.is_valid():
-					wishForm.save()
-					print("win")
-					return redirect('Wishlist') 
-
-				
-				return HttpResponseRedirect(request.path_info)
-			else:	
-				
-				return redirect('login')
-
-			
-			
+		#get basketid
+		basket = Basket.objects.get(userID=request.user)
 		
+		#basketid for testing
+		#basket = Basket.objects.get(userID=1)
+		#basketid = basket.id
+
+
+		'''
+			add to basket 
+			check if existing or new item
+			return redirect to basket
+		'''
+
+		#check if user has ordered item before already
+		basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
+
+
+		if basketitem: 
+		#inc quantity of thing in basket
+			#print("added", quantity, "to EXISTING")
+			basketitem.quantity += quantity
+
+		else: 
+		#create new basketitem entry
+			#print("added", quantity, "to NEW")
+			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
 			
-	
+			
+		return redirect('basket')
+
+
+
+
 	#display product variant page 
 	def get(self, request, pk):
 		prod = self.getObj(pk)
 		itemNames = self.pageData(prod)
-
-		##Reviews
-		query = Review.objects.filter(productID=prod)
-		
-		value = request.GET.get("order","-reviewDate")
-		query = query.order_by(value)
-
-		itemNames['ReviewQuery']= query
-		itemNames['theKey'] = pk
-		itemNames['totalRating'] = len(query)
-
-		mean = 0
-		startDate = timezone.now()- datetime.timedelta(days=30) ##Get 30 days ago
-		lastMonth = 0
-
-		if (len(query) > 0):
-			for review in query:
-				mean += review.rating
-				if review.reviewDate > startDate: ##check if reviewDate is past the 30 day mark from 30 days ago
-					lastMonth += 1
-
-			mean = mean / len(query)
-		
-		itemNames['averageRating'] = mean
-		itemNames['lastMonth'] = lastMonth
-
-
-		### Wishlist button
-		
-
-		if  request.user.is_authenticated:
-   				
-			wishLists = Wishlists.objects.all().filter(userID = self.request.user)
-		
-			itemNames['wishLists']= wishLists
-			wishlistForm = wishlistItemForm(initial={'productID': get_object_or_404(Product,id=pk)})
-			itemNames['wishlistForm'] = wishlistForm
-		product = get_object_or_404(Product,id=pk) 
-		print(pk)
-		
-
-		
 		return render(request, "productdetailpage.html", itemNames)
 
 
@@ -756,8 +597,6 @@ class BasketView(View):
 			'total' : total,
 			'numitems' : numitems
 		}
-
-		
 
 
 		#viewing the basket

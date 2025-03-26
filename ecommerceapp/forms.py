@@ -3,7 +3,6 @@ from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
-from .models import ContactTable, UserAddress,Review,WishlistItem
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, UserCreationForm
 from django import forms
 
@@ -147,13 +146,4 @@ class DiscountForm(forms.ModelForm):
         fields = ['code', 'discount_type', 'discount_value', 'expiry_date']
         widgets = {
             'expiry_date': forms.DateInput(attrs={'type': 'date'}),
-
-class WishlistItemForm(forms.ModelForm):
-    class Meta:
-        model = WishlistItem
-        fields = ['productID']
-        widgets ={
-            'productID':forms.HiddenInput(),
-            'wishlistID': forms.HiddenInput()
-            
         }

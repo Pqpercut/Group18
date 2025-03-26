@@ -1,18 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from ecommerceapp.models import *
+from ecommerceapp.models import Basket, Product, BasketItem, ProductVariant, ImagePath
 from django.core.files.uploadedfile import SimpleUploadedFile
-
-from PIL import Image
-import io
-## INSTALLL PIP BEFORE RUNNING THESE
-def create_test_image(name="test_image.jpg", format="JPEG"):
-    image = Image.new("RGB", (100, 100), color="blue")
-    img_io = io.BytesIO()
-    image.save(img_io, format)
-    img_io.seek(0)
-    return SimpleUploadedFile(name, img_io.read(), content_type=f"image/{format.lower()}")
 
 
 class variantDisplayTest(TestCase):
@@ -214,22 +204,22 @@ class ProductPageTest(TestCase):
 
         
         
-        ### Create an ImagePath for the product variants
-        self.image1 = create_test_image("test_image.jpg")
+        # Create an ImagePath for the product variants
+        self.image1 = SimpleUploadedFile("test_image.jpg", b"file_content", content_type="image/jpeg")
         self.imagepath1 = ImagePath.objects.create(productVariantID=self.variant1, imagepath=self.image1)
-
-        self.image2 = create_test_image("test_image2.jpg")
+        self.image2 = SimpleUploadedFile("test_image2.jpg", b"file_content", content_type="image/jpeg")
         self.imagepath2 = ImagePath.objects.create(productVariantID=self.variant2, imagepath=self.image2)
 
-         ##Define the URL to test the product page (replace with the correct URL)
+        # Define the URL to test the product page (replace with the correct URL)
         self.url = reverse('Catalogue')  # Replace with the actual view name for product list
     
     def test_view_all_products(self):
+        # Test that the product page loads correctly and displays products
         
         response = self.client.get(reverse('Catalogue'))
         self.assertEqual(response.status_code, 200)
         
-        #Check that both products are in the response content
+        # Check that both products are in the response content
         self.assertContains(response, f'<p class="product-name">{self.product1.name}</p>')
         self.assertContains(response, f'<p class="product-name">{self.product2.name}</p>')
         
@@ -237,12 +227,12 @@ class ProductPageTest(TestCase):
    
 
     def test_filter(self):
-        
+        # Test that the product page loads correctly and displays products
         
         
         response = self.client.get("/catalogue?selected_filters=seasonal" )
         self.assertEqual(response.status_code, 200)
-        ###Check that both products are in the response content'
+        # Check that both products are in the response content
         self.assertNotContains(response, f'<p class="product-name">{self.product1.name}</p>')
         self.assertNotContains(response, f'<p class="product-name">{self.product2.name}</p>')        
     
@@ -251,10 +241,10 @@ class ProductPageTest(TestCase):
 
 
     def test_product_images_display(self):
-      
+        # Test that the images associated with the variants are correctly displayed
         response = self.client.get(self.url)
         
-        ### Check if images are included for the variants
+        # Check if images are included for the variants
         self.assertContains(response, self.imagepath1.imagepath.url)  # URL of the image
         self.assertContains(response, self.imagepath2.imagepath.url)  # URL of the image
     
@@ -264,10 +254,10 @@ class ProductPageTest(TestCase):
 
     
     def test_product_variant_price_display(self):
-        
+        # Ensure that the price for the product variant is displayed correctly
         response = self.client.get(self.url)
         
-        ## Check the price of both product variants
+        # Check the price of both product variants
         self.assertContains(response, f"£{self.variant1.price}")
         self.assertContains(response, f"£{self.variant2.price}")
 
@@ -290,7 +280,7 @@ class ProductPageTest(TestCase):
 
         response = self.client.get("/catalogue?order=productvariant__price" )
         self.assertEqual(response.status_code, 200)
-        ## Check that both products are in the response content
+        # Check that both products are in the response content
         content = response.content.decode('utf-8') 
 
 
@@ -302,245 +292,4 @@ class ProductPageTest(TestCase):
         self.assertTrue(pos1 < pos2, "Products are not in the correct order.")
 
 
-class CataloguePageTest(TestCase):
-    def setUp(self):
-        
-        self.product1 = Product.objects.create(name="aog Top hat", description="A nice hat")
-        self.product2 = Product.objects.create(name="dog Beanie", description="Stylish blue beanie")
 
-        # Create ProductVariants for each product
-        self.variant1 = ProductVariant.objects.create(
-            productID=self.product1, 
-            size="M", 
-            colour="Blue", 
-            price=20.99, 
-            stocklevel=100
-        )
-        self.variant2 = ProductVariant.objects.create(
-            productID=self.product2, 
-            size="L", 
-            colour="Black", 
-            price=40.99, 
-            stocklevel=50
-        )
-
-        
-        
-        ###Create an ImagePath for the product variants
-        self.image1 = create_test_image("test_image.jpg")
-        self.imagepath1 = ImagePath.objects.create(productVariantID=self.variant1, imagepath=self.image1)
-
-        self.image2 = create_test_image("test_image2.jpg")
-        self.imagepath2 = ImagePath.objects.create(productVariantID=self.variant2, imagepath=self.image2)
-
-        ##### Define the URL to test the product page (replace with the correct URL)
-        self.url = reverse('Catalogue')  
-        print(self.url)
-    
-    def test_view_all_products(self):
-       
-        
-        response = self.client.get(reverse('Catalogue'))
-        self.assertEqual(response.status_code, 200)
-        
-        ##Check that both products are in the response content
-        self.assertContains(response, f'<p class="product-name">{self.product1.name}</p>')
-        self.assertContains(response, f'<p class="product-name">{self.product2.name}</p>')
-        
-
-   
-
-    def test_filter(self):
-       
-        
-        
-        response = self.client.get("/catalogue?selected_filters=seasonal" )
-        self.assertEqual(response.status_code, 200)
-         # Check that both products are in the response content
-        self.assertNotContains(response, f'<p class="product-name">{self.product1.name}</p>')
-        self.assertNotContains(response, f'<p class="product-name">{self.product2.name}</p>')        
-    
-    
-
-
-
-    def test_product_images_display(self):
-        
-        response = self.client.get(self.url)
-
-        # Check if images are included for the variants
-        self.assertContains(response, self.imagepath1.imagepath.url)  # URL of the image
-        self.assertContains(response, self.imagepath2.imagepath.url)  # URL of the image
-    
-
-
-
-
-    
-    def test_product_price_display(self):
-        
-        response = self.client.get(self.url)
-        
-        # Check the price of both products
-        self.assertContains(response, f"£{self.variant1.price}")
-        self.assertContains(response, f"£{self.variant2.price}")
-
-    def test_orderName(self):
-
-        response = self.client.get("/catalogue?order=name" )
-        self.assertEqual(response.status_code, 200)
-        ## Check that both products are in the response content
-        content = response.content.decode('utf-8') 
-
-
-        pos1 = content.find(f'<p class="product-name">{self.product1.name}</p>')
-        pos2 = content.find(f'<p class="product-name">{self.product2.name}</p>')
-
-
-        
-        self.assertTrue(pos1 < pos2, "Products are not in the correct order.")
-
-    def test_orderPrice(self):
-
-        response = self.client.get("/catalogue?order=productvariant__price" )
-        self.assertEqual(response.status_code, 200)
-        ### Check that both products are in the response content
-        content = response.content.decode('utf-8') 
-
-
-        pos1 = content.find(f"£{self.variant1.price}")
-        pos2 = content.find(f"£{self.variant2.price}")
-
-
-        
-        self.assertTrue(pos1 < pos2, "Products are not in the correct order.")
-
-class ReviewModelTest(TestCase):
-
-    def setUp(self): # create objects
-        
-        self.user = User.objects.create_user(username='testuser', password='password123')
-        self.product = Product.objects.create(name='Test Product', description= "Good product")
-
-    def test_create_review(self):
-   
-        review = Review.objects.create(
-            productID=self.product,
-            userID=self.user,
-            rating=5,
-            title='Great Product!',
-            description='I really reaaaallyyyyy liked this product. Highly recommend!'
-        )
-
-       
-        self.assertEqual(review.productID, self.product)
-        self.assertEqual(review.userID, self.user)
-        self.assertEqual(review.rating, 5)
-        self.assertEqual(review.title, 'Great Product!')
-        self.assertEqual(review.description, 'I really reaaaallyyyyy liked this product. Highly recommend!')
-        self.assertIsNotNone(review.reviewDate)
-
-    def test_rating_validation(self):
-        # Test invalid rating below 0
-        with self.assertRaises(Exception):
-            Review.objects.create(
-                productID=self.product,
-                userID=self.user,
-                rating=-1,
-                title='Invalid Rating',
-                description='This rating is below 0'
-            )
-
-        # Test invalid rating above 5
-        with self.assertRaises(Exception):
-            Review.objects.create(
-                productID=self.product,
-                userID=self.user,
-                rating=6,
-                title='Invalid Rating',
-                description='This rating is above 5'
-            )
-
-
-class ReviewIntegrationTest(TestCase):
-    
-    def setUp(self): # create objects
-        #Create user, login, product and review
-        self.user = User.objects.create_user(username='testuser', password='password123')
-        self.client.login(username='testuser', password='password123')
-        self.product = Product.objects.create(name='Test Product', description= "Good product")
-    
-        self.review = Review.objects.create(
-            productID=self.product,
-            userID=self.user,
-            rating=5,
-            title='Great Product!',
-            description='I really reaaaallyyyyy liked this product. Highly recommend!'
-        )
-
-        
-
-    def test_containsReview(self):
-                
-                
-        response = self.client.get("/product/1" )
-        self.assertEqual(response.status_code, 200)
-        #Look for description
-        self.assertContains(response, f"<p>{self.review.description}</p>")
-        
-
-        
-
-class WishlistModelUnitTest(TestCase):
-
-    def setUp(self):
-        
-        self.user = User.objects.create_user(username='testuser', password='password123')
-        self.product = Product.objects.create(name="Test Product", description="Good product")
-
-        self.wishlist = Wishlists.objects.create(userID=self.user, name="My Wishlist")
-
-    def test_create_wishlist(self):
-        # Ensure the wishlist was created successfully
-        wishlist = Wishlists.objects.get(userID=self.user)
-        self.assertEqual(wishlist.name, "My Wishlist")
-        self.assertEqual(wishlist.userID, self.user)
-
-    def test_create_wishlist_item(self):
-    ##Create a wishlist item (product added to wishlist)
-        wishlist_item = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
-        
-      
-        self.assertEqual(wishlist_item.wishlistID, self.wishlist)
-        self.assertEqual(wishlist_item.productID, self.product)
-
-    def test_wishlist_items_association(self):
-       
-        product2 = Product.objects.create(name="Test Product 2", description="Another test product")
-        product3 = Product.objects.create(name="Test Product 3", description="Yet another test product")
-        
-        wishlist_item1 = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
-        wishlist_item2 = WishlistItem.objects.create(wishlistID=self.wishlist, productID=product2)
-        wishlist_item3 = WishlistItem.objects.create(wishlistID=self.wishlist, productID=product3)
-
-        # Check if all items are correctly associated with the wishlist
-        self.assertEqual(self.wishlist.wishListID.count(), 3)  
-
-    def test_delete_wishlist(self):
-        # Create a wishlist item, delete it and assure if all items are deleted
-        wishlist_item = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
-        self.wishlist.delete()
-
-        
-
-        with self.assertRaises(WishlistItem.DoesNotExist):
-
-            WishlistItem.objects.get(id=wishlist_item.id)
-
-    def test_delete_wishlist_item(self):
-        # Create a wishlist item
-        wishlist_item = WishlistItem.objects.create(wishlistID=self.wishlist, productID=self.product)
-        wishlist_item.delete()
-
-        with self.assertRaises(WishlistItem.DoesNotExist):
-            WishlistItem.objects.get(id=wishlist_item.id)
