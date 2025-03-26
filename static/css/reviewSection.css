@@ -1,0 +1,111 @@
+
+
+
+.ReviewContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center; /* Center all text by default */
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.totalRating{
+    border-right: 1px solid #ccc;
+    padding-right: 45px;
+}
+.ReviewTitle{
+    display: flex;
+    justify-content: center;
+    gap:50px;
+    color: black;
+    
+}
+.stats {
+    display: flex;
+    justify-content: center;
+    gap:50px;
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+
+.review-btns{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content horizontally */
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%; /* Ensure full width */
+    flex-wrap: nowrap; /* Prevents items from pushing reviews to the side */
+
+            
+}
+
+
+.review-btn {
+    background-color: var(--cart-background);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap ;
+    
+}
+
+
+.review-btns form {
+    display: flex;
+    align-items: center;
+}
+
+.review-btns select {
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+
+.review-list {
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+    margin:auto;
+    text-align: left;
+    
+    
+}
+
+.review {
+
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc; 
+    width: 100%;
+}
+
+.reviewDate{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+
+
+.show-more {
+    display: block;
+    margin-top: 20px;
+    color: blue;
+}

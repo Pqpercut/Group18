@@ -1,5 +1,5 @@
 
-  
+   /* THIS FORM IS FOR THE PRODUCT DETAIL PAGE , FOR THE SMALL WISHLIST PROMPT*/
   /*open button  */
   #filter-btn {
     padding: 10px 20px;
@@ -7,7 +7,27 @@
     cursor: pointer;
   }
   
+.addButtonClass{
+  background-color: #838EDA;
+  font-size: 15px;
+  font-family: 'Outfit';
+  font-weight: 700;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  width: 9000px;
+  height: 60px;
+  display: inline-block;
+  border: none;
+  color: white;
+  text-align: center;
+  border-radius: 40px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;}
 
+  .addButtonClass:hover{
+    background-color: white;
+    color:  #838EDA;
+  }
 
   /*  container */
   .sortingForm {
@@ -61,11 +81,6 @@ select {
     border-radius: 7px;
     height: 50px;
     background-color: white;
-  }
-
-  #sortBox{
-    display:flex;
-    flex-direction: row;
   }
 
 select::placeholder {
