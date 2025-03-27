@@ -83,7 +83,7 @@
     <div class="basket-header">
         <h1>Your Basket</h1> 
     </div>
-    {% if loggedIn %}
+    {% if user.is_authenticated %}
         {% if basket %}
             <div class="basket-items" id="CartItems">
                 {% for basket in basket %}
