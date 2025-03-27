@@ -1,0 +1,368 @@
+<!-- Developer: Khalid Abukar
+University ID: 230129012 -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Wishlist{% endblock %}
+
+{% block content %}
+
+<link href="{% static  'css/wishlist.css' %}" rel="stylesheet" />
+<body>
+  {% if messages %}
+
+    {% for message in messages%}
+      {% if message.level == 40 %}
+          <script>
+            alert('You cannot remove a wishlist when you only have 1 left! ≽^•⩊•^≼')
+        </script>
+      {%endif %}
+    {% endfor%}
+
+  {%endif%}
+
+
+  <div class="wishlist-container">
+    <!-- ======== LEFT SIDEBAR ======== -->
+    <aside class="wishlist-sidebar">
+      <h2>Your Wish-lists</h2>
+      <ul id="wishlistList" class="wishlist-list">
+        <!-- Default Wishlists (example) -->
+
+            
+        <h1> Lists:</h1>
+        {% if wishlists %}
+             {% for list in wishlists %}
+                {% if list.id == keyIndex %}
+                    <li><a class = "active"href={% url 'Wishlist' pk=list.id %}>{{list.name}}</a></li>
+                    
+                    
+                {% else%}
+                    <li><a href={% url 'Wishlist' pk=list.id %}>{{list.name}}</a></li>
+                    
+                    
+                    
+                {% endif %}
+
+                
+             {% endfor %}
+        {% else %}
+            <br><p>No lists found</p>
+        {% endif %}
+
+
+      </ul>
+      <button class="new-wishlist-btn" id="newWishlistBtn">New Wishlist</button>
+    </aside>
+
+
+    <!-- Modal popup for creating a new wishlist -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>New Wishlist</h2>
+
+    <form method="POST"> 
+      {% csrf_token %}
+
+    <input type="text" name="newWishlistNameValue" id="newWishlistName" placeholder="Enter new wishlist name">
+    <button name="newWishlist"id="createWishlistBtn">Create</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Popup for Edit Wishlist Name -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close edit-close">&times;</span>
+    <h2>Rename Wishlist</h2>
+    <form method="POST" >
+        {% csrf_token %}
+        <input type="text" name= "editWishlistValue" id="editWishlistName" placeholder="Enter new wishlist name">
+        <button name="editWishlist" id="saveWishlistBtn">Confirm</button>
+    </form>
+  </div>
+</div>
+
+<!-- Popup for Delete Wishlist Confirmation -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <span class="close delete-close">&times;</span>
+    <h2>Are you sure?</h2>
+    <p>Are you sure you want to delete this wishlist? </p>
+    <p>This cannot be undone. </p>
+
+    <form method="POST">
+      {% csrf_token %}
+
+       <button name="removeWishlist" id="confirmDeleteBtn">Yes, Delete</button>
+    </form>
+    <button id="cancelDeleteBtn">Cancel</button>
+  </div>
+</div>
+
+
+    <!-- ======== MAIN CONTENT (Wishlist #1 by default) ======== -->
+    <section class="wishlist-details">
+      <div class="wishlist-header">
+        <h2 id="wishlistTitle">Your Wish-list</h2>
+        <div class="wishlist-actions">
+          <a href={% url 'Catalogue'%} id="newItemLink">NEW</a> |
+          <a href="#" id="editWishlistLink">EDIT</a> |
+          <a href="#" id="deleteWishlistLink">DELETE</a>
+        </div>
+        </div>
+
+      <!-- SAMPLE WISHLIST ITEMS -->
+   <div id="productContainer">
+    <!-- Placeholder message when there are no products -->
+
+
+    
+
+
+    {% if itemsList %}
+        {% for item in itemsList %}
+            
+
+
+            <div class="wishlist-item">
+                    <!-- Left columns (image & product info) -->
+                    <div class="product-image">
+                        <img src= "{{item.productID.productvariant.first.imagepath.first.imagepath.url}}" class="product-image"/>
+                    </div>
+                    <div class="product-info">
+                    <h3>{{item.productID.name}}</h3>
+                    <p># Product No.{{forloop.counter}}</p>
+                    {%if item.productID.productvariant.first.stocklevel > 0 %}
+                        <p class="product-status in-stock">In-Stock!</p>
+                    
+                    {% else %}
+                       <p class="product-status out-of-stock">Out of Stock!</p>
+                    {% endif %}
+                    
+            </div>
+
+                
+                    <!-- Right column: price + discount above, buttons below -->
+                    <div class="product-actions">
+                    <div class="product-price">
+                        <span class="new-price">£{{item.productID.productvariant.first.price}} </span>
+                        
+                    
+                    </div>
+                    <div class="product-buttons">
+                        <form method="POST" >
+                            {% csrf_token %}
+                        <button name="removePOST" type=submit class="remove-btn">REMOVE</button>
+                        <input type="hidden" name="removeID" value="{{item.productID.id}}">
+                        </form>
+
+                        
+                        <a href="/product/{{item.productID.id}}"><button class="cart-btn">ADD TO CART</button></a>
+                    </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            
+        {% endfor %}
+    {% else %}
+         <p id="emptyMessage">Your wishlist is empty. Add some products!</p>
+    {% endif %}
+
+    
+    
+      
+    </section>
+  </div>
+
+  <script>
+        /**********************
+    Developer: Khalid Abukar
+    University ID: 230129012
+    **********************/
+
+    // references to relevant elements
+    const wishlistList = document.getElementById('wishlistList');
+    const newWishlistBtn = document.getElementById('newWishlistBtn');
+    const wishlistTitle = document.getElementById('wishlistTitle');
+
+    // Modal elements
+    const modal = document.getElementById('modal');
+    const closeModal = document.querySelector('.close');
+    const createWishlistBtn = document.getElementById('createWishlistBtn');
+    const newWishlistNameInput = document.getElementById('newWishlistName');
+    // NEW ITEM LINK reference (for the header "NEW" link)
+    const newItemLink = document.getElementById('newItemLink');
+
+    // references for the Edit Wishlist functionality
+    const editWishlistLink = document.getElementById('editWishlistLink');
+    const editModal = document.getElementById('editModal');
+    const editClose = document.querySelector('.edit-close');
+    const editWishlistNameInput = document.getElementById('editWishlistName');
+    const saveWishlistBtn = document.getElementById('saveWishlistBtn');
+
+
+    //references for the Delete Wishlist functionality
+    const deleteWishlistLink = document.getElementById('deleteWishlistLink');
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteClose = document.querySelector('.delete-close');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+
+    // Open the modal when "New Wishlist" button is clicked
+    newWishlistBtn.addEventListener('click', () => {
+      newWishlistNameInput.value = ""; // clear any previous input
+      modal.style.display = 'block';
+    });
+
+    // Close the modal when the close span is clicked
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // Also close modal if user clicks outside the modal-content area
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // When the Create button is pressed inside the modal:
+    createWishlistBtn.addEventListener('click', () => {
+      const wishlistName = newWishlistNameInput.value.trim();
+      if (wishlistName) {
+        // Create a new <li><a> entry for the new wishlist
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#';
+        a.textContent = wishlistName;
+        a.dataset.wishlist = wishlistName;
+        a.dataset.new = "true";
+
+        // When user clicks this new link, set it active
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          setActiveWishlist(a);
+        });
+
+        li.appendChild(a);
+        wishlistList.appendChild(li);
+
+        // Immediately switch to the new wishlist in the main area
+        setActiveWishlist(a);
+
+        // Close the modal
+        modal.style.display = 'none';
+      }
+    });
+
+
+
+
+    // When the Edit button is clicked, open the edit modal and pre-fill the input
+    editWishlistLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Pre-fill with the current wishlist title
+      editWishlistNameInput.value = wishlistTitle.textContent;
+      editModal.style.display = 'block';
+    });
+
+    // Close the edit modal when the user clicks the close icon
+    editClose.addEventListener('click', () => {
+      editModal.style.display = 'none';
+    });
+
+    // Also close the modal if the user clicks outside the modal content
+    window.addEventListener('click', (e) => {
+      if (e.target === editModal) {
+        editModal.style.display = 'none';
+      }
+    });
+
+    // When the user clicks Save in the edit modal:
+    saveWishlistBtn.addEventListener('click', () => {
+      const newName = editWishlistNameInput.value.trim();
+      if (newName) {
+        // Update the header title
+        wishlistTitle.textContent = newName;
+
+        // Also update the active link in the sidebar
+        const activeLink = document.querySelector('#wishlistList a.active');
+        if (activeLink) {
+          activeLink.textContent = newName;
+          activeLink.dataset.wishlist = newName;
+        }
+        // Close the modal
+        editModal.style.display = 'none';
+      }
+    });
+
+    // Open the delete modal when the Delete button is clicked
+    deleteWishlistLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      deleteModal.style.display = 'block';
+    });
+
+    // Close the delete modal when the user clicks the close icon
+    deleteClose.addEventListener('click', () => {
+      deleteModal.style.display = 'none';
+    });
+
+    // Close the delete modal if the user clicks outside the modal content
+    window.addEventListener('click', (e) => {
+      if (e.target === deleteModal) {
+        deleteModal.style.display = 'none';
+      }
+    });
+
+    // Cancel deletion when the Cancel button is clicked
+    cancelDeleteBtn.addEventListener('click', () => {
+      deleteModal.style.display = 'none';
+    });
+
+    
+
+
+    // Helper function to mark a wishlist as active and update the title
+    function setActiveWishlist(linkElement) {
+      // Remove "active" class from all existing wishlist links
+      const allLinks = wishlistList.querySelectorAll('a');
+      allLinks.forEach(link => link.classList.remove('active'));
+
+      // Add "active" class to the clicked link
+      linkElement.classList.add('active');
+
+      // Update the main title to match
+      wishlistTitle.textContent = linkElement.dataset.wishlist;
+
+      // If this wishlist is new (has no products), clear the product container
+      if (linkElement.dataset.new === "true") {
+        productContainer.innerHTML = '<p id="emptyMessage">Your wishlist is empty. Add some products!</p>';
+
+      } else {
+
+      }
+    }
+    // Function to open the modal for creating a new wishlist
+    function openNewWishlistModal(e) {
+      e.preventDefault();
+      newWishlistNameInput.value = ""; // clear any previous input
+      modal.style.display = 'block';
+    }
+
+
+    newWishlistBtn.addEventListener('click', openNewWishlistModal);
+    newItemLink.addEventListener('click', openNewWishlistModal);
+
+  </script>
+  
+  {% endblock %}
+
+

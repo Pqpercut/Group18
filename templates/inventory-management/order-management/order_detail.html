@@ -1,0 +1,197 @@
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+<link href="{% static  'css/ims/order-management/order_detail.css' %}" rel="stylesheet" />   
+<section class="order-details">
+       
+    <div class="order-breadcrumb">
+        <a href="{% url 'IMS - Order List' %}" class="return-link">
+          <span class="back-arrow">&larr;</span>
+          Return to Orders
+        </a>
+    </div>
+      
+      <!-- Order info -->
+    <div class="order-info">
+        <h1 class="order-number">Order #{{ order.id }}</h1>
+        <p class="order-date">{{ order.orderDate|date:"jS F Y" }} from orders</p>
+    </div>
+      
+    
+    <div class="order-main">
+    <!-- LEFT COLUMN (Order Items, Order Summary) -->
+        <div class="left-col">
+        <!-- Order Items Card -->
+        <div class="card order-items-card">
+            <!-- Card Header -->
+            <div class="card-header order-items-header">
+                <h3>Order Items</h3>
+                <span class="card-status 
+                {% if order.get_status_display == 'Order Pending' %}
+                    unfulfilled
+                {% elif order.get_status_display == 'On Route' %}
+                    onroute
+                {% elif order.get_status_display == 'Delivered' %}
+                    delivered
+                {% elif order.get_status_display == 'Refunded' %}
+                    refunded
+                {% endif %}
+                "
+                >{{ order.get_status_display }}</span>
+            </div>
+                  
+            <!-- Card Body: List of items -->
+            <div class="card-body order-items-body">
+                <!-- Example Item #1 -->
+                {% for orderitem in order.orderitem.all  %}
+                <div class="item-row">
+                    {% with first_image=orderitem.variantID.imagepath.all|first %}
+                        {% if first_image %}
+                            <img 
+                            src="{{ first_image.imagepath.url }}" 
+                            alt="Product Image" 
+                            class="item-image"
+                            />
+                        {% endif %}
+                    {% endwith %}
+                    <div class="item-info">
+                        <h4 class="item-name">{{ orderitem.variantID.productID.name }}</h4>
+                        <p class="item-type">
+                            {% for category in orderitem.variantID.productID.categories.all %}
+                                {{ category.get_categories_display }}
+                            {% empty %}
+                                No Category
+                            {% endfor %}
+                        </p>
+                        <p class="item-attributes">{{ orderitem.variantID.size }}   |   {{ orderitem.variantID.colour }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+                  
+            <!-- Card Footer -->
+            <div class="order-items-footer">
+                <form action="{% url 'IMS - Order Detail' order.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="pending">
+                    <button class="shipping-btn">Undo</button>
+                </form>
+                <form action="{% url 'IMS - Order Detail' order.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="route">
+                    <button class="shipping-btn">Ship Product</button>
+                </form>
+            </div>
+        </div>
+                  
+    
+        <!-- Order Summary Card -->
+        <div class="card order-summary-card">
+            
+            <div class="card-header order-summary-header">
+                <h3>Order Summary</h3>
+            </div>
+            
+            <!-- Body: Subtotal, Discount, Shipping, Total -->
+            <div class="card-body order-summary-body">
+                <div class="summary-row">
+                <span class="summary-label">Subtotal</span>
+                <span class="summary-value">{{ order.orderitem.all|length }} items | £{{ order.totalAmount }}</span>
+                </div>
+                <div class="summary-row">
+                <span class="summary-label">Discount</span>
+                <span class="summary-value">HELLOKITTY | -£10.00</span>
+                </div>
+                <div class="summary-row">
+                <span class="summary-label">Shipping</span>
+                <span class="summary-value">£0.00</span>
+                </div>
+                <hr />
+                <div class="summary-row total-row">
+                <span class="summary-label">Total</span>
+                <span class="summary-value">£{{ order.totalAmount }}</span>
+                </div>
+            </div>
+            
+            <!-- Footer: Placeholder message + Buttons -->
+            <div class="order-summary-footer">
+                <p class="placeholder-text">Review your order at a glance</p>
+                <div class="footer-buttons">
+                    <form action="{% url 'IMS - Order Detail' order.pk %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="delivered">
+                        <button class="shipping-btn">Mark as Delieverd</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+
+        </div>
+                  
+          
+                    
+                  
+    
+    <!-- Right Column (Notes, Contact Info, Shipping, Billing) -->
+    <div class="right-col">
+        <!-- Notes Card -->
+        <div class="card right-card">
+          <div class="card-header right-card-header">
+            <h3>Notes</h3>
+          </div>
+          <div class="card-body right-card-body">
+            <p class="timestamp">{{ order.orderDate }} from orders</p>
+            <p class="notes-content">Buyer requested gift packaging.</p>
+          </div>
+        </div>
+      
+        <!-- Contact Information Card -->
+        <div class="card right-card">
+          <div class="card-header right-card-header">
+            <h3>Contact Information</h3>
+          </div>
+          <div class="card-body right-card-body">
+            <p class="contact-info">{{ order.userID.email }}</p>
+            <p class="contact-info">{{ order.userID.phone }}</p>
+          </div>
+        </div>
+      
+        <!-- Shipping Address Card -->
+        <div class="card right-card">
+          <div class="card-header right-card-header">
+            <h3>Shipping Address</h3>
+          </div>
+          <div class="card-body right-card-body">
+                    <p class="address-line">{{ order.userID.username }}</p>
+            {% with user_address=order.userID.useraddress.all|first %}
+                {% if user_address %}
+                    <p class="address-line">{{ user_address.houseNumber }} {{ user_address.street }}</p>
+                    <p class="address-line">{{ user_address.city }}</p>
+                    <p class="address-line">{{ user_address.postcode }}</p>
+                    {% if user_address.apartmentNumber %}
+                        <p class="address-line">Apartment: {{ user_address.apartmentNumber }}</p>
+                    {% endif %}
+                {% else %}
+                    <p>No address on file.</p>
+                {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+      
+        <!-- Billing Address Card -->
+        <div class="card right-card">
+          <div class="card-header right-card-header">
+            <h3>Billing Address</h3>
+          </div>
+          <div class="card-body right-card-body">
+            <p class="address-line">Same as shipping address</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+{% endblock %}

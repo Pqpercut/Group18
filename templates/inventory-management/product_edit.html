@@ -1,6 +1,47 @@
 <!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
 
-<!DOCTYPE html>
+
+
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/ims/product_detail.css' %}" rel="stylesheet" />   
+    <div class="main-container">
+        
+        <div class="header-container">
+            <h1>Edit Product: {{ product.name }}</h1>
+        </div>  
+        <form class="form-container" method="post">
+            {% csrf_token %}
+            <div class="sub-heading">
+                <div class="sub-heading-1">Product Information</div>
+            </div>
+            <div class="row-1">
+                <div class="label-container">
+                    <label for="description">Name::</label>
+                </div>
+                <div class="input-container">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label for="availability">Description:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="form-button" type="submit">Save Changes</div>
+        </form>
+    
+        <div class="button-container">
+            <a href="{% url 'IMS - Product Detail' product.id %}"><input type="submit" value="Cancel"></a>              
+        </div>
+{% endblock %}
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,4 +57,4 @@
     </form>
     <a href="{% url 'IMS - Product Detail' product.id %}">Cancel</a>
 </body>
-</html>
+</html> -->

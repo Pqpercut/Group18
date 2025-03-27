@@ -56,7 +56,11 @@ main {
     padding-bottom: 20px;
     width: 100%
     }
-    
+
+.EmailLine:first-child, .DescriptionLine:first-child {
+    width:150px;
+    }
+
 .DescriptionLine {
     padding-bottom: 38px;
 }
@@ -201,4 +205,8 @@ textarea::placeholder {
     height: 100%;
     width: auto;
     display: block;
+}
+
+label {
+    width: 150px;
 }

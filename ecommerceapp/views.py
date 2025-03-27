@@ -16,22 +16,85 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from .mixins import GroupRequiredMixin
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+import os
+from apscheduler.schedulers.blocking import BlockingScheduler
+from atproto import Client
+import datetime
+from django.utils import timezone
 
 
-class InventoryProductListView (ListView):
+# INVENTORY MANAGEMENT SYSTEM 
+
+class InventoryDashboard(GroupRequiredMixin, TemplateView):
+	template_name = "inventory-management/dashboard.html"
+	group_required = 'Admin'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+
+
+		orderValue = self.request.GET.get("order")
+		ordersList = Order.objects.all()
+
+		filterValues = self.request.GET.get("filter")
+		
+		
+
+		if filterValues:
+			print(filterValues , " EE")
+			filterValues = filterValues.replace("+", " ")
+
+			
+
+			if filterValues in dict(Order.STATUS):
+				ordersList = ordersList.filter(status = filterValues)
+	
+				
+			
+		if orderValue:	
+			ordersList = ordersList.order_by(orderValue)
+			
+				
+
+
+		
+		context['orders'] = ordersList
+		context['discounts'] = Discount.objects.all()
+		context['products'] = Product.objects.all()
+
+		context['pending_count'] = Order.objects.filter(status='pending').count()
+		context['route_count'] = Order.objects.filter(status='route').count()
+		context['delivered_count'] = Order.objects.filter(status='delivered').count()
+		context['refunded_count'] = Order.objects.filter(status='refunded').count()
+		return context
+
+class InventoryProductListView (GroupRequiredMixin, ListView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View for IMS System that displays all the products currently available and allows new product creation '''
 	model = Product
 	template_name = "inventory-management/product_list.html"
 	context_object_name = "products"
+	group_required = 'Admin'
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		low_stock_threshold = 5 
 		products_with_variants = []
+		orderValue = self.request.GET.get("order")
+		productList= Product.objects.all()
 
-		for product in Product.objects.all():
+		if orderValue:	
+			productList = productList.order_by(orderValue)
+			print(orderValue ,": order value")
+
+
+		
+		for product in productList:
 			variants = product.productvariant.all()
+			print(product.name)
 			total_stock = variants.aggregate(total=Sum('stocklevel'))['total'] or 0
 			is_low_stock = total_stock < low_stock_threshold
 			products_with_variants.append({
@@ -43,12 +106,13 @@ class InventoryProductListView (ListView):
 		context['products_with_variants'] = products_with_variants
 		return context
 
-class InventoryProductDetailView(DetailView):
+class InventoryProductDetailView(GroupRequiredMixin, DetailView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View for IMS System that shows the product details and all variants & allows stock updates '''
 	model = Product
 	template_name = "inventory-management/product_detail.html"
 	context_object_name = "product"
+	group_required = 'Admin'
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object()
@@ -61,41 +125,44 @@ class InventoryProductDetailView(DetailView):
 			variant.save()
 		return redirect('IMS - Product Detail', pk=self.object.pk)
 	
-class InventoryCreateProductView(CreateView):
+class InventoryCreateProductView(GroupRequiredMixin, CreateView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View that allows for new product creation '''
 	model = Product
 	template_name = "inventory-management/product_create.html"
-	fields = ['name', 'description', 'availability']
+	fields = ['name', 'description']
+	group_required = 'Admin'
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product List')
 
-class InventoryProductEditView(UpdateView):
+class InventoryProductEditView(GroupRequiredMixin, UpdateView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View that allows already created products to be edited '''
 	model = Product
 	template_name = "inventory-management/product_edit.html"
 	context_object_name = "product"
-	fields = ['name', 'description', 'availability']
+	fields = ['name', 'description']
+	group_required = 'Admin'
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.pk})
 	 
-class InventoryProductDeleteView(DeleteView):
+class InventoryProductDeleteView(GroupRequiredMixin, DeleteView):
 	# Created by Adam Ahmed 23/11/2024
 	''' Seperate Confirmation View that requires another button click to delete a product '''
 	model = Product
 	template_name = "inventory-management/product_confirm_delete.html"
 	success_url = reverse_lazy('IMS - Product List')
 
-class CreateVariantView(CreateView):
+class CreateVariantView(GroupRequiredMixin, CreateView):
 	# Created by Adam Ahmed 23/11/2024
 	# Updated by Adam Ahmed 30/11/2024
 	'''Allows creation of product variant details and the ability to upload images'''
 	model = ProductVariant
 	template_name = "inventory-management/product_create_variant.html"
 	form_class = CreateVariantForm
+	group_required = 'Admin'
 
 	def form_valid(self, form):
 		# Save the product variant
@@ -119,18 +186,19 @@ class CreateVariantView(CreateView):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.kwargs['product_pk']})
 
 
-class EditVariantView(UpdateView):
+class EditVariantView(GroupRequiredMixin, UpdateView):
 	# Created by Adam Ahmed 23/11/2024
 	# Updated by Adam Ahmed 30/11/2024
 	'''Allows edit of product variant details and the ability to upload more images'''
 	model = ProductVariant
 	template_name = "inventory-management/product_variant_edit.html"
 	form_class = EditVariantForm
+	group_required = 'Admin'
 
 	def form_valid(self, form):
 		response = super().form_valid(form)
 
-        # Multiple file uploads
+		# Multiple file uploads
 		images = form.cleaned_data.get('images', [])
 		for image in images:
 			ImagePath.objects.create(productVariantID=self.object, imagepath=image)
@@ -140,76 +208,303 @@ class EditVariantView(UpdateView):
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 	
-class DeleteVariantView(DeleteView):
+class DeleteVariantView(GroupRequiredMixin, DeleteView):
 	# Created by Adam Ahmed 23/11/2024
 	''' View that allows Product Variants to be deleted with confirmation '''
 	model = ProductVariant
 	template_name = "inventory-management/product_variant_delete.html"
+	group_required = 'Admin'
 
 	def get_success_url(self):
 		return reverse_lazy('IMS - Product Detail', kwargs={'pk': self.object.productID.pk})
 
-def catalogueView(request, *args, **kwargs):
-	###Written by Qasim Farooq 29/11/24
+class OrderListView(GroupRequiredMixin, ListView):
+	model = Order
+	template_name = "inventory-management/order-management/order_list.html"
+	context_object_name = "order"
+	group_required = 'Admin'
 
-	##Get filter in URL
-	FiltergetValue = request.GET.get('selected_filters',"")
-	print("BEFORE:" + str(FiltergetValue)) 
-	filterList = []
-	filterValue = "" 
-	if (FiltergetValue !=""):
-		filterList = FiltergetValue.split(",")
-		print("FILTER EXISTS : " + str(FiltergetValue))
-		for x in filterList:
-			##Add all filter values to list and seperate with comma
-			filterValue = filterValue + x + ","
-			print(x)
+class OrderDetailView(GroupRequiredMixin, DetailView):
+	model = Order
+	template_name = "inventory-management/order-management/order_detail.html"
+	context_object_name = "order"
+	group_required = 'Admin'
 
-	print("AFTER:" , filterValue)
-	##Assign the correct Order by Value
-	orderValue = request.GET.get("order","default-value")
-	if orderValue == 'price':
-		orderValue = 'productvariant__price'
-	else:
-		orderValue = 'name'
+	def post(self, request, *args, **kwargs):
+		# Get the order instance
+		self.object = self.get_object()
+		new_status = request.POST.get('status')
+		# Validate the new status against allowed statuses.
+		valid_statuses = [choice[0] for choice in self.object.__class__.STATUS]
+		if new_status in valid_statuses:
+			self.object.status = new_status
+			self.object.save()
+		# Redirect back to the same detail page
+		return redirect(reverse('IMS - Order Detail', kwargs={'pk': self.object.pk}))
 
-	##Get a query of all products
-	productList = Product.objects.all()
+class UserListView(GroupRequiredMixin, ListView):
+	model = User
+	template_name = "inventory-management/customers/customers.html"
+	context_object_name = 'users'  
+	group_required = 'Admin'
 
-    #If there is a filter then filter the query to only those products
-	if (FiltergetValue !=""):
-		print("Filter complete")
-		productList = productList.filter(categories__categories__in = filterList)
+class DiscountListView(GroupRequiredMixin, ListView):
+	model = Discount
+	template_name = "inventory-management/discounts/discount.html"
+	context_object_name = 'discounts'  
+	group_required = 'Admin'
 
-	##Order the query
-	##Aggregate the values to be able to prevent multiple variants showing on the list
-	productList = productList.annotate(min_val=Min(orderValue))
-	productList = productList.annotate(img_path=Min('productvariant__imagepath__imagepath'))
+class DiscountCreateView(GroupRequiredMixin, CreateView):
+	model = Discount
+	form_class = DiscountForm
+	template_name = "inventory-management/discounts/discount_create.html"
+	success_url = reverse_lazy('IMS - Discounts')  # Adjust this URL name accordingly
+	group_required = 'Admin'
+
+class DiscountUpdateView(GroupRequiredMixin, UpdateView):
+	model = Discount
+	form_class = DiscountForm
+	template_name = "inventory-management/discounts/discount_edit.html"
+	success_url = reverse_lazy('IMS - Discounts')  # Adjust this URL name accordingly
+	group_required = 'Admin'
+
+#MAIN WEBPAGE ##########################################################################################################
+
+class CatalogueViewClass(ListView):
 	
-	productList = productList.order_by('min_val')
+	context_object_name = "ProductList"
+	template_name = "product_catalogue.html"
+	
+	
+	filterValue = ""
+	orderValue = ""
+	SearchValue = ""	
+	def get(self, request, *args, **kwargs): ###Get filter values for context data to use
+		### Get Filter Value
+		
+		self.filterValue = request.GET.get('selected_filters',"") 
+		self.filterValue = self.filterValue.split(",") if self.filterValue else [] ## Split all values into a list for it to be recognised
+		
+		###Get Order Value
 
-	searchValue = request.GET.get("search","")
+		self.orderValue = request.GET.get("order","name") ### Default value will be name
+		
+		### Get Search value
+		self.searchValue = request.GET.get("search","")
+		
+	
+		##Return filter, may have to be an array since we have multiple filter values?
+		return super().get(request, *args, **kwargs)
+	
 
-	if searchValue != '':
-		productList = productList.filter(name__icontains=searchValue)
-		print("searching")
-	##Return the query
+	def get_queryset(self):
+		queryset = Product.objects.all()
+		###Input filter values
 
-	fullProductList = Product.objects.all()
+		if (self.filterValue !=[]):
+			queryset = queryset.filter(categories__categories__in = self.filterValue)
 
-	listSize = len(productList)
-	style = ""
-	if(listSize == 2):
-		style="product-size2"
-	elif(listSize == 1):
-		style="product-size1"
-	else:
-		style=""
+		##Input Order values 
+		queryset = queryset.order_by(self.orderValue)
+		##Search value
+		if self.searchValue != '': ### Only filter for search value if a search value exists
+			queryset = queryset.filter(name__icontains=self.searchValue)
+		return queryset
+	
+	
+	def get_context_data(self, **kwargs):
+		listSize = len(self.get_queryset())
+		style = ""
+		if listSize in [1, 2]:
+			style = "product-size" + str(listSize)
+			print(style)
+		else:
+			style = ""			
+		context = super().get_context_data(**kwargs)
+		context['productClass'] = style
 
-	context = {"ProductList" : productList, "FullProductList" : fullProductList,"searchValue": searchValue, "productClass": style, "listsize": listSize}
 
-    
-	return render(request, "product_catalogue.html", context)
+		
+		if  self.request.user.is_authenticated:
+			userBasket = Basket.objects.all().filter(userID = self.request.user).first()
+			basket = BasketItem.objects.all().filter(basketID = userBasket)
+			context['basket'] = basket
+			price = 0
+			for basketItem in basket:
+				price += basketItem.variantID.price 
+			
+			context['totalSum'] = price
+			context['loggedIn'] = self.request.user.is_authenticated
+		return context
+
+
+	
+
+class CreateReviewClass(LoginRequiredMixin, CreateView):
+	model = Review
+	form_class = ReviewForm
+	template_name = "CreateReviewPage.html"
+	success_url = reverse_lazy('Catalogue')
+
+
+
+	def form_valid(self, form):
+		
+		form.instance.rating = self.request.POST.get('rating-hidden')
+
+		user = self.request.user
+		form.instance.userID = user
+
+		productID = self.request.POST.get('prod-id')
+		product = get_object_or_404(Product,id=productID)
+		form.instance.productID = product
+
+
+		messages.success(self.request, "Your review has been added successfully!")
+		return super().form_valid(form)
+	
+
+class WishlistView(LoginRequiredMixin, TemplateView):
+	
+	template_name = "wishlist.html"
+	def get_context_data(self, **kwargs):
+
+		key = kwargs.get('pk')
+
+
+		
+
+
+	
+		context =  super().get_context_data(**kwargs) 	
+
+		if  self.request.user.is_authenticated:
+			userBasket = Basket.objects.all().filter(userID = self.request.user).first()
+			basket = BasketItem.objects.all().filter(basketID = userBasket)
+			context['basket'] = basket
+			price = 0
+			for basketItem in basket:
+				price += basketItem.variantID.price 
+			
+			context['totalSum'] = price
+			context['loggedIn'] = self.request.user.is_authenticated
+		
+		wishLists = Wishlists.objects.all().filter(userID = self.request.user)
+
+		
+		if(key):
+			mainList = Wishlists.objects.all().filter(id = key).first()
+			context['keyIndex'] = key
+		else:
+			mainList = wishLists.first()
+		
+		if (wishLists):
+			context['wishlists'] = wishLists
+
+
+		if (mainList):
+			wishListItems = WishlistItem.objects.all().filter(wishlistID = mainList)
+
+			context['itemsList'] = wishListItems
+			
+		else:
+			return context
+
+		return context
+	
+
+	def post(self, request, *args,**kwargs):
+		key = kwargs.get('pk')
+
+		if(not key):
+			list = Wishlists.objects.all().first()
+			key = list.id
+
+	
+
+		
+		
+		
+		if "removePOST" in request.POST:
+			removeID = request.POST.get('removeID')
+			
+			if removeID:
+				
+				itemToRemove = WishlistItem.objects.filter(productID = removeID, wishlistID = key).first()
+				itemToRemove.delete()
+		elif "editWishlist" in request.POST:
+			editValue= request.POST.get('editWishlistValue')
+			print(editValue)
+
+			if editValue:
+				print("running edit")
+				currentList = Wishlists.objects.all().filter(id=key).first()
+				currentList.name = editValue
+				currentList.save()
+				print("complete")
+		
+		elif "removeWishlist" in request.POST:
+			lists = Wishlists.objects.all().filter(userID = request.user.id)
+			list = lists.first()
+			if len(lists) >  1:
+			
+				list = Wishlists.objects.all().filter(id= key)
+				list.delete()
+				list = Wishlists.objects.all().first()
+				
+				return redirect('Wishlist', pk=list.id)
+			else:
+				messages.error(request,"You cannot remove a wishlist when you only have 1 left")
+				
+		elif "newWishlist" in request.POST:
+			
+			newName = request.POST.get('newWishlistNameValue')
+			if (not newName):
+				
+				Orderedlist = Wishlists.objects.all().filter(userID= request.user)
+				
+				newName = "Wishlist #" + str(len(Orderedlist)+1)
+				
+			list = Wishlists(userID = request.user,name = newName)
+			list.save()
+			print(list.name)
+
+			
+
+
+				
+			
+		return redirect('Wishlist', pk=key)
+
+
+	
+class CreateReviewClass(LoginRequiredMixin, CreateView):
+	model = Review
+	form_class = ReviewForm
+	template_name = "CreateReviewPage.html"
+
+
+
+	def form_valid(self, form):
+		
+		form.instance.rating = self.request.POST.get('rating-hidden')
+
+		user = self.request.user
+		form.instance.userID = user
+
+		
+		product = get_object_or_404(Product,id=self.kwargs['pk'])
+		form.instance.productID = product
+
+
+		messages.success(self.request, "Your review has been added successfully!")
+		return super().form_valid(form)
+		
+	
+	def get_success_url(self):
+
+	    return reverse_lazy('variantDisplay', kwargs={'pk': self.kwargs['pk']})
+
 
 class CustomLoginView(LoginView):
 	template_name = 'login/login.html'  
@@ -236,53 +531,55 @@ class RegistrationView(FormView):
 		user.groups.add(group)
 
 		Basket.objects.create(userID=user)
-
+		Wishlists.objects.create(userID=user)
 		return super().form_valid(form)
 	
 class HomeView(TemplateView):
-    # Created by Adam Ahmed 
-    template_name = "home-page.html"
-    
+	# Created by Adam Ahmed 
+	template_name = "home-page.html"
+	
 def ContactPageView(request, *args, **kwargs):
-    submitted = False
-    if request.method == 'POST':
-        contactform = ContactEnquiryForm(request.POST)
-        if contactform.is_valid():
-            contact = contactform.save()
-            subject = f"New Contact Request from {contact.username}"
-            message = (
-                f"You have received a new contact enquiry.\n\n"
-                f"Name: {contact.username}\n"
-                f"Email: {contact.email}\n\n"
-                f"Description:\n{contact.description}"
-            )
-            from_email = 'noreply.hatsforcats@gmail.com'
-            recipient_list = ['noreply.hatsforcats@gmail.com']
+	submitted = False
+	if request.method == 'POST':
+		contactform = ContactEnquiryForm(request.POST)
+		if contactform.is_valid():
+			contact = contactform.save()
+			subject = f"New Contact Request from {contact.username}"
+			message = (
+				f"You have received a new contact enquiry.\n\n"
+				f"Name: {contact.username}\n"
+				f"Email: {contact.email}\n\n"
+				f"Description:\n{contact.description}"
+			)
+			from_email = 'noreply.hatsforcats@gmail.com'
+			recipient_list = ['noreply.hatsforcats@gmail.com']
 
-            send_mail(
-                subject,
-                message,
-                from_email,
-                recipient_list,
-                fail_silently=False,
-            )
-            return HttpResponseRedirect('contact-page?submit=True')
-    else:
-        contactform = ContactEnquiryForm()
-        if 'submit' in request.GET:
-            submitted = True
+			send_mail(
+				subject,
+				message,
+				from_email,
+				recipient_list,
+				fail_silently=False,
+			)
+			return HttpResponseRedirect('contact-page?submit=True')
+	else:
+		contactform = ContactEnquiryForm()
+		if 'submit' in request.GET:
+			submitted = True
 
-    context = {"ContactForm": contactform, 'submitted': submitted}
-    return render(request, 'general-Pages/Contact-Page.html', context)
+	context = {"ContactForm": contactform, 'submitted': submitted}
+	return render(request, 'general-Pages/Contact-Page.html', context)
 
 
 
+##def ContactPageViewClass(FormView):
+	###TBC (Incomplete)
 
 @user_passes_test("ecommerceapp.Admin") 
 def ContactQueryView(request,*args,**kwargs):
-    queries = ContactTable.objects.all() 
-    context = {"queryTable": queries}
-    return render(request,'general-pages/ViewContactQuery.html', context)
+	queries = ContactTable.objects.all() 
+	context = {"queryTable": queries}
+	return render(request,'general-pages/ViewContactQuery.html', context)
 
 
 #display products
@@ -298,121 +595,278 @@ def productDisplay(request):
 
 
 #display product varients
-#get product_id. if product_id = variant, display it else dont
-def variantDisplay(request, pk):
+class VariantDisplayView(View):
 #written by Sakina Khaki
-	#print("blorp")
+	
+	#get product by id
+	def getObj(self, pk):
+		return Product.objects.get(id = pk)
 
-	#productid = request.POST.get("productid")
-	productid = pk #testing purpose
+	'''
+		use productid to get product; get name, description
+		get every variant of product 
+		map sizes -> colour (vice versa)
+	'''
+	def pageData(self, product):
+		#getting every product varient from db
+		allitems = ProductVariant.objects.all()
+		allitems = allitems.filter(productID = product)
 
-	product = Product.objects.get(id = productid)
-	name = product.name
-	desc = product.description
+		name = product.name
+		desc = product.description
 
-	allitems = ProductVariant.objects.all()
-	allitems = allitems.filter(productID = productid)
+		#
+		sizes = ["S", "M", "L", "XL"] #all sizes
+		available_sizes = set(sizes)
 
-	sizes = ["S", "M", "L", "XL"] #all sizes
-	available_sizes = set(sizes)
+		colours = {v.colour for v in allitems} #all colours
+		available_colours = set(colours)
 
-	colours = {v.colour for v in allitems} #all colours
-	available_colours = set(colours)
-
-	#dictionary of all sizes and colours
-	sizes_map = {}
-	for i in allitems:
-		sizes_map.setdefault(i.colour, []).append(i.size)
-
-	print(sizes_map)
-	#print(sizes_map)
-
-	colours_map = {}
-	for i in allitems:
-		colours_map.setdefault(i.size, []).append(i.colour)
-
-
-	if request.method == "POST":
-		quantity = int(request.POST.get("quantity"))
-		colour = request.POST.get("colour")
-		size = request.POST.get("size")
-
-		#puts all available sizes in set
-		available_sizes.clear()
-		for i in allitems: 
-			if i.colour == colour:
-				available_sizes.add(i.size)
-
-
-		#all available colours into set
-		available_colours.clear()
+		#map sizes and colours
+		sizes_map = {}
 		for i in allitems:
-			if i.size == size:
-				available_colours.add(i.colour)
+			sizes_map.setdefault(i.colour, []).append(i.size)
+
+		print(sizes_map)
+
+		colours_map = {}
+		for i in allitems:
+			colours_map.setdefault(i.size, []).append(i.colour)
+
+		#to pass to html
+		return {
+			'name': name, 'desc': desc, 
+			'variants' : allitems,
+			'colours': colours, 
+			'sizes': sizes, 
+			'sizes_map': sizes_map, 'colours_map' : colours_map,
+			'quantity': 1 #default
+		}
 
 
-		#final validation check - checks if that size is available in that colour 
-		if (colour not in available_colours) or (size not in available_sizes):
-			print(size)
-			print(colour)
-			print("no colour and or size")
-			return render(request, "productdetailpage.html", {
-				'name': name, 'desc': desc, 
-				'variants' : allitems,
-				'colours': colours, 
-				'sizes': sizes, 
-				'sizes_map': sizes_map, 'colours_map' : colours_map,
-				'quantity': quantity
-			})
-		else:
-			print("yay")
+	'''
+		post request to add to basket
+		filter available size/colour (create sets)
+		get quantity wanted (in the post request)
+		validate item is available
+			if unavailable, return page reload
+	'''
+	def post(self, request, pk):
+		if ("add_button" in request.POST):
+			print("ADDING BASKET")
+			product = self.getObj(pk)
+			allitems = ProductVariant.objects.filter(productID=product)
 
+			#get from post request
+			quantity = int(request.POST.get("quantity"))
+			colour = request.POST.get("colour")
+			size = request.POST.get("size")
 
-		#sorts variantid out 
+			#puts all available sizes in set
+			available_sizes = {i.size for i in allitems if i.colour == colour}
+
+			#all available colours into set
+			available_colours = {i.colour for i in allitems if i.size == size}
+
+			#final validation check - checks if that size is available in that colour 
+			if (colour not in available_colours) or (size not in available_sizes):
+				print(size)
+				print(colour)
+				print("no colour and or size")
+				return render(request, "productdetailpage.html", self.pageData(product))
+			else:
+				print("yay") 
+
+			#sorts variantid out 
 		
-		variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
-		variant = ProductVariant.objects.get(productID=product, id=variantid)
+			variantid = ProductVariant.objects.get(productID=product, colour=colour, size=size).id
+			variant = ProductVariant.objects.get(productID=product, id=variantid)
 
+			#get basketid
+			basket = Basket.objects.get(userID=request.user)
+			
+			'''
+				add to basket 
+				check if existing or new item
+				return redirect to basket
+			'''
+
+			#check if user has ordered item before already
+			basketitem = BasketItem.objects.filter(basketID=basket, variantID=variant).first()
+
+
+			if basketitem: 
+			#inc quantity of thing in basket
+				#print("added", quantity, "to EXISTING")
+				basketitem.quantity += quantity
+
+			else: 
+			#create new basketitem entry
+				#print("added", quantity, "to NEW")
+				BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
+			
+			return redirect('basket')
+				
+		elif "wishlistSubmit" in request.POST:
+			if request.user.is_authenticated:
+				wishForm = wishlistItemForm(request.POST)
+				selectedList = request.POST['wishlistVal']
+
+			
+   				
+				wishlist = Wishlists.objects.filter(name=selectedList).first()
+				
+				
+				if not wishlist:
+					print("No wishlist found with name:", selectedList)
+					return HttpResponseRedirect(request.path_info)
+					
+					
+				wishForm.instance.wishlistID = wishlist
+				if wishForm.is_valid():
+					wishForm.save()
+					print("win")
+					return redirect('Wishlist') 
+
+				
+				return HttpResponseRedirect(request.path_info)
+			else:	
+				
+				return redirect('login')
+
+
+
+
+
+	#display product variant page 
+		#display product variant page 
+	def get(self, request, pk):
+		prod = self.getObj(pk)
+		itemNames = self.pageData(prod)
+
+		##Reviews
+		query = Review.objects.filter(productID=prod)
+		
+		value = request.GET.get("order","-reviewDate")
+		query = query.order_by(value)
+
+		itemNames['ReviewQuery']= query
+		itemNames['theKey'] = pk
+		itemNames['totalRating'] = len(query)
+
+		mean = 0
+		startDate = timezone.now()- datetime.timedelta(days=30) ##Get 30 days ago
+		lastMonth = 0
+
+		if (len(query) > 0):
+			for review in query:
+				mean += review.rating
+				if review.reviewDate > startDate: ##check if reviewDate is past the 30 day mark from 30 days ago
+					lastMonth += 1
+
+			mean = mean / len(query)
+		
+		itemNames['averageRating'] = mean
+		itemNames['lastMonth'] = lastMonth
+
+
+		### Wishlist button
+		
+
+		if  request.user.is_authenticated:
+   				
+			wishLists = Wishlists.objects.all().filter(userID = self.request.user)
+		
+			itemNames['wishLists']= wishLists
+			wishlistForm = wishlistItemForm(initial={'productID': get_object_or_404(Product,id=pk)})
+			itemNames['wishlistForm'] = wishlistForm
+		product = get_object_or_404(Product,id=pk) 
+
+			
+		if  self.request.user.is_authenticated:
+				userBasket = Basket.objects.all().filter(userID = self.request.user).first()
+				basket = BasketItem.objects.all().filter(basketID = userBasket)
+				itemNames['basket'] = basket
+				price = 0
+				for basketItem in basket:
+					price += basketItem.variantID.price 
+				
+				itemNames['totalSum'] = price
+				itemNames['loggedIn'] = self.request.user.is_authenticated
+		print(pk)
+		
+
+		
+		return render(request, "productdetailpage.html", itemNames)
+
+
+
+class BasketView(View):
+
+	#get basket id
+	def getBasket(self, user):
+		return Basket.objects.get(userID=user).id
+
+	#veiw basket; calc total price, num items 
+	def get(self, request):
+		basket = self.getBasket(request.user)
+		allitems = BasketItem.objects.filter(basketID=basket)
+
+		total = 0
+		numitems = 0
+		for i in allitems:
+			variant = ProductVariant.objects.get(id=i.variantID.id)
+			total += (variant.price * i.quantity)
+			numitems += (1 * i.quantity)
+
+		itemNames = {
+			'basket' : allitems,
+			'total' : total,
+			'numitems' : numitems
+		}
+
+
+		#viewing the basket
+		return render(request, "basket.html", itemNames)
+
+	#adding/removing items from basket
+	def post(self, request):
 		#get basketid
-		#basketid = Basket.objects.get(userID=request.user).id
-		
-		#basketid for testing
-		basket = Basket.objects.get(userID=1)
-		basketid = basket.id
+		basketid = Basket.objects.get(userID=request.user).id
 
-		#check if user has ordered item before already
+		#for testing
+		#basketid = Basket.objects.get(userID=1)
+
+		variantid = request.POST.get("variantid")
+		variant = ProductVariant.objects.get(id=variantid)
+
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
 
-		if basketitem: 
-		#inc quantity of thing in basket
-			print("added", quantity, "to EXISTING")
-			basketitem.quantity += quantity
-		else: 
-		#create new basketitem entry
-			print("added", quantity, "to NEW")
-			BasketItem.objects.create(basketID=basket, variantID=variant, quantity=quantity)
+		'''
+			check if item is in basket 
+			add: quantity += 1
+			rem_all or quantity = 1: delete
+			else quantity -= 1
+		'''
 
-		return redirect('basket')
-	else:
-		quantity = 1
+		#which btn? 
+		btn = request.POST.get("remove_btn")
+		if basketitem:
+			if btn == "add_one":
+				basketitem.quantity += 1
+				basketitem.save()
 
-
-	itemNames = {
-		'name': name, 'desc': desc, 
-		'variants' : allitems,
-		'colours': colours, 
-		'sizes': sizes, 
-		'sizes_map': sizes_map, 'colours_map' : colours_map,
-		'quantity': quantity,
-		'product': product,
-	}
+			elif btn == "rem_all" or basketitem.quantity == 1:
+				basketitem.delete()
+			
+			else:
+				basketitem.quantity -= 1
+				basketitem.save()
 
 
-	#viewing
-	return render(request, "productdetailpage.html", itemNames)
-
-
+		return redirect("basket")
+		
 
 
 @permission_required('ecommerceapp.Customer')
@@ -420,75 +874,107 @@ def variantDisplay(request, pk):
 def basketRem(request):
 #written by Sakina Khaki
 	if request.method == "POST":
-		#print("beep")
 		#get basketid
-		#basketid = Basket.objects.get(userID=request.user).id
-
-		#for testing
-		basketid = Basket.objects.get(userID=1)
+		basketid = Basket.objects.get(userID=request.user).id
 
 		variantid = request.POST.get("variantid")
 		variant = ProductVariant.objects.get(id=variantid)
 
 		basketitem = BasketItem.objects.filter(basketID=basketid, variantID=variant).first()
 
+
+		'''
+			check if item is in basket 
+			add: quantity += 1
+			rem_all or quantity = 1: delete
+			else quantity -= 1
+		'''
+
 		#which btn? 
 		btn = request.POST.get("remove_btn")
 		if basketitem:
 			if btn == "add_one":
-				print("quantitiy changed")
 				basketitem.quantity += 1
 				basketitem.save()
 
 			elif btn == "rem_all" or basketitem.quantity == 1:
-				print("removed")
 				basketitem.delete()
 			
 			else:
-				print("quantitiy changed")
 				basketitem.quantity -= 1
 				basketitem.save()
 
 
-	return(viewBasket(request))
+	return redirect("basket")
 
 
-@permission_required('ecommerceapp.Customer')
-#veiw basket
-def viewBasket(request):
-#written by Sakina Khaki
-	#print("beep")
-	#get basketid
-	#basketid = Basket.objects.get(userID=request.user).id
-
-	#for testing
-	basketid = Basket.objects.get(userID=1)
-
-	allitems = BasketItem.objects.filter(basketID=basketid)
-
-	total = 0
-	for i in allitems:
-		variant = ProductVariant.objects.get(id=i.variantID.id)
-		total += (variant.price * i.quantity)
-	#print(total)
-
-	itemNames = {
-		'basket' : allitems,
-		'total' : total
-	}
 
 
-	#viewing the basket
-	return render(request, "basket.html", itemNames)
+
+'''
+	for bluesky posting
+	
+	posts 
+	- name
+	- description
+	- link to variant page 
+	
+	click button in inventory management product 
+'''
+def bluesky_post(request):
+
+	if request.method == "POST":
+		#create a client
+		client = Client("https://bsky.social")
+
+		#log in to bluesky hatsforcats
+		client.login('noreply.hatsforcats@gmail.com', 'group18pass')
+		
+
+		#productid from post request
+		productid = request.POST.get("productid")
+
+		name = Product.objects.get(id=productid).name
+		desc = Product.objects.get(id=productid).description
+		variant = ProductVariant.objects.filter(productID=productid).first() 
+		
+
+		#grab url
+		url = request.build_absolute_uri(reverse("variantDisplay", kwargs={"pk": productid}))
+
+		#content to post 
+			#has to be generated here because converted to bytes and is after url declaration 
+		content = f"Check out our product: {name}. \nDescription: {desc} \n{url}"
 
 
-# @permission_required('ecommerceapp.Customer')
-# #checkout
-# def checkout(request):
-# 	return render(request, "admin/temp_basket/tempCheckout.html")
+		#encode content to bytes - makes sure that start n end of url is detected properly
+		content_bytes = content.encode("utf-8")
+		url_bytes = url.encode("utf-8")
+
+		#get url start n end
+		byte_start = content_bytes.find(url_bytes)
+		byte_end = byte_start + len(url_bytes)
+
+		facets = [
+			{
+				"index": {"byteStart": byte_start, "byteEnd": byte_end},
+				"features": [{"$type": "app.bsky.richtext.facet#link", "uri": url}]
+			}
+		]
+
+
+		client.post(content, facets=facets) #post the content
+
+		
+	return redirect("inventory-management/products/")
+
+	
+
+
+
 
 class CustomPasswordResetView(PasswordResetView):
-    form_class = CustomPasswordResetForm
+	form_class = CustomPasswordResetForm
 	
 class CheckoutView(GroupRequiredMixin, FormView):
 	template_name = "checkout.html"
@@ -576,4 +1062,103 @@ class OrderSummaryView(GroupRequiredMixin, TemplateView):
 		context['order'] = order
 		context['order_items'] = order.orderitem.all()
 		return context
+	
+class UserProfileView(GroupRequiredMixin, UpdateView):
+	model = User
+	fields = ['username', 'first_name', 'last_name', 'email']  # Include any fields you want to allow updates for
+	template_name = "user-pages/user-home.html"
+	group_required = 'Customer'	
+
+	def get_success_url(self):
+		return reverse_lazy('user home', kwargs={'pk': self.object.pk})
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['orders'] = Order.objects.all()
+		context['user'] = self.request.user
+		return context
+
+class UserProfileOrdersView(GroupRequiredMixin, ListView):
+    model = Order
+    context_object_name = 'orders'
+    template_name = "user-pages/user-orders.html"
+    group_required = 'Customer'
+
+    def get_queryset(self):
+    	return Order.objects.filter(userID=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+class UserProfileOrderDetailView(GroupRequiredMixin, DetailView):
+	model = Order
+	context_object_name = 'orders'
+	template_name = "user-pages/user-order-detail.html"
+	group_required = 'Customer'
+
+	def get_queryset(self):
+		# Only allow orders that belong to the current user.
+		return Order.objects.filter(userID=self.request.user)
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['user'] = self.request.user
+		return context
+
+	def post(self, request, *args, **kwargs):
+		# Get the order instance
+		self.object = self.get_object()
+		new_status = request.POST.get('status')
+		# Only allow the status to be updated to "returned"
+		if new_status == "refunded":
+			self.object.status = new_status
+			self.object.save()
+		# Redirect back to the same detail page
+		return HttpResponseRedirect(self.request.path_info)
+
+class UserProfileAddressView(GroupRequiredMixin, ListView):
+    model = UserAddress
+    context_object_name = 'address'
+    template_name = "user-pages/user-address.html"
+    group_required = 'Customer'
+
+class UserProfileAddressUpdateView(GroupRequiredMixin, UpdateView):
+	model = UserAddress
+	context_object_name = 'address'
+	template_name = "user-pages/user-address-update.html"
+	group_required = 'Customer'
+	fields = ['houseNumber', 'street', 'postcode', 'city']
+
+	def get_success_url(self):
+		return reverse_lazy('user addresses')
+
+class UserProfileAddressCreateView(GroupRequiredMixin, CreateView):
+	model = UserAddress
+	context_object_name = 'address'
+	template_name = "user-pages/user-address-update.html"
+	group_required = 'Customer'
+	fields = ['houseNumber', 'street', 'postcode', 'city']
+
+	def form_valid(self, form):
+		# Automatically assign the current user to the userID field
+		form.instance.userID = self.request.user
+		return super().form_valid(form)
+
+	def get_success_url(self):
+		return reverse_lazy('user addresses')
+
+class UserAddressDeleteView(GroupRequiredMixin, DeleteView):
+    model = UserAddress
+    success_url = reverse_lazy('user addresses')  # This is the URL to which you want to redirect.
+    group_required = 'Customer'
+
+    def get(self, request, *args, **kwargs):
+        # Immediately delete the object on GET and redirect.
+        self.object = self.get_object()
+        self.object.delete()
+        return HttpResponseRedirect(self.success_url)
+
+
 	

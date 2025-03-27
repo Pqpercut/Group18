@@ -1,57 +1,108 @@
 
 <!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product List</title>
-</head>
-<body>
-    <h1>Product List</h1>
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
 
-    <!-- Add button for creating a new product -->
-    <a href="{% url 'IMS - Create Product' %}">
-        <button>Create New Product</button>
-    </a>
+{% block content %}
+    <link href="{% static  'css/ims/product_list.css' %}" rel="stylesheet" />   
+    <div class="dashboard">
+        <main class="content">
+            <div class="discount-container">
+                <div class="sortBox"> 
+                    <form method="get">
+                    <select name="order" id="orderBox">
+                        <option value="name">Order by: ID</option>
+                        <option value="id">Order by: Date added</option>
+                        
+                    </select>
+        
+                    <input id="orderSubmit" type="submit" value="Submit">
+                  </form>
+               
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>No. of Variants</th>
+                            <th>Total Stock</th>
+                            <th>Stock Alert</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in products_with_variants %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.product.description }}</td>
+                            <td>{{ item.variant_count }}</td>
+                            <td>{{ item.total_stock }}</td>
+                            <td class="valid">&check;</td>
+                            <td class="action-column">
+                                <a href="{% url 'IMS - Product Detail' item.product.id %}"><span class="action">VIEW</span></a>
+                                <a href="{% url 'IMS - Product Edit' item.product.id %}"><span class="action-2">EDIT</span></a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">No products available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+            </div>
+            <a class="add-button-container" href="{% url 'IMS - Create Product' %}"> <button class="add-button">Create New Product</button> </a>
+        
+        </main>
+    </div>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Number of Variants</th>
-                <th>Total Stock</th>
-                <th>Low Stock Warning</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in products_with_variants %}
-            <tr>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.product.description }}</td>
-                <td>{{ item.variant_count }}</td>
-                <td>{{ item.total_stock }}</td>
-                <td>
-                    {% if item.is_low_stock %}
-                        <span style="color: red;">⚠ Low Stock</span>
-                    {% else %}
-                        ✓
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{% url 'IMS - Product Detail' item.product.id %}">View</a>
-                    <a href="{% url 'IMS - Product Edit' item.product.id %}">Edit</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">No products available.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+{% endblock %}
+
+<!-- 
+<h1>Product List</h1>
+
+ --Add button for creating a new product--
+<a href="{% url 'IMS - Create Product' %}">
+    <button>Create New Product</button>
+</a>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Number of Variants</th>
+            <th>Total Stock</th>
+            <th>Low Stock Warning</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in products_with_variants %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.product.description }}</td>
+            <td>{{ item.variant_count }}</td>
+            <td>{{ item.total_stock }}</td>
+            <td>
+                {% if item.is_low_stock %}
+                    <span style="color: red;">⚠ Low Stock</span>
+                {% else %}
+                    ✓
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'IMS - Product Detail' item.product.id %}">View</a>
+                <a href="{% url 'IMS - Product Edit' item.product.id %}">Edit</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No products available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table> -->

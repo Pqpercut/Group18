@@ -8,6 +8,10 @@ University ID: 230098501
 
 {% block content %}
 <link href="{% static  'css/productdetail.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css/reviewSection.css' %}">
+<link href="{% static  'css/detailWishlistForm.css' %}" rel="stylesheet" />
+
+
 <script>
     const images = [
         {% for variant in product.productvariant.all %}
@@ -68,15 +72,116 @@ University ID: 230098501
                     <input type="hidden" name="size" id="hidden-size">
                     <input type="hidden" name="size_list" id="size_list" value="{{ sizes }}">
                     <input type="hidden" name="colour_list" id="colour_list" value="{{ colours }}">
-                    <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton">Add to Cart</button>
+                    <button type ="submit" name="add_button" value="add_to_basket" class="cartbutton" id="add-to-cart" disabled>Add to Cart</button>
                 </form>
             </div>
         </div>
     </div>
+    <button onclick = "openButton()"id ="addButton" class="addButtonClass"> Add to wishlist</button> 
 </div>
+
+
+
+
+<div class= "sortingForm" id="sortForm" >
+    
+    <div class= "formContent">
+        
+        <form method="POST" class="filterForm" enctype="multipart/form-data">
+            <span class="close">&times;</span>
+            <h2> Add to wishlist:</h2>
+            {% csrf_token %}   
+            {{ wishlistForm.as_p }}
+            <div class="sortButton" >
+                <select name="wishlistVal" id="orderBox" >
+                    {% for list in wishLists %}
+                        <option value="{{list.name}}">  {{list.name}}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>
+            <input name="wishlistSubmit" id="submitButton" type="submit" value="Add to wishlist">
+        </form>
+    </div>   
+</div>
+
+
+
 <div class="description-container">
     <p>{{desc}}</p>
 </div>
+
+
+
+<div class="reviewContainer">
+    <h2 class="ReviewTitle">Reviews</h2>
+
+    <div class="stats">
+        <div class= "totalRating">
+            <h3 style=" font-size: 36px;">Total Reviews</h3>
+            <p style=" font-size: 24px;">{{totalRating}} &#128172;</p>
+            <p> {{lastMonth}} in the last 30 days </p>
+        </div>
+        <div class="avgRating">
+            <h3 style=" font-size: 36px;">Average Rating</h3>
+            <p style="font-size: 24px;" >{{averageRating}} ⭐</p>
+        </div>
+    </div>
+
+    <div class="review-btns">
+        <button class="review-btn" onclick = "window.location.href=' {% url 'Reviews' theKey %} ';">Add a Review</button>
+        
+        <form>
+            <div class="">
+                <select name="order" id="order">
+                    <option value="-reviewDate">Most Recent</option>
+                    <option value="title">Name</option>
+                    <option value="reviewDate">Oldest review </option>
+                    <option value="-rating">Highest rating</option>
+                    <option value="rating">Lowest rating</option>
+                </select>
+
+                <input id="submitButton" type="submit" value="Submit">
+            </div>
+        </form
+
+
+    </div>
+
+
+    <div class="review-list">
+        {% for review in ReviewQuery %}
+            <div class="review">
+                <strong>{{ review.title }}:
+                    {% if review.rating == 1 %}
+                        ⭐☆☆☆☆
+                    {% elif review.rating == 2 %}
+                        ⭐⭐☆☆☆
+                    {% elif review.rating == 3 %}
+                        ⭐⭐⭐☆☆
+                    {% elif review.rating == 4 %}
+                        ⭐⭐⭐⭐☆
+                    {% elif review.rating == 5 %}
+                        ⭐⭐⭐⭐⭐
+                    {% endif%}
+                </strong>
+                <small class= "reviewDate">{{ review.reviewDate }} by {{review.userID.username}}</small>
+                <p>{{ review.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 <div class="suggestion-container">
     <div class="suggestion-header-container">
         <div class="suggestion-header">
@@ -92,7 +197,8 @@ University ID: 230098501
         <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 3" class="alt-product">
         <img src="https://via.placeholder.com/240x220/FFFFFF" alt="Product 4" class="alt-product">
     </div>
-</div>
+
+
 
 <script>
     const available_sizes = {
@@ -106,6 +212,24 @@ University ID: 230098501
         	"{{ s }}": {{ colours_list|safe }},
     	{% endfor %}
     };
+
+    
+</script>
+
+<script>
+    const form = document.getElementById('sortForm');
+    const closeBtn = document.querySelector('.close');
+
+    closeBtn.addEventListener('click', () => {
+        form.style.display = 'none';
+    });
+
+    const openFormBtn = document.getElementById('addButton');
+    function openButton(){
+        form.style.display = 'block';
+    }
+
+
 </script>
 
 <script src="{% static 'productdetail.js' %}"></script>

@@ -1,0 +1,417 @@
+body {
+    font-family: "Outfit", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+body {
+    font-weight: 500;
+    background-color: #DCEDFF;
+    color:black;
+}
+
+/* Main content styling */
+main {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- The banner behind the circle --- */
+.profile_banner {
+    background-color: white;
+    border-radius: 15px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    width: 40%;
+    height: 200px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0.05, 0.05, 0.05, 0.05);
+    padding-left: 180px; 
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* --- Avatar profile - circle--- */
+  .cat_avatar {
+    width: 130px;
+    height: 130px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -30px;
+    left: 30px;
+    border: 5px solid white;
+  }
+  
+  /* --- Name of the account --- */
+  .profile_settings {
+    display: block;
+    font-size: 24px;
+    color: #0A2B71;
+    font-weight: bold;
+    padding-top: 60px;      
+    width: 40%;         
+    text-align: left;      
+    padding-left: 30px; 
+    padding-bottom: 16px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #B9DBFF;   
+  }
+  
+.profile-details {
+    display: flex;
+    flex-direction: row;
+    color: #fFF;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 16px 0;
+    gap:16px;
+   align-items: center;
+}
+
+.profile-settings-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 32px;
+}
+.sidebar-option-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sidebar-option-button button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #00000000;
+  border-style: none;
+  padding-top: 3px;
+}
+
+.profile-settigs-header-icon {
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-settigs-header-icon:hover {
+  background-color: #7da0c5;
+}
+
+  /* --- Navigation Bar --- */
+  .nav_bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px; 
+    width: 40%;
+  }
+  
+  /* The options in the menu/navigation bar  */
+  .nav_bar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 24px;
+    padding: 10px 0;
+    margin: 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .nav_bar a {
+    text-decoration: none;
+    color: hsl(0, 0%, 0%);
+    font-weight: bold;
+    font-family: "Outfit", sans-serif;
+    padding: 15px 20px;
+    border-radius: 15px;
+    display: inline-block;
+  }
+  
+  .nav_bar a:hover {
+    background-color: rgba(58, 118, 182, 0.1);
+    color: hsl(0, 0%, 0%);
+  }
+
+  
+.ask-question form {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 72px;
+    padding-right: 72px;
+    }
+
+
+.EmailLine, .DescriptionLine {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    padding-bottom: 20px;
+    width: 100%
+    }
+    
+.DescriptionLine {
+    padding-bottom: 38px;
+}
+
+.ask-question input {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 7px;
+    height: 50px;
+}
+    
+/* input:invalid {
+    border-color: red;
+}
+     */
+input:valid {
+    border-color: green;
+}
+
+input::placeholder {
+    color: #888; 
+    font-family: "Outfit", sans-serif;
+    padding-left: 8px;  
+    font-weight: 200;
+    font-size: 16px; 
+    opacity: 1;
+}
+
+.ask-question textarea {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 7px;
+    height: auto;
+    resize: none;
+    color: #000000; 
+    font-family: "Outfit", sans-serif;
+    padding-left: 16px;  
+    font-weight: 300;
+    font-size: 16px; 
+    opacity: 1;
+    
+}
+
+textarea::placeholder {
+    color: #888; 
+    font-family: "Outfit", sans-serif;  
+    font-weight: 200;
+    font-size: 16px; 
+    opacity: 1;
+}
+      
+
+    .contactButton {
+        font-family: "Outfit", sans-serif;
+        border: none;
+        border-radius: 30px; 
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+        height: 50px;
+        width: 180px;
+        margin-bottom: 28px;
+    
+      }
+      
+      .contactButton {
+        background-color: #B9DBFF;
+      }
+    
+      .contactButton:hover{
+        background-color: #556edf;
+      }
+
+      .contact-us-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 40%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+        background-color: #B9DBFF;
+        justify-content: flex-start;
+        margin-top: 32px;
+    }
+        
+    
+    .ask-question {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        flex-grow: 2; 
+        flex-basis: 0;
+        border-radius: 15px;
+        background-color: #FFFFFF;
+    }
+    
+    .ask-question h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #0F2970;
+        padding-top: 36px;
+        margin-bottom: 22px;
+    }
+    
+    .contact-us-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-basis: 0;
+        height: 100%;
+        align-self: flex-start;
+        position: relative; 
+        overflow: visible;
+    }
+
+    
+.EmailLine, .DescriptionLine {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+  padding-bottom: 20px;
+  width: 100%
+  }
+  
+.DescriptionLine {
+  padding-bottom: 38px;
+}
+.EmailLine input, .DescriptionLine input {
+  width: 100%; 
+  padding: 10px;
+  border: 1px solid #cecece;
+  border-radius: 7px;
+  height: 50px;
+}
+
+
+.ask-question form {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 32px;
+  padding-left: 64px;
+  padding-right: 72px;
+  }
+
+  label {
+    width: 150px;
+    text-align: left;
+    }
+
+    
+  .order_section{
+    text-align: left;
+    width: 40%;
+  }
+
+h2 {
+  padding-top: 24px;
+  padding-bottom: 4px;
+  text-align: left;
+
+}
+
+  p {
+    text-align: left;
+    font-weight: 300;
+  }
+
+  /*------------- Setting of the table ------------- */
+
+  .order_table{
+    margin-top: 60px; 
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+    margin: 60px auto 0 auto;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    text-wrap: nowrap;
+  }
+  
+ thead {
+    background-color: rgba(217, 217, 217, 0.45);
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 16px;
+    font-size: 15px;
+  }
+  
+  tbody tr td:nth-child(6) {
+    width: 100%;
+  }
+  
+  
+  tbody tr {
+    border-bottom: 1px solid #cdd7e1;
+  }
+
+  .status {
+    padding: 6px 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  /* -------------Colours for the  Status of the order -------------*/
+  
+  .status.pending {
+    background-color: rgba(109, 109, 109, 0.1);
+    color: rgb(0, 0, 0);  
+  }
+  
+  .status.processed {
+    background-color: rgba(255, 246, 192, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.shipped {
+    background-color: rgba(223, 255, 184, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.delivered {
+    background-color: rgba(163, 255, 183, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  .status.returned {
+    background-color: rgba(195, 214, 255, 1);
+    color: rgb(0, 0, 0);
+  }
+  
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      font-size: 13px;
+    }
+  }
+
+  

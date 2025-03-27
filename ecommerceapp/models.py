@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 
-
-
 # Create your models here.
 
 class Product (models.Model):
@@ -107,3 +105,51 @@ class ContactTable(models.Model):
     username = models.CharField(max_length=50)
     description = models.TextField()
     email = models.EmailField()
+
+
+
+class Wishlists (models.Model):
+# Model created by: Qasim    
+    userID = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'wishList')
+    name = models.CharField(max_length=50, default="Wishlist #")
+
+class WishlistItem(models.Model):
+    #Model made by Qasim
+    wishlistID = models.ForeignKey(Wishlists, on_delete=models.CASCADE, related_name='wishListID')
+    productID = models.ForeignKey(Product, on_delete=models.CASCADE, related_name = 'wishlist') 
+    
+    
+    
+class Discount (models.Model):
+    DISCOUNT_TYPE_CHOICES = (
+        ('flat', 'Flat Amount'),
+        ('percentage', 'Percentage'),
+    )
+    code = models.CharField(max_length=50, unique=True)
+    discount_type = models.CharField(max_length=10, choices=DISCOUNT_TYPE_CHOICES)
+    discount_value = models.DecimalField(max_digits=10, decimal_places=2)
+    expiry_date = models.DateField()
+    
+    def __str__(self):
+        return self.code
+
+    def is_valid(self):
+        """Return True if the discount has not expired."""
+        return self.expiry_date >= timezone.now().date()
+
+    def apply_discount(self, original_amount):
+        """
+        Apply the discount to the original_amount.
+        Returns the new amount after discount or the original_amount if the discount is no longer valid.
+        """
+        if not self.is_valid():
+            return original_amount
+
+        if self.discount_type == 'flat':
+            new_amount = original_amount - self.discount_value
+        elif self.discount_type == 'percentage':
+            discount_amount = original_amount * (self.discount_value / 100)
+            new_amount = original_amount - discount_amount
+        # Ensure that the new amount is never negative.
+        return max(new_amount, 0)
+

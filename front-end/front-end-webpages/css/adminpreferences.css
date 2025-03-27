@@ -1,0 +1,205 @@
+/********************************
+Developer: Azaan Mudassar
+University ID: 230098501
+********************************/
+
+:root {
+    --background-colour: #FCFCFD;
+    --button-background: #5A57FF;
+}
+
+body {
+    position: relative;
+    background-color: var(--background-colour);
+    font-family: 'Poppins';
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+}
+
+h1 {
+    text-align: left;
+    color: #353535;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 20px 0 10px; /* Add space above and below the heading */
+}
+
+h2 {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    color: #CCCCCC;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 1055px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-container {
+    flex: 1;
+    width: 100%; /* Ensure the container takes up the full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements horizontally */
+    gap: 20px; /* Add spacing between elements */
+    position: relative;
+    padding-top: 30px; /* Add padding at the top */
+    padding-bottom: 80px;
+}
+
+.form-container {
+    position: relative;  /* allows absolute-positioned children inside it */
+    padding: 20px;
+    padding-bottom: 150px; /* extra space to avoid overlap with buttons */
+    border-radius: 24px;
+    outline: 1px solid rgba(0, 0, 0, 0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    align-items: stretch;
+    margin-top: 10px;
+    background-color: white;
+    width: 1055px;
+}
+
+.row {
+    display: flex;
+    justify-content: flex-start; /* Distribute space between label and input */
+    gap: 20px; /* Add spacing between the two flexboxes */
+    width: 100%; /* Ensure rows fill the container */
+    align-items: flex-start;
+}
+
+.sub-heading {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Retain column layout */
+    align-items: left; /* Horizontally center the sub-heading */
+    justify-content: left; /* Vertically center the sub-heading */
+    padding-left: 55px;
+    padding-bottom: 5px;
+    text-align: center; /* Ensure text inside the sub-heading aligns center */
+    width: 100%; /* Make the sub-heading span the full width of the form container */
+    color: #CCCCCC;
+    font-size: 16px;
+}
+
+.input-container {
+    flex: 3; /* Take up 3 parts of available space */
+    display: flex;
+    align-items: center; /* Center the input vertically */
+    justify-content: flex-end; /* Align input to the start of the space */
+}
+
+.update-container {
+    flex: 3; /* Take up 3 parts of available space */
+    display: flex;
+    align-items: center; /* Center the input vertically */
+    justify-content: flex-start; /* Align input to the start of the space */
+}
+
+.checkbox-container {
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+}
+
+.notification-container {
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-bottom: 20px;
+}
+
+.report-container {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+input[type="text"],
+input[type="date"] {
+    width: 100%;
+    max-width: 850px;
+    height: 40px;
+    padding: 5px;
+    border: none;
+    outline: 1px solid black;
+    border-radius: 10px;
+    background-color: #FAF9FF;
+    font-family: 'Poppins';
+}
+
+input[type="checkbox"] {
+    width: 30px;         
+    height: 30px; 
+    background-color: #FAF9FF;
+    border: 1px solid rgba(0, 0, 0, 0.21);      
+    cursor: pointer;     
+}
+
+.label-container {
+    flex: 1; /* Take up 1 part of available space */
+    display: flex;
+    align-items: center; /* Center the label vertically */
+    justify-content: center; /* Align label to the end of the space */
+    text-align: center;
+}
+
+label {
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.button-container {
+    position: absolute; /* Position relative to the viewport */
+    bottom: 20px; /* 20px from the bottom of the viewport */
+    right: 20px; /* 20px from the right of the viewport */
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    z-index: 1; /* Ensure it stays above other content */
+}
+
+.cancel-button,
+input[type="submit"] {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancel-button {
+    background: white;
+    color: var(--button-background);
+    outline: 1px solid black;
+}
+
+input[type="submit"] {
+    background: var(--button-background);
+    color: white;
+}
+
+
+

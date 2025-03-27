@@ -1,0 +1,189 @@
+
+   /* THIS FORM IS FOR THE PRODUCT DETAIL PAGE , FOR THE SMALL WISHLIST PROMPT*/
+  /*open button  */
+  #filter-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+.addButtonClass{
+  background-color: #838EDA;
+  font-size: 15px;
+  font-family: 'Outfit';
+  font-weight: 700;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  width: 9000px;
+  height: 60px;
+  display: inline-block;
+  border: none;
+  color: white;
+  text-align: center;
+  border-radius: 40px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;}
+
+  .addButtonClass:hover{
+    background-color: white;
+    color:  #838EDA;
+  }
+
+  /*  container */
+  .sortingForm {
+  
+    display: none;
+    flex-direction: row;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); 
+    justify-content: center;
+    align-items: center;
+
+  }
+/* Form CSS */
+  .formContent{
+    text-align: center;
+    
+    justify-content: center;
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 50px 60px 50px 60px;
+    border: 1px solid #888;
+    width: 25%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    animation: fadeIn 0.3s; 
+  }
+
+
+ /* CSS FOR BUTTON FORMATTING AND PLACEMENT*/
+  .filterButtons{
+    display: grid ;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 30px 0 20px 0;
+  }
+
+
+  /**CSS FOR SELECT BOX */
+select {
+    width: 100%;
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #cecece;
+    color: #aaa;
+    border-radius: 7px;
+    height: 50px;
+    background-color: white;
+  }
+
+select::placeholder {
+    
+    font-family: "Outfit", sans-serif;
+    padding-left: 8px;  
+    font-weight: 200;
+    font-size: 16px; 
+    opacity: 1;
+  }
+
+/** CSS FOR SUBMIT BUTTON **/
+#submitButton {
+  font-family: "Outfit", sans-serif;
+  border: none;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 750;
+  cursor: pointer;
+  height: 50px;
+  width: 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 28px;
+  background-color: #838EDA;
+  margin: 30px 0 20px 0;
+  
+}
+  
+/** CSS FOR SUBHEADING TEXT */
+.formHeaderText{
+  float:left;
+  
+  color: #aaa;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 250;
+
+  font-size: 18px;
+}
+
+/*CSS for form Title */
+.formTitle{
+  font-family: 'Outfit', sans-serif;
+  font-weight: 750;
+  color: black;
+}
+
+
+/** CSS for individual buttons */
+.filter-button{
+  font-family: 'Outfit', sans-serif;
+  font-weight: 250;
+
+  font-size: 18px;
+  color: #aaa;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.filter-button.active {
+  background-color: #6366f1;
+  color: white
+}
+
+.filter-button.inactive {
+  color: #aaa;
+  background-color: #fff;
+
+}
+
+  
+  /* Close button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+ 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

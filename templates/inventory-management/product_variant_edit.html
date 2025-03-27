@@ -1,6 +1,109 @@
 <!-- Created by Adam 23/11/2024 / Placeholder template, to be replaced with template from front end -->
 <!-- Updated  by Adam 30/11/2024 -->
- 
+{% extends 'inventory-management/ims-base.html' %}
+{% load static %}
+
+{% block content %}
+    <link href="{% static  'css/ims/product_create_variant.css' %}" rel="stylesheet" />   
+    <div class="main-container">
+        
+        <div class="header-container">
+            <h1>Edit Variant</h1>
+        </div>           
+        <form class="form-container" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="sub-heading">
+                <div class="sub-heading-1">Add Product Information</div>
+            </div>
+            <div class="row-1">
+                <div class="label-container">
+                    <label>Size:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.size }}
+                    {% if form.size.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.size.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label>Colour:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.colour }}
+                    {% if form.colour.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.colour.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label >Price:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.price }}
+                    {% if form.price.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.price.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="label-container">
+                    <label>Stock Level:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.stocklevel }}
+                    {% if form.stocklevel.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.stocklevel.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row-2">
+                <div class="label-container">
+                    <label>Images:</label>
+                </div>
+                <div class="input-container">
+                    {{ form.images }}
+                    {% if form.images.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.images.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row-3">
+                {% for image in object.imagepath.all %}
+                <div class="input-container">
+                    <img class="img-existing" src="{{ image.imagepath.url }}" alt="Variant Image" width="100">
+                </div>
+                {% endfor %}
+                
+            </div>
+            
+            <button class="form-button" type="submit">Save Changes</div>
+        </form>
+    
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

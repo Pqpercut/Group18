@@ -2,7 +2,7 @@ from django import forms
 from .models import ProductVariant, ImagePath
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import ContactTable, UserAddress
+from .models import *
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, UserCreationForm
 from django import forms
 
@@ -114,4 +114,46 @@ class CheckoutForm(forms.ModelForm):
             'street': forms.TextInput(attrs={'placeholder': 'Street'}),
             'postcode': forms.TextInput(attrs={'placeholder': 'Postcode'}),
             'city': forms.TextInput(attrs={'placeholder': 'City'}),
+        }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        
+        model = Review
+        fields = ['title', 'description']
+        widgets = {
+            'rating': forms.HiddenInput(),  # This makes the rating field hidden in the HTML
+            'productID' : forms.HiddenInput(),
+            'userID': forms.HiddenInput()
+        }
+
+        def __init__(self, *args, **kwargs):
+            kwargs.pop('user', None)  # Remove 'user' from kwargs to prevent error
+            super().__init__(*args, **kwargs)  # Call the parent __init__ method
+
+        def save(self, commit=True):
+            review = super().save(commit=False)
+            if self.user:
+                review.created_by = self.user  # Assign user to created_by
+            if commit:
+                review.save()
+            return review
+
+class DiscountForm(forms.ModelForm):
+    class Meta:
+        model = Discount
+        fields = ['code', 'discount_type', 'discount_value', 'expiry_date']
+        widgets = {
+            'expiry_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class wishlistItemForm(forms.ModelForm):
+    class Meta:
+        model = WishlistItem
+        fields = ['productID']
+        widgets ={
+            'productID':forms.HiddenInput(),
+            'wishlistID': forms.HiddenInput()
+            
         }
